@@ -472,6 +472,42 @@ export function broadcastSSE(event: string, payload: any) {
   }
 }
 
+
+const HOIST_LINKS: Record<string, string> = {
+  '1': 'https://drive.google.com/file/d/1oPSIiU2h_ZGvTeagTMDn-dSgoWR6fNYf/view?usp=drive_link',
+  '2': 'https://drive.google.com/file/d/1Khh6j-Oax6XYF4Oimvuob9uRzY8MIO7F/view?usp=drive_link',
+  '3': 'https://drive.google.com/file/d/1DCm1vEysA8EUMeKu-VOXwGGxc_OgOiOB/view?usp=sharing',
+  '4': 'https://drive.google.com/file/d/1DCm1vEysA8EUMeKu-VOXwGGxc_OgOiOB/view?usp=sharing'
+}
+
+const GAGA_LINKS: Record<string, string> = {
+  '1': 'https://www.youtube.com/watch?v=kvvOSWMVQtE',
+  '2': 'https://www.youtube.com/watch?v=qIjlsvPUjXY&t=9s',
+  '3': 'https://www.youtube.com/watch?v=8peSsMWr_s0',
+  '4': 'https://www.youtube.com/watch?v=B9NFKUUJnCE',
+  '5': 'https://www.youtube.com/watch?v=AKVgapxwS7M',
+  '6': 'https://www.youtube.com/watch?v=B9NFKUUJnCE&t=13s',
+  '7': 'https://www.youtube.com/watch?v=TQsJbQ6t5Z0',
+  '8': 'https://www.youtube.com/watch?v=nVYV65r8_gw',
+  '9': 'https://www.youtube.com/watch?v=5RpABh9sti4&list=PLYN8RZ0FldXG1hFgAC8IBHlUTCqBeUtPu',
+  '10': 'https://www.youtube.com/watch?v=_7WHBK23QdA'
+}
+
+const MEANREAL_LINKS: Record<string, string> = {
+  'bsw 550': 'https://drive.google.com/file/d/1jdYF-20mwdBXkzn8aAdzwbzvU4IZIdZY/view?usp=drive_link',
+  'bsw 480': 'https://drive.google.com/drive/folders/1h_eTUtfEV9VXkdu6-hydqh15MP4KQt5o?usp=drive_link',
+  'bsw 380': 'https://drive.google.com/drive/folders/1pRAk1kcbWRcxsRhQDpmBcM6ftU-3c36U?usp=drive_link',
+  'super beam 480': 'https://drive.google.com/drive/folders/1fqDKCQ98G6ZhioDy-kkjOJiqzHaDEdIy?usp=drive_link',
+  'super beam 420': 'https://drive.google.com/open?id=1f-KdrKVXNfGhEy_Y-C3k0H1UzX9Bs_sB',
+  'super beam 380': 'https://drive.google.com/drive/folders/1PEzvJBL7I8wzRXwn2r32d6_7bBEkjrko?usp=drive_link',
+  'super beam 300': 'https://drive.google.com/drive/folders/1mEj4HdKj2BF6GjYzjZ3mYBBphQn1RXC7?usp=drive_link',
+  'aled bsw 480': 'https://drive.google.com/drive/folders/1lgsNdTaxjIeIsMKv_-Mu3sD-CAn1nryH?usp=drive_link',
+  'aled bsw 400': 'https://drive.google.com/drive/folders/1ooGcqqWevwELg2G77opi_9NVF5WeX6BI?usp=drive_link',
+  'b-eye k10': 'https://drive.google.com/drive/folders/1-y10yOC7CBTnK6zC6os-pgWwulyE_UV2?usp=drive_link',
+  'b-eye k15': 'https://drive.google.com/drive/folders/1D6Nydxu0C6fGRIdR8XtcHg70Ch2OZCdP?usp=drive_link',
+  'b-eye k25': 'https://drive.google.com/open?id=1MAeiuCypspsIHUCkQX7v94Zaenf849Ka'
+}
+
 function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
   const parsed = Papa.parse<string[]>(rawCsv, {
     skipEmptyLines: 'greedy'
@@ -701,7 +737,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           priceFormatted: formatRupiah(price),
           sku,
           image: productImage,
-          brochureUrl: link || undefined,
+          brochureUrl: (link && (link.startsWith('http://') || link.startsWith('https://'))) ? link : (HOIST_LINKS[noVal] || undefined),
           videoUrl: link || undefined,
           metadata: {
             code,
@@ -776,7 +812,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           priceFormatted: formatRupiah(price),
           sku: `HOIST-MD-${noVal}`,
           image: productImage,
-          brochureUrl: link || undefined,
+          brochureUrl: (link && (link.startsWith('http://') || link.startsWith('https://'))) ? link : (HOIST_LINKS[noVal] || undefined),
           metadata: {
             specLines: lines,
             capacity: cap,
@@ -835,7 +871,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           priceFormatted: formatRupiah(price),
           sku: `MRL-LT-${noVal || seq}`,
           image: '/images/products/meanreal-bsw-550.svg',
-          brochureUrl: link || undefined,
+          brochureUrl: (link && (link.startsWith('http://') || link.startsWith('https://'))) ? link : (HOIST_LINKS[noVal] || undefined),
           metadata: {
             specification: spec,
             videoUrl: link,
@@ -1012,8 +1048,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           priceFormatted: formatRupiah(price),
           sku: `GAG-LSR-${noVal}`,
           image: '/images/products/gaga-laser-rgb.svg',
-          brochureUrl: video || undefined,
-          videoUrl: video || undefined,
+          brochureUrl: (video && (video.startsWith('http://') || video.startsWith('https://'))) ? video : (GAGA_LINKS[noVal] || undefined),
+          videoUrl: (video && (video.startsWith('http://') || video.startsWith('https://'))) ? video : (GAGA_LINKS[noVal] || undefined),
           metadata: {
             weight,
             size,
@@ -1278,6 +1314,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const rawType = r[1]?.trim() || ''
         const rawDesc = r[2]?.trim() || ''
         const price = parsePrice(r[4])
+        if (!price || price === 0) continue
+        if (rawType === '0' || rawDesc === '0') continue
         const sku = r[5]?.trim() || `${categoryId}-${i}`
         seq++
 
