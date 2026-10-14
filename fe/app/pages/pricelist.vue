@@ -207,9 +207,9 @@ function toggleCubeExpand(id: string) {
         <!-- Back to Gate + Logo & Title Section -->
         <div class="flex items-center gap-2 sm:gap-3 min-w-0">
           <NuxtLink
-            to="/"
+            :to="`/?catalog=${activeCatalog}`"
             class="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-border/70 bg-card hover:bg-muted text-muted-foreground hover:text-foreground transition-colors shrink-0"
-            title="Kembali ke Menu Gate"
+            title="Kembali ke Pilihan Kategori"
           >
             <ArrowLeft class="w-4 h-4" />
           </NuxtLink>
