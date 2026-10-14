@@ -20,11 +20,15 @@ export default defineEventHandler(async (event) => {
   }
 
   const items = getCategoryItems(id)
+  const extra = store.categoryExtra?.[id] || {}
   return {
     category: id,
     items,
     count: items.length,
     lastSync: store.lastSync,
-    hash: store.contentHash
+    hash: store.contentHash,
+    kursUSD: extra.kursUSD,
+    notes: extra.notes,
+    comparisonChart: extra.comparisonChart
   }
 })

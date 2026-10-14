@@ -29,7 +29,12 @@ import {
   ChevronRight,
   ArrowLeft,
   Video,
-  LogOut
+  LogOut,
+  ZoomIn,
+  FileText,
+  ExternalLink,
+  FileDown,
+  X
 } from '@lucide/vue'
 import { usePricelist } from '~/composables/usePricelist'
 import { useAuthStore } from '~/stores/auth'
@@ -241,6 +246,38 @@ function formatTime(isoString: string) {
     return isoString
   }
 }
+
+// Lightbox Modal for Product Pictures & Charts
+const isLightboxOpen = ref(false)
+const lightboxImage = ref<string | null>(null)
+const lightboxTitle = ref<string | null>(null)
+
+function openImageLightbox(imgUrl?: string, title?: string) {
+  if (!imgUrl) return
+  lightboxImage.value = imgUrl
+  lightboxTitle.value = title || 'Gambar Produk'
+  isLightboxOpen.value = true
+}
+
+function closeImageLightbox() {
+  isLightboxOpen.value = false
+  lightboxImage.value = null
+  lightboxTitle.value = null
+}
+
+// QiangLi Comparison Modal & Specifications
+const isComparisonModalOpen = ref(false)
+const isComparisonChartOpen = ref(false)
+const qiangliSpecs = [
+  { parameter: 'Type', mavic: 'Flat Cable', lite: 'Flat Cable', saga: 'Hard Connection' },
+  { parameter: 'Pitch', mavic: 'P3.9 Outdoor/Hybrid', lite: 'P2.6 Indoor\nP3.9 Outdoor/Hybrid', saga: 'P2.6 Indoor\nP3.9 Outdoor/Hybrid' },
+  { parameter: 'Cabinet Size', mavic: '1000*500 / 500*500', lite: '1000*500 / 500*500', saga: '1000*500 / 500*500' },
+  { parameter: 'Curve & Corner', mavic: 'No', lite: 'Yes', saga: 'Yes' },
+  { parameter: 'PCB Layer', mavic: '2 Layer', lite: '2 Layer', saga: '4 Layer' },
+  { parameter: 'Refresh Rate', mavic: 'Real 7680Hz', lite: 'Real 7680Hz', saga: 'Real 7680Hz' },
+  { parameter: 'Magnetic/Screw', mavic: 'Screw', lite: 'Outdoor Screw\nIndoor Magnetic', saga: 'All Magnetic' },
+  { parameter: 'Lamp', mavic: 'Kinglight', lite: 'Kinglight', saga: 'Kinglight' },
+]
 
 function handleManualSync() {
   triggerSync()
@@ -617,6 +654,45 @@ function toggleCubeExpand(id: string) {
         </div>
       </section>
 
+      <!-- 3B. SPREADSHEET HEADER & KURS $ USD BANNER -->
+      <section
+        v-if="currentCategory?.kursUSD || activeCategoryId === 'mvg_rental_qiangli'"
+        class="p-3 sm:p-4 rounded-2xl border border-sky-500/30 bg-gradient-to-r from-sky-500/15 via-sky-500/5 to-transparent flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs"
+      >
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse"></span>
+            <h4 class="text-xs sm:text-sm font-black tracking-tight text-foreground uppercase">
+              PRICE LIST PRODUK LED RENTAL /METER PERSEGI
+            </h4>
+          </div>
+          <p class="text-[11px] text-muted-foreground">
+            Katalog Resmi QiangLi Rental Series Mitra Visual Group (MVG)
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2 flex-wrap">
+          <div
+            v-if="currentCategory?.kursUSD"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-500/20 border border-sky-500/40 text-xs font-semibold text-sky-800 dark:text-sky-200"
+          >
+            <span class="text-[11px] text-muted-foreground font-normal">*KURS $ Hari Ini:</span>
+            <span class="font-mono font-bold">{{ currentCategory.kursUSD }}</span>
+          </div>
+
+          <Button
+            v-if="activeCategoryId === 'mvg_rental_qiangli'"
+            variant="outline"
+            size="sm"
+            class="h-8 text-xs font-semibold gap-1.5 border-sky-500/40 hover:bg-sky-500/10 cursor-pointer"
+            @click="isComparisonModalOpen = true"
+          >
+            <FileText class="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+            <span>Bagan Perbandingan (MAVIC / LITE / SAGA)</span>
+          </Button>
+        </div>
+      </section>
+
       <!-- 4. LOADING STATE -->
       <div v-if="isLoading" class="py-16 text-center space-y-3">
         <RefreshCw class="w-8 h-8 animate-spin text-primary mx-auto" />
@@ -716,6 +792,25 @@ function toggleCubeExpand(id: string) {
                 </span>
               </div>
 
+              <!-- Product Picture (if available) -->
+              <div
+                v-if="item.image"
+                class="relative w-full h-36 rounded-xl overflow-hidden bg-muted/20 border border-border/60 p-2 flex items-center justify-center cursor-pointer group/img hover:border-primary/60 transition-colors"
+                title="Klik untuk melihat foto modul/kabinet penuh"
+                @click="openImageLightbox(item.image, item.model)"
+              >
+                <img
+                  :src="item.image"
+                  :alt="item.model"
+                  class="max-h-full max-w-full object-contain group-hover/img:scale-105 transition-transform duration-200"
+                  loading="lazy"
+                />
+                <div class="absolute bottom-1.5 right-1.5 px-2 py-0.5 rounded-md bg-black/70 text-white text-[10px] flex items-center gap-1 opacity-80 group-hover/img:opacity-100 transition-opacity backdrop-blur-xs">
+                  <ZoomIn class="w-3 h-3" />
+                  <span>Lihat Foto</span>
+                </div>
+              </div>
+
               <!-- Product Name / Title -->
               <div>
                 <h3 class="font-bold text-sm sm:text-base text-foreground group-hover:text-primary transition-colors line-clamp-2 leading-snug">
@@ -724,6 +819,16 @@ function toggleCubeExpand(id: string) {
                 <p v-if="item.description && item.description !== item.model" class="text-xs text-muted-foreground line-clamp-2 mt-0.5">
                   {{ item.description }}
                 </p>
+                <a
+                  v-if="item.brochureUrl"
+                  :href="item.brochureUrl"
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center gap-1 text-[11px] font-semibold text-sky-600 dark:text-sky-400 hover:underline pt-1"
+                >
+                  <ExternalLink class="w-3 h-3" />
+                  <span>Buka Brosur Resmi (Drive PDF) ↗</span>
+                </a>
                 <p v-if="item.metadata?.specification && item.metadata?.specification !== item.description" class="text-[11px] text-muted-foreground line-clamp-2 mt-1 leading-tight font-mono">
                   {{ item.metadata.specification }}
                 </p>
@@ -840,7 +945,7 @@ function toggleCubeExpand(id: string) {
                 <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider truncate">
                   {{
                     item.category.includes('rental')
-                      ? 'Harga Cash'
+                      ? 'Harga Cash (Termurah)'
                       : item.category === 'led_poster'
                       ? 'Harga Flat'
                       : item.category === 'led_cube'
@@ -849,7 +954,10 @@ function toggleCubeExpand(id: string) {
                   }}
                 </p>
                 <div class="flex items-baseline gap-1.5 flex-wrap">
-                  <span class="text-base sm:text-lg font-black text-foreground tracking-tight whitespace-nowrap">
+                  <span
+                    class="text-base sm:text-lg font-black tracking-tight whitespace-nowrap"
+                    :class="item.category.includes('rental') ? 'text-rose-600 dark:text-rose-400 font-extrabold' : 'text-foreground'"
+                  >
                     {{ item.priceFormatted }}
                   </span>
                   <span
@@ -859,6 +967,9 @@ function toggleCubeExpand(id: string) {
                     Rp {{ item.previousPrice.toLocaleString('id-ID') }}
                   </span>
                 </div>
+                <p v-if="item.metadata?.hargaKreditFormatted" class="text-[11px] text-muted-foreground mt-0.5 font-medium">
+                  Kredit: <span class="font-mono text-foreground font-semibold">{{ item.metadata.hargaKreditFormatted }}</span>
+                </p>
               </div>
             </div>
           </div>
@@ -870,11 +981,12 @@ function toggleCubeExpand(id: string) {
             <Table>
               <TableHeader class="bg-muted/40">
                 <TableRow class="hover:bg-transparent">
-                  <TableHead class="w-[60px] text-xs font-semibold">No</TableHead>
-                  <TableHead class="w-[180px] text-xs font-semibold">SKU</TableHead>
-                  <TableHead class="min-w-[220px] text-xs font-semibold">Model & Deskripsi</TableHead>
-                  <TableHead class="w-[130px] text-xs font-semibold">Tipe</TableHead>
-                  <TableHead class="w-[120px] text-xs font-semibold">Ukuran / Spek</TableHead>
+                  <TableHead class="w-[50px] text-xs font-semibold">No</TableHead>
+                  <TableHead class="w-[75px] text-center text-xs font-semibold">Picture</TableHead>
+                  <TableHead class="w-[150px] text-xs font-semibold">SKU</TableHead>
+                  <TableHead class="min-w-[200px] text-xs font-semibold">Model & Deskripsi</TableHead>
+                  <TableHead class="w-[120px] text-xs font-semibold">Tipe</TableHead>
+                  <TableHead class="w-[110px] text-xs font-semibold">Ukuran / Spek</TableHead>
 
                   <TableHead v-if="activeCategoryId === 'led_poster'" class="w-[150px] text-xs font-semibold">
                     Foldable
@@ -882,14 +994,14 @@ function toggleCubeExpand(id: string) {
                   <TableHead v-if="activeCategoryId === 'led_cube'" class="w-[150px] text-xs font-semibold">
                     Cube 5 Sisi
                   </TableHead>
-                  <TableHead v-if="activeCategoryId.includes('rental')" class="w-[150px] text-xs font-semibold">
+                  <TableHead v-if="activeCategoryId.includes('rental')" class="w-[140px] text-xs font-semibold">
                     Harga Kredit
                   </TableHead>
                   <TableHead v-if="activeCategoryId === 'magnustek_tkdn'" class="w-[130px] text-xs font-semibold">
                     Nilai TKDN
                   </TableHead>
 
-                  <TableHead class="w-[160px] text-right text-xs font-semibold">
+                  <TableHead class="w-[150px] text-right text-xs font-semibold">
                     {{
                       activeCategoryId.includes('rental')
                         ? 'Harga Cash'
@@ -899,6 +1011,9 @@ function toggleCubeExpand(id: string) {
                         ? 'Cube 4 Sisi'
                         : 'Harga Satuan'
                     }}
+                  </TableHead>
+                  <TableHead v-if="activeCategoryId.includes('rental')" class="w-[95px] text-center text-xs font-semibold">
+                    Brosur
                   </TableHead>
                 </TableRow>
               </TableHeader>
@@ -913,12 +1028,25 @@ function toggleCubeExpand(id: string) {
                   }"
                 >
                   <TableCell class="text-xs text-muted-foreground font-mono">
-                    {{ idx + 1 }}
+                    {{ item.no || idx + 1 }}
+                  </TableCell>
+
+                  <!-- Picture Thumbnail -->
+                  <TableCell class="text-center">
+                    <div
+                      v-if="item.image"
+                      class="w-12 h-12 mx-auto rounded-lg overflow-hidden bg-muted/30 border border-border/70 p-1 flex items-center justify-center cursor-pointer hover:border-primary transition-colors group/timg"
+                      title="Klik untuk memperbesar foto kabinet"
+                      @click="openImageLightbox(item.image, item.model)"
+                    >
+                      <img :src="item.image" :alt="item.model" class="max-h-full max-w-full object-contain group-hover/timg:scale-110 transition-transform duration-150" loading="lazy" />
+                    </div>
+                    <span v-else class="text-[11px] text-muted-foreground">-</span>
                   </TableCell>
 
                   <TableCell>
                     <div class="flex items-center gap-1.5">
-                      <Badge variant="secondary" class="font-mono text-[11px] font-normal px-2 py-0.5 max-w-[150px] truncate">
+                      <Badge variant="secondary" class="font-mono text-[11px] font-normal px-2 py-0.5 max-w-[140px] truncate">
                         {{ item.sku }}
                       </Badge>
                       <button
@@ -981,7 +1109,7 @@ function toggleCubeExpand(id: string) {
                   <TableCell v-if="activeCategoryId === 'led_cube'" class="text-xs font-medium">
                     {{ item.metadata?.price5SideFormatted || '-' }}
                   </TableCell>
-                  <TableCell v-if="activeCategoryId.includes('rental')" class="text-xs font-medium text-muted-foreground font-mono">
+                  <TableCell v-if="activeCategoryId.includes('rental')" class="text-xs font-medium text-foreground font-mono">
                     {{ item.metadata?.hargaKreditFormatted || '-' }}
                   </TableCell>
                   <TableCell v-if="activeCategoryId === 'magnustek_tkdn'">
@@ -990,18 +1118,230 @@ function toggleCubeExpand(id: string) {
                     </Badge>
                   </TableCell>
 
+                  <!-- Harga Cash (Bold Bright Red) -->
                   <TableCell class="text-right">
-                    <span class="text-xs sm:text-sm font-bold text-foreground">
-                      {{ item.priceFormatted }}
-                    </span>
+                    <div class="space-y-0.5">
+                      <div
+                        class="text-xs sm:text-sm font-black tracking-tight"
+                        :class="item.category.includes('rental') ? 'text-rose-600 dark:text-rose-400 font-extrabold text-sm' : 'text-foreground font-bold'"
+                      >
+                        {{ item.priceFormatted }}
+                      </div>
+                      <div
+                        v-if="item.previousPrice && item.previousPrice !== item.price"
+                        class="text-[10px] text-muted-foreground line-through font-mono"
+                      >
+                        Rp {{ item.previousPrice.toLocaleString('id-ID') }}
+                      </div>
+                    </div>
+                  </TableCell>
+
+                  <!-- Brosur Link -->
+                  <TableCell v-if="activeCategoryId.includes('rental')" class="text-center">
+                    <a
+                      v-if="item.brochureUrl"
+                      :href="item.brochureUrl"
+                      target="_blank"
+                      rel="noopener"
+                      class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-sky-500/10 hover:bg-sky-500/20 text-sky-600 dark:text-sky-400 text-[10px] font-semibold border border-sky-500/30 transition-colors"
+                      title="Buka brosur resmi PDF"
+                    >
+                      <span>PDF</span>
+                      <ExternalLink class="w-3 h-3" />
+                    </a>
+                    <span v-else class="text-[11px] text-muted-foreground">-</span>
                   </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
           </div>
         </div>
+
+        <!-- SPREADSHEET FOOTER NOTES -->
+        <div
+          v-if="currentCategory?.notes && currentCategory.notes.length > 0"
+          class="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/25 space-y-2 mt-4 text-xs"
+        >
+          <div class="flex items-center gap-2 font-bold text-amber-700 dark:text-amber-400">
+            <FileText class="w-4 h-4" />
+            <span>Catatan Penting (Note):</span>
+          </div>
+          <ul class="space-y-1.5 text-muted-foreground text-xs pl-1">
+            <li v-for="(note, nIdx) in currentCategory.notes" :key="nIdx" class="flex items-start gap-2">
+              <span class="text-amber-600 font-bold">•</span>
+              <span>{{ note }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- QIANGLI SPECIFICATION COMPARISON MATRIX (MAVIC vs LITE vs SAGA) -->
+        <div
+          v-if="activeCategoryId === 'mvg_rental_qiangli'"
+          class="mt-6 rounded-2xl border border-sky-500/30 bg-card p-4 sm:p-5 space-y-4 shadow-sm"
+        >
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/60 pb-3">
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <Badge variant="outline" class="font-bold border-sky-500/40 text-sky-700 dark:text-sky-300 bg-sky-500/10 uppercase">
+                  QiangLi Rental Series
+                </Badge>
+                <h3 class="text-sm sm:text-base font-black tracking-tight text-foreground uppercase">
+                  Tabel Perbandingan Spesifikasi
+                </h3>
+              </div>
+              <p class="text-xs text-muted-foreground">
+                Perbandingan komprehensif kabinet MAVIC vs LITE vs SAGA sesuai bagan resmi pabrik.
+              </p>
+            </div>
+
+            <Button
+              variant="outline"
+              size="sm"
+              class="h-8 text-xs font-semibold gap-1.5 border-sky-500/40 hover:bg-sky-500/10 cursor-pointer self-start sm:self-auto"
+              @click="isComparisonChartOpen = true"
+            >
+              <ZoomIn class="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
+              <span>Buka Gambar Bagan Asli ↗</span>
+            </Button>
+          </div>
+
+          <!-- Interactive Comparison Table -->
+          <div class="overflow-x-auto custom-scrollbar">
+            <table class="w-full text-xs text-left border-collapse">
+              <thead>
+                <tr class="border-b border-border/80">
+                  <th class="p-2.5 font-bold text-muted-foreground w-[180px]">Parameter</th>
+                  <th class="p-2.5 font-bold text-center w-[220px]">
+                    <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-teal-600 text-white font-serif font-bold text-xs tracking-wider shadow-xs">
+                      MAVIC
+                    </div>
+                  </th>
+                  <th class="p-2.5 font-bold text-center w-[220px]">
+                    <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-lime-600 text-white font-serif font-bold text-xs tracking-wider shadow-xs">
+                      LITE
+                    </div>
+                  </th>
+                  <th class="p-2.5 font-bold text-center w-[220px]">
+                    <div class="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-rose-600 text-white font-serif font-bold text-xs tracking-wider shadow-xs">
+                      SAGA
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border/50">
+                <tr v-for="(spec, sIdx) in qiangliSpecs" :key="sIdx" class="hover:bg-muted/30 transition-colors">
+                  <td class="p-2.5 font-semibold text-muted-foreground">
+                    <span class="inline-block px-2.5 py-1 rounded-md bg-muted/60 text-foreground font-medium">
+                      {{ spec.parameter }}
+                    </span>
+                  </td>
+                  <td class="p-2.5 text-center font-medium whitespace-pre-line text-foreground">
+                    {{ spec.mavic }}
+                  </td>
+                  <td class="p-2.5 text-center font-medium whitespace-pre-line text-foreground">
+                    {{ spec.lite }}
+                  </td>
+                  <td class="p-2.5 text-center font-medium whitespace-pre-line text-foreground">
+                    {{ spec.saga }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </main>
+
+    <!-- 7. IMAGE LIGHTBOX MODAL DIALOG -->
+    <div
+      v-if="isLightboxOpen"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+      @click="closeImageLightbox"
+    >
+      <div
+        class="relative max-w-2xl w-full bg-card rounded-2xl border border-border shadow-2xl p-4 sm:p-6 space-y-3"
+        @click.stop
+      >
+        <div class="flex items-center justify-between gap-3 border-b border-border/60 pb-3">
+          <h3 class="font-bold text-sm sm:text-base text-foreground truncate">
+            {{ lightboxTitle }}
+          </h3>
+          <button
+            type="button"
+            class="p-1 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
+            @click="closeImageLightbox"
+          >
+            <X class="w-5 h-5" />
+          </button>
+        </div>
+
+        <div class="w-full max-h-[70vh] flex items-center justify-center overflow-hidden rounded-xl bg-black/20 p-2">
+          <img
+            v-if="lightboxImage"
+            :src="lightboxImage"
+            :alt="lightboxTitle || ''"
+            class="max-h-[65vh] max-w-full object-contain rounded-lg"
+          />
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-muted-foreground pt-1">
+          <span>Foto Produk Resmi QiangLi Rental</span>
+          <Button variant="outline" size="sm" class="h-8 text-xs cursor-pointer" @click="closeImageLightbox">
+            Tutup
+          </Button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. OFFICIAL COMPARISON CHART MODAL DIALOG -->
+    <div
+      v-if="isComparisonChartOpen || isComparisonModalOpen"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm p-4 animate-in fade-in duration-200"
+      @click="isComparisonChartOpen = false; isComparisonModalOpen = false"
+    >
+      <div
+        class="relative max-w-4xl w-full bg-card rounded-2xl border border-border shadow-2xl p-4 sm:p-6 space-y-4 max-h-[92vh] flex flex-col"
+        @click.stop
+      >
+        <div class="flex items-center justify-between gap-3 border-b border-border/60 pb-3 shrink-0">
+          <div>
+            <h3 class="font-bold text-sm sm:text-base text-foreground">
+              Bagan Spesifikasi Resmi QiangLi Rental Series
+            </h3>
+            <p class="text-xs text-muted-foreground">
+              Perbandingan MAVIC vs LITE vs SAGA (Mitra Visual Group)
+            </p>
+          </div>
+          <button
+            type="button"
+            class="p-1 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
+            @click="isComparisonChartOpen = false; isComparisonModalOpen = false"
+          >
+            <X class="w-5 h-5" />
+          </button>
+        </div>
+
+        <div class="flex-1 overflow-auto rounded-xl bg-slate-950 p-2 flex items-center justify-center">
+          <img
+            src="/images/products/qiangli-comparison-chart.png"
+            alt="QiangLi Rental Series Comparison Chart"
+            class="max-h-[70vh] max-w-full object-contain rounded-lg"
+          />
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-muted-foreground pt-1 shrink-0">
+          <span>Dokumen Bagan Resmi QiangLi Rental Series</span>
+          <Button
+            variant="outline"
+            size="sm"
+            class="h-8 text-xs cursor-pointer"
+            @click="isComparisonChartOpen = false; isComparisonModalOpen = false"
+          >
+            Tutup
+          </Button>
+        </div>
+      </div>
+    </div>
 
     <!-- Mobile-Friendly Footer -->
     <footer class="mt-auto border-t border-border/80 bg-background/60 py-4 text-center text-[11px] text-muted-foreground px-4">

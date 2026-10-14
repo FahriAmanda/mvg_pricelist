@@ -204,8 +204,15 @@ export function formatRupiah(num: number): string {
   return `Rp ${num.toLocaleString('id-ID')}`
 }
 
+export interface CategoryExtra {
+  kursUSD?: string
+  notes?: string[]
+  comparisonChart?: string
+}
+
 export interface StoreState {
   itemsByCategory: Record<string, PricelistItem[]>
+  categoryExtra: Record<string, CategoryExtra>
   previousPrices: Record<string, number>
   lastSync: string
   contentHash: string
@@ -214,6 +221,7 @@ export interface StoreState {
 
 const store: StoreState = {
   itemsByCategory: {},
+  categoryExtra: {},
   previousPrices: {},
   lastSync: '',
   contentHash: '',
@@ -269,11 +277,65 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           : 'Unilumin Lampro'
       let currType = ''
 
-      for (let i = 4; i < rows.length; i++) {
+      // Parse Kurs USD & Notes dynamically
+      let kursUSD = ''
+      const notes: string[] = []
+      let headerIdx = -1
+
+      for (let i = 0; i < rows.length; i++) {
+        const r = rows[i]
+        if (!r || !r.length) continue
+        const rowText = r.join(' ')
+        if (rowText.includes('KURS')) {
+          for (const cell of r) {
+            if (cell && (cell.includes('Rp') || /[\d.,]{4,}/.test(cell))) {
+              kursUSD = cell.trim()
+            }
+          }
+        }
+        if (
+          r.some((c) => (c || '').trim().toUpperCase() === 'NO') &&
+          r.some(
+            (c) =>
+              (c || '').trim().toUpperCase().includes('BRAND') ||
+              (c || '').trim().toUpperCase().includes('TYPE')
+          )
+        ) {
+          headerIdx = i
+        }
+        const firstCell = (r[0] || '').trim()
+        if (
+          firstCell.startsWith('1.') ||
+          firstCell.startsWith('2.') ||
+          firstCell.startsWith('3.')
+        ) {
+          notes.push(firstCell)
+        }
+      }
+
+      if (categoryId === 'mvg_rental_qiangli') {
+        store.categoryExtra[categoryId] = {
+          kursUSD: kursUSD || 'Rp18.105',
+          notes:
+            notes.length > 0
+              ? notes
+              : [
+                  '1. Harga sudah termasuk (Flightcase ABS, Cabling, Clamp dan sparepart 2%)',
+                  '2. Harga belum termasuk Video Processor',
+                  '3. Harga FOB pengiriman dari Jakarta dan Surabaya'
+                ],
+          comparisonChart: '/images/products/qiangli-comparison-chart.png'
+        }
+      }
+
+      const startIdx = headerIdx >= 0 ? headerIdx + 1 : 2
+
+      for (let i = startIdx; i < rows.length; i++) {
         const r = rows[i]
         if (!r || !r.length) continue
         const noVal = r[0]?.trim() || ''
         if (noVal.toLowerCase().startsWith('note') || !/^\d+$/.test(noVal)) continue
+        const noNum = parseInt(noVal, 10)
 
         const brand = r[2]?.trim().replace(/\n+/g, ' ') || currBrand
         currBrand = brand
@@ -301,10 +363,42 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
             : categoryId === 'mvg_rental_fabulux'
             ? 'RNT-FB'
             : 'RNT-MVN'
-        const sku = `${prefix}-${i}`
+        const sku = `${prefix}-${noVal}`
+
+        // QiangLi specific image & brochure mapping
+        let productImage: string | undefined = undefined
+        let brochureUrl: string | undefined = undefined
+
+        if (categoryId === 'mvg_rental_qiangli') {
+          const typeLower = rawType.toLowerCase()
+          if (typeLower.includes('floor')) {
+            productImage = '/images/products/qiangli-led-floor.png'
+          } else if (typeLower.includes('mavic xt')) {
+            productImage = '/images/products/qiangli-mavic-xt-transparant.png'
+            brochureUrl = 'https://drive.google.com/file/d/1bxcHQUYLFK1MzYy6BEB6m226_fIf9juE/view?usp=drive_link'
+          } else if (typeLower.includes('cosmo')) {
+            productImage = '/images/products/qiangli-cosmo-transparant.png'
+            brochureUrl = 'https://drive.google.com/file/d/1l3genAqoz9Qjo0DGihmraXAxmswpsR7a/view?usp=drive_link'
+          } else if (typeLower.includes('saga') && typeLower.includes('indoor')) {
+            productImage = '/images/products/qiangli-saga-indoor.png'
+            brochureUrl = 'https://drive.google.com/file/d/1MFp2nUvCdZAoqKqysbDE703Muqu5sEaR/view?usp=drive_link'
+          } else if (typeLower.includes('saga')) {
+            productImage = '/images/products/qiangli-saga-outdoor.png'
+            brochureUrl = 'https://drive.google.com/file/d/1pBxplC-okM6trksZDr3z07nEez9wlJ2W/view?usp=drive_link'
+          } else if (typeLower.includes('lite') && typeLower.includes('indoor')) {
+            productImage = '/images/products/qiangli-new-lite-indoor.png'
+          } else if (typeLower.includes('lite')) {
+            productImage = '/images/products/qiangli-new-lite-outdoor.png'
+            brochureUrl = 'https://drive.google.com/file/d/1VB7kjARlwhD4JX956RJdPCgAErrJpPV8/view?usp=drive_link'
+          } else if (typeLower.includes('mavic')) {
+            productImage = '/images/products/qiangli-mavic.png'
+            brochureUrl = 'https://drive.google.com/file/d/1I6rp6EcgMZig01zL5m0IxeqyvFBfEM9O/view?usp=sharing'
+          }
+        }
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${noVal}`,
+          no: noNum,
           category: categoryId,
           catalog: 'mvg',
           model,
@@ -318,6 +412,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku,
+          image: productImage,
+          brochureUrl,
           metadata: {
             hargaCash,
             hargaCashFormatted: formatRupiah(hargaCash),
@@ -325,7 +421,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
             hargaKreditFormatted: formatRupiah(hargaKredit),
             curve,
             size,
-            brand
+            brand,
+            no: noNum
           },
           updatedAt: new Date().toISOString()
         })

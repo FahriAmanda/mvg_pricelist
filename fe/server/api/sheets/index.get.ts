@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
 
   const categories: SheetCategory[] = SHEET_CATEGORIES.map((cat) => {
     const items = store.itemsByCategory[cat.id] || []
+    const extra = store.categoryExtra?.[cat.id] || {}
     return {
       id: cat.id,
       name: cat.name,
@@ -19,7 +20,10 @@ export default defineEventHandler(async (event) => {
       icon: cat.icon,
       description: cat.description,
       itemCount: items.length,
-      lastUpdated: store.lastSync
+      lastUpdated: store.lastSync,
+      kursUSD: extra.kursUSD,
+      notes: extra.notes,
+      comparisonChart: extra.comparisonChart
     }
   })
 
