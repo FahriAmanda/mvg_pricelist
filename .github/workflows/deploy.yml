@@ -21,7 +21,7 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.4.1
+          version: 10
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies (FE)
         run: |
           cd fe
-          pnpm install --frozen-lockfile
+          pnpm install
 
       - name: Build Nuxt Application
         run: |
@@ -57,6 +57,11 @@ jobs:
 
           ssh -i ~/.ssh/deploy_key -p "$VPS_PORT" "$VPS_USER@$VPS_HOST" "bash -s" << 'EOF'
             set -Eeuo pipefail
+
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+            nvm use 24 || true
+            export PATH="$HOME/.nvm/versions/node/v24.15.0/bin:$PATH"
 
             APP_DIR="/home/hisekawa/mvg/mvg_pricelist"
 
@@ -90,6 +95,6 @@ jobs:
 
             echo "Verifying application readiness..."
             sleep 3
-            curl -s -f http://127.0.0.1:18200/ > /dev/null
+            curl -s -f http://127.0.0.1:18200/api/sheets > /dev/null
             echo "Deployment verified successfully!"
           EOF
