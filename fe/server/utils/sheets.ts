@@ -205,9 +205,228 @@ export function formatRupiah(num: number): string {
 }
 
 export interface CategoryExtra {
+  bannerTitle?: string
+  bannerSubtitle?: string
   kursUSD?: string
   notes?: string[]
   comparisonChart?: string
+}
+
+export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
+  // MVG Categories
+  mvg_rental_qiangli: {
+    bannerTitle: 'PRICE LIST PRODUK LED RENTAL /METER PERSEGI',
+    bannerSubtitle: 'Katalog Resmi QiangLi Rental Series Mitra Visual Group (MVG)',
+    kursUSD: 'Rp18.069',
+    notes: [
+      '1. Harga sudah termasuk (Flightcase ABS, Cabling, Clamp dan sparepart 2%)',
+      '2. Harga belum termasuk Video Processor',
+      '3. Harga FOB pengiriman dari Jakarta dan Surabaya'
+    ],
+    comparisonChart: '/images/products/qiangli-comparison-chart.png'
+  },
+  mvg_rental_fabulux: {
+    bannerTitle: 'PRICE LIST PRODUK LED RENTAL /METER PERSEGI',
+    bannerSubtitle: 'Katalog Resmi Fabulux Rental Series Mitra Visual Group (MVG)',
+    kursUSD: 'Rp18.062',
+    notes: [
+      '1. Harga sudah termasuk (Flightcase ABS, Cabling, Clamp dan sparepart 2%)',
+      '2. Harga belum termasuk Video Prosesor Colorlight / Novastar',
+      '3. Harga FOB pengiriman dari Jakarta dan Surabaya'
+    ]
+  },
+  mvg_rental_maven: {
+    bannerTitle: 'PRICE LIST PRODUK LED RENTAL /METER PERSEGI',
+    bannerSubtitle: 'Katalog Resmi Unilumin Lampro Maven & LRS Rental Series MVG',
+    kursUSD: 'Rp18.062',
+    notes: [
+      '1. Harga sudah termasuk (Flightcase ABS, Cabling, Clamp dan sparepart 2%)',
+      '2. Harga belum termasuk Video Prosesor',
+      '3. Harga FOB pengiriman dari Jakarta dan Surabaya'
+    ]
+  },
+  mvg_moka_effect: {
+    bannerTitle: 'MOKA SFX SPECIAL EFFECTS & STAGE ATMOSPHERE',
+    bannerSubtitle: 'Katalog Efek Panggung CO2 Cannon, Double Jet, Cold Sparkle & Flame MVG',
+    kursUSD: '*Harga Mengikuti Kurs $ USD',
+    notes: [
+      '1. Website resmi: www.mokalighting.com (Distributor Resmi Indonesia)',
+      '2. Tersedia link video demonstrasi demo Youtube untuk setiap unit produk',
+      '3. Garansi sparepart & dukungan servis resmi Mitra Visual Group'
+    ]
+  },
+  mvg_mode_hoist: {
+    bannerTitle: 'PRICE LIST MODE HOIST RIGGING & MOTOR STAGING',
+    bannerSubtitle: 'Katalog Electric Hoist 1T/2T, Battery Free Hoist & Group Controller MVG',
+    kursUSD: '*Harga Mengikuti Kurs $ USD',
+    notes: [
+      '1. Harga sudah termasuk Flight Case & Double Brake (Dual Braking System)',
+      '2. Power supply standar 380V / 3 Phase / 50Hz & Black Load Chain 20m - 25m',
+      '3. Tersedia Controller 8CH dengan kontrol Wired & Wireless Remote'
+    ]
+  },
+  mvg_meanreal_lighting: {
+    bannerTitle: 'MEANREAL PROFESSIONAL STAGE LIGHTING & CONSOLE',
+    bannerSubtitle: 'Katalog Moving Head BSW 550, Super Beam, ALED, Follow Spot & Lighting Console',
+    kursUSD: '*Harga Mengikuti Kurs $ USD',
+    notes: [
+      '1. Free: High Quality Flightcase 2 in 1 & Folding Clamp untuk Moving Head',
+      '2. Lampu original Philips MSD Platinum / Osram Sirius HRI umur hingga 4000 jam',
+      '3. Katalog mencakup Moving Head BSW, Beam, Follow Spot, GrandMA & Midas Console'
+    ]
+  },
+  mvg_alumino: {
+    bannerTitle: 'ALUMINO RIGGING TRUSS 6082-T6 & STAGING SYSTEM',
+    bannerSubtitle: 'Katalog Bolt Truss 300/400/450/600, Box Connector, Sleeve Block & Stage Stand',
+    kursUSD: 'Alloy 6082-T6',
+    notes: [
+      '1. Material: Aluminum Alloy 6082-T6 standar internasional rigging & trussing',
+      '2. Pengelasan robotic otomatis presisi (Fully Automated Data Welding)',
+      '3. Kantor resmi Jakarta (Ruko Megaboulevard Harapan Indah Bekasi) & pengiriman nasional'
+    ]
+  },
+  mvg_ringlock: {
+    bannerTitle: 'PRICE LIST RINGLOCK SCAFFOLDING GALVANIS Q335',
+    bannerSubtitle: 'Katalog Scaffolding Standar Internasional Paket Komplit 2x2x2m & Eceran MVG',
+    kursUSD: 'Galvanis Q335',
+    notes: [
+      '1. Material: Iron Q335 Hot-Dip Galvanizing anti karat & cuaca ekstrem',
+      '2. Tersedia Paket Komplit Scaffolding 2x2x2m & komponen eceran resmi',
+      '3. Sistem penguncian rosette 8-arah presisi tinggi, kokoh & cepat dirakit'
+    ]
+  },
+  mvg_gaga_laser: {
+    bannerTitle: 'GAGA RGB LASER STAGE LIGHT FOR PROFESSIONAL EVENT',
+    bannerSubtitle: 'Katalog Laser RGB 3W - 40W Waterproof & Pangolin Quickshow FB3/FB4 ILDA',
+    kursUSD: '*Harga Mengikuti Kurs $ USD',
+    notes: [
+      '1. Garansi resmi profesional event laser & software Pangolin QuickShow Original (Dongle)',
+      '2. Showroom Demo tersedia di Jakarta (Harapan Indah Bekasi) & Surabaya (Jl. Kuwukan)',
+      '3. Dukungan kontrol ILDA, DMX-512, LCD Display & sertifikasi Waterproof IP65'
+    ]
+  },
+  mvg_mojo_barrier: {
+    bannerTitle: 'ALUMINUM MOJO CROWD CONTROL BARRIER QUICK LOCK',
+    bannerSubtitle: 'Katalog Pembatas Penonton Konser & Event Aluminium Heavy-Duty MVG',
+    kursUSD: 'Alloy 6082-T6',
+    notes: [
+      '1. Material: Aluminum Alloy 6082-T6 Quick Lock System tahan beban tinggi',
+      '2. Dilengkapi pedal anti-slip footplate untuk kestabilan crowd control event',
+      '3. Tersedia tipe Straight 1m, Corner 90-270°, dan Door Gate akses darurat'
+    ]
+  },
+  mvg_aksesoris_rental: {
+    bannerTitle: 'AKSESORIS & POWER DISTRIBUTION VIDEOTRON RENTAL',
+    bannerSubtitle: 'Katalog Panel Listrik 3-Phase, PowerCON, Cat6, Clamps & Armored Fiber Optic',
+    kursUSD: 'RoHS Compliant',
+    notes: [
+      '1. Power Distribution Panel 3-Phase dilengkapi MCB individual & digital meter',
+      '2. Kabel PowerCON, Cat6 UTP, dan Fiber Optic standar RoHS compliant',
+      '3. Flightcase ABS shockproof melindungi modul & kabinet saat mobilitas rental'
+    ]
+  },
+
+  // AV Categories
+  qiangli: {
+    bannerTitle: 'MODUL LED VIDEOTRON QIANGLI PRO SERIES',
+    bannerSubtitle: 'Katalog Resmi Modul LED Videotron QiangLi Indoor, Outdoor & Flexible',
+    kursUSD: 'High Refresh 7680Hz',
+    notes: [
+      '1. Modul original pabrik QiangLi High Refresh Rate 7680Hz',
+      '2. Ukuran standar 320x160mm Indoor, Outdoor & Soft Flexible Series',
+      '3. Dukungan setting file RCFG & konfigurasi profesional'
+    ]
+  },
+  lampro: {
+    bannerTitle: 'MODUL LED VIDEOTRON LAMPRO PRO SERIES',
+    bannerSubtitle: 'Katalog Resmi Modul LED Videotron Lampro Indoor & Outdoor Pro Series',
+    kursUSD: 'High Refresh 7680Hz',
+    notes: [
+      '1. Modul LED original pabrik Lampro (Unilumin Group) Refresh 7680Hz',
+      '2. Kualitas warna prima & kestabilan chip driver PWM presisi',
+      '3. Tersedia seri Indoor P1.5 s/d P4 dan Outdoor P2.5 s/d P5'
+    ]
+  },
+  huidu: {
+    bannerTitle: 'HUIDU CONTROLLER & VIDEO PROCESSOR',
+    bannerSubtitle: 'Katalog Huidu HD-A3L, HD-A4L, HD-VP Series & Media Player Display',
+    kursUSD: 'Original Huidu',
+    notes: [
+      '1. Controller & Video Processor Huidu original bersertifikasi',
+      '2. Mendukung pemutaran asinkron & sinkron via LAN, Wi-Fi, Cloud & HDMI',
+      '3. Kompatibel penuh dengan seluruh merk modul LED standar HUB75'
+    ]
+  },
+  colorlight: {
+    bannerTitle: 'COLORLIGHT RECEIVING CARDS & PROCESSORS',
+    bannerSubtitle: 'Katalog Kartu Penerima Colorlight 5A-75B/E, i5 & Video Processor X-Series',
+    kursUSD: 'Original Colorlight',
+    notes: [
+      '1. Kartu penerima (Receiving Card) & Processor Colorlight original resmi',
+      '2. Dukungan kalibrasi warna tingkat lanjut & low latency synchronization',
+      '3. Pilihan populer: 5A-75B, 5A-75E, i5, E80, E120 & Multimedia Player A35/A60'
+    ]
+  },
+  novastar: {
+    bannerTitle: 'NOVASTAR CONTROLLER, SENDING & RECEIVING CARDS',
+    bannerSubtitle: 'Katalog Resmi NovaStar Video Processor VX-Series, DH-Series & Taurus Player',
+    kursUSD: 'Original NovaStar',
+    notes: [
+      '1. Produk 100% Original NovaStar bergaransi distributor resmi',
+      '2. All-in-one Video Controller: VX400 (4 port), VX600 (6 port), VX1000 (10 port)',
+      '3. Receiving Card: DH7508, DH7512-S & Multimedia Taurus TB-Series'
+    ]
+  },
+  cabinet: {
+    bannerTitle: 'CABINET VIDEOTRON DIE-CAST ALUMINIUM & IRON',
+    bannerSubtitle: 'Katalog Kabinet Videotron Die-Cast Aluminium Rental & Besi Outdoor Waterproof',
+    kursUSD: 'Die-Cast & Iron',
+    notes: [
+      '1. Cabinet Die-Cast Aluminium presisi tinggi untuk rental & instalasi tetap',
+      '2. Cabinet Iron Waterproof outdoor tahan cuaca ekstrem lengkap dengan kipas & PSU plate',
+      '3. Tersedia ukuran 500x500mm, 500x1000mm, 960x960mm & custom size'
+    ]
+  },
+  psu: {
+    bannerTitle: 'POWER SUPPLY (PSU) VIDEOTRON 200W - 400W',
+    bannerSubtitle: 'Katalog Power Supply 5V/4.5V Lampro, Meanwell Ultra Slim & G-Energy',
+    kursUSD: '5V / 4.5V Output',
+    notes: [
+      '1. Power Supply efisiensi tinggi standar videotron 5V / 4.5V output stabil',
+      '2. Proteksi lengkap: Overload, Short-Circuit, Over-Voltage & Thermal Cutoff',
+      '3. Merk terpercaya: Lampro LD-series, Leyard, Meanwell & G-Energy 200W - 400W'
+    ]
+  },
+  led_poster: {
+    bannerTitle: 'LED POSTER DISPLAY FLAT & FOLDABLE SERIES',
+    bannerSubtitle: 'Katalog LED Poster 640x1920mm Plug & Play Mobile Display AV & MVG',
+    kursUSD: 'Include A35 Player',
+    notes: [
+      '1. Ukuran standar display 640 x 1920 mm dengan frame aluminium ultra-slim',
+      '2. Tersedia model Flat (kaki roda mobile) dan Foldable (lipat portable)',
+      '3. Sudah include Colorlight A35 Player, speaker terintegrasi & Wi-Fi control'
+    ]
+  },
+  led_cube: {
+    bannerTitle: 'LED CUBE 32x32CM 4-SISI & 5-SISI DISPLAY',
+    bannerSubtitle: 'Katalog Kubus LED Kreatif 32x32cm Indoor & Outdoor Seamless Rakitan Siap Pakai',
+    kursUSD: '32x32x32cm',
+    notes: [
+      '1. Dimensi kubus 32 x 32 x 32 cm dengan sudut sambungan seamless presisi',
+      '2. Tersedia varian 4-Sisi (gantung / dinding) dan 5-Sisi (berdiri 360° display)',
+      '3. Paket sudah termasuk modul LED, kabinet besi, PSU, receiving card & rakitan siap pakai'
+    ]
+  },
+  magnustek_tkdn: {
+    bannerTitle: 'LED VIDEOTRON MAGNUSTEK BERSERTIFIKAT RESMI TKDN',
+    bannerSubtitle: 'Katalog Videotron TKDN Kemenperin RI COB & SMD Indoor / Outdoor Kualitas Nasional',
+    kursUSD: 'TKDN s/d 42.82%',
+    notes: [
+      '1. Bersertifikat Resmi TKDN Kemenperin RI dengan nilai hingga 42.82%',
+      '2. Memenuhi standar pengadaan e-Katalog LKPP instansi pemerintah & BUMN',
+      '3. Tersedia teknologi mutakhir COB Ultra-Fine Pitch P0.9 - P1.5 dan SMD Outdoor'
+    ]
+  }
 }
 
 export interface StoreState {
@@ -221,7 +440,7 @@ export interface StoreState {
 
 const store: StoreState = {
   itemsByCategory: {},
-  categoryExtra: {},
+  categoryExtra: { ...DEFAULT_CATEGORY_EXTRA },
   previousPrices: {},
   lastSync: '',
   contentHash: '',
@@ -277,7 +496,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           : 'Unilumin Lampro'
       let currType = ''
 
-      // Parse Kurs USD & Notes dynamically
+      // Parse Kurs USD & Notes dynamically from sheet
       let kursUSD = ''
       const notes: string[] = []
       let headerIdx = -1
@@ -313,29 +532,22 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         }
       }
 
-      if (categoryId === 'mvg_rental_qiangli') {
-        store.categoryExtra[categoryId] = {
-          kursUSD: kursUSD || 'Rp18.105',
-          notes:
-            notes.length > 0
-              ? notes
-              : [
-                  '1. Harga sudah termasuk (Flightcase ABS, Cabling, Clamp dan sparepart 2%)',
-                  '2. Harga belum termasuk Video Processor',
-                  '3. Harga FOB pengiriman dari Jakarta dan Surabaya'
-                ],
-          comparisonChart: '/images/products/qiangli-comparison-chart.png'
-        }
+      const defaultExtra = DEFAULT_CATEGORY_EXTRA[categoryId] || {}
+      store.categoryExtra[categoryId] = {
+        ...defaultExtra,
+        kursUSD: kursUSD || defaultExtra.kursUSD || 'Rp18.062',
+        notes: notes.length > 0 ? notes : (defaultExtra.notes || [])
       }
 
       const startIdx = headerIdx >= 0 ? headerIdx + 1 : 2
+      let itemSeq = 0
 
       for (let i = startIdx; i < rows.length; i++) {
         const r = rows[i]
         if (!r || !r.length) continue
         const noVal = r[0]?.trim() || ''
         if (noVal.toLowerCase().startsWith('note') || !/^\d+$/.test(noVal)) continue
-        const noNum = parseInt(noVal, 10)
+        itemSeq++
 
         const brand = r[2]?.trim().replace(/\n+/g, ' ') || currBrand
         currBrand = brand
@@ -363,9 +575,9 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
             : categoryId === 'mvg_rental_fabulux'
             ? 'RNT-FB'
             : 'RNT-MVN'
-        const sku = `${prefix}-${noVal}`
+        const sku = `${prefix}-${itemSeq}`
 
-        // QiangLi specific image & brochure mapping
+        // Image & brochure mapping
         let productImage: string | undefined = undefined
         let brochureUrl: string | undefined = undefined
 
@@ -394,11 +606,34 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
             productImage = '/images/products/qiangli-mavic.png'
             brochureUrl = 'https://drive.google.com/file/d/1I6rp6EcgMZig01zL5m0IxeqyvFBfEM9O/view?usp=sharing'
           }
+        } else if (categoryId === 'mvg_rental_fabulux') {
+          const lower = (rawType + ' ' + desc).toLowerCase()
+          if (lower.includes('alpha')) {
+            productImage = '/images/products/fabulux-alpha.svg'
+            brochureUrl = 'https://drive.google.com/file/d/1vZei59qgFOxooOqKxyGY6kKnwiguCK6S/view?usp=drive_link'
+          } else if (lower.includes('spider')) {
+            productImage = '/images/products/fabulux-spider-max.svg'
+            brochureUrl = 'https://drive.google.com/file/d/1N2wMOUfsXdRHqwCj0kUMFcxE_fsSTr22/view?usp=drive_link'
+          } else if (lower.includes('hanging') || lower.includes('base')) {
+            productImage = '/images/products/fabulux-hanging-bar.svg'
+          } else {
+            productImage = '/images/products/fabulux-master-plus.svg'
+            brochureUrl = 'https://drive.google.com/file/d/1ZZwDyEdpidGwDsyQMO9wL16DNelr_adH/view?usp=drive_link'
+          }
+        } else if (categoryId === 'mvg_rental_maven') {
+          const lower = (rawType + ' ' + desc).toLowerCase()
+          if (lower.includes('lrs')) {
+            productImage = '/images/products/unilumin-lrs-p26.svg'
+            brochureUrl = 'https://drive.google.com/file/d/1wnannEXIUkW3_7NoYR-JLaPST505yjpz/view?usp=drive_link'
+          } else {
+            productImage = '/images/products/maven-p39-outdoor.svg'
+            brochureUrl = 'https://drive.google.com/file/d/1M7gDilXYAz21m1xrPitLxgzwfeepOpuj/view?usp=drive_link'
+          }
         }
 
         items.push({
-          id: `${categoryId}-${noVal}`,
-          no: noNum,
+          id: `${categoryId}-${itemSeq}`,
+          no: itemSeq,
           category: categoryId,
           catalog: 'mvg',
           model,
@@ -422,7 +657,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
             curve,
             size,
             brand,
-            no: noNum
+            no: itemSeq
           },
           updatedAt: new Date().toISOString()
         })
@@ -434,6 +669,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 2. MVG: Moka Effect
     // ==========================================
     case 'mvg_moka_effect': {
+      let seq = 0
       for (let i = 3; i < rows.length; i++) {
         const r = rows[i]
         if (!r || !r.length) continue
@@ -445,9 +681,17 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const desc = r[6]?.trim() || ''
         const cat = r[7]?.trim() || 'Special Effects'
         if (!title && !sku) continue
+        seq++
+
+        const lower = (title + ' ' + desc).toLowerCase()
+        let productImage = '/images/products/moka-co2-cannon.svg'
+        if (lower.includes('spark') || lower.includes('powder') || lower.includes('firework')) {
+          productImage = '/images/products/moka-cold-spark.svg'
+        }
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'mvg',
           model: title || `MOKA ${code}`,
@@ -456,9 +700,13 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku,
+          image: productImage,
+          brochureUrl: link || undefined,
+          videoUrl: link || undefined,
           metadata: {
             code,
-            videoUrl: link
+            videoUrl: link,
+            no: seq
           },
           updatedAt: new Date().toISOString()
         })
@@ -470,11 +718,13 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 3. MVG: Mode Hoist
     // ==========================================
     case 'mvg_mode_hoist': {
+      let seq = 0
       for (let i = 3; i < rows.length; i++) {
         const r = rows[i]
         if (!r || !r.length) continue
         const noVal = r[0]?.trim() || ''
         if (!/^\d+$/.test(noVal)) continue
+        seq++
         const desc = r[4]?.trim() || ''
         const price = parsePrice(r[5])
         const link = r[6]?.trim() || ''
@@ -501,8 +751,22 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           ? 'Manual'
           : 'Accessory'
 
+        const lower = model.toLowerCase()
+        let productImage = '/images/products/hoist-electric-611.svg'
+        if (
+          lower.includes('controller') ||
+          lower.includes('cable') ||
+          lower.includes('shackle') ||
+          lower.includes('sling') ||
+          lower.includes('router') ||
+          lower.includes('battery')
+        ) {
+          productImage = '/images/products/acc-power-distribution.svg'
+        }
+
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'mvg',
           model,
@@ -511,11 +775,14 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku: `HOIST-MD-${noVal}`,
+          image: productImage,
+          brochureUrl: link || undefined,
           metadata: {
             specLines: lines,
             capacity: cap,
             liftingHeight: height,
-            videoUrl: link
+            videoUrl: link,
+            no: seq
           },
           updatedAt: new Date().toISOString()
         })
@@ -527,12 +794,14 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 4. MVG: Meanreal Lighting
     // ==========================================
     case 'mvg_meanreal_lighting': {
+      let seq = 0
       for (let i = 3; i < rows.length; i++) {
         const r = rows[i]
         if (!r || !r.length) continue
         const noVal = r[0]?.trim() || ''
         const item = r[2]?.trim().replace(/\n+/g, ' ') || ''
         if (!item) continue
+        seq++
         const spec = r[3]?.trim() || ''
         const price = parsePrice(r[12]) || parsePrice(r[11]) || parsePrice(r[4])
         const link = r[17]?.trim() || ''
@@ -555,7 +824,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         else if (lower.includes('strobe') || lower.includes('bar')) typeBadge = 'Strobe / Bar'
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'mvg',
           model: item,
@@ -563,10 +833,13 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           description: spec || item,
           price,
           priceFormatted: formatRupiah(price),
-          sku: `MRL-LT-${noVal || i}`,
+          sku: `MRL-LT-${noVal || seq}`,
+          image: '/images/products/meanreal-bsw-550.svg',
+          brochureUrl: link || undefined,
           metadata: {
             specification: spec,
-            videoUrl: link
+            videoUrl: link,
+            no: seq
           },
           updatedAt: new Date().toISOString()
         })
@@ -580,6 +853,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     case 'mvg_alumino': {
       let currItem = ''
       let currDesc = ''
+      let seq = 0
       for (let i = 3; i < rows.length; i++) {
         const r = rows[i]
         if (!r || !r.length) continue
@@ -590,6 +864,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const size = r[3]?.trim().replace(/\n+/g, ' ') || ''
         const price = parsePrice(r[5])
         if (price === 0 && !size) continue
+        seq++
 
         let model = currItem
         if (size) model += ` (${size})`
@@ -614,7 +889,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           typeBadge = 'Scaffolding'
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'mvg',
           model,
@@ -623,10 +899,12 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           size,
           price,
           priceFormatted: formatRupiah(price),
-          sku: `ALU-TR-${i}`,
+          sku: `ALU-TR-${seq}`,
+          image: '/images/products/alumino-bolt-truss.svg',
           metadata: {
             size,
-            material: currDesc
+            material: currDesc,
+            no: seq
           },
           updatedAt: new Date().toISOString()
         })
@@ -638,9 +916,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 6. MVG: Ringlock
     // ==========================================
     case 'mvg_ringlock': {
+      let seq = 1
       const paketPrice = parsePrice('Rp5.240.000')
       items.push({
         id: `${categoryId}-paket`,
+        no: seq,
         category: categoryId,
         catalog: 'mvg',
         model: 'Ringlock Scaffolding Paket (2x2x2 Meter)',
@@ -651,8 +931,10 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         price: paketPrice,
         priceFormatted: formatRupiah(paketPrice),
         sku: 'RNG-SET-2X2X2',
+        image: '/images/products/ringlock-scaffolding.svg',
         metadata: {
-          isPaket: true
+          isPaket: true,
+          no: seq
         },
         updatedAt: new Date().toISOString()
       })
@@ -664,9 +946,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const spec = r[2]?.trim() || ''
         const price = parsePrice(r[3])
         if (!name || price === 0) continue
+        seq++
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'mvg',
           model: name,
@@ -674,9 +958,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           description: spec || name,
           price,
           priceFormatted: formatRupiah(price),
-          sku: `RNG-PART-${i}`,
+          sku: `RNG-PART-${seq}`,
+          image: '/images/products/ringlock-scaffolding.svg',
           metadata: {
-            specification: spec
+            specification: spec,
+            no: seq
           },
           updatedAt: new Date().toISOString()
         })
@@ -688,11 +974,13 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 7. MVG: Gaga Laser
     // ==========================================
     case 'mvg_gaga_laser': {
+      let seq = 0
       for (let i = 5; i < rows.length; i++) {
         const r = rows[i]
         if (!r || !r.length) continue
         const noVal = r[0]?.trim() || ''
         if (!/^\d+$/.test(noVal)) continue
+        seq++
         const rawTitle = r[1]?.trim() || ''
         const lines = rawTitle.split('\n').map((l) => l.trim()).filter(Boolean)
         const title = lines[0] || `GAGA Laser #${noVal}`
@@ -712,7 +1000,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           : 'RGB Laser'
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'mvg',
           model: title,
@@ -722,11 +1011,15 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku: `GAG-LSR-${noVal}`,
+          image: '/images/products/gaga-laser-rgb.svg',
+          brochureUrl: video || undefined,
+          videoUrl: video || undefined,
           metadata: {
             weight,
             size,
             specification: spec,
-            videoSample: video
+            videoSample: video,
+            no: seq
           },
           updatedAt: new Date().toISOString()
         })
@@ -738,6 +1031,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 8. MVG: Mojo Barrier
     // ==========================================
     case 'mvg_mojo_barrier': {
+      let seq = 0
       for (let i = 2; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 4) continue
@@ -745,6 +1039,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const spec = r[2]?.trim() || ''
         const price = parsePrice(r[3])
         if (!name || price === 0) continue
+        seq++
 
         let typeBadge = 'Straight Gate'
         if (name.toLowerCase().includes('corner')) typeBadge = 'Corner Gate'
@@ -752,7 +1047,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         else if (name.toLowerCase().includes('wire')) typeBadge = 'Wire Slot'
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'mvg',
           model: name,
@@ -760,9 +1056,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           description: spec || name,
           price,
           priceFormatted: formatRupiah(price),
-          sku: `MOJO-BAR-${i}`,
+          sku: `MOJO-BAR-${seq}`,
+          image: '/images/products/mojo-barrier.svg',
           metadata: {
-            specification: spec
+            specification: spec,
+            no: seq
           },
           updatedAt: new Date().toISOString()
         })
@@ -774,6 +1072,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 9. MVG: Aksesoris LED Rental
     // ==========================================
     case 'mvg_aksesoris_rental': {
+      let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 4) continue
@@ -782,6 +1081,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const price = parsePrice(r[3])
         const desc = r[4]?.trim() || ''
         if (!name || price === 0) continue
+        seq++
 
         let typeBadge = 'Accessories'
         const lower = name.toLowerCase()
@@ -810,7 +1110,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           typeBadge = 'Spare Parts'
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'mvg',
           model: name,
@@ -818,9 +1119,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           description: desc || name,
           price,
           priceFormatted: formatRupiah(price),
-          sku: `ACC-RNT-${noVal || i}`,
+          sku: `ACC-RNT-${noVal || seq}`,
+          image: '/images/products/acc-power-distribution.svg',
           metadata: {
-            specification: desc
+            specification: desc,
+            no: seq
           },
           updatedAt: new Date().toISOString()
         })
@@ -833,6 +1136,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // ==========================================
     case 'qiangli':
     case 'lampro': {
+      let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 5 || !r[2]) continue
@@ -843,9 +1147,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const price = parsePrice(r[4])
         const refresh = r[5]?.trim() || ''
         const sku = r[6]?.trim() || `${categoryId}-${i}`
+        seq++
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'av',
           model,
@@ -856,6 +1162,13 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku,
+          image:
+            categoryId === 'qiangli'
+              ? '/images/products/av-qiangli-module.svg'
+              : '/images/products/av-lampro-module.svg',
+          metadata: {
+            no: seq
+          },
           updatedAt: new Date().toISOString()
         })
       }
@@ -866,6 +1179,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 11. AV: Huidu
     // ==========================================
     case 'huidu': {
+      let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 5 || !r[1]) continue
@@ -875,9 +1189,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const subCat = r[3]?.trim() || 'Multimedia Player'
         const price = parsePrice(r[4])
         const sku = r[5]?.trim() || `${categoryId}-${i}`
+        seq++
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'av',
           model: brand,
@@ -886,8 +1202,10 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku,
+          image: '/images/products/av-huidu-controller.svg',
           metadata: {
-            rawSpecs
+            rawSpecs,
+            no: seq
           },
           updatedAt: new Date().toISOString()
         })
@@ -899,6 +1217,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 12. AV: Colorlight
     // ==========================================
     case 'colorlight': {
+      let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 5 || (!r[1] && !r[2])) continue
@@ -907,6 +1226,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const rawDesc = r[2]?.trim() || ''
         const price = parsePrice(r[4])
         const sku = r[5]?.trim() || `${categoryId}-${i}`
+        seq++
 
         const isGenericDesc =
           rawDesc.toLowerCase() === 'receiving card' ||
@@ -926,7 +1246,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         }
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'av',
           model: displayModel,
@@ -935,6 +1256,10 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku,
+          image: '/images/products/av-colorlight-controller.svg',
+          metadata: {
+            no: seq
+          },
           updatedAt: new Date().toISOString()
         })
       }
@@ -945,6 +1270,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 13. AV: Novastar
     // ==========================================
     case 'novastar': {
+      let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 5 || (!r[1] && !r[2])) continue
@@ -953,6 +1279,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const rawDesc = r[2]?.trim() || ''
         const price = parsePrice(r[4])
         const sku = r[5]?.trim() || `${categoryId}-${i}`
+        seq++
 
         const isGenericDesc =
           rawDesc.toLowerCase() === 'receiving card' ||
@@ -973,7 +1300,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         }
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'av',
           model: displayModel,
@@ -982,6 +1310,10 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku,
+          image: '/images/products/av-novastar-controller.svg',
+          metadata: {
+            no: seq
+          },
           updatedAt: new Date().toISOString()
         })
       }
@@ -992,6 +1324,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 14. AV: Cabinet
     // ==========================================
     case 'cabinet': {
+      let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 4 || !r[0]) continue
@@ -1001,9 +1334,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const price = parsePrice(r[3])
         const desc = r[4]?.trim() || ''
         const sku = r[5]?.trim() || `${categoryId}-${i}`
+        seq++
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'av',
           model,
@@ -1013,6 +1348,10 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku,
+          image: '/images/products/av-cabinet-diecast.svg',
+          metadata: {
+            no: seq
+          },
           updatedAt: new Date().toISOString()
         })
       }
@@ -1023,6 +1362,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 15. AV: PSU
     // ==========================================
     case 'psu': {
+      let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 6 || !r[0]) continue
@@ -1032,11 +1372,13 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const watt = r[1]?.trim() || ''
         const price = parsePrice(r[5])
         const sku = r[6]?.trim() || `${categoryId}-${i}`
+        seq++
 
         const fullName = desc ? `${model} - ${desc}` : model
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'av',
           model,
@@ -1046,6 +1388,10 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku,
+          image: '/images/products/av-psu-meanwell.svg',
+          metadata: {
+            no: seq
+          },
           updatedAt: new Date().toISOString()
         })
       }
@@ -1056,6 +1402,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 16. AV: LED Poster
     // ==========================================
     case 'led_poster': {
+      let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 5 || !r[2]) continue
@@ -1064,13 +1411,15 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const size = r[2]?.trim() || ''
         const price = parsePrice(r[4])
         const sku = r[5]?.trim() || `${categoryId}-${i}`
+        seq++
 
         let typeBadge = 'Foldable'
         if (rawType.toLowerCase().includes('flat')) typeBadge = 'Flat'
         else if (rawType.toLowerCase().includes('foldable')) typeBadge = 'Foldable'
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'av',
           model: brand,
@@ -1080,6 +1429,10 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku,
+          image: '/images/products/av-led-poster.svg',
+          metadata: {
+            no: seq
+          },
           updatedAt: new Date().toISOString()
         })
       }
@@ -1090,6 +1443,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 17. AV: LED Cube
     // ==========================================
     case 'led_cube': {
+      let seq = 0
       for (let i = 2; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 18 || !r[0]?.trim()) continue
@@ -1098,12 +1452,14 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const price5Side = parsePrice(r[17]) || price4Side
         const size = r[18]?.trim() || '32x32x32cm'
         const sku = `LED-CUBE-${rawType.replace(/\s+/g, '-').toUpperCase()}`
+        seq++
 
         const isOutdoor = rawType.toLowerCase().includes('outdoor')
         const typeBadge = isOutdoor ? 'Outdoor' : 'Indoor'
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'av',
           model: 'LED Cube 32x32cm',
@@ -1113,6 +1469,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price: price4Side,
           priceFormatted: formatRupiah(price4Side),
           sku,
+          image: '/images/products/av-led-cube.svg',
           metadata: {
             price4Side,
             price4SideFormatted: formatRupiah(price4Side),
@@ -1126,7 +1483,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
             rcCost: parsePrice(r[10]),
             cableCost: parsePrice(r[11]) + parsePrice(r[12]),
             assemblyCost: parsePrice(r[13]),
-            processorCost: parsePrice(r[14])
+            processorCost: parsePrice(r[14]),
+            no: seq
           },
           updatedAt: new Date().toISOString()
         })
@@ -1138,6 +1496,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 18. AV: Magnustek TKDN
     // ==========================================
     case 'magnustek_tkdn': {
+      let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 6 || !r[3]) continue
@@ -1151,9 +1510,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const size = r[8]?.trim() || ''
         const refresh = r[9]?.trim() || ''
         const sku = r[10]?.trim() || `MAG-TKDN-${i}`
+        seq++
 
         items.push({
-          id: `${categoryId}-${i}`,
+          id: `${categoryId}-${seq}`,
+          no: seq,
           category: categoryId,
           catalog: 'av',
           model,
@@ -1164,10 +1525,12 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku,
+          image: '/images/products/av-magnustek-tkdn.svg',
           metadata: {
             tkdnValue,
             paket,
-            subType
+            subType,
+            no: seq
           },
           updatedAt: new Date().toISOString()
         })

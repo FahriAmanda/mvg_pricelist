@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <rect width="500" height="500" rx="28" fill="#0f172a"/>
+  <!-- Silver Metal Perforated PSU Case -->
+  <rect x="70" y="150" width="360" height="190" rx="8" fill="#e2e8f0" stroke="#94a3b8" stroke-width="3"/>
+  <!-- Honeycomb / Perforated Mesh simulation -->
+  <g fill="#475569">
+    <circle cx="100" cy="180" r="4"/><circle cx="120" cy="180" r="4"/><circle cx="140" cy="180" r="4"/><circle cx="160" cy="180" r="4"/>
+    <circle cx="100" cy="200" r="4"/><circle cx="120" cy="200" r="4"/><circle cx="140" cy="200" r="4"/><circle cx="160" cy="200" r="4"/>
+    <circle cx="100" cy="220" r="4"/><circle cx="120" cy="220" r="4"/><circle cx="140" cy="220" r="4"/><circle cx="160" cy="220" r="4"/>
+  </g>
+  <!-- Screw Terminals (V+, V-, L, N, FG) -->
+  <rect x="250" y="280" width="160" height="40" rx="4" fill="#1e293b"/>
+  <circle cx="270" cy="300" r="6" fill="#f59e0b"/>
+  <circle cx="295" cy="300" r="6" fill="#f59e0b"/>
+  <circle cx="320" cy="300" r="6" fill="#f59e0b"/>
+  <circle cx="345" cy="300" r="6" fill="#f59e0b"/>
+  <circle cx="370" cy="300" r="6" fill="#f59e0b"/>
+  <rect x="200" y="180" width="200" height="45" rx="6" fill="#0284c7"/>
+  <text x="300" y="208" fill="#ffffff" font-family="sans-serif" font-weight="900" font-size="14" text-anchor="middle">5V 40A / 60A / 80A</text>
+  <text x="250" y="400" fill="#f8fafc" font-family="sans-serif" font-weight="900" font-size="16" text-anchor="middle">POWER SUPPLY (PSU) VIDEOTRON</text>
+  <text x="250" y="425" fill="#38bdf8" font-family="sans-serif" font-weight="700" font-size="12" text-anchor="middle">Lampro / Meanwell / G-Energy 200W - 400W</text>
+</svg>

@@ -13,6 +13,7 @@ export interface PricelistItem {
   sku: string
   image?: string
   brochureUrl?: string
+  videoUrl?: string
   metadata?: Record<string, any>
   previousPrice?: number
   updatedAt?: string
@@ -26,6 +27,8 @@ export interface SheetCategory {
   description: string
   itemCount: number
   lastUpdated: string
+  bannerTitle?: string
+  bannerSubtitle?: string
   kursUSD?: string
   notes?: string[]
   comparisonChart?: string

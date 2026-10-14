@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <rect width="500" height="500" rx="28" fill="#0f172a"/>
+  <!-- Aluminum Frame 6082-T6 -->
+  <rect x="80" y="100" width="340" height="280" rx="8" fill="none" stroke="#cbd5e1" stroke-width="12"/>
+  <!-- Perforated mesh plate -->
+  <rect x="92" y="112" width="316" height="256" fill="#334155" opacity="0.8"/>
+  <!-- Diagonal Staging Foot Plate -->
+  <polygon points="80,380 420,380 450,430 50,430" fill="#475569" stroke="#94a3b8" stroke-width="2"/>
+  <text x="250" y="245" fill="#ffffff" font-family="sans-serif" font-weight="900" font-size="17" text-anchor="middle">ALUMINUM MOJO BARRIER</text>
+  <text x="250" y="270" fill="#f59e0b" font-family="sans-serif" font-weight="700" font-size="12" text-anchor="middle">CROWD CONTROL QUICK LOCK</text>
+</svg>

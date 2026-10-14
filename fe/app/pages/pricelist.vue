@@ -288,6 +288,14 @@ const expandedCubeId = ref<string | null>(null)
 function toggleCubeExpand(id: string) {
   expandedCubeId.value = expandedCubeId.value === id ? null : id
 }
+
+// Check if current category has brochure/video links
+const hasLinkColumn = computed(() => {
+  if (activeCategoryId.value === 'all') return true
+  if (activeCategoryId.value.includes('rental')) return true
+  if (['mvg_moka_effect', 'mvg_mode_hoist', 'mvg_meanreal_lighting', 'mvg_gaga_laser'].includes(activeCategoryId.value)) return true
+  return filteredItems.value.some((item) => Boolean(item.brochureUrl))
+})
 </script>
 
 <template>
@@ -656,18 +664,18 @@ function toggleCubeExpand(id: string) {
 
       <!-- 3B. SPREADSHEET HEADER & KURS $ USD BANNER -->
       <section
-        v-if="currentCategory?.kursUSD || activeCategoryId === 'mvg_rental_qiangli'"
+        v-if="currentCategory || activeCategoryId === 'all'"
         class="p-3 sm:p-4 rounded-2xl border border-sky-500/30 bg-gradient-to-r from-sky-500/15 via-sky-500/5 to-transparent flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs"
       >
         <div class="space-y-1">
           <div class="flex items-center gap-2">
             <span class="inline-block w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse"></span>
             <h4 class="text-xs sm:text-sm font-black tracking-tight text-foreground uppercase">
-              PRICE LIST PRODUK LED RENTAL /METER PERSEGI
+              {{ currentCategory?.bannerTitle || currentCategory?.name || (activeCatalog === 'mvg' ? 'PRICELIST MITRA VISUAL GROUP (MVG)' : 'ASIA VISIOTRON (AV) PRICELIST') }}
             </h4>
           </div>
           <p class="text-[11px] text-muted-foreground">
-            Katalog Resmi QiangLi Rental Series Mitra Visual Group (MVG)
+            {{ currentCategory?.bannerSubtitle || currentCategory?.description || 'Katalog Resmi Mitra Visual Group & Asia Visiotron' }}
           </p>
         </div>
 
@@ -676,7 +684,9 @@ function toggleCubeExpand(id: string) {
             v-if="currentCategory?.kursUSD"
             class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-500/20 border border-sky-500/40 text-xs font-semibold text-sky-800 dark:text-sky-200"
           >
-            <span class="text-[11px] text-muted-foreground font-normal">*KURS $ Hari Ini:</span>
+            <span class="text-[11px] text-muted-foreground font-normal">
+              {{ currentCategory.kursUSD.startsWith('Rp') ? '*KURS $ Hari Ini:' : 'Info:' }}
+            </span>
             <span class="font-mono font-bold">{{ currentCategory.kursUSD }}</span>
           </div>
 
@@ -690,6 +700,28 @@ function toggleCubeExpand(id: string) {
             <FileText class="w-3.5 h-3.5 text-sky-600 dark:text-sky-400" />
             <span>Bagan Perbandingan (MAVIC / LITE / SAGA)</span>
           </Button>
+
+          <a
+            v-if="activeCategoryId === 'mvg_gaga_laser'"
+            href="https://www.youtube.com/watch?v=UkPFF6u30U4"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-rose-500/40 bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 text-xs font-semibold transition-colors"
+          >
+            <ExternalLink class="w-3.5 h-3.5" />
+            <span>Demo Showroom (YouTube)</span>
+          </a>
+
+          <a
+            v-if="activeCategoryId === 'mvg_moka_effect'"
+            href="https://www.mokalighting.com/"
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-sky-500/40 bg-sky-500/10 hover:bg-sky-500/20 text-sky-600 dark:text-sky-400 text-xs font-semibold transition-colors"
+          >
+            <ExternalLink class="w-3.5 h-3.5" />
+            <span>Website MOKA Lighting</span>
+          </a>
         </div>
       </section>
 
@@ -824,10 +856,23 @@ function toggleCubeExpand(id: string) {
                   :href="item.brochureUrl"
                   target="_blank"
                   rel="noopener"
-                  class="inline-flex items-center gap-1 text-[11px] font-semibold text-sky-600 dark:text-sky-400 hover:underline pt-1"
+                  class="inline-flex items-center gap-1 text-[11px] font-semibold hover:underline pt-1"
+                  :class="[
+                    item.brochureUrl.includes('youtube') || item.brochureUrl.includes('youtu.be')
+                      ? 'text-rose-600 dark:text-rose-400'
+                      : 'text-sky-600 dark:text-sky-400'
+                  ]"
                 >
                   <ExternalLink class="w-3 h-3" />
-                  <span>Buka Brosur Resmi (Drive PDF) ↗</span>
+                  <span>
+                    {{
+                      item.brochureUrl.includes('youtube') || item.brochureUrl.includes('youtu.be')
+                        ? 'Lihat Video Demonstrasi (YouTube) ↗'
+                        : item.brochureUrl.includes('drive.google.com') || item.brochureUrl.toLowerCase().includes('.pdf')
+                        ? 'Buka Brosur Resmi (Drive PDF) ↗'
+                        : 'Buka Tautan Resmi ↗'
+                    }}
+                  </span>
                 </a>
                 <p v-if="item.metadata?.specification && item.metadata?.specification !== item.description" class="text-[11px] text-muted-foreground line-clamp-2 mt-1 leading-tight font-mono">
                   {{ item.metadata.specification }}
@@ -1012,8 +1057,8 @@ function toggleCubeExpand(id: string) {
                         : 'Harga Satuan'
                     }}
                   </TableHead>
-                  <TableHead v-if="activeCategoryId.includes('rental')" class="w-[95px] text-center text-xs font-semibold">
-                    Brosur
+                  <TableHead v-if="hasLinkColumn" class="w-[105px] text-center text-xs font-semibold">
+                    Brosur / Link
                   </TableHead>
                 </TableRow>
               </TableHeader>
@@ -1118,13 +1163,10 @@ function toggleCubeExpand(id: string) {
                     </Badge>
                   </TableCell>
 
-                  <!-- Harga Cash (Bold Bright Red) -->
+                  <!-- Harga Cash / Satuan (Bold Bright Red) -->
                   <TableCell class="text-right">
                     <div class="space-y-0.5">
-                      <div
-                        class="text-xs sm:text-sm font-black tracking-tight"
-                        :class="item.category.includes('rental') ? 'text-rose-600 dark:text-rose-400 font-extrabold text-sm' : 'text-foreground font-bold'"
-                      >
+                      <div class="text-xs sm:text-sm font-black tracking-tight text-rose-600 dark:text-rose-400 font-extrabold">
                         {{ item.priceFormatted }}
                       </div>
                       <div
@@ -1136,17 +1178,24 @@ function toggleCubeExpand(id: string) {
                     </div>
                   </TableCell>
 
-                  <!-- Brosur Link -->
-                  <TableCell v-if="activeCategoryId.includes('rental')" class="text-center">
+                  <!-- Brosur / Video / Detail Link -->
+                  <TableCell v-if="hasLinkColumn" class="text-center">
                     <a
                       v-if="item.brochureUrl"
                       :href="item.brochureUrl"
                       target="_blank"
                       rel="noopener"
-                      class="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-sky-500/10 hover:bg-sky-500/20 text-sky-600 dark:text-sky-400 text-[10px] font-semibold border border-sky-500/30 transition-colors"
-                      title="Buka brosur resmi PDF"
+                      class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-semibold border transition-colors"
+                      :class="[
+                        item.brochureUrl.includes('youtube') || item.brochureUrl.includes('youtu.be')
+                          ? 'bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border-rose-500/30'
+                          : item.brochureUrl.includes('drive.google.com') || item.brochureUrl.toLowerCase().includes('.pdf')
+                          ? 'bg-sky-500/10 hover:bg-sky-500/20 text-sky-600 dark:text-sky-400 border-sky-500/30'
+                          : 'bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border-emerald-500/30'
+                      ]"
+                      :title="item.brochureUrl"
                     >
-                      <span>PDF</span>
+                      <span>{{ item.brochureUrl.includes('youtube') || item.brochureUrl.includes('youtu.be') ? 'Video' : item.brochureUrl.includes('drive.google.com') || item.brochureUrl.toLowerCase().includes('.pdf') ? 'PDF' : 'Link' }}</span>
                       <ExternalLink class="w-3 h-3" />
                     </a>
                     <span v-else class="text-[11px] text-muted-foreground">-</span>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="cTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#38bdf8"/><stop offset="100%" stop-color="#0284c7"/></linearGradient>
+    <linearGradient id="cLeft" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0369a1"/><stop offset="100%" stop-color="#0c4a6e"/></linearGradient>
+    <linearGradient id="cRight" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#075985"/></linearGradient>
+  </defs>
+  <rect width="500" height="500" rx="28" fill="#020617"/>
+  <!-- Isometric 3D Cube -->
+  <g transform="translate(0, -20)">
+    <!-- Top Face -->
+    <polygon points="250,90 380,165 250,240 120,165" fill="url(#cTop)" stroke="#e0f2fe" stroke-width="2"/>
+    <!-- Left Face -->
+    <polygon points="120,165 250,240 250,390 120,315" fill="url(#cLeft)" stroke="#e0f2fe" stroke-width="2"/>
+    <!-- Right Face -->
+    <polygon points="250,240 380,165 380,315 250,390" fill="url(#cRight)" stroke="#e0f2fe" stroke-width="2"/>
+  </g>
+  <text x="250" y="430" fill="#f8fafc" font-family="sans-serif" font-weight="900" font-size="17" text-anchor="middle">LED CUBE 32x32x32cm</text>
+  <text x="250" y="455" fill="#38bdf8" font-family="sans-serif" font-weight="700" font-size="12" text-anchor="middle">4-Sisi &amp; 5-Sisi Omnidirectional Display</text>
+</svg>

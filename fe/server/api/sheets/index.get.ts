@@ -21,6 +21,8 @@ export default defineEventHandler(async (event) => {
       description: cat.description,
       itemCount: items.length,
       lastUpdated: store.lastSync,
+      bannerTitle: extra.bannerTitle,
+      bannerSubtitle: extra.bannerSubtitle,
       kursUSD: extra.kursUSD,
       notes: extra.notes,
       comparisonChart: extra.comparisonChart

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <linearGradient id="lbeam" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#ef4444"/><stop offset="50%" stop-color="#22c55e"/><stop offset="100%" stop-color="#3b82f6"/></linearGradient>
+  </defs>
+  <rect width="500" height="500" rx="28" fill="#020617"/>
+  <!-- Laser Light Beams Emitter -->
+  <polygon points="250,180 50,20 450,20" fill="url(#lbeam)" opacity="0.35"/>
+  <line x1="250" y1="180" x2="100" y2="30" stroke="#ef4444" stroke-width="4"/>
+  <line x1="250" y1="180" x2="250" y2="20" stroke="#22c55e" stroke-width="4"/>
+  <line x1="250" y1="180" x2="400" y2="30" stroke="#3b82f6" stroke-width="4"/>
+  <!-- Laser Enclosure Box -->
+  <rect x="130" y="180" width="240" height="190" rx="16" fill="#1e293b" stroke="#475569" stroke-width="3"/>
+  <!-- Optical Aperture Glass -->
+  <circle cx="250" cy="240" r="35" fill="#020617" stroke="#e2e8f0" stroke-width="4"/>
+  <rect x="180" y="310" width="140" height="30" rx="6" fill="#090d16"/>
+  <text x="250" y="330" fill="#22c55e" font-family="monospace" font-size="12" text-anchor="middle">ILDA / DMX READY</text>
+  <text x="250" y="430" fill="#f8fafc" font-family="sans-serif" font-weight="900" font-size="16" text-anchor="middle">GAGA RGB LASER (3W - 40W)</text>
+</svg>
