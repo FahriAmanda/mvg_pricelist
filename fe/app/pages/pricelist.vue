@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import {
   RefreshCw,
   Search,
@@ -34,7 +34,10 @@ import {
   FileText,
   ExternalLink,
   FileDown,
-  X
+  X,
+  Images,
+  ArrowUp,
+  List
 } from '@lucide/vue'
 import { usePricelist } from '~/composables/usePricelist'
 import { useAuthStore } from '~/stores/auth'
@@ -202,10 +205,22 @@ function onCategoryMouseUp() {
 }
 
 onMounted(() => {
+  checkScreenSize()
+  if (typeof window !== 'undefined') {
+    window.addEventListener('resize', checkScreenSize)
+    window.addEventListener('scroll', handleWindowScroll, { passive: true })
+  }
   const el = categoryScrollRef.value
   if (el) {
     el.addEventListener('scroll', updateScrollButtons, { passive: true })
     updateScrollButtons()
+  }
+})
+
+onBeforeUnmount(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('resize', checkScreenSize)
+    window.removeEventListener('scroll', handleWindowScroll)
   }
 })
 
@@ -223,6 +238,31 @@ const sortSelectOptions = [
 
 // Display View Mode: 'cards' (Mobile-First default) or 'table'
 const viewMode = ref<'cards' | 'table'>('cards')
+const isMobileScreen = ref(false)
+const isCategorySheetOpen = ref(false)
+const mobileCardDensity = ref<'normal' | 'compact'>('normal')
+const showBackToTop = ref(false)
+
+function checkScreenSize() {
+  if (typeof window !== 'undefined') {
+    isMobileScreen.value = window.innerWidth < 768
+    if (isMobileScreen.value) {
+      viewMode.value = 'cards'
+    }
+  }
+}
+
+function handleWindowScroll() {
+  if (typeof window !== 'undefined') {
+    showBackToTop.value = window.scrollY > 350
+  }
+}
+
+function scrollToTop() {
+  if (typeof window !== 'undefined') {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+}
 
 // SKU clipboard feedback
 const copiedSku = ref<string | null>(null)
@@ -251,11 +291,13 @@ function formatTime(isoString: string) {
 const isLightboxOpen = ref(false)
 const lightboxImage = ref<string | null>(null)
 const lightboxTitle = ref<string | null>(null)
+const lightboxGallery = ref<string[]>([])
 
-function openImageLightbox(imgUrl?: string, title?: string) {
+function openImageLightbox(imgUrl?: string, title?: string, allImages?: string[]) {
   if (!imgUrl) return
   lightboxImage.value = imgUrl
   lightboxTitle.value = title || 'Gambar Produk'
+  lightboxGallery.value = (allImages && allImages.length > 0) ? allImages : [imgUrl]
   isLightboxOpen.value = true
 }
 
@@ -263,6 +305,7 @@ function closeImageLightbox() {
   isLightboxOpen.value = false
   lightboxImage.value = null
   lightboxTitle.value = null
+  lightboxGallery.value = []
 }
 
 // QiangLi Comparison Modal & Specifications
@@ -299,7 +342,7 @@ const hasLinkColumn = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-background text-foreground flex flex-col antialiased selection:bg-primary/20 pb-12">
+  <div class="min-h-screen bg-background text-foreground flex flex-col antialiased selection:bg-primary/20 pb-28">
     <!-- Top Sticky Navigation (Mobile-First) -->
     <header
       v-motion
@@ -309,7 +352,7 @@ const hasLinkColumn = computed(() => {
     >
       <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-2 sm:gap-4">
         <!-- Back to Gate + Logo & Title Section -->
-        <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
           <NuxtLink
             :to="`/?catalog=${activeCatalog}`"
             class="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-border/70 bg-card hover:bg-muted text-muted-foreground hover:text-foreground transition-colors shrink-0"
@@ -318,17 +361,24 @@ const hasLinkColumn = computed(() => {
             <ArrowLeft class="w-4 h-4" />
           </NuxtLink>
 
-          <div class="flex items-center justify-center h-10 sm:h-11 rounded-xl bg-card border border-border/60 shadow-xs px-2 py-1 shrink-0 overflow-hidden">
+          <div class="flex items-center justify-center h-9 sm:h-11 rounded-xl bg-card border border-border/60 shadow-xs px-1.5 sm:px-2 py-1 shrink-0 overflow-hidden">
+            <!-- Mobile Clean Icon Logo -->
+            <img
+              src="/mvg-logo.png"
+              alt="MVG"
+              class="h-6 w-6 sm:hidden object-contain"
+            />
+            <!-- Desktop Full Header Logo -->
             <img
               src="/mvg-header-logo.png"
               alt="Mitra Visual Group"
-              class="h-full w-auto object-contain dark:brightness-110"
+              class="hidden sm:block h-full w-auto object-contain dark:brightness-110"
               onerror="this.onerror=null; this.src='/mvg-logo.png';"
             />
           </div>
-          <div class="min-w-0">
-            <div class="flex items-center gap-1.5 sm:gap-2">
-              <span class="text-sm sm:text-base font-black tracking-tight text-foreground uppercase truncate">
+          <div class="shrink-0">
+            <div class="flex items-center gap-1.5">
+              <span class="text-xs sm:text-base font-black tracking-tight text-foreground uppercase whitespace-nowrap">
                 {{ activeCatalog === 'mvg' ? 'PRICELIST MVG' : 'AV PRICE LIST' }}
               </span>
               <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 shrink-0">
@@ -473,26 +523,42 @@ const hasLinkColumn = computed(() => {
         </div>
       </section>
 
-      <!-- 2. CATEGORY SWITCHER (Mobile Dropdown + Swipeable / Wrappable Pills) -->
-      <section class="space-y-2.5">
-        <!-- Mobile Dropdown Selector -->
-        <div class="sm:hidden">
-          <FieldSelect
-            v-model="activeCategoryId"
-            label="Pilih Kategori Produk"
-            :options="categorySelectOptions"
-            placeholder="Pilih Kategori..."
+      <!-- 2. CATEGORY SWITCHER (Mobile-Optimized Single Carousel + Drawer Sheet) -->
+      <section class="space-y-2">
+        <!-- Section Bar: Title & Quick Drawer Button -->
+        <div class="flex items-center justify-between px-1">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span class="text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              Kategori {{ activeCatalog === 'mvg' ? 'MVG' : 'AV' }}
+            </span>
+            <span class="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-muted text-muted-foreground">
+              {{ currentCatalogCategories.length }}
+            </span>
+          </div>
+
+          <!-- Mobile: Drawer Trigger Button -->
+          <button
+            type="button"
+            class="sm:hidden inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold bg-primary/10 text-primary hover:bg-primary/20 active:scale-95 transition-all cursor-pointer"
+            @click="isCategorySheetOpen = true"
           >
-            <template #prefix>
-              <component
-                :is="activeCategoryId === 'all' ? (activeCatalog === 'mvg' ? Sparkles : Boxes) : (categoryIcons[activeCategoryId] || Box)"
-                class="w-4 h-4 text-primary shrink-0"
-              />
-            </template>
-          </FieldSelect>
+            <LayoutGrid class="w-3.5 h-3.5" />
+            <span>Pilih Kategori ▾</span>
+          </button>
+
+          <!-- Desktop: Wrap Toggle Button -->
+          <button
+            type="button"
+            class="hidden sm:inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline cursor-pointer"
+            @click="isCategoryWrap = !isCategoryWrap"
+          >
+            <LayoutGrid class="w-3 h-3" />
+            <span>{{ isCategoryWrap ? 'Mode Geser (1 Baris)' : 'Tampilkan Semua Kategori (Buka Semua)' }}</span>
+          </button>
         </div>
 
-        <!-- Pill Bar with Scroll Controls & Wrap Toggle -->
+        <!-- Pill Bar with Scroll Controls -->
         <div class="relative group/catbar">
           <!-- Left Scroll Arrow Button (Desktop) -->
           <button
@@ -516,16 +582,16 @@ const hasLinkColumn = computed(() => {
             <ChevronRight class="w-4 h-4" />
           </button>
 
-          <!-- The Pills Container (Supports Wheel, Touch, Drag, and Toggle Wrap) -->
+          <!-- The Pills Container (Always 1 row on mobile, touch-friendly swipe) -->
           <div
             ref="categoryScrollRef"
             class="py-1 transition-all"
             :class="[
-              isCategoryWrap
+              !isMobileScreen && isCategoryWrap
                 ? 'flex flex-wrap items-center gap-2'
-                : 'flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar scroll-smooth cursor-grab active:cursor-grabbing select-none'
+                : 'flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth cursor-grab active:cursor-grabbing select-none snap-x'
             ]"
-            :style="!isCategoryWrap ? '-webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;' : ''"
+            :style="isMobileScreen || !isCategoryWrap ? '-webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;' : ''"
             @wheel="handleCategoryWheel"
             @mousedown="onCategoryMouseDown"
             @mousemove="onCategoryMouseMove"
@@ -535,25 +601,25 @@ const hasLinkColumn = computed(() => {
             <!-- 1. "SEMUA KATEGORI" PILL OPTION -->
             <button
               type="button"
-              class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-150 whitespace-nowrap border shrink-0 touch-manipulation hover:scale-[1.02] active:scale-[0.98]"
+              class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all duration-150 whitespace-nowrap border shrink-0 touch-manipulation active:scale-95 snap-start"
               :class="[
                 activeCategoryId === 'all'
                   ? (activeCatalog === 'mvg'
                       ? 'bg-amber-500 text-white border-amber-500 shadow-md shadow-amber-500/25 ring-2 ring-amber-500/30'
                       : 'bg-primary text-primary-foreground border-primary shadow-md shadow-primary/25 ring-2 ring-primary/30')
-                  : 'bg-card hover:bg-muted text-foreground border-border/80 hover:border-border'
+                  : 'bg-card hover:bg-muted text-foreground border-border/80'
               ]"
               @click="activeCategoryId = 'all'"
             >
               <component
                 :is="activeCatalog === 'mvg' ? Sparkles : Boxes"
-                class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
+                class="w-3.5 h-3.5 shrink-0"
                 :class="activeCategoryId === 'all' ? 'text-white' : (activeCatalog === 'mvg' ? 'text-amber-500' : 'text-primary')"
               />
               <span>Semua Kategori</span>
               <span
-                class="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono"
-                :class="activeCategoryId === 'all' ? 'bg-white/20 text-white' : 'bg-muted text-muted-foreground'"
+                class="px-1.5 py-0.2 rounded-full text-[10px] font-bold font-mono"
+                :class="activeCategoryId === 'all' ? 'bg-white/25 text-white' : 'bg-muted text-muted-foreground'"
               >
                 {{ totalCatalogItems }}
               </span>
@@ -564,62 +630,48 @@ const hasLinkColumn = computed(() => {
               v-for="cat in currentCatalogCategories"
               :key="cat.id"
               type="button"
-              class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 whitespace-nowrap border shrink-0 touch-manipulation hover:scale-[1.02] active:scale-[0.98]"
+              class="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all duration-150 whitespace-nowrap border shrink-0 touch-manipulation active:scale-95 snap-start"
               :class="[
                 activeCategoryId === cat.id
                   ? (activeCatalog === 'mvg'
-                      ? 'bg-amber-500 text-white border-amber-500 shadow-sm shadow-amber-500/25 ring-2 ring-amber-500/30'
-                      : 'bg-primary text-primary-foreground border-primary shadow-sm shadow-primary/25 ring-2 ring-primary/30')
-                  : 'bg-card hover:bg-muted text-foreground border-border/70 hover:border-border'
+                      ? 'bg-amber-500 text-white border-amber-500 shadow-sm shadow-amber-500/25 ring-2 ring-amber-500/30 font-bold'
+                      : 'bg-primary text-primary-foreground border-primary shadow-sm shadow-primary/25 ring-2 ring-primary/30 font-bold')
+                  : 'bg-card hover:bg-muted text-foreground border-border/70'
               ]"
               @click="activeCategoryId = cat.id"
             >
               <component
                 :is="categoryIcons[cat.id] || Box"
-                class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
+                class="w-3.5 h-3.5 shrink-0"
                 :class="activeCategoryId === cat.id ? 'text-white' : (activeCatalog === 'mvg' ? 'text-amber-500' : 'text-primary')"
               />
               <span>{{ cat.name }}</span>
               <span
                 class="px-1.5 py-0.2 rounded-full text-[10px] font-bold font-mono"
-                :class="activeCategoryId === cat.id ? 'bg-white/20 text-white' : 'bg-muted text-muted-foreground'"
+                :class="activeCategoryId === cat.id ? 'bg-white/25 text-white' : 'bg-muted text-muted-foreground'"
               >
                 {{ cat.itemCount }}
               </span>
             </button>
           </div>
-
-          <!-- Quick Toggle for View All (Wrap Mode) on the right corner -->
-          <div class="flex items-center justify-between pt-1 text-[11px] text-muted-foreground">
-            <span class="hidden sm:inline">
-              Tips: Geser mouse/trackpad atau klik tombol panah untuk melihat kategori lainnya.
-            </span>
-            <button
-              type="button"
-              class="ml-auto inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline cursor-pointer"
-              @click="isCategoryWrap = !isCategoryWrap"
-            >
-              <LayoutGrid class="w-3 h-3" />
-              <span>{{ isCategoryWrap ? 'Mode Geser (1 Baris)' : 'Tampilkan Semua Kategori (Buka Semua)' }}</span>
-            </button>
-          </div>
         </div>
       </section>
 
-      <!-- 3. SEARCH & FILTERS BAR -->
+      <!-- 3. SEARCH & FILTERS BAR (Zero Overleap, Mobile Balanced Grid) -->
       <section
         v-motion
         :initial="{ opacity: 0, y: 15 }"
         :enter="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 24, delay: 90 } }"
-        class="p-3 sm:p-4 rounded-2xl border border-border/70 bg-card shadow-xs space-y-3"
+        class="p-3 sm:p-4 rounded-2xl border border-border/70 bg-card shadow-xs space-y-2.5"
       >
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
+          <!-- Search input -->
           <div class="relative flex-1">
             <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
               v-model="searchQuery"
               placeholder="Cari SKU, nama model, pitch, ukuran..."
-              class="pl-9 h-10 text-xs sm:text-sm bg-background/80 border-border/70 focus-visible:ring-primary rounded-xl"
+              class="pl-9 h-11 sm:h-10 text-xs sm:text-sm bg-background/80 border-border/70 focus-visible:ring-primary rounded-xl"
             />
             <button
               v-if="searchQuery"
@@ -631,64 +683,114 @@ const hasLinkColumn = computed(() => {
             </button>
           </div>
 
-          <div class="flex items-center gap-2">
-            <div v-if="availableTypes.length > 0" class="flex-1 sm:flex-initial min-w-[145px] sm:min-w-[170px]">
+          <!-- Dual Filter Selects: 2-column on mobile with ZERO OVERLEAP (uses Bottom Sheet) -->
+          <div class="grid grid-cols-2 gap-2 w-full sm:flex sm:w-auto sm:items-center">
+            <div v-if="availableTypes.length > 0" class="w-full sm:min-w-[170px]">
               <FieldSelect
                 v-model="typeFilter"
                 :options="typeSelectOptions"
                 placeholder="Semua Tipe"
-                :dropdown-min-width="200"
+                label="Filter Tipe"
               />
             </div>
 
-            <div class="flex-1 sm:flex-initial min-w-[135px] sm:min-w-[155px]">
+            <div class="w-full sm:min-w-[155px]">
               <FieldSelect
                 v-model="sortBy"
                 :options="sortSelectOptions"
                 placeholder="Urutan..."
-                :dropdown-min-width="170"
+                label="Urutan Harga"
               />
             </div>
           </div>
         </div>
 
-        <div class="flex items-center justify-between text-xs text-muted-foreground pt-1 border-t border-border/40">
-          <span class="truncate font-medium">
-            {{ currentCategory?.name }}: {{ currentCategory?.description }}
-          </span>
-          <span class="font-bold shrink-0 text-foreground">
-            {{ filteredItems.length }} item
-          </span>
+        <!-- Summary Strip & Mobile Density Switcher -->
+        <div class="flex items-center justify-between text-xs text-muted-foreground pt-1.5 border-t border-border/40">
+          <div class="flex items-center gap-1.5 truncate">
+            <span class="font-bold text-foreground truncate">
+              {{ activeCategoryId === 'all' ? 'Semua Kategori' : currentCategory?.name }}
+            </span>
+            <span class="text-muted-foreground/60">•</span>
+            <span class="font-mono text-[11px] truncate">
+              {{ filteredItems.length }} item
+            </span>
+          </div>
+
+          <!-- Mobile Card View Density Switcher (Detailed vs Compact) -->
+          <div class="flex items-center gap-1.5 shrink-0">
+            <div class="sm:hidden flex items-center p-0.5 rounded-lg border border-border/80 bg-muted/40">
+              <button
+                type="button"
+                class="px-2 py-0.5 rounded text-[10px] font-bold transition-colors cursor-pointer"
+                :class="mobileCardDensity === 'normal' ? 'bg-background text-foreground shadow-2xs' : 'text-muted-foreground'"
+                @click="mobileCardDensity = 'normal'"
+              >
+                Kartu
+              </button>
+              <button
+                type="button"
+                class="px-2 py-0.5 rounded text-[10px] font-bold transition-colors cursor-pointer"
+                :class="mobileCardDensity === 'compact' ? 'bg-background text-foreground shadow-2xs' : 'text-muted-foreground'"
+                @click="mobileCardDensity = 'compact'"
+              >
+                Ringkas
+              </button>
+            </div>
+
+            <!-- Clear Search/Filter Button -->
+            <button
+              v-if="searchQuery || typeFilter !== 'ALL' || sortBy !== 'default'"
+              type="button"
+              class="text-[10px] font-bold text-rose-500 hover:underline px-1.5 py-0.5 rounded bg-rose-500/10 cursor-pointer shrink-0"
+              @click="searchQuery = ''; typeFilter = 'ALL'; sortBy = 'default'"
+            >
+              Reset
+            </button>
+          </div>
         </div>
       </section>
 
       <!-- 3B. SPREADSHEET HEADER & KURS $ USD BANNER -->
       <section
         v-if="currentCategory || activeCategoryId === 'all'"
-        class="p-3 sm:p-4 rounded-2xl border border-sky-500/30 bg-gradient-to-r from-sky-500/15 via-sky-500/5 to-transparent flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs"
+        class="rounded-2xl border border-sky-500/30 overflow-hidden shadow-xs flex flex-col bg-card/60 backdrop-blur-sm"
       >
-        <div class="space-y-1">
-          <div class="flex items-center gap-2">
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse"></span>
-            <h4 class="text-xs sm:text-sm font-black tracking-tight text-foreground uppercase">
-              {{ currentCategory?.bannerTitle || currentCategory?.name || (activeCatalog === 'mvg' ? 'PRICELIST MITRA VISUAL GROUP (MVG)' : 'ASIA VISIOTRON (AV) PRICELIST') }}
-            </h4>
-          </div>
-          <p class="text-[11px] text-muted-foreground">
-            {{ currentCategory?.bannerSubtitle || currentCategory?.description || 'Katalog Resmi Mitra Visual Group & Asia Visiotron' }}
-          </p>
+        <!-- Official Brand Graphic Banner (if available, e.g. Fabulux) -->
+        <div
+          v-if="currentCategory?.bannerImage"
+          class="w-full bg-[#0a2540] border-b border-sky-500/30 flex items-center justify-center p-1 sm:p-2"
+        >
+          <img
+            :src="currentCategory.bannerImage"
+            :alt="currentCategory.name"
+            class="max-h-16 sm:max-h-20 w-auto object-contain rounded-lg"
+          />
         </div>
 
-        <div class="flex items-center gap-2 flex-wrap">
-          <div
-            v-if="currentCategory?.kursUSD"
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-500/20 border border-sky-500/40 text-xs font-semibold text-sky-800 dark:text-sky-200"
-          >
-            <span class="text-[11px] text-muted-foreground font-normal">
-              {{ currentCategory.kursUSD.startsWith('Rp') ? '*KURS $ Hari Ini:' : 'Info:' }}
-            </span>
-            <span class="font-mono font-bold">{{ currentCategory.kursUSD }}</span>
+        <div class="p-2 sm:p-4 bg-gradient-to-r from-sky-500/15 via-sky-500/5 to-transparent flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-3">
+          <div class="space-y-0.5 sm:space-y-1 min-w-0">
+            <div class="flex items-center gap-1.5">
+              <span class="inline-block w-2 h-2 rounded-full bg-sky-500 animate-pulse shrink-0"></span>
+              <h4 class="text-xs sm:text-sm font-black tracking-tight text-foreground uppercase truncate">
+                {{ currentCategory?.bannerTitle || currentCategory?.name || (activeCatalog === 'mvg' ? 'PRICELIST MITRA VISUAL GROUP (MVG)' : 'ASIA VISIOTRON (AV) PRICELIST') }}
+              </h4>
+            </div>
+            <p class="text-[10px] sm:text-[11px] text-muted-foreground truncate hidden xs:block">
+              {{ currentCategory?.bannerSubtitle || currentCategory?.description || 'Katalog Resmi Mitra Visual Group & Asia Visiotron' }}
+            </p>
           </div>
+
+          <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap shrink-0">
+            <div
+              v-if="currentCategory?.kursUSD"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-sky-500/20 border border-sky-500/40 text-xs font-semibold text-sky-800 dark:text-sky-200"
+            >
+              <span class="text-[11px] text-muted-foreground font-normal">
+                {{ currentCategory.kursUSD.startsWith('Rp') ? '*KURS $ Hari Ini:' : 'Info:' }}
+              </span>
+              <span class="font-mono font-bold">{{ currentCategory.kursUSD }}</span>
+            </div>
 
           <Button
             v-if="activeCategoryId === 'mvg_rental_qiangli'"
@@ -723,7 +825,8 @@ const hasLinkColumn = computed(() => {
             <span>Website MOKA Lighting</span>
           </a>
         </div>
-      </section>
+      </div>
+    </section>
 
       <!-- 4. LOADING STATE -->
       <div v-if="isLoading" class="py-16 text-center space-y-3">
@@ -755,15 +858,78 @@ const hasLinkColumn = computed(() => {
 
       <!-- 6. PRODUCT LISTING -->
       <div v-else>
-        <!-- A. CARDS GRID VIEW -->
-        <div
-          v-if="viewMode === 'cards'"
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-3 sm:gap-4"
-        >
+        <!-- A. CARDS GRID VIEW (Always default on Mobile) -->
+        <div v-if="isMobileScreen || viewMode === 'cards'">
+          <!-- 1. COMPACT LIST VIEW ON MOBILE (Fast Thumb-Scanning Mode) -->
+          <div v-if="isMobileScreen && mobileCardDensity === 'compact'" class="space-y-2">
+            <div
+              v-for="(item, idx) in filteredItems"
+              :key="`compact-${item.id}`"
+              class="flex items-center gap-3 p-2.5 rounded-2xl border border-border/80 bg-card hover:bg-muted/40 transition-colors shadow-2xs active:scale-[0.99] min-h-[64px]"
+            >
+              <!-- Thumbnail 56x56 -->
+              <div
+                v-if="item.image"
+                class="w-14 h-14 shrink-0 min-w-[56px] max-w-[56px] min-h-[56px] max-h-[56px] rounded-xl bg-muted/30 border border-border/70 p-1 flex items-center justify-center cursor-pointer overflow-hidden"
+                @click="openImageLightbox(item.image, item.model, item.images)"
+              >
+                <img :src="item.image" :alt="item.model" class="w-full h-full object-contain pointer-events-none" loading="lazy" />
+              </div>
+
+              <!-- Product Details -->
+              <div class="flex-1 min-w-0 pr-1">
+                <div class="flex items-center gap-1.5 mb-0.5">
+                  <span class="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-muted text-muted-foreground shrink-0">
+                    #{{ item.no || idx + 1 }}
+                  </span>
+                  <span class="text-[9px] font-mono text-muted-foreground truncate max-w-[85px]">
+                    {{ item.sku }}
+                  </span>
+                  <span
+                    v-if="item.type"
+                    class="text-[9px] font-bold px-1.5 py-0.2 rounded-full bg-primary/10 text-primary truncate max-w-[90px]"
+                  >
+                    {{ item.type }}
+                  </span>
+                </div>
+                <h4 class="text-xs font-bold text-foreground truncate leading-tight">
+                  {{ item.model }}
+                </h4>
+                <p class="text-[10px] text-muted-foreground truncate">
+                  {{ item.size || item.description }}
+                </p>
+              </div>
+
+              <!-- Price & Link -->
+              <div class="text-right shrink-0 min-w-[105px]">
+                <div class="text-xs sm:text-sm font-black text-rose-600 dark:text-rose-400 font-mono tracking-tight">
+                  {{ item.priceFormatted }}
+                </div>
+                <div v-if="item.metadata?.hargaKreditFormatted" class="text-[9px] text-muted-foreground font-mono">
+                  Krd: {{ item.metadata.hargaKreditFormatted }}
+                </div>
+                <a
+                  v-if="item.brochureUrl || item.videoUrl"
+                  :href="item.brochureUrl || item.videoUrl"
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-block mt-0.5 text-[9px] font-bold text-sky-600 dark:text-sky-400 hover:underline"
+                >
+                  {{ item.videoUrl ? 'Video ▶' : 'Brosur ↗' }}
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. DETAILED CARD VIEW (Default) -->
           <div
-            v-for="(item, idx) in filteredItems"
-            :key="item.id"
-            v-motion
+            v-else
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-3 sm:gap-4"
+          >
+            <div
+              v-for="(item, idx) in filteredItems"
+              :key="item.id"
+              v-motion
             :initial="{ opacity: 0, y: 16, scale: 0.98 }"
             :enter="{
               opacity: 1,
@@ -828,8 +994,8 @@ const hasLinkColumn = computed(() => {
               <div
                 v-if="item.image"
                 class="relative w-full h-36 rounded-xl overflow-hidden bg-muted/20 border border-border/60 p-2 flex items-center justify-center cursor-pointer group/img hover:border-primary/60 transition-colors"
-                title="Klik untuk melihat foto modul/kabinet penuh"
-                @click="openImageLightbox(item.image, item.model)"
+                :title="item.images && item.images.length > 1 ? `Klik untuk melihat ${item.images.length} foto produk` : 'Klik untuk melihat foto modul/kabinet penuh'"
+                @click="openImageLightbox(item.image, item.model, item.images)"
               >
                 <img
                   :src="item.image"
@@ -837,10 +1003,38 @@ const hasLinkColumn = computed(() => {
                   class="max-h-full max-w-full object-contain group-hover/img:scale-105 transition-transform duration-200"
                   loading="lazy"
                 />
+
+                <!-- Multi-image badge -->
+                <div
+                  v-if="item.images && item.images.length > 1"
+                  class="absolute top-1.5 right-1.5 px-2 py-0.5 rounded-md bg-black/80 text-amber-400 text-[10px] font-bold flex items-center gap-1 shadow-xs backdrop-blur-xs border border-amber-500/30"
+                >
+                  <Images class="w-3 h-3" />
+                  <span>{{ item.images.length }} Foto</span>
+                </div>
+
                 <div class="absolute bottom-1.5 right-1.5 px-2 py-0.5 rounded-md bg-black/70 text-white text-[10px] flex items-center gap-1 opacity-80 group-hover/img:opacity-100 transition-opacity backdrop-blur-xs">
                   <ZoomIn class="w-3 h-3" />
                   <span>Lihat Foto</span>
                 </div>
+              </div>
+
+              <!-- Multi-image thumbnail strip on Card -->
+              <div
+                v-if="item.images && item.images.length > 1"
+                class="flex items-center gap-1.5 pt-0.5 overflow-x-auto no-scrollbar"
+              >
+                <button
+                  v-for="(subImg, subIdx) in item.images"
+                  :key="subIdx"
+                  type="button"
+                  class="w-8 h-8 rounded-md overflow-hidden border p-0.5 bg-muted/30 transition-all cursor-pointer flex items-center justify-center shrink-0"
+                  :class="item.image === subImg ? 'border-primary ring-1 ring-primary' : 'border-border/60 opacity-60 hover:opacity-100'"
+                  :title="`Pilih sudut foto ${subIdx + 1}`"
+                  @click.stop="item.image = subImg"
+                >
+                  <img :src="subImg" :alt="`Thumbnail ${subIdx + 1}`" class="max-h-full max-w-full object-contain" />
+                </button>
               </div>
 
               <!-- Product Name / Title -->
@@ -893,13 +1087,7 @@ const hasLinkColumn = computed(() => {
                 >
                   {{ item.metadata.curve }}
                 </span>
-                <span
-                  v-if="item.metadata?.hargaKreditFormatted"
-                  class="px-2 py-0.5 rounded-md bg-muted text-muted-foreground text-[10px] font-mono"
-                  title="Harga Kredit"
-                >
-                  Kredit: {{ item.metadata.hargaKreditFormatted }}
-                </span>
+
                 <span
                   v-if="item.metadata?.capacity"
                   class="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold"
@@ -1018,10 +1206,11 @@ const hasLinkColumn = computed(() => {
               </div>
             </div>
           </div>
+          </div>
         </div>
 
-        <!-- B. DESKTOP SPREADSHEET TABLE VIEW -->
-        <div v-else class="rounded-2xl border border-border/70 bg-card overflow-hidden shadow-xs">
+        <!-- B. DESKTOP SPREADSHEET TABLE VIEW (Desktop Only) -->
+        <div v-else-if="!isMobileScreen && viewMode === 'table'" class="rounded-2xl border border-border/70 bg-card overflow-hidden shadow-xs">
           <div class="overflow-x-auto custom-scrollbar">
             <Table>
               <TableHeader class="bg-muted/40">
@@ -1080,11 +1269,17 @@ const hasLinkColumn = computed(() => {
                   <TableCell class="text-center">
                     <div
                       v-if="item.image"
-                      class="w-12 h-12 mx-auto rounded-lg overflow-hidden bg-muted/30 border border-border/70 p-1 flex items-center justify-center cursor-pointer hover:border-primary transition-colors group/timg"
-                      title="Klik untuk memperbesar foto kabinet"
-                      @click="openImageLightbox(item.image, item.model)"
+                      class="relative w-12 h-12 mx-auto rounded-lg overflow-hidden bg-muted/30 border border-border/70 p-1 flex items-center justify-center cursor-pointer hover:border-primary transition-colors group/timg"
+                      :title="item.images && item.images.length > 1 ? `Klik untuk melihat ${item.images.length} foto produk` : 'Klik untuk memperbesar foto kabinet'"
+                      @click="openImageLightbox(item.image, item.model, item.images)"
                     >
                       <img :src="item.image" :alt="item.model" class="max-h-full max-w-full object-contain group-hover/timg:scale-110 transition-transform duration-150" loading="lazy" />
+                      <span
+                        v-if="item.images && item.images.length > 1"
+                        class="absolute bottom-0 right-0 bg-black/85 text-amber-400 text-[8px] font-bold px-1 rounded-tl border-t border-l border-amber-500/30"
+                      >
+                        {{ item.images.length }}
+                      </span>
                     </div>
                     <span v-else class="text-[11px] text-muted-foreground">-</span>
                   </TableCell>
@@ -1329,12 +1524,33 @@ const hasLinkColumn = computed(() => {
             v-if="lightboxImage"
             :src="lightboxImage"
             :alt="lightboxTitle || ''"
-            class="max-h-[65vh] max-w-full object-contain rounded-lg"
+            class="max-h-[60vh] max-w-full object-contain rounded-lg"
           />
         </div>
 
+        <!-- Multi-image gallery thumbnails -->
+        <div
+          v-if="lightboxGallery.length > 1"
+          class="flex items-center justify-center gap-2 pt-1 pb-1 overflow-x-auto no-scrollbar"
+        >
+          <button
+            v-for="(gImg, gIdx) in lightboxGallery"
+            :key="gIdx"
+            type="button"
+            class="w-14 h-14 rounded-lg overflow-hidden border-2 p-1 bg-black/30 transition-all cursor-pointer flex items-center justify-center shrink-0"
+            :class="lightboxImage === gImg ? 'border-primary ring-2 ring-primary/40' : 'border-border/60 opacity-60 hover:opacity-100'"
+            :title="`Lihat foto ${gIdx + 1}`"
+            @click="lightboxImage = gImg"
+          >
+            <img :src="gImg" :alt="`Foto ${gIdx + 1}`" class="max-h-full max-w-full object-contain" />
+          </button>
+        </div>
+
         <div class="flex items-center justify-between text-xs text-muted-foreground pt-1">
-          <span>Foto Produk Resmi QiangLi Rental</span>
+          <span v-if="lightboxGallery.length > 1">
+            Menampilkan foto {{ lightboxGallery.indexOf(lightboxImage || '') + 1 }} dari {{ lightboxGallery.length }}
+          </span>
+          <span v-else>Foto Produk Resmi</span>
           <Button variant="outline" size="sm" class="h-8 text-xs cursor-pointer" @click="closeImageLightbox">
             Tutup
           </Button>
@@ -1403,5 +1619,114 @@ const hasLinkColumn = computed(() => {
         </div>
       </div>
     </footer>
+
+    <!-- MOBILE CATEGORY SELECTION BOTTOM SHEET DRAWER -->
+    <Teleport to="body">
+      <div v-if="isCategorySheetOpen" class="fixed inset-0 z-[998] flex flex-col justify-end">
+        <!-- Backdrop -->
+        <div
+          class="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
+          @click="isCategorySheetOpen = false"
+        />
+
+        <!-- Slide-up Bottom Sheet Drawer -->
+        <div
+          class="relative z-[999] w-full max-h-[85vh] bg-card text-card-foreground rounded-t-3xl border-t border-border shadow-2xl flex flex-col p-4 animate-in slide-in-from-bottom duration-250 ease-out"
+        >
+          <!-- Pull bar handle -->
+          <div class="w-12 h-1 bg-muted-foreground/30 rounded-full mx-auto mb-3 shrink-0" />
+
+          <!-- Drawer Header -->
+          <div class="flex items-center justify-between pb-3 border-b border-border/60 shrink-0">
+            <div>
+              <h4 class="text-sm font-bold text-foreground">
+                Pilih Kategori {{ activeCatalog === 'mvg' ? 'MVG' : 'AV' }}
+              </h4>
+              <p class="text-[11px] text-muted-foreground">
+                {{ currentCatalogCategories.length }} Kategori • {{ totalCatalogItems }} Total Produk
+              </p>
+            </div>
+            <button
+              type="button"
+              class="w-8 h-8 rounded-full bg-muted/60 text-muted-foreground hover:text-foreground flex items-center justify-center cursor-pointer transition-colors"
+              @click="isCategorySheetOpen = false"
+            >
+              <X class="w-4 h-4" />
+            </button>
+          </div>
+
+          <!-- Category Options List -->
+          <div class="overflow-y-auto no-scrollbar py-3 space-y-2 flex-1 overscroll-contain">
+            <!-- 1. "Semua Kategori" Row -->
+            <button
+              type="button"
+              class="w-full min-h-[50px] flex items-center justify-between gap-3 px-4 py-3 rounded-2xl text-sm transition-all border cursor-pointer active:scale-[0.99]"
+              :class="[
+                activeCategoryId === 'all'
+                  ? 'bg-primary text-primary-foreground font-bold border-primary shadow-sm'
+                  : 'bg-muted/30 hover:bg-muted text-foreground border-transparent'
+              ]"
+              @click="activeCategoryId = 'all'; isCategorySheetOpen = false"
+            >
+              <div class="flex items-center gap-3">
+                <Sparkles class="w-5 h-5 shrink-0" />
+                <div class="text-left">
+                  <div class="font-bold">Semua Kategori</div>
+                  <div class="text-[11px] opacity-80">Tampilkan seluruh 11 kategori MVG</div>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-background/20">
+                {{ totalCatalogItems }}
+              </span>
+            </button>
+
+            <!-- 2. Individual Categories -->
+            <button
+              v-for="cat in currentCatalogCategories"
+              :key="cat.id"
+              type="button"
+              class="w-full min-h-[50px] flex items-center justify-between gap-3 px-4 py-3 rounded-2xl text-sm transition-all border cursor-pointer active:scale-[0.99]"
+              :class="[
+                activeCategoryId === cat.id
+                  ? 'bg-primary text-primary-foreground font-bold border-primary shadow-sm'
+                  : 'bg-muted/30 hover:bg-muted text-foreground border-transparent'
+              ]"
+              @click="activeCategoryId = cat.id; isCategorySheetOpen = false"
+            >
+              <div class="flex items-center gap-3">
+                <component :is="categoryIcons[cat.id] || Box" class="w-5 h-5 shrink-0" />
+                <div class="text-left">
+                  <div class="font-bold">{{ cat.name }}</div>
+                  <div class="text-[11px] opacity-80">{{ cat.description }}</div>
+                </div>
+              </div>
+              <span class="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-background/20">
+                {{ cat.itemCount }}
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </Teleport>
+
+    <!-- FLOATING BACK-TO-TOP BUTTON (MOBILE ERGONOMICS) -->
+    <transition
+      enter-active-class="transition duration-200 ease-out"
+      enter-from-class="opacity-0 translate-y-3"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-active-class="transition duration-150 ease-in"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 translate-y-3"
+    >
+      <button
+        v-if="showBackToTop"
+        type="button"
+        class="fixed bottom-6 right-5 z-40 h-11 w-11 rounded-full bg-primary text-primary-foreground shadow-lg flex items-center justify-center cursor-pointer active:scale-90 transition-transform duration-150 border border-primary/20"
+        title="Kembali ke atas"
+        @click="scrollToTop"
+      >
+        <ArrowUp class="w-5 h-5" />
+      </button>
+    </transition>
   </div>
 </template>

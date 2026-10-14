@@ -47,6 +47,13 @@ const searchQuery = ref('')
 const containerRef = ref<HTMLElement | null>(null)
 const dropdownRef = ref<HTMLElement | null>(null)
 const searchInputRef = ref<HTMLInputElement | null>(null)
+const isMobile = ref(false)
+
+function checkMobile() {
+  if (typeof window !== 'undefined') {
+    isMobile.value = window.innerWidth < 640
+  }
+}
 
 // Normalize options to uniform array of { value, label, raw }
 const normalizedOptions = computed(() => {
@@ -116,6 +123,7 @@ function toggleDropdown() {
 }
 
 function openDropdown() {
+  checkMobile()
   isOpen.value = true
   searchQuery.value = ''
   nextTick(() => {
@@ -145,6 +153,7 @@ function handleClear(e: Event) {
 
 // Click outside handler
 function handleClickOutside(e: MouseEvent) {
+  if (isMobile.value) return // Handled by backdrop on mobile
   const target = e.target as Node
   if (containerRef.value && !containerRef.value.contains(target)) {
     closeDropdown()
@@ -159,11 +168,16 @@ function handleKeyDown(e: KeyboardEvent) {
 }
 
 onMounted(() => {
+  checkMobile()
+  window.addEventListener('resize', checkMobile)
   document.addEventListener('pointerdown', handleClickOutside)
   document.addEventListener('keydown', handleKeyDown)
 })
 
 onBeforeUnmount(() => {
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('resize', checkMobile)
+  }
   document.removeEventListener('pointerdown', handleClickOutside)
   document.removeEventListener('keydown', handleKeyDown)
 })
@@ -217,7 +231,89 @@ onBeforeUnmount(() => {
       </div>
     </button>
 
-    <!-- Custom Floating Dropdown Menu (No Native OS Popover!) -->
+    <!-- 1. MOBILE BOTTOM SHEET (Zero Overleap, Thumb-Friendly, Teleported to Body) -->
+    <Teleport to="body">
+      <div v-if="isOpen && isMobile" class="fixed inset-0 z-[999] flex flex-col justify-end">
+        <!-- Backdrop -->
+        <div
+          class="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
+          @click="closeDropdown"
+        />
+
+        <!-- Slide-up Bottom Sheet Drawer -->
+        <div
+          class="relative z-[1000] w-full max-h-[82vh] bg-card text-card-foreground rounded-t-3xl border-t border-border/80 shadow-2xl flex flex-col p-4 animate-in slide-in-from-bottom duration-250 ease-out"
+        >
+          <!-- Pull bar handle -->
+          <div class="w-12 h-1 bg-muted-foreground/30 rounded-full mx-auto mb-3 shrink-0" />
+
+          <!-- Drawer Header -->
+          <div class="flex items-center justify-between pb-3 border-b border-border/60 shrink-0">
+            <div>
+              <h4 class="text-sm font-bold text-foreground">
+                {{ props.label || props.placeholder || 'Pilih Opsi' }}
+              </h4>
+              <p class="text-[11px] text-muted-foreground">
+                {{ filteredOptions.length }} pilihan tersedia
+              </p>
+            </div>
+            <button
+              type="button"
+              class="w-8 h-8 rounded-full bg-muted/60 text-muted-foreground hover:text-foreground flex items-center justify-center cursor-pointer transition-colors"
+              @click="closeDropdown"
+            >
+              <X class="w-4 h-4" />
+            </button>
+          </div>
+
+          <!-- Search Input Bar (if searchable) -->
+          <div v-if="isSearchable" class="pt-3 pb-2 shrink-0">
+            <div class="relative flex items-center">
+              <Search class="absolute left-3 w-4 h-4 text-muted-foreground pointer-events-none" />
+              <input
+                ref="searchInputRef"
+                v-model="searchQuery"
+                type="text"
+                placeholder="Ketik untuk mencari..."
+                class="w-full h-11 pl-9 pr-3 text-sm rounded-xl border border-border/80 bg-background text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+                @keydown.stop
+              />
+            </div>
+          </div>
+
+          <!-- Mobile Options List (Thumb-friendly 48px row targets) -->
+          <div class="overflow-y-auto no-scrollbar py-2 space-y-1.5 flex-1 overscroll-contain">
+            <div
+              v-if="filteredOptions.length === 0"
+              class="py-8 text-center text-xs text-muted-foreground"
+            >
+              {{ searchQuery ? 'Tidak ada hasil yang cocok' : 'Tidak ada pilihan' }}
+            </div>
+
+            <button
+              v-for="opt in filteredOptions"
+              :key="opt.value"
+              type="button"
+              class="w-full min-h-[48px] flex items-center justify-between gap-3 px-4 py-3 rounded-xl text-sm transition-all text-left border cursor-pointer active:scale-[0.99]"
+              :class="[
+                opt.value === String(props.modelValue)
+                  ? 'bg-primary text-primary-foreground font-bold border-primary shadow-sm'
+                  : 'bg-muted/30 hover:bg-muted text-foreground border-transparent'
+              ]"
+              @click="selectOption(opt)"
+            >
+              <span class="truncate flex-1">{{ opt.label }}</span>
+              <Check
+                v-if="opt.value === String(props.modelValue)"
+                class="w-4 h-4 shrink-0 text-primary-foreground"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+    </Teleport>
+
+    <!-- 2. DESKTOP FLOATING DROPDOWN (Clamped Width, No Screen Bleed) -->
     <transition
       enter-active-class="transition duration-150 ease-out"
       enter-from-class="transform scale-95 opacity-0 -translate-y-1"
@@ -227,9 +323,9 @@ onBeforeUnmount(() => {
       leave-to-class="transform scale-95 opacity-0 -translate-y-1"
     >
       <div
-        v-if="isOpen"
+        v-if="isOpen && !isMobile"
         ref="dropdownRef"
-        class="absolute left-0 right-0 z-50 mt-1.5 rounded-xl border border-border/80 bg-popover text-popover-foreground shadow-xl overflow-hidden focus:outline-none"
+        class="absolute left-0 z-50 mt-1.5 rounded-xl border border-border/80 bg-popover text-popover-foreground shadow-xl overflow-hidden focus:outline-none max-w-[calc(100vw-32px)]"
         :style="{ minWidth: `${Math.max(props.dropdownMinWidth, 160)}px` }"
       >
         <!-- Search Input Bar (if searchable) -->
@@ -260,7 +356,7 @@ onBeforeUnmount(() => {
             v-for="opt in filteredOptions"
             :key="opt.value"
             type="button"
-            class="w-full flex items-center justify-between gap-2 px-3 py-2 text-xs rounded-lg transition-colors text-left"
+            class="w-full flex items-center justify-between gap-2 px-3 py-2 text-xs rounded-lg transition-colors text-left cursor-pointer"
             :class="[
               opt.value === String(props.modelValue)
                 ? 'bg-primary text-primary-foreground font-semibold shadow-2xs'

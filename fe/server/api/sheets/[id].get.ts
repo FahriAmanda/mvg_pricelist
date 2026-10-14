@@ -29,6 +29,7 @@ export default defineEventHandler(async (event) => {
     hash: store.contentHash,
     bannerTitle: extra.bannerTitle,
     bannerSubtitle: extra.bannerSubtitle,
+    bannerImage: extra.bannerImage,
     kursUSD: extra.kursUSD,
     notes: extra.notes,
     comparisonChart: extra.comparisonChart

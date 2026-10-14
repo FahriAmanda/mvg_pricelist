@@ -207,6 +207,7 @@ export function formatRupiah(num: number): string {
 export interface CategoryExtra {
   bannerTitle?: string
   bannerSubtitle?: string
+  bannerImage?: string
   kursUSD?: string
   notes?: string[]
   comparisonChart?: string
@@ -228,7 +229,8 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
   mvg_rental_fabulux: {
     bannerTitle: 'PRICE LIST PRODUK LED RENTAL /METER PERSEGI',
     bannerSubtitle: 'Katalog Resmi Fabulux Rental Series Mitra Visual Group (MVG)',
-    kursUSD: 'Rp18.062',
+    bannerImage: '/images/products/fabulux-banner.png',
+    kursUSD: 'Rp18.064',
     notes: [
       '1. Harga sudah termasuk (Flightcase ABS, Cabling, Clamp dan sparepart 2%)',
       '2. Harga belum termasuk Video Prosesor Colorlight / Novastar',
@@ -238,16 +240,18 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
   mvg_rental_maven: {
     bannerTitle: 'PRICE LIST PRODUK LED RENTAL /METER PERSEGI',
     bannerSubtitle: 'Katalog Resmi Unilumin Lampro Maven & LRS Rental Series MVG',
-    kursUSD: 'Rp18.062',
+    bannerImage: '/images/products/unilumin-banner.png',
+    kursUSD: 'Rp18.068',
     notes: [
-      '1. Harga sudah termasuk (Flightcase ABS, Cabling, Clamp dan sparepart 2%)',
+      '1. Harga sudah termasuk (Fligthcase ABS, Cabeling, Clamp dan sparepart 2%)',
       '2. Harga belum termasuk Video Prosesor',
-      '3. Harga FOB pengiriman dari Jakarta dan Surabaya'
+      '3. Harga FOB pengirman dari Jakarta dan Surabaya'
     ]
   },
   mvg_moka_effect: {
-    bannerTitle: 'MOKA SFX SPECIAL EFFECTS & STAGE ATMOSPHERE',
+    bannerTitle: 'PRICE LIST PRODUK MOKA SFX & SPECIAL EFFECTS',
     bannerSubtitle: 'Katalog Efek Panggung CO2 Cannon, Double Jet, Cold Sparkle & Flame MVG',
+    bannerImage: '/images/products/moka-banner.png',
     kursUSD: '*Harga Mengikuti Kurs $ USD',
     notes: [
       '1. Website resmi: www.mokalighting.com (Distributor Resmi Indonesia)',
@@ -258,6 +262,7 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
   mvg_mode_hoist: {
     bannerTitle: 'PRICE LIST MODE HOIST RIGGING & MOTOR STAGING',
     bannerSubtitle: 'Katalog Electric Hoist 1T/2T, Battery Free Hoist & Group Controller MVG',
+    bannerImage: '/images/products/mode-banner.png',
     kursUSD: '*Harga Mengikuti Kurs $ USD',
     notes: [
       '1. Harga sudah termasuk Flight Case & Double Brake (Dual Braking System)',
@@ -268,6 +273,7 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
   mvg_meanreal_lighting: {
     bannerTitle: 'MEANREAL PROFESSIONAL STAGE LIGHTING & CONSOLE',
     bannerSubtitle: 'Katalog Moving Head BSW 550, Super Beam, ALED, Follow Spot & Lighting Console',
+    bannerImage: '/images/products/meanreal-banner.png',
     kursUSD: '*Harga Mengikuti Kurs $ USD',
     notes: [
       '1. Free: High Quality Flightcase 2 in 1 & Folding Clamp untuk Moving Head',
@@ -278,6 +284,7 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
   mvg_alumino: {
     bannerTitle: 'ALUMINO RIGGING TRUSS 6082-T6 & STAGING SYSTEM',
     bannerSubtitle: 'Katalog Bolt Truss 300/400/450/600, Box Connector, Sleeve Block & Stage Stand',
+    bannerImage: '/images/products/alumino-banner.png',
     kursUSD: 'Alloy 6082-T6',
     notes: [
       '1. Material: Aluminum Alloy 6082-T6 standar internasional rigging & trussing',
@@ -288,6 +295,8 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
   mvg_ringlock: {
     bannerTitle: 'PRICE LIST RINGLOCK SCAFFOLDING GALVANIS Q335',
     bannerSubtitle: 'Katalog Scaffolding Standar Internasional Paket Komplit 2x2x2m & Eceran MVG',
+    bannerImage: '/images/products/ringlock-banner.png',
+    comparisonChart: '/images/products/ringlock/ringlock-structure-diagram.png',
     kursUSD: 'Galvanis Q335',
     notes: [
       '1. Material: Iron Q335 Hot-Dip Galvanizing anti karat & cuaca ekstrem',
@@ -298,6 +307,7 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
   mvg_gaga_laser: {
     bannerTitle: 'GAGA RGB LASER STAGE LIGHT FOR PROFESSIONAL EVENT',
     bannerSubtitle: 'Katalog Laser RGB 3W - 40W Waterproof & Pangolin Quickshow FB3/FB4 ILDA',
+    bannerImage: '/images/products/gaga-banner.png',
     kursUSD: '*Harga Mengikuti Kurs $ USD',
     notes: [
       '1. Garansi resmi profesional event laser & software Pangolin QuickShow Original (Dongle)',
@@ -308,6 +318,7 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
   mvg_mojo_barrier: {
     bannerTitle: 'ALUMINUM MOJO CROWD CONTROL BARRIER QUICK LOCK',
     bannerSubtitle: 'Katalog Pembatas Penonton Konser & Event Aluminium Heavy-Duty MVG',
+    bannerImage: '/images/products/mojo-banner.png',
     kursUSD: 'Alloy 6082-T6',
     notes: [
       '1. Material: Aluminum Alloy 6082-T6 Quick Lock System tahan beban tinggi',
@@ -318,6 +329,7 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
   mvg_aksesoris_rental: {
     bannerTitle: 'AKSESORIS & POWER DISTRIBUTION VIDEOTRON RENTAL',
     bannerSubtitle: 'Katalog Panel Listrik 3-Phase, PowerCON, Cat6, Clamps & Armored Fiber Optic',
+    bannerImage: '/images/products/aksesoris-banner.png',
     kursUSD: 'RoHS Compliant',
     notes: [
       '1. Power Distribution Panel 3-Phase dilengkapi MCB individual & digital meter',
@@ -473,6 +485,85 @@ export function broadcastSSE(event: string, payload: any) {
 }
 
 
+const MOKA_IMAGES: Record<string, string> = {
+  'sfx-moka-2cm-5m-24pcs': '/images/products/moka/sfx-moka-2cm-5m-24pcs.jpg',
+  'sfx-moka-bt-10w-flight-case': '/images/products/moka/sfx-moka-bt-10w-flight-case.jpg',
+  'sfx-moka-bubble-liquid': '/images/products/moka/sfx-moka-bubble-liquid.jpg',
+  'sfx-moka-h-c01': '/images/products/moka/sfx-moka-h-c01.jpg',
+  'sfx-moka-h-c03': '/images/products/moka/sfx-moka-h-c03.webp',
+  'sfx-moka-h-c04': '/images/products/moka/sfx-moka-h-c04.jpg',
+  'sfx-moka-h-c06': '/images/products/moka/sfx-moka-h-c06.jpg',
+  'sfx-moka-h-c08': '/images/products/moka/sfx-moka-h-c08.jpg',
+  'sfx-moka-h-d4000': '/images/products/moka/sfx-moka-h-d4000.jpg',
+  'sfx-moka-h-e01': '/images/products/moka/sfx-moka-h-e01.webp',
+  'sfx-moka-h-e01a': '/images/products/moka/sfx-moka-h-e01a.jpg',
+  'sfx-moka-h-e03': '/images/products/moka/sfx-moka-h-e03.webp',
+  'sfx-moka-h-e04': '/images/products/moka/sfx-moka-h-e04.webp',
+  'sfx-moka-h-f01': '/images/products/moka/sfx-moka-h-f01.webp',
+  'sfx-moka-h-f02': '/images/products/moka/sfx-moka-h-f02.jpg',
+  'sfx-moka-h-s03': '/images/products/moka/sfx-moka-h-s03.jpg',
+  'sfx-moka-h-s04': '/images/products/moka/sfx-moka-h-s04.jpg',
+  'sfx-moka-h-s06': '/images/products/moka/sfx-moka-h-s06.jpg',
+  'sfx-moka-haze-liquid-oil-base': '/images/products/moka/sfx-moka-haze-liquid-oil-base.webp',
+  'sfx-moka-low-fog-liquid': '/images/products/moka/sfx-moka-low-fog-liquid.webp',
+  'sfx-moka-metallic-confetti-golden': '/images/products/moka/sfx-moka-metallic-confetti-golden.jpg',
+  'sfx-moka-metallic-confetti-silver': '/images/products/moka/sfx-moka-metallic-confetti-silver.jpg',
+  'sfx-moka-mini-10w-flight-case': '/images/products/moka/sfx-moka-mini-10w-flight-case.jpg',
+  'sfx-moka-mini-console-4way': '/images/products/moka/sfx-moka-mini-console-4way.jpg',
+  'sfx-moka-mk-11a': '/images/products/moka/sfx-moka-mk-11a.webp',
+  'sfx-moka-mk-80cm': '/images/products/moka/sfx-moka-mk-80cm.webp',
+  'sfx-moka-mk-b12': '/images/products/moka/sfx-moka-mk-b12.jpg',
+  'sfx-moka-mk-b13': '/images/products/moka/sfx-moka-mk-b13.jpg',
+  'sfx-moka-mk-b16': '/images/products/moka/sfx-moka-mk-b16.jpg',
+  'sfx-moka-mk-c05': '/images/products/moka/sfx-moka-mk-c05.jpg',
+  'sfx-moka-mk-c07': '/images/products/moka/sfx-moka-mk-c07.webp',
+  'sfx-moka-mk-c09': '/images/products/moka/sfx-moka-mk-c09.webp',
+  'sfx-moka-mk-c10a': '/images/products/moka/sfx-moka-mk-c10a.jpg',
+  'sfx-moka-mk-c12': '/images/products/moka/sfx-moka-mk-c12.webp',
+  'sfx-moka-mk-c14': '/images/products/moka/sfx-moka-mk-c14.webp',
+  'sfx-moka-mk-cmp1': '/images/products/moka/sfx-moka-mk-cmp1.jpg',
+  'sfx-moka-mk-cn02': '/images/products/moka/sfx-moka-mk-cn02.jpg',
+  'sfx-moka-mk-cn03': '/images/products/moka/sfx-moka-mk-cn03.webp',
+  'sfx-moka-mk-cn04': '/images/products/moka/sfx-moka-mk-cn04.webp',
+  'sfx-moka-mk-cn05a': '/images/products/moka/sfx-moka-mk-cn05a.webp',
+  'sfx-moka-mk-cn06a': '/images/products/moka/sfx-moka-mk-cn06a.jpg',
+  'sfx-moka-mk-cn11': '/images/products/moka/sfx-moka-mk-cn11.jpg',
+  'sfx-moka-mk-cn13': '/images/products/moka/sfx-moka-mk-cn13.jpg',
+  'sfx-moka-mk-cn16': '/images/products/moka/sfx-moka-mk-cn16.jpg',
+  'sfx-moka-mk-cn18': '/images/products/moka/sfx-moka-mk-cn18.jpg',
+  'sfx-moka-mk-cs23': '/images/products/moka/sfx-moka-mk-cs23.jpg',
+  'sfx-moka-mk-e15': '/images/products/moka/sfx-moka-mk-e15.jpg',
+  'sfx-moka-mk-e18': '/images/products/moka/sfx-moka-mk-e18.webp',
+  'sfx-moka-mk-e22': '/images/products/moka/sfx-moka-mk-e22.jpg',
+  'sfx-moka-mk-e25': '/images/products/moka/sfx-moka-mk-e25.jpg',
+  'sfx-moka-mk-e26': '/images/products/moka/sfx-moka-mk-e26.jpg',
+  'sfx-moka-mk-e27': '/images/products/moka/sfx-moka-mk-e27.jpg',
+  'sfx-moka-mk-e29': '/images/products/moka/sfx-moka-mk-e29.webp',
+  'sfx-moka-mk-f01': '/images/products/moka/sfx-moka-mk-f01.webp',
+  'sfx-moka-mk-f02': '/images/products/moka/sfx-moka-mk-f02.jpg',
+  'sfx-moka-mk-f05': '/images/products/moka/sfx-moka-mk-f05.webp',
+  'sfx-moka-mk-f07': '/images/products/moka/sfx-moka-mk-f07.webp',
+  'sfx-moka-mk-f11': '/images/products/moka/sfx-moka-mk-f11.jpg',
+  'sfx-moka-mk-f11a': '/images/products/moka/sfx-moka-mk-f11a.webp',
+  'sfx-moka-mk-f12': '/images/products/moka/sfx-moka-mk-f12.webp',
+  'sfx-moka-mk-f13': '/images/products/moka/sfx-moka-mk-f13.jpg',
+  'sfx-moka-mk-f14a': '/images/products/moka/sfx-moka-mk-f14a.webp',
+  'sfx-moka-mk-f18a': '/images/products/moka/sfx-moka-mk-f18a.jpg',
+  'sfx-moka-mk-f20': '/images/products/moka/sfx-moka-mk-f20.webp',
+  'sfx-moka-mk-f23': '/images/products/moka/sfx-moka-mk-f23.webp',
+  'sfx-moka-mk-f24': '/images/products/moka/sfx-moka-mk-f24.webp',
+  'sfx-moka-mk-lsp20': '/images/products/moka/sfx-moka-mk-lsp20.jpg',
+  'sfx-moka-pf-1800': '/images/products/moka/sfx-moka-pf-1800.webp',
+  'sfx-moka-pf-800': '/images/products/moka/sfx-moka-pf-800.jpg',
+  'sfx-moka-powder-100bags-outdoor': '/images/products/moka/sfx-moka-powder-100bags-outdoor.jpg',
+  'sfx-moka-pro-morning-haze-liquid': '/images/products/moka/sfx-moka-pro-morning-haze-liquid.webp',
+  'sfx-moka-quick-smoke-liquid': '/images/products/moka/sfx-moka-quick-smoke-liquid.jpg',
+  'sfx-moka-red-power-button': '/images/products/moka/sfx-moka-red-power-button.jpg',
+  'sfx-moka-slowfall-confetti-multicolor': '/images/products/moka/sfx-moka-slowfall-confetti-multicolor.jpg',
+  'sfx-moka-smoke-liquid-4l': '/images/products/moka/sfx-moka-smoke-liquid-4l.jpg',
+  'sfx-moka-snow-liquid': '/images/products/moka/sfx-moka-snow-liquid.jpg',
+}
+
 const HOIST_LINKS: Record<string, string> = {
   '1': 'https://drive.google.com/file/d/1oPSIiU2h_ZGvTeagTMDn-dSgoWR6fNYf/view?usp=drive_link',
   '2': 'https://drive.google.com/file/d/1Khh6j-Oax6XYF4Oimvuob9uRzY8MIO7F/view?usp=drive_link',
@@ -598,6 +689,50 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
 
         let model = `${brand} ${rawType}`.trim()
         if (size) model += ` (${size})`
+
+        let displayDesc =
+          desc ||
+          `${brand} ${rawType} ${size ? 'Size: ' + size : ''} ${
+            curve ? 'Curve: ' + curve : ''
+          }`.trim()
+
+        if (categoryId === 'mvg_rental_fabulux') {
+          const brandLower = brand.toLowerCase()
+          const typeLower = rawType.toLowerCase()
+
+          let lampTag = ''
+          if (brandLower.includes('white lamp')) lampTag = '(White Lamp)'
+          else if (brandLower.includes('black lamp')) lampTag = '(Black Lamp)'
+          else if (brandLower.includes('4in1')) lampTag = '(4in1 Lamp)'
+
+          if (typeLower.includes('hanging') || typeLower.includes('base')) {
+            model = `Fabulux ${rawType} (${size})`
+            displayDesc = `Fabulux 2 in 1 Hanging Beam Bar & Ground Support Base Length: ${size}`
+          } else {
+            model = `Fabulux ${lampTag ? lampTag + ' ' : ''}${rawType} (${size})`.trim()
+            if (typeLower.includes('vr corner')) {
+              displayDesc = `Fabulux ${rawType} ${lampTag} Curve 90° Seamless Corner Size: ${size}`
+            } else if (typeLower.includes('master plus')) {
+              displayDesc = `Fabulux ${rawType} ${lampTag} Curve Rental Cabinet Size: ${size}`
+            } else if (typeLower.includes('alpha')) {
+              displayDesc = `Fabulux ${rawType} IMD 4in1 Lamp High Definition Indoor Rental Size: ${size}`
+            } else if (typeLower.includes('spider max')) {
+              displayDesc = `Fabulux ${rawType} Lightweight Indoor Rental Curve Cabinet Size: ${size}`
+            }
+          }
+        } else if (categoryId === 'mvg_rental_maven') {
+          const typeLower = rawType.toLowerCase()
+
+          model = `Unilumin Lampro ${rawType} (${size})`
+          if (typeLower.includes('maven')) {
+            displayDesc = `Unilumin Lampro Maven P3.9 Outdoor Flat Rental Cabinet Size: ${size}`
+          } else if (typeLower.includes('e-corner')) {
+            displayDesc = `Unilumin Lampro LRS P2.6 Indoor Curve 90° Seamless Corner Size: ${size}`
+          } else {
+            displayDesc = `Unilumin Lampro LRS P2.6 Indoor High Refresh Rate Curve Cabinet Size: ${size}`
+          }
+        }
+
         const typeBadge =
           curve && curve !== '-'
             ? curve.toLowerCase().includes('no')
@@ -643,26 +778,35 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
             brochureUrl = 'https://drive.google.com/file/d/1I6rp6EcgMZig01zL5m0IxeqyvFBfEM9O/view?usp=sharing'
           }
         } else if (categoryId === 'mvg_rental_fabulux') {
-          const lower = (rawType + ' ' + desc).toLowerCase()
-          if (lower.includes('alpha')) {
-            productImage = '/images/products/fabulux-alpha.svg'
+          const brandLower = brand.toLowerCase()
+          const typeLower = rawType.toLowerCase()
+
+          if (brandLower.includes('white lamp')) {
+            productImage = '/images/products/fabulux-master-plus-white.png'
+            brochureUrl = 'https://drive.google.com/file/d/1ZZwDyEdpidGwDsyQMO9wL16DNelr_adH/view?usp=drive_link'
+          } else if (brandLower.includes('black lamp')) {
+            productImage = '/images/products/fabulux-master-plus-black.png'
+            brochureUrl = 'https://drive.google.com/file/d/1ZZwDyEdpidGwDsyQMO9wL16DNelr_adH/view?usp=drive_link'
+          } else if (typeLower.includes('alpha') || brandLower.includes('4in1')) {
+            productImage = '/images/products/fabulux-alpha-indoor.png'
             brochureUrl = 'https://drive.google.com/file/d/1vZei59qgFOxooOqKxyGY6kKnwiguCK6S/view?usp=drive_link'
-          } else if (lower.includes('spider')) {
-            productImage = '/images/products/fabulux-spider-max.svg'
+          } else if (typeLower.includes('spider')) {
+            productImage = '/images/products/fabulux-spider-max.png'
             brochureUrl = 'https://drive.google.com/file/d/1N2wMOUfsXdRHqwCj0kUMFcxE_fsSTr22/view?usp=drive_link'
-          } else if (lower.includes('hanging') || lower.includes('base')) {
-            productImage = '/images/products/fabulux-hanging-bar.svg'
+          } else if (typeLower.includes('hanging') || typeLower.includes('base')) {
+            productImage = '/images/products/fabulux-hanging-bar.png'
+            brochureUrl = undefined
           } else {
-            productImage = '/images/products/fabulux-master-plus.svg'
+            productImage = '/images/products/fabulux-master-plus-white.png'
             brochureUrl = 'https://drive.google.com/file/d/1ZZwDyEdpidGwDsyQMO9wL16DNelr_adH/view?usp=drive_link'
           }
         } else if (categoryId === 'mvg_rental_maven') {
-          const lower = (rawType + ' ' + desc).toLowerCase()
-          if (lower.includes('lrs')) {
-            productImage = '/images/products/unilumin-lrs-p26.svg'
+          const typeLower = rawType.toLowerCase()
+          if (typeLower.includes('lrs') || typeLower.includes('e-corner')) {
+            productImage = '/images/products/unilumin-lrs-p26.png'
             brochureUrl = 'https://drive.google.com/file/d/1wnannEXIUkW3_7NoYR-JLaPST505yjpz/view?usp=drive_link'
           } else {
-            productImage = '/images/products/maven-p39-outdoor.svg'
+            productImage = '/images/products/maven-p39-outdoor.png'
             brochureUrl = 'https://drive.google.com/file/d/1M7gDilXYAz21m1xrPitLxgzwfeepOpuj/view?usp=drive_link'
           }
         }
@@ -674,11 +818,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           catalog: 'mvg',
           model,
           type: typeBadge,
-          description:
-            desc ||
-            `${brand} ${rawType} ${size ? 'Size: ' + size : ''} ${
-              curve ? 'Curve: ' + curve : ''
-            }`.trim(),
+          description: displayDesc,
           size,
           price,
           priceFormatted: formatRupiah(price),
@@ -706,7 +846,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // ==========================================
     case 'mvg_moka_effect': {
       let seq = 0
-      for (let i = 3; i < rows.length; i++) {
+      for (let i = 2; i < rows.length; i++) {
         const r = rows[i]
         if (!r || !r.length) continue
         const code = r[0]?.trim() || ''
@@ -719,11 +859,9 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         if (!title && !sku) continue
         seq++
 
-        const lower = (title + ' ' + desc).toLowerCase()
-        let productImage = '/images/products/moka-co2-cannon.svg'
-        if (lower.includes('spark') || lower.includes('powder') || lower.includes('firework')) {
-          productImage = '/images/products/moka-cold-spark.svg'
-        }
+        const skuKey = sku.toLowerCase()
+        const codeKey = code ? `sfx-moka-${code.toLowerCase()}` : ''
+        const productImage = MOKA_IMAGES[skuKey] || MOKA_IMAGES[codeKey] || '/images/products/moka/sfx-moka-mk-c09.webp'
 
         items.push({
           id: `${categoryId}-${seq}`,
@@ -755,7 +893,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // ==========================================
     case 'mvg_mode_hoist': {
       let seq = 0
-      for (let i = 3; i < rows.length; i++) {
+      for (let i = 2; i < rows.length; i++) {
         const r = rows[i]
         if (!r || !r.length) continue
         const noVal = r[0]?.trim() || ''
@@ -787,17 +925,67 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           ? 'Manual'
           : 'Accessory'
 
-        const lower = model.toLowerCase()
-        let productImage = '/images/products/hoist-electric-611.svg'
-        if (
-          lower.includes('controller') ||
-          lower.includes('cable') ||
-          lower.includes('shackle') ||
-          lower.includes('sling') ||
-          lower.includes('router') ||
-          lower.includes('battery')
-        ) {
-          productImage = '/images/products/acc-power-distribution.svg'
+        // Map exact photos from the spreadsheet (including multiple angle pictures)
+        let productImage = '/images/products/hoist/hoist-electric-unit.png'
+        let productImages: string[] = []
+
+        if (noVal === '1' || noVal === '2') {
+          // Electric Hoist 611 1T / 2T (3 pictures)
+          productImage = '/images/products/hoist/hoist-electric-unit.png'
+          productImages = [
+            '/images/products/hoist/hoist-electric-unit.png',
+            '/images/products/hoist/hoist-electric-case.png',
+            '/images/products/hoist/hoist-electric-chain.png'
+          ]
+        } else if (noVal === '3' || noVal === '4') {
+          // Battery / Free Hoist 1T (3 pictures)
+          productImage = '/images/products/hoist/hoist-battery-unit.png'
+          productImages = [
+            '/images/products/hoist/hoist-battery-unit.png',
+            '/images/products/hoist/hoist-battery-pack.png',
+            '/images/products/hoist/hoist-battery-case.png'
+          ]
+        } else if (noVal === '5') {
+          // Manual Hoist 1T (3 pictures)
+          productImage = '/images/products/hoist/hoist-manual-unit-1t.png'
+          productImages = [
+            '/images/products/hoist/hoist-manual-unit-1t.png',
+            '/images/products/hoist/hoist-manual-chain.png',
+            '/images/products/hoist/hoist-manual-case.png'
+          ]
+        } else if (noVal === '6') {
+          // Manual Hoist 2T (3 pictures)
+          productImage = '/images/products/hoist/hoist-manual-unit-2t.png'
+          productImages = [
+            '/images/products/hoist/hoist-manual-unit-2t.png',
+            '/images/products/hoist/hoist-manual-chain.png',
+            '/images/products/hoist/hoist-manual-case.png'
+          ]
+        } else if (noVal === '7') {
+          // 8CH Flight Case Group Controller (2 pictures)
+          productImage = '/images/products/hoist/hoist-controller-panel.png'
+          productImages = [
+            '/images/products/hoist/hoist-controller-panel.png',
+            '/images/products/hoist/hoist-controller-remote.png'
+          ]
+        } else if (noVal === '8') {
+          productImage = '/images/products/hoist/hoist-main-cable.png'
+          productImages = ['/images/products/hoist/hoist-main-cable.png']
+        } else if (noVal === '9') {
+          productImage = '/images/products/hoist/hoist-motor-cable.png'
+          productImages = ['/images/products/hoist/hoist-motor-cable.png']
+        } else if (noVal === '10') {
+          productImage = '/images/products/hoist/hoist-shackle.png'
+          productImages = ['/images/products/hoist/hoist-shackle.png']
+        } else if (noVal === '11') {
+          productImage = '/images/products/hoist/hoist-round-sling.png'
+          productImages = ['/images/products/hoist/hoist-round-sling.png']
+        } else if (noVal === '12') {
+          productImage = '/images/products/hoist/hoist-router.png'
+          productImages = ['/images/products/hoist/hoist-router.png']
+        } else if (noVal === '13') {
+          productImage = '/images/products/hoist/hoist-spare-battery.png'
+          productImages = ['/images/products/hoist/hoist-spare-battery.png']
         }
 
         items.push({
@@ -812,11 +1000,13 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           priceFormatted: formatRupiah(price),
           sku: `HOIST-MD-${noVal}`,
           image: productImage,
+          images: productImages.length > 0 ? productImages : undefined,
           brochureUrl: (link && (link.startsWith('http://') || link.startsWith('https://'))) ? link : (HOIST_LINKS[noVal] || undefined),
           metadata: {
             specLines: lines,
             capacity: cap,
             liftingHeight: height,
+            images: productImages,
             videoUrl: link,
             no: seq
           },
@@ -831,7 +1021,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // ==========================================
     case 'mvg_meanreal_lighting': {
       let seq = 0
-      for (let i = 3; i < rows.length; i++) {
+      for (let i = 2; i < rows.length; i++) {
         const r = rows[i]
         if (!r || !r.length) continue
         const noVal = r[0]?.trim() || ''
@@ -870,7 +1060,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku: `MRL-LT-${noVal || seq}`,
-          image: '/images/products/meanreal-bsw-550.svg',
+          image: `/images/products/meanreal/meanreal_item_${noVal || seq}.png`,
           brochureUrl: (link && (link.startsWith('http://') || link.startsWith('https://'))) ? link : (Object.entries(MEANREAL_LINKS).find(([k]) => item.toLowerCase().includes(k))?.[1] || undefined),
           metadata: {
             specification: spec,
@@ -932,6 +1122,61 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         else if (lower.includes('ringlock') || lower.includes('scaffolding'))
           typeBadge = 'Scaffolding'
 
+        let productImage = '/images/products/alumino/alumino-truss-300.png'
+        if (lower.includes('300x300') || lower.includes('300*300')) {
+          if (lower.includes('box connector')) productImage = '/images/products/alumino/alumino-box-6way-300.png'
+          else if (lower.includes('sleeve')) productImage = '/images/products/alumino/alumino-sleeve-300-450.png'
+          else productImage = '/images/products/alumino/alumino-truss-300.png'
+        } else if (lower.includes('400x400') || lower.includes('400*400')) {
+          if (lower.includes('sleeve')) productImage = '/images/products/alumino/alumino-sleeve-600-400.png'
+          else productImage = '/images/products/alumino/alumino-truss-400.png'
+        } else if (lower.includes('450x450') || lower.includes('450*450')) {
+          if (lower.includes('box connector')) productImage = '/images/products/alumino/alumino-box-6way-450.png'
+          else productImage = '/images/products/alumino/alumino-truss-450.png'
+        } else if (lower.includes('600x760') || lower.includes('600*760')) {
+          if (lower.includes('box connector')) productImage = '/images/products/alumino/alumino-box-4way-600.png'
+          else productImage = '/images/products/alumino/alumino-truss-600x760.png'
+        } else if (lower.includes('600x1000') || lower.includes('600*1000')) {
+          productImage = '/images/products/alumino/alumino-truss-600x1000.png'
+        } else if (lower.includes('800x1000') || lower.includes('800*1000')) {
+          productImage = '/images/products/alumino/alumino-truss-800x1000.png'
+        } else if (lower.includes('top section')) {
+          productImage = '/images/products/alumino/alumino-top-section.png'
+        } else if (lower.includes('support brace')) {
+          productImage = '/images/products/alumino/alumino-support-brace.png'
+        } else if (lower.includes('clamp')) {
+          productImage = '/images/products/alumino/alumino-double-clamps.png'
+        } else if (lower.includes('ringlock') || lower.includes('scaffolding')) {
+          if (lower.includes('horizontal')) productImage = '/images/products/alumino/alumino-ringlock-horizontal.png'
+          else if (lower.includes('diagonal')) productImage = '/images/products/alumino/alumino-ringlock-diagonal.png'
+          else if (lower.includes('base') || lower.includes('basement')) productImage = '/images/products/alumino/alumino-ringlock-base.png'
+          else if (lower.includes('ladder')) productImage = '/images/products/alumino/alumino-ladder.png'
+          else if (lower.includes('panel')) productImage = '/images/products/alumino/alumino-panel.png'
+          else productImage = '/images/products/alumino/alumino-ringlock-pillar.png'
+        } else if (lower.includes('trolley')) {
+          productImage = '/images/products/alumino/alumino-trolley.png'
+        } else if (lower.includes('roofing') || lower.includes('roof')) {
+          if (lower.includes('down')) productImage = '/images/products/alumino/alumino-roofing-down.png'
+          else if (lower.includes('fixable')) productImage = '/images/products/alumino/alumino-roofing-fixable.png'
+          else productImage = '/images/products/alumino/alumino-roofing-corner.png'
+        } else if (lower.includes('truss stand')) {
+          productImage = '/images/products/alumino/alumino-truss-stand.png'
+        } else if (lower.includes('stair')) {
+          productImage = '/images/products/alumino/alumino-stage-stair.png'
+        } else if (lower.includes('board')) {
+          productImage = '/images/products/alumino/alumino-stage-board.png'
+        } else if (lower.includes('stage stand')) {
+          productImage = '/images/products/alumino/alumino-stage-stand.png'
+        } else if (lower.includes('stage brace')) {
+          productImage = '/images/products/alumino/alumino-stage-brace.png'
+        } else if (lower.includes('stage base')) {
+          productImage = '/images/products/alumino/alumino-stage-base.png'
+        } else if (lower.includes('barrier') || lower.includes('mojo')) {
+          if (lower.includes('corner')) productImage = '/images/products/alumino/alumino-barrier-corner.png'
+          else if (lower.includes('door')) productImage = '/images/products/alumino/alumino-barrier-door.png'
+          else productImage = '/images/products/alumino/alumino-barrier-straight.png'
+        }
+
         items.push({
           id: `${categoryId}-${seq}`,
           no: seq,
@@ -944,7 +1189,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku: `ALU-TR-${seq}`,
-          image: '/images/products/alumino-bolt-truss.svg',
+          image: productImage,
           metadata: {
             size,
             material: currDesc,
@@ -975,7 +1220,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         price: paketPrice,
         priceFormatted: formatRupiah(paketPrice),
         sku: 'RNG-SET-2X2X2',
-        image: '/images/products/ringlock-scaffolding.svg',
+        image: '/images/products/ringlock/ringlock-structure-diagram.png',
         metadata: {
           isPaket: true,
           no: seq
@@ -992,6 +1237,20 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         if (!name || price === 0) continue
         seq++
 
+        const lower = name.toLowerCase()
+        let productImage = '/images/products/ringlock/ringlock-vertical-standard.png'
+        if (lower.includes('vertical')) {
+          productImage = '/images/products/ringlock/ringlock-vertical-standard.png'
+        } else if (lower.includes('horisontal') || lower.includes('horizontal')) {
+          productImage = '/images/products/ringlock/ringlock-horizontal-ledger.png'
+        } else if (lower.includes('diagonal')) {
+          productImage = '/images/products/ringlock/ringlock-diagonal-brace.png'
+        } else if (lower.includes('jack')) {
+          productImage = '/images/products/ringlock/ringlock-jack-base.png'
+        } else {
+          productImage = '/images/products/ringlock/ringlock-structure-diagram.png'
+        }
+
         items.push({
           id: `${categoryId}-${seq}`,
           no: seq,
@@ -1003,7 +1262,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku: `RNG-PART-${seq}`,
-          image: '/images/products/ringlock-scaffolding.svg',
+          image: productImage,
           metadata: {
             specification: spec,
             no: seq
@@ -1043,6 +1302,20 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           ? 'Outdoor Laser'
           : 'RGB Laser'
 
+        const GAGA_IMG_MAP: Record<string, string> = {
+          '1': '/images/products/gaga/gaga-rgb-3w.png',
+          '2': '/images/products/gaga/gaga-mini-rgb-4w.png',
+          '3': '/images/products/gaga/gaga-rgb-5w.png',
+          '4': '/images/products/gaga/gaga-mini-rgb-6w.png',
+          '5': '/images/products/gaga/gaga-rgb-10w.png',
+          '6': '/images/products/gaga/gaga-waterproof-20w.png',
+          '7': '/images/products/gaga/gaga-waterproof-30w.png',
+          '8': '/images/products/gaga/gaga-waterproof-40w.png',
+          '9': '/images/products/gaga/gaga-pangolin-fb3.png',
+          '10': '/images/products/gaga/gaga-pangolin-fb4.png'
+        }
+        const productImage = GAGA_IMG_MAP[noVal] || '/images/products/gaga/gaga-rgb-3w.png'
+
         items.push({
           id: `${categoryId}-${seq}`,
           no: seq,
@@ -1055,7 +1328,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku: `GAG-LSR-${noVal}`,
-          image: '/images/products/gaga-laser-rgb.svg',
+          image: productImage,
           brochureUrl: (video && (video.startsWith('http://') || video.startsWith('https://'))) ? video : (GAGA_LINKS[noVal] || undefined),
           videoUrl: (video && (video.startsWith('http://') || video.startsWith('https://'))) ? video : (GAGA_LINKS[noVal] || undefined),
           metadata: {
@@ -1076,7 +1349,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // ==========================================
     case 'mvg_mojo_barrier': {
       let seq = 0
-      for (let i = 2; i < rows.length; i++) {
+      for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 4) continue
         const name = r[1]?.trim().replace(/\n+/g, ' ') || ''
@@ -1090,6 +1363,16 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         else if (name.toLowerCase().includes('door')) typeBadge = 'Door Gate'
         else if (name.toLowerCase().includes('wire')) typeBadge = 'Wire Slot'
 
+        let productImage = '/images/products/mojo/mojo-gate-straight.png'
+        const lowerName = name.toLowerCase()
+        if (lowerName.includes('wire')) {
+          productImage = '/images/products/mojo/mojo-gate-wire-slot.png'
+        } else if (lowerName.includes('corner')) {
+          productImage = '/images/products/mojo/mojo-gate-corner.png'
+        } else if (lowerName.includes('door')) {
+          productImage = '/images/products/mojo/mojo-gate-door.png'
+        }
+
         items.push({
           id: `${categoryId}-${seq}`,
           no: seq,
@@ -1101,7 +1384,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku: `MOJO-BAR-${seq}`,
-          image: '/images/products/mojo-barrier.svg',
+          image: productImage,
           metadata: {
             specification: spec,
             no: seq
@@ -1164,7 +1447,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku: `ACC-RNT-${noVal || seq}`,
-          image: '/images/products/acc-power-distribution.svg',
+          image: `/images/products/aksesoris/acc_item_${noVal || seq}.png`,
           metadata: {
             specification: desc,
             no: seq

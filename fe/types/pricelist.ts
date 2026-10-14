@@ -12,6 +12,7 @@ export interface PricelistItem {
   priceFormatted: string
   sku: string
   image?: string
+  images?: string[]
   brochureUrl?: string
   videoUrl?: string
   metadata?: Record<string, any>
@@ -29,6 +30,7 @@ export interface SheetCategory {
   lastUpdated: string
   bannerTitle?: string
   bannerSubtitle?: string
+  bannerImage?: string
   kursUSD?: string
   notes?: string[]
   comparisonChart?: string
