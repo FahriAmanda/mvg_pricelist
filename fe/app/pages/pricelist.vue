@@ -22,7 +22,6 @@ import {
   Check,
   Copy,
   Clock,
-  Calculator,
   LayoutGrid,
   Table as TableIcon,
   ChevronDown,
@@ -32,7 +31,6 @@ import {
 } from '@lucide/vue'
 import { usePricelist } from '~/composables/usePricelist'
 import ThemeToggle from '~/components/ThemeToggle.vue'
-import PriceCalculatorDialog from '~/components/PriceCalculatorDialog.vue'
 import FieldSelect from '~/components/FieldSelect.vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -139,15 +137,6 @@ const sortSelectOptions = [
 
 // Display View Mode: 'cards' (Mobile-First default) or 'table'
 const viewMode = ref<'cards' | 'table'>('cards')
-
-// Calculator dialog state
-const isCalculatorOpen = ref(false)
-const selectedItemForCalc = ref<PricelistItem | null>(null)
-
-function openCalculator(item: PricelistItem | null = null) {
-  selectedItemForCalc.value = item
-  isCalculatorOpen.value = true
-}
 
 // SKU clipboard feedback
 const copiedSku = ref<string | null>(null)
@@ -261,17 +250,6 @@ function toggleCubeExpand(id: string) {
               :class="{ 'animate-spin text-primary': isSyncing }"
             />
             <span class="hidden sm:inline">{{ isSyncing ? 'Syncing...' : 'Sync' }}</span>
-          </Button>
-
-          <Button
-            variant="outline"
-            size="sm"
-            class="h-9 w-9 p-0 sm:w-auto sm:px-2.5 sm:gap-1.5 text-xs font-medium border-primary/30 text-primary hover:bg-primary/10"
-            title="Buka Form Kalkulator Penawaran"
-            @click="openCalculator(null)"
-          >
-            <Calculator class="w-4 h-4" />
-            <span class="hidden sm:inline">Kalkulator</span>
           </Button>
 
           <div class="hidden sm:flex items-center p-0.5 rounded-lg border border-border/80 bg-muted/40">
@@ -686,8 +664,8 @@ function toggleCubeExpand(id: string) {
               </div>
             </div>
 
-            <!-- Card Bottom: Price & Quick Action -->
-            <div class="pt-4 mt-3 border-t border-border/60 flex items-center justify-between gap-2">
+            <!-- Card Bottom: Price -->
+            <div class="pt-3 mt-3 border-t border-border/60 flex items-center justify-between gap-2">
               <div class="min-w-0 flex-1">
                 <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider truncate">
                   {{
@@ -712,20 +690,6 @@ function toggleCubeExpand(id: string) {
                   </span>
                 </div>
               </div>
-
-              <Button
-                v-motion
-                :hovered="{ scale: 1.05, transition: { type: 'spring', stiffness: 450, damping: 20 } }"
-                :tapped="{ scale: 0.95 }"
-                variant="outline"
-                size="sm"
-                class="h-9 px-3 gap-1.5 text-xs font-semibold rounded-xl border-primary/30 hover:bg-primary hover:text-primary-foreground transition-colors shrink-0"
-                title="Hitung Penawaran dengan AutoForm"
-                @click="openCalculator(item)"
-              >
-                <Sparkles class="w-3.5 h-3.5" />
-                <span>Hitung</span>
-              </Button>
             </div>
           </div>
         </div>
@@ -766,7 +730,6 @@ function toggleCubeExpand(id: string) {
                         : 'Harga Satuan'
                     }}
                   </TableHead>
-                  <TableHead class="w-[80px] text-center text-xs font-semibold">Aksi</TableHead>
                 </TableRow>
               </TableHeader>
 
@@ -862,18 +825,6 @@ function toggleCubeExpand(id: string) {
                       {{ item.priceFormatted }}
                     </span>
                   </TableCell>
-
-                  <TableCell class="text-center">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      class="h-7 w-7 p-0 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground"
-                      title="Hitung Penawaran"
-                      @click="openCalculator(item)"
-                    >
-                      <Sparkles class="w-3.5 h-3.5" />
-                    </Button>
-                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -881,12 +832,6 @@ function toggleCubeExpand(id: string) {
         </div>
       </div>
     </main>
-
-    <!-- Global AutoForm Price Calculator Dialog -->
-    <PriceCalculatorDialog
-      v-model:open="isCalculatorOpen"
-      :item="selectedItemForCalc"
-    />
 
     <!-- Mobile-Friendly Footer -->
     <footer class="mt-auto border-t border-border/80 bg-background/60 py-4 text-center text-[11px] text-muted-foreground px-4">
