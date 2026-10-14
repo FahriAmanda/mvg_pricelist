@@ -25,7 +25,6 @@ import {
   LayoutGrid,
   Table as TableIcon,
   ChevronDown,
-  ExternalLink,
   ArrowLeft,
   Video,
   LogOut
@@ -169,17 +168,6 @@ function handleManualSync() {
   triggerSync()
 }
 
-// Direct Google Sheet source link
-const currentSheetUrl = computed(() => {
-  if (currentCategory.value?.customUrl) {
-    return currentCategory.value.customUrl.replace('&output=csv', '')
-  }
-  if (currentCategory.value?.gid) {
-    return `https://docs.google.com/spreadsheets/d/e/2PACX-1vRuMDmEzh4w7r09LH3Quoio4lHUZIR7Krur4FNfuxCskrN0onGEyiDGtr_ff7NGRG47Uq8HaNhXmS1a/pubhtml?gid=${currentCategory.value.gid}&single=true`
-  }
-  return '#'
-})
-
 // Expanded state for LED Cube parts breakdown on mobile cards
 const expandedCubeId = ref<string | null>(null)
 function toggleCubeExpand(id: string) {
@@ -246,7 +234,7 @@ function toggleCubeExpand(id: string) {
             size="sm"
             class="h-9 w-9 p-0 sm:w-auto sm:px-2.5 sm:gap-1.5 text-xs font-medium border-border/80"
             :disabled="isSyncing"
-            title="Sinkronkan Data Google Sheets"
+            title="Perbarui Data Katalog"
             @click="handleManualSync"
           >
             <RefreshCw
@@ -862,18 +850,10 @@ function toggleCubeExpand(id: string) {
     <footer class="mt-auto border-t border-border/80 bg-background/60 py-4 text-center text-[11px] text-muted-foreground px-4">
       <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
         <p class="font-medium">© 2026 Mitra Visual Group (MVG) & Asia Visiotron. All rights reserved.</p>
-        <div class="flex items-center gap-3">
-          <a
-            :href="currentSheetUrl"
-            target="_blank"
-            rel="noopener"
-            class="hover:text-primary transition-colors flex items-center gap-1"
-          >
-            <span>Google Sheets Sumber</span>
-            <ExternalLink class="w-3 h-3" />
-          </a>
+        <div class="flex items-center gap-2">
+          <span>Sinkronisasi Data Otomatis</span>
           <span>•</span>
-          <span class="font-mono">Auto-Sync 60s SSE</span>
+          <span class="font-mono">Live 60s SSE</span>
         </div>
       </div>
     </footer>

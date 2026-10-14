@@ -726,7 +726,7 @@ function formatTime(isoString: string) {
       <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
         <p class="font-medium">© 2026 Mitra Visual Group (MVG) & Asia Visiotron. All rights reserved.</p>
         <div class="flex items-center gap-2">
-          <span>Sinkronisasi Otomatis Google Sheets</span>
+          <span>Sinkronisasi Data Otomatis</span>
           <span>•</span>
           <span class="font-mono">Live 60s SSE</span>
         </div>

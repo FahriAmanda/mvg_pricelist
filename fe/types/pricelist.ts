@@ -19,8 +19,6 @@ export interface SheetCategory {
   id: string
   name: string
   catalog: 'mvg' | 'av'
-  gid?: string
-  customUrl?: string
   icon: string
   description: string
   itemCount: number
