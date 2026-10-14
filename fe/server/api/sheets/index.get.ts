@@ -1,7 +1,10 @@
 import { SHEET_CATEGORIES, getStoreState, fetchAllSheets } from '../../utils/sheets'
 import type { SheetCategory } from '../../../types/pricelist'
 
-export default defineEventHandler(async () => {
+export default defineEventHandler(async (event) => {
+  const query = getQuery(event)
+  const includeItems = query.include_items === 'true' || query.all === 'true'
+
   const store = getStoreState()
   if (!store.lastSync) {
     await fetchAllSheets(true)
@@ -27,10 +30,22 @@ export default defineEventHandler(async () => {
     0
   )
 
-  return {
+  const response: Record<string, any> = {
     categories,
     lastSync: store.lastSync,
     hash: store.contentHash,
     totalItems
   }
+
+  if (includeItems) {
+    response.itemsByCategory = store.itemsByCategory
+    // Also provide flat allItems array
+    const allItems: any[] = []
+    for (const catId of Object.keys(store.itemsByCategory)) {
+      allItems.push(...store.itemsByCategory[catId])
+    }
+    response.allItems = allItems
+  }
+
+  return response
 })
