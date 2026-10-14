@@ -1,0 +1,37 @@
+{
+  "name": "fe",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@lucide/vue": "^1.56.0",
+    "@types/papaparse": "^5.5.2",
+    "@vee-validate/zod": "^4.15.1",
+    "@vueuse/core": "^15.0.0",
+    "@vueuse/motion": "^3.0.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^1.0.0",
+    "nuxt": "^4.6.1",
+    "papaparse": "^5.7.0",
+    "radix-vue": "^1.9.17",
+    "reka-ui": "^2.11.0",
+    "tailwind-merge": "^3.7.0",
+    "vee-validate": "^4.15.1",
+    "vue": "^3.5.43",
+    "vue-router": "^5.4.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@nuxtjs/color-mode": "^4.0.1",
+    "@nuxtjs/tailwindcss": "^6.14.0",
+    "tailwindcss-animate": "^1.0.7",
+    "typescript": "^5.9.3"
+  }
+}
