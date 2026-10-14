@@ -96,14 +96,14 @@ async function handleLogin() {
           </div>
 
           <Badge variant="outline" class="text-[10px] font-bold border-amber-500/30 text-amber-600 dark:text-amber-400 bg-amber-500/10 uppercase px-2.5 py-0.5">
-            SESI LOGIN MVG
+            AKUN MY MVG / MVG BISNIS
           </Badge>
 
           <h1 class="text-2xl font-black tracking-tight text-foreground uppercase">
             MASUK KE PRICELIST
           </h1>
           <p class="text-xs text-muted-foreground leading-relaxed">
-            Masuk menggunakan akun <strong>BE_MVG</strong> Anda. Seluruh akun terdaftar dapat mengakses katalog harga resmi.
+            Masuk menggunakan akun <strong>MY MVG / MVG BISNIS</strong> Anda. Seluruh akun terdaftar dapat mengakses katalog harga resmi.
           </p>
         </div>
 
@@ -188,7 +188,7 @@ async function handleLogin() {
         <div class="mt-6 pt-4 border-t border-border/70 flex items-center justify-between text-[11px] text-muted-foreground">
           <div class="flex items-center gap-1.5">
             <ShieldCheck class="w-3.5 h-3.5 text-emerald-500" />
-            <span>Sesi Terenkripsi BE_MVG</span>
+            <span>Sesi Terenkripsi MY MVG / MVG BISNIS</span>
           </div>
           <span class="font-mono">Auto-Sync Active</span>
         </div>
