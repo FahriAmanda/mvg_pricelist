@@ -27,11 +27,15 @@ import {
   ChevronDown,
   ExternalLink,
   ArrowLeft,
-  Video
+  Video,
+  LogOut
 } from '@lucide/vue'
 import { usePricelist } from '~/composables/usePricelist'
+import { useAuthStore } from '~/stores/auth'
 import ThemeToggle from '~/components/ThemeToggle.vue'
 import FieldSelect from '~/components/FieldSelect.vue'
+
+const authStore = useAuthStore()
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -274,6 +278,27 @@ function toggleCubeExpand(id: string) {
           </div>
 
           <ThemeToggle />
+
+          <!-- User Profile & Logout -->
+          <div v-if="authStore.user" class="flex items-center gap-2 pl-2 border-l border-border/70">
+            <div class="hidden md:block text-right leading-tight">
+              <span class="text-xs font-bold text-foreground block max-w-[130px] truncate">
+                {{ authStore.user.name }}
+              </span>
+              <span class="text-[10px] text-muted-foreground block max-w-[130px] truncate font-mono">
+                {{ authStore.user.roleName || 'Mitra Visual Group' }}
+              </span>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              class="h-8 w-8 p-0 text-muted-foreground hover:text-rose-600 hover:border-rose-500/50 hover:bg-rose-500/10 rounded-xl transition-colors"
+              title="Keluar (Logout)"
+              @click="authStore.logout('Anda telah keluar dari sistem')"
+            >
+              <LogOut class="w-3.5 h-3.5" />
+            </Button>
+          </div>
         </div>
       </div>
     </header>
