@@ -737,7 +737,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           priceFormatted: formatRupiah(price),
           sku,
           image: productImage,
-          brochureUrl: (link && (link.startsWith('http://') || link.startsWith('https://'))) ? link : (HOIST_LINKS[noVal] || undefined),
+          brochureUrl: (link && (link.startsWith('http://') || link.startsWith('https://'))) ? link : undefined,
           videoUrl: link || undefined,
           metadata: {
             code,
