@@ -25,6 +25,8 @@ import {
   LayoutGrid,
   Table as TableIcon,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ArrowLeft,
   Video,
   LogOut
@@ -118,13 +120,89 @@ const categoryIcons: Record<string, any> = {
   magnustek_tkdn: ShieldCheck
 }
 
+// Total items in current catalog
+const totalCatalogItems = computed(() =>
+  currentCatalogCategories.value.reduce((acc, c) => acc + c.itemCount, 0)
+)
+
 // Select Options for FieldSelect
-const categorySelectOptions = computed(() =>
-  currentCatalogCategories.value.map((c) => ({
+const categorySelectOptions = computed(() => [
+  {
+    value: 'all',
+    label: `Semua Kategori (${totalCatalogItems.value} item)`
+  },
+  ...currentCatalogCategories.value.map((c) => ({
     value: c.id,
     label: `${c.name} (${c.itemCount} item)`
   }))
-)
+])
+
+// Category horizontal scroll & wrap controls
+const categoryScrollRef = ref<HTMLElement | null>(null)
+const isCategoryWrap = ref(false)
+const canScrollLeft = ref(false)
+const canScrollRight = ref(true)
+
+function updateScrollButtons() {
+  const el = categoryScrollRef.value
+  if (!el) return
+  canScrollLeft.value = el.scrollLeft > 10
+  canScrollRight.value = el.scrollLeft < el.scrollWidth - el.clientWidth - 10
+}
+
+function scrollCategory(direction: 'left' | 'right') {
+  const el = categoryScrollRef.value
+  if (!el) return
+  const offset = direction === 'left' ? -260 : 260
+  el.scrollBy({ left: offset, behavior: 'smooth' })
+  setTimeout(updateScrollButtons, 250)
+}
+
+function handleCategoryWheel(e: WheelEvent) {
+  const el = categoryScrollRef.value
+  if (!el || isCategoryWrap.value) return
+  if (e.deltaY !== 0) {
+    e.preventDefault()
+    el.scrollLeft += e.deltaY * 1.2
+    updateScrollButtons()
+  }
+}
+
+// Mouse drag-to-scroll support for desktop
+let isDraggingCategory = false
+let dragStartX = 0
+let dragScrollLeft = 0
+
+function onCategoryMouseDown(e: MouseEvent) {
+  const el = categoryScrollRef.value
+  if (!el || isCategoryWrap.value) return
+  isDraggingCategory = true
+  dragStartX = e.pageX - el.offsetLeft
+  dragScrollLeft = el.scrollLeft
+}
+
+function onCategoryMouseMove(e: MouseEvent) {
+  if (!isDraggingCategory) return
+  const el = categoryScrollRef.value
+  if (!el) return
+  e.preventDefault()
+  const x = e.pageX - el.offsetLeft
+  const walk = (x - dragStartX) * 1.5
+  el.scrollLeft = dragScrollLeft - walk
+  updateScrollButtons()
+}
+
+function onCategoryMouseUp() {
+  isDraggingCategory = false
+}
+
+onMounted(() => {
+  const el = categoryScrollRef.value
+  if (el) {
+    el.addEventListener('scroll', updateScrollButtons, { passive: true })
+    updateScrollButtons()
+  }
+})
 
 const typeSelectOptions = computed(() => [
   { value: 'ALL', label: `Semua Tipe (${activeItems.value?.length || 0})` },
@@ -350,8 +428,9 @@ function toggleCubeExpand(id: string) {
         </div>
       </section>
 
-      <!-- 2. CATEGORY SWITCHER (Mobile Dropdown + Swipeable Pills) -->
+      <!-- 2. CATEGORY SWITCHER (Mobile Dropdown + Swipeable / Wrappable Pills) -->
       <section class="space-y-2.5">
+        <!-- Mobile Dropdown Selector -->
         <div class="sm:hidden">
           <FieldSelect
             v-model="activeCategoryId"
@@ -361,28 +440,91 @@ function toggleCubeExpand(id: string) {
           >
             <template #prefix>
               <component
-                :is="categoryIcons[activeCategoryId] || Box"
+                :is="activeCategoryId === 'all' ? (activeCatalog === 'mvg' ? Sparkles : Boxes) : (categoryIcons[activeCategoryId] || Box)"
                 class="w-4 h-4 text-primary shrink-0"
               />
             </template>
           </FieldSelect>
         </div>
 
-        <div class="relative">
-          <div class="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-1 scroll-smooth">
+        <!-- Pill Bar with Scroll Controls & Wrap Toggle -->
+        <div class="relative group/catbar">
+          <!-- Left Scroll Arrow Button (Desktop) -->
+          <button
+            v-if="!isCategoryWrap && canScrollLeft"
+            type="button"
+            class="hidden sm:flex absolute -left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full items-center justify-center bg-background/95 border border-border shadow-md hover:bg-muted text-foreground transition-all cursor-pointer"
+            title="Geser ke kiri"
+            @click="scrollCategory('left')"
+          >
+            <ChevronLeft class="w-4 h-4" />
+          </button>
+
+          <!-- Right Scroll Arrow Button (Desktop) -->
+          <button
+            v-if="!isCategoryWrap && canScrollRight"
+            type="button"
+            class="hidden sm:flex absolute -right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full items-center justify-center bg-background/95 border border-border shadow-md hover:bg-muted text-foreground transition-all cursor-pointer"
+            title="Geser ke kanan"
+            @click="scrollCategory('right')"
+          >
+            <ChevronRight class="w-4 h-4" />
+          </button>
+
+          <!-- The Pills Container (Supports Wheel, Touch, Drag, and Toggle Wrap) -->
+          <div
+            ref="categoryScrollRef"
+            class="py-1 transition-all"
+            :class="[
+              isCategoryWrap
+                ? 'flex flex-wrap items-center gap-2'
+                : 'flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar scroll-smooth cursor-grab active:cursor-grabbing select-none'
+            ]"
+            :style="!isCategoryWrap ? '-webkit-overflow-scrolling: touch; touch-action: pan-x pan-y;' : ''"
+            @wheel="handleCategoryWheel"
+            @mousedown="onCategoryMouseDown"
+            @mousemove="onCategoryMouseMove"
+            @mouseup="onCategoryMouseUp"
+            @mouseleave="onCategoryMouseUp"
+          >
+            <!-- 1. "SEMUA KATEGORI" PILL OPTION -->
+            <button
+              type="button"
+              class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-150 whitespace-nowrap border shrink-0 touch-manipulation hover:scale-[1.02] active:scale-[0.98]"
+              :class="[
+                activeCategoryId === 'all'
+                  ? (activeCatalog === 'mvg'
+                      ? 'bg-amber-500 text-white border-amber-500 shadow-md shadow-amber-500/25 ring-2 ring-amber-500/30'
+                      : 'bg-primary text-primary-foreground border-primary shadow-md shadow-primary/25 ring-2 ring-primary/30')
+                  : 'bg-card hover:bg-muted text-foreground border-border/80 hover:border-border'
+              ]"
+              @click="activeCategoryId = 'all'"
+            >
+              <component
+                :is="activeCatalog === 'mvg' ? Sparkles : Boxes"
+                class="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0"
+                :class="activeCategoryId === 'all' ? 'text-white' : (activeCatalog === 'mvg' ? 'text-amber-500' : 'text-primary')"
+              />
+              <span>Semua Kategori</span>
+              <span
+                class="px-2 py-0.5 rounded-full text-[10px] font-bold font-mono"
+                :class="activeCategoryId === 'all' ? 'bg-white/20 text-white' : 'bg-muted text-muted-foreground'"
+              >
+                {{ totalCatalogItems }}
+              </span>
+            </button>
+
+            <!-- 2. INDIVIDUAL CATEGORY PILLS -->
             <button
               v-for="cat in currentCatalogCategories"
               :key="cat.id"
               type="button"
-              v-motion
-              :hovered="{ y: -1.5, scale: 1.02, transition: { type: 'spring', stiffness: 400, damping: 20 } }"
-              :tapped="{ scale: 0.98 }"
-              class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-semibold transition-colors duration-150 whitespace-nowrap border shrink-0 touch-manipulation"
+              class="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-150 whitespace-nowrap border shrink-0 touch-manipulation hover:scale-[1.02] active:scale-[0.98]"
               :class="[
                 activeCategoryId === cat.id
                   ? (activeCatalog === 'mvg'
-                      ? 'bg-amber-500 text-white border-amber-500 shadow-sm shadow-amber-500/25'
-                      : 'bg-primary text-primary-foreground border-primary shadow-sm shadow-primary/25')
+                      ? 'bg-amber-500 text-white border-amber-500 shadow-sm shadow-amber-500/25 ring-2 ring-amber-500/30'
+                      : 'bg-primary text-primary-foreground border-primary shadow-sm shadow-primary/25 ring-2 ring-primary/30')
                   : 'bg-card hover:bg-muted text-foreground border-border/70 hover:border-border'
               ]"
               @click="activeCategoryId = cat.id"
@@ -394,11 +536,26 @@ function toggleCubeExpand(id: string) {
               />
               <span>{{ cat.name }}</span>
               <span
-                class="px-1.5 py-0.2 rounded-full text-[10px] font-bold"
+                class="px-1.5 py-0.2 rounded-full text-[10px] font-bold font-mono"
                 :class="activeCategoryId === cat.id ? 'bg-white/20 text-white' : 'bg-muted text-muted-foreground'"
               >
                 {{ cat.itemCount }}
               </span>
+            </button>
+          </div>
+
+          <!-- Quick Toggle for View All (Wrap Mode) on the right corner -->
+          <div class="flex items-center justify-between pt-1 text-[11px] text-muted-foreground">
+            <span class="hidden sm:inline">
+              Tips: Geser mouse/trackpad atau klik tombol panah untuk melihat kategori lainnya.
+            </span>
+            <button
+              type="button"
+              class="ml-auto inline-flex items-center gap-1 text-[11px] font-semibold text-primary hover:underline cursor-pointer"
+              @click="isCategoryWrap = !isCategoryWrap"
+            >
+              <LayoutGrid class="w-3 h-3" />
+              <span>{{ isCategoryWrap ? 'Mode Geser (1 Baris)' : 'Tampilkan Semua Kategori (Buka Semua)' }}</span>
             </button>
           </div>
         </div>

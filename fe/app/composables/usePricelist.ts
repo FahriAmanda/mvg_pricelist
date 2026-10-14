@@ -197,7 +197,7 @@ export function usePricelist() {
   watch(
     () => activeCategoryId.value,
     (newCatId) => {
-      if (newCatId && categories.value.length > 0) {
+      if (newCatId && newCatId !== 'all' && categories.value.length > 0) {
         const found = categories.value.find((c) => c.id === newCatId)
         if (found && found.catalog !== activeCatalog.value) {
           activeCatalog.value = found.catalog
@@ -209,24 +209,42 @@ export function usePricelist() {
   // Switch Catalog helper
   function setCatalog(catalog: 'mvg' | 'av') {
     activeCatalog.value = catalog
-    const targetCats = catalog === 'mvg' ? mvgCategories.value : avCategories.value
-    if (targetCats.length > 0) {
-      const stillInCatalog = targetCats.some((c) => c.id === activeCategoryId.value)
-      if (!stillInCatalog) {
-        activeCategoryId.value = targetCats[0].id
+    if (activeCategoryId.value !== 'all') {
+      const targetCats = catalog === 'mvg' ? mvgCategories.value : avCategories.value
+      if (targetCats.length > 0) {
+        const stillInCatalog = targetCats.some((c) => c.id === activeCategoryId.value)
+        if (!stillInCatalog) {
+          activeCategoryId.value = targetCats[0].id
+        }
       }
     }
   }
 
   // Active Category metadata
   const currentCategory = computed(() => {
+    if (activeCategoryId.value === 'all') {
+      const isMvg = activeCatalog.value === 'mvg'
+      const targetCats = isMvg ? mvgCategories.value : avCategories.value
+      const total = targetCats.reduce((acc, c) => acc + c.itemCount, 0)
+      return {
+        id: 'all',
+        name: 'Semua Kategori',
+        catalog: activeCatalog.value,
+        icon: isMvg ? 'Sparkles' : 'Boxes',
+        description: isMvg
+          ? 'Menampilkan seluruh produk hardware & rental Mitra Visual Group (11 Kategori)'
+          : 'Menampilkan seluruh produk display & controller Asia Visiotron (10 Kategori)',
+        itemCount: total,
+        lastUpdated: lastSyncTime.value || ''
+      }
+    }
+
     return (
       categories.value.find((c) => c.id === activeCategoryId.value) ||
       categories.value[0] || {
         id: activeCategoryId.value,
         name: activeCategoryId.value,
         catalog: activeCatalog.value,
-        gid: '',
         icon: 'Box',
         description: '',
         itemCount: 0,
@@ -237,6 +255,14 @@ export function usePricelist() {
 
   // Raw items for active category
   const activeItems = computed(() => {
+    if (activeCategoryId.value === 'all') {
+      const targetCats = activeCatalog.value === 'mvg' ? mvgCategories.value : avCategories.value
+      const list: PricelistItem[] = []
+      for (const cat of targetCats) {
+        list.push(...(allItems.value[cat.id] || []))
+      }
+      return list
+    }
     return allItems.value[activeCategoryId.value] || []
   })
 
