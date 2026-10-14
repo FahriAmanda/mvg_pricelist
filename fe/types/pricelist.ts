@@ -1,6 +1,7 @@
 export interface PricelistItem {
   id: string
   category: string
+  catalog?: 'mvg' | 'av'
   model: string
   type: string
   description: string
@@ -17,7 +18,9 @@ export interface PricelistItem {
 export interface SheetCategory {
   id: string
   name: string
-  gid: string
+  catalog: 'mvg' | 'av'
+  gid?: string
+  customUrl?: string
   icon: string
   description: string
   itemCount: number

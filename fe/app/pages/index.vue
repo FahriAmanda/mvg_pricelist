@@ -11,10 +11,15 @@ import {
   ShieldCheck,
   Layers,
   Cpu,
+  Flame,
+  ArrowDownUp,
+  Sun,
+  Shield,
+  ShieldAlert,
+  Cable,
   ChevronRight,
   Clock,
   ArrowRight,
-  Lock,
   RefreshCw
 } from '@lucide/vue'
 import { usePricelist } from '~/composables/usePricelist'
@@ -31,8 +36,89 @@ const {
   triggerSync
 } = usePricelist()
 
-// Categories ordered strictly matching Image 2
-const gateCategories = [
+// 1. PRICELIST MVG (11 Kategori Hardware & Rental)
+const mvgGateCategories = [
+  {
+    id: 'mvg_rental_qiangli',
+    title: 'LED RENTAL QIANGLI',
+    desc: 'QiangLi P3.9 Outdoor, P2.6 Indoor, Corner & Curve Series',
+    icon: Tv,
+    color: 'text-red-500 bg-red-500/10 border-red-500/20'
+  },
+  {
+    id: 'mvg_rental_fabulux',
+    title: 'LED RENTAL FABULUX',
+    desc: 'Master Plus Outdoor, Alpha P2.6 Indoor 4in1 & Spider Max',
+    icon: Tv,
+    color: 'text-orange-500 bg-orange-500/10 border-orange-500/20'
+  },
+  {
+    id: 'mvg_rental_maven',
+    title: 'LED RENTAL MAVEN',
+    desc: 'Unilumin Lampro Maven P3.9 & LRS P2.6 Indoor Pro Series',
+    icon: Layers,
+    color: 'text-violet-500 bg-violet-500/10 border-violet-500/20'
+  },
+  {
+    id: 'mvg_moka_effect',
+    title: 'MOKA EFFECT',
+    desc: 'MOKA SFX CO2 Cannon, Double Jet, Fog Machine & Cold Sparkle',
+    icon: Flame,
+    color: 'text-amber-500 bg-amber-500/10 border-amber-500/20'
+  },
+  {
+    id: 'mvg_mode_hoist',
+    title: 'MODE HOIST',
+    desc: 'Electric Hoist 1T/2T 25m, Battery Free Hoist & Group Controller',
+    icon: ArrowDownUp,
+    color: 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20'
+  },
+  {
+    id: 'mvg_meanreal_lighting',
+    title: 'MEANREAL LIGHTING',
+    desc: 'Moving Head Beam, BSW 550, ALED, Follow Spot & DMX Console',
+    icon: Sun,
+    color: 'text-yellow-500 bg-yellow-500/10 border-yellow-500/20'
+  },
+  {
+    id: 'mvg_alumino',
+    title: 'ALUMINO',
+    desc: 'Rigging Bolt Truss 6082-T6, Box Connector, Roofing & Stage',
+    icon: Box,
+    color: 'text-sky-500 bg-sky-500/10 border-sky-500/20'
+  },
+  {
+    id: 'mvg_ringlock',
+    title: 'RINGLOCK',
+    desc: 'Ringlock Scaffolding Paket 2x2x2m & Komponen Eceran Galvanis',
+    icon: Shield,
+    color: 'text-blue-500 bg-blue-500/10 border-blue-500/20'
+  },
+  {
+    id: 'mvg_gaga_laser',
+    title: 'GAGA LASER',
+    desc: 'Professional RGB Laser 3W - 40W Waterproof & Pangolin Quickshow',
+    icon: Zap,
+    color: 'text-cyan-500 bg-cyan-500/10 border-cyan-500/20'
+  },
+  {
+    id: 'mvg_mojo_barrier',
+    title: 'MOJO BARRIER',
+    desc: 'Aluminum Crowd Control Barrier Straight, Corner & Door Gate',
+    icon: ShieldAlert,
+    color: 'text-indigo-500 bg-indigo-500/10 border-indigo-500/20'
+  },
+  {
+    id: 'mvg_aksesoris_rental',
+    title: 'AKSESORIS LED RENTAL',
+    desc: 'Power Distribution Panel, PowerCON, Cat6, Clamps & Fiber Optic',
+    icon: Cable,
+    color: 'text-teal-500 bg-teal-500/10 border-teal-500/20'
+  }
+]
+
+// 2. AV PRICE LIST (10 Kategori Display & Controller)
+const avGateCategories = [
   {
     id: 'led_cube',
     title: 'LED CUBE',
@@ -122,7 +208,7 @@ function formatTime(isoString: string) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-background text-foreground flex flex-col antialiased selection:bg-primary/20">
+  <div class="min-h-screen bg-background text-foreground flex flex-col antialiased selection:bg-primary/20 pb-12">
     <!-- Top Sticky Minimal Bar -->
     <header
       v-motion
@@ -188,61 +274,42 @@ function formatTime(isoString: string) {
         class="text-center space-y-2"
       >
         <Badge variant="outline" class="text-[11px] font-semibold border-primary/30 text-primary bg-primary/5 uppercase px-3 py-1">
-          Katalog Harga Resmi & Terintegrasi
+          Katalog Harga Resmi & Terintegrasi Real-time
         </Badge>
         <h1 class="text-2xl sm:text-3xl font-black tracking-tight text-foreground">
           PILIH KATALOG PRICE LIST
         </h1>
         <p class="text-xs sm:text-sm text-muted-foreground max-w-md mx-auto">
-          Silakan pilih menu katalog harga di bawah untuk membuka data teknis dan perhitungan estimasi kebutuhan proyek.
+          Silakan pilih kategori hardware atau peralatan rental di bawah untuk membuka daftar harga lengkap dan kalkulator penawaran.
         </p>
       </div>
 
-      <!-- PRICELIST SECTIONS -->
+      <!-- ============================================================== -->
+      <!-- SECTION 1: PRICELIST MVG (11 KATEGORI HARDWARE & RENTAL)       -->
+      <!-- ============================================================== -->
       <section class="space-y-4">
-        <!-- 1. PRICELIST MVG CARD -->
-        <div
-          v-motion
-          :initial="{ opacity: 0, y: 20 }"
-          :enter="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: 260, damping: 24, delay: 140 } }"
-          :hovered="{ y: -2, scale: 1.008, transition: { type: 'spring', stiffness: 400, damping: 25 } }"
-          :tapped="{ scale: 0.99 }"
-          class="p-4 sm:p-4.5 rounded-2xl border border-primary/40 bg-card hover:bg-muted/20 shadow-xs flex items-center justify-between gap-3 transition-colors cursor-default"
-        >
-          <div class="flex items-center gap-3 sm:gap-4 min-w-0">
-            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center border shadow-xs shrink-0 text-primary bg-primary/10 border-primary/20">
-              <Sparkles class="w-5 h-5 sm:w-5.5 sm:h-5.5" />
-            </div>
-            <div>
-              <h3 class="font-black text-sm sm:text-base text-foreground uppercase tracking-tight">
-                PRICELIST MVG
-              </h3>
-            </div>
-          </div>
-          <span class="px-2.5 py-1 rounded-full text-[11px] font-bold text-muted-foreground bg-muted border border-border/70">
-            Incoming
-          </span>
-        </div>
-
-        <!-- SEPARATOR: AV PRICE LIST -->
+        <!-- SEPARATOR: PRICELIST MVG -->
         <div
           v-motion
           :initial="{ opacity: 0, scale: 0.96 }"
-          :enter="{ opacity: 1, scale: 1, transition: { duration: 300, delay: 200 } }"
-          class="pt-3 pb-1 flex items-center gap-3"
+          :enter="{ opacity: 1, scale: 1, transition: { duration: 300, delay: 120 } }"
+          class="pt-2 pb-1 flex items-center gap-3"
         >
-          <div class="h-4 w-1 bg-primary rounded-full"></div>
-          <h2 class="text-xs sm:text-sm font-black tracking-wider text-foreground uppercase">
-            AV PRICE LIST
+          <div class="h-4 w-1 bg-amber-500 rounded-full"></div>
+          <h2 class="text-xs sm:text-sm font-black tracking-wider text-foreground uppercase flex items-center gap-2">
+            <span>PRICELIST MVG</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold tracking-normal uppercase border border-amber-500/20">
+              Mitra Visual Group
+            </span>
           </h2>
           <div class="flex-1 h-px bg-border/80"></div>
-          <span class="text-[11px] font-bold text-muted-foreground font-mono">10 Kategori</span>
+          <span class="text-[11px] font-bold text-muted-foreground font-mono">11 Kategori</span>
         </div>
 
-        <!-- 2. 10 ASIA VISIOTRON CATEGORIES (PERSIS GAMBAR 2) -->
+        <!-- 11 MVG CATEGORY CARDS -->
         <div class="space-y-2.5">
           <NuxtLink
-            v-for="(cat, idx) in gateCategories"
+            v-for="(cat, idx) in mvgGateCategories"
             :key="cat.id"
             :to="`/pricelist?category=${cat.id}`"
             v-motion
@@ -255,7 +322,93 @@ function formatTime(isoString: string) {
                 type: 'spring',
                 stiffness: 280,
                 damping: 24,
-                delay: 240 + (idx * 40)
+                delay: 150 + (idx * 30)
+              }
+            }"
+            :hovered="{
+              y: -3,
+              scale: 1.012,
+              transition: { type: 'spring', stiffness: 400, damping: 25 }
+            }"
+            :tapped="{ scale: 0.985 }"
+            class="group block p-4 sm:p-4.5 rounded-2xl border border-border/80 bg-card hover:bg-muted/30 shadow-xs hover:shadow-md hover:border-amber-500/50 transition-colors"
+          >
+            <div class="flex items-center justify-between gap-3">
+              <!-- Left: Number + Icon + Title + Description -->
+              <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                <span class="w-6 text-xs font-bold font-mono text-muted-foreground/60 group-hover:text-amber-500 transition-colors text-center shrink-0">
+                  {{ idx + 1 }}
+                </span>
+
+                <div
+                  class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center border shadow-xs shrink-0 transition-transform group-hover:scale-105"
+                  :class="cat.color"
+                >
+                  <component :is="cat.icon" class="w-5 h-5 sm:w-5.5 sm:h-5.5" />
+                </div>
+
+                <div class="min-w-0">
+                  <div class="flex items-center gap-2">
+                    <h3 class="font-black text-sm sm:text-base text-foreground group-hover:text-amber-500 transition-colors uppercase tracking-tight truncate">
+                      {{ cat.title }}
+                    </h3>
+                  </div>
+                  <p class="text-[11px] text-muted-foreground truncate hidden sm:block mt-0.5">
+                    {{ cat.desc }}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Right: Count Badge & Arrow -->
+              <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-bold font-mono bg-muted text-foreground border border-border/70 group-hover:bg-amber-500 group-hover:text-white group-hover:border-amber-500 transition-colors">
+                  {{ getCategoryCount(cat.id) }} item
+                </span>
+                <div class="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground group-hover:text-amber-500 group-hover:bg-amber-500/10 transition-colors">
+                  <ChevronRight class="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                </div>
+              </div>
+            </div>
+          </NuxtLink>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- SECTION 2: AV PRICE LIST (10 KATEGORI DISPLAY & CONTROLLER)    -->
+        <!-- ============================================================== -->
+        <div
+          v-motion
+          :initial="{ opacity: 0, scale: 0.96 }"
+          :enter="{ opacity: 1, scale: 1, transition: { duration: 300, delay: 480 } }"
+          class="pt-6 pb-1 flex items-center gap-3"
+        >
+          <div class="h-4 w-1 bg-primary rounded-full"></div>
+          <h2 class="text-xs sm:text-sm font-black tracking-wider text-foreground uppercase flex items-center gap-2">
+            <span>AV PRICE LIST</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-md bg-primary/10 text-primary font-bold tracking-normal uppercase border border-primary/20">
+              Asia Visiotron
+            </span>
+          </h2>
+          <div class="flex-1 h-px bg-border/80"></div>
+          <span class="text-[11px] font-bold text-muted-foreground font-mono">10 Kategori</span>
+        </div>
+
+        <!-- 10 ASIA VISIOTRON CATEGORIES -->
+        <div class="space-y-2.5">
+          <NuxtLink
+            v-for="(cat, idx) in avGateCategories"
+            :key="cat.id"
+            :to="`/pricelist?category=${cat.id}`"
+            v-motion
+            :initial="{ opacity: 0, y: 20, scale: 0.98 }"
+            :enter="{
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              transition: {
+                type: 'spring',
+                stiffness: 280,
+                damping: 24,
+                delay: 500 + (idx * 30)
               }
             }"
             :hovered="{
@@ -269,12 +422,10 @@ function formatTime(isoString: string) {
             <div class="flex items-center justify-between gap-3">
               <!-- Left: Number + Icon + Title + Description -->
               <div class="flex items-center gap-3 sm:gap-4 min-w-0">
-                <!-- Index Number -->
                 <span class="w-6 text-xs font-bold font-mono text-muted-foreground/60 group-hover:text-primary transition-colors text-center shrink-0">
                   {{ idx + 1 }}
                 </span>
 
-                <!-- Category Icon -->
                 <div
                   class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center border shadow-xs shrink-0 transition-transform group-hover:scale-105"
                   :class="cat.color"
@@ -282,7 +433,6 @@ function formatTime(isoString: string) {
                   <component :is="cat.icon" class="w-5 h-5 sm:w-5.5 sm:h-5.5" />
                 </div>
 
-                <!-- Title & Description -->
                 <div class="min-w-0">
                   <div class="flex items-center gap-2">
                     <h3 class="font-black text-sm sm:text-base text-foreground group-hover:text-primary transition-colors uppercase tracking-tight truncate">
@@ -312,7 +462,7 @@ function formatTime(isoString: string) {
         <div
           v-motion
           :initial="{ opacity: 0, y: 15 }"
-          :enter="{ opacity: 1, y: 0, transition: { delay: 650, duration: 350 } }"
+          :enter="{ opacity: 1, y: 0, transition: { delay: 850, duration: 350 } }"
           class="pt-4 text-center"
         >
           <NuxtLink to="/pricelist" class="inline-block w-full sm:w-auto">
@@ -323,7 +473,7 @@ function formatTime(isoString: string) {
               size="lg"
               class="w-full sm:w-auto h-12 px-8 rounded-2xl gap-2 font-bold text-sm shadow-md shadow-primary/20"
             >
-              <span>Buka Seluruh Katalog Hardware</span>
+              <span>Buka Seluruh Katalog Hardware & Rental</span>
               <ArrowRight class="w-4 h-4" />
             </Button>
           </NuxtLink>
@@ -334,7 +484,7 @@ function formatTime(isoString: string) {
     <!-- Footer -->
     <footer class="mt-auto border-t border-border/80 bg-background/60 py-5 text-center text-xs text-muted-foreground px-4">
       <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-        <p class="font-medium">© 2026 Mitra Visual Group (MVG). All rights reserved.</p>
+        <p class="font-medium">© 2026 Mitra Visual Group (MVG) & Asia Visiotron. All rights reserved.</p>
         <div class="flex items-center gap-2">
           <span>Sinkronisasi Otomatis Google Sheets</span>
           <span>•</span>

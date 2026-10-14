@@ -12,7 +12,9 @@ export default defineEventHandler(async () => {
     return {
       id: cat.id,
       name: cat.name,
+      catalog: cat.catalog,
       gid: cat.gid,
+      customUrl: cat.customUrl,
       icon: cat.icon,
       description: cat.description,
       itemCount: items.length,

@@ -1,9 +1,10 @@
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import type { PricelistItem, SheetCategory } from '../types/pricelist'
 
 export function usePricelist() {
   const categories = ref<SheetCategory[]>([])
-  const activeCategoryId = ref<string>('qiangli')
+  const activeCatalog = ref<'mvg' | 'av'>('mvg')
+  const activeCategoryId = ref<string>('mvg_rental_qiangli')
   const allItems = ref<Record<string, PricelistItem[]>>({})
   const isLoading = ref<boolean>(false)
   const isSyncing = ref<boolean>(false)
@@ -16,6 +17,17 @@ export function usePricelist() {
 
   let eventSource: EventSource | null = null
   let pollInterval: any = null
+
+  // Grouped categories by Catalog
+  const mvgCategories = computed(() =>
+    categories.value.filter((c) => c.catalog === 'mvg')
+  )
+  const avCategories = computed(() =>
+    categories.value.filter((c) => c.catalog === 'av')
+  )
+  const currentCatalogCategories = computed(() =>
+    activeCatalog.value === 'mvg' ? mvgCategories.value : avCategories.value
+  )
 
   // Fetch initial categories and data
   async function loadData(force = false) {
@@ -30,6 +42,21 @@ export function usePricelist() {
 
       categories.value = catRes.categories
       lastSyncTime.value = catRes.lastSync
+
+      // Ensure active category matches active catalog if not set properly
+      if (categories.value.length > 0) {
+        const found = categories.value.find((c) => c.id === activeCategoryId.value)
+        if (found) {
+          activeCatalog.value = found.catalog
+        } else {
+          const firstInCatalog = categories.value.find(
+            (c) => c.catalog === activeCatalog.value
+          )
+          if (firstInCatalog) {
+            activeCategoryId.value = firstInCatalog.id
+          }
+        }
+      }
 
       const dataRes = await $fetch<{
         itemsByCategory: Record<string, PricelistItem[]>
@@ -112,7 +139,6 @@ export function usePricelist() {
           allItems.value = newItems
           updatedItemIds.value = changed
 
-          // Auto-clear highlight after 5 seconds
           setTimeout(() => {
             updatedItemIds.value.clear()
           }, 5000)
@@ -124,7 +150,6 @@ export function usePricelist() {
       eventSource.onerror = () => {
         isLiveConnected.value = false
         eventSource?.close()
-        // Reconnect after 5 seconds
         setTimeout(connectSSE, 5000)
       }
     } catch (err) {
@@ -141,7 +166,9 @@ export function usePricelist() {
         const catRes = await $fetch<{ lastSync: string }>('/api/sheets')
         if (catRes.lastSync !== lastSyncTime.value) {
           lastSyncTime.value = catRes.lastSync
-          const dataRes = await $fetch<{ itemsByCategory: Record<string, PricelistItem[]> }>('/api/sheets/all')
+          const dataRes = await $fetch<{
+            itemsByCategory: Record<string, PricelistItem[]>
+          }>('/api/sheets/all')
           allItems.value = dataRes.itemsByCategory || {}
         }
       } catch (e) {
@@ -166,9 +193,46 @@ export function usePricelist() {
     }
   })
 
+  // Watch active category and sync activeCatalog
+  watch(
+    () => activeCategoryId.value,
+    (newCatId) => {
+      if (newCatId && categories.value.length > 0) {
+        const found = categories.value.find((c) => c.id === newCatId)
+        if (found && found.catalog !== activeCatalog.value) {
+          activeCatalog.value = found.catalog
+        }
+      }
+    }
+  )
+
+  // Switch Catalog helper
+  function setCatalog(catalog: 'mvg' | 'av') {
+    activeCatalog.value = catalog
+    const targetCats = catalog === 'mvg' ? mvgCategories.value : avCategories.value
+    if (targetCats.length > 0) {
+      const stillInCatalog = targetCats.some((c) => c.id === activeCategoryId.value)
+      if (!stillInCatalog) {
+        activeCategoryId.value = targetCats[0].id
+      }
+    }
+  }
+
   // Active Category metadata
   const currentCategory = computed(() => {
-    return categories.value.find((c) => c.id === activeCategoryId.value) || categories.value[0]
+    return (
+      categories.value.find((c) => c.id === activeCategoryId.value) ||
+      categories.value[0] || {
+        id: activeCategoryId.value,
+        name: activeCategoryId.value,
+        catalog: activeCatalog.value,
+        gid: '',
+        icon: 'Box',
+        description: '',
+        itemCount: 0,
+        lastUpdated: ''
+      }
+    )
   })
 
   // Raw items for active category
@@ -181,7 +245,6 @@ export function usePricelist() {
     const set = new Set<string>()
     for (const item of activeItems.value) {
       if (item.type) {
-        // Clean type (Indoor, Outdoor, Flexible, Controller, etc.)
         const simple = item.type.split(/[\(\/-]/)[0].trim()
         if (simple) set.add(simple)
       }
@@ -193,7 +256,6 @@ export function usePricelist() {
   const filteredItems = computed(() => {
     let result = [...activeItems.value]
 
-    // Search query (matches model, type, description, sku)
     if (searchQuery.value.trim()) {
       const q = searchQuery.value.toLowerCase().trim()
       result = result.filter(
@@ -205,20 +267,18 @@ export function usePricelist() {
       )
     }
 
-    // Type filter
     if (typeFilter.value !== 'ALL') {
       result = result.filter((item) =>
         item.type.toLowerCase().includes(typeFilter.value.toLowerCase())
       )
     }
 
-    // Sorting
     if (sortBy.value === 'price-asc') {
       result.sort((a, b) => a.price - b.price)
     } else if (sortBy.value === 'price-desc') {
       result.sort((a, b) => b.price - a.price)
     } else if (sortBy.value === 'name') {
-      result.sort((a, b) => (a.description || a.type).localeCompare(b.description || b.type))
+      result.sort((a, b) => (a.model || a.description).localeCompare(b.model || b.description))
     }
 
     return result
@@ -252,6 +312,11 @@ export function usePricelist() {
 
   return {
     categories,
+    activeCatalog,
+    setCatalog,
+    mvgCategories,
+    avCategories,
+    currentCatalogCategories,
     activeCategoryId,
     currentCategory,
     activeItems,
