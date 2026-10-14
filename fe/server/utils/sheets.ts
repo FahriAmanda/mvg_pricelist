@@ -871,7 +871,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           priceFormatted: formatRupiah(price),
           sku: `MRL-LT-${noVal || seq}`,
           image: '/images/products/meanreal-bsw-550.svg',
-          brochureUrl: (link && (link.startsWith('http://') || link.startsWith('https://'))) ? link : (HOIST_LINKS[noVal] || undefined),
+          brochureUrl: (link && (link.startsWith('http://') || link.startsWith('https://'))) ? link : (Object.entries(MEANREAL_LINKS).find(([k]) => item.toLowerCase().includes(k))?.[1] || undefined),
           metadata: {
             specification: spec,
             videoUrl: link,
@@ -887,10 +887,18 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // 5. MVG: Alumino
     // ==========================================
     case 'mvg_alumino': {
-      let currItem = ''
-      let currDesc = ''
+      let currItem = '300x300mm Bolt Truss'
+      let currDesc = 'Material: aluminum 6082-T6'
       let seq = 0
-      for (let i = 3; i < rows.length; i++) {
+      let startIdx = 3
+      for (let i = 0; i < rows.length; i++) {
+        const rowStr = (rows[i] || []).join(' ').toLowerCase()
+        if (rowStr.includes('item') && rowStr.includes('unit price')) {
+          startIdx = i + 1
+          break
+        }
+      }
+      for (let i = startIdx; i < rows.length; i++) {
         const r = rows[i]
         if (!r || !r.length) continue
         const itemRaw = r[0]?.trim().replace(/\n+/g, ' ') || ''
