@@ -570,17 +570,37 @@ const specRows = computed(() => {
               <span class="text-xs font-mono text-muted-foreground">Katalog {{ item.catalog?.toUpperCase() }}</span>
             </div>
 
-            <!-- SKU Copy Badge -->
-            <button
-              type="button"
-              class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-muted/80 hover:bg-muted border border-border/80 text-xs font-mono text-foreground transition-all shadow-sm group"
-              title="Klik untuk menyalin SKU"
-              @click="copyText(item.sku, 'sku')"
-            >
-              <span class="font-bold tracking-tight">{{ item.sku }}</span>
-              <Check v-if="copiedType === 'sku'" class="w-3.5 h-3.5 text-emerald-500" />
-              <Copy v-else class="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
-            </button>
+            <!-- SKU Copy Badge & Sync Status -->
+            <div class="flex items-center gap-2 flex-wrap">
+              <button
+                type="button"
+                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-muted/80 hover:bg-muted border border-border/80 text-xs font-mono text-foreground transition-all shadow-sm group"
+                title="Klik untuk menyalin SKU"
+                @click="copyText(item.sku, 'sku')"
+              >
+                <span class="font-bold tracking-tight">{{ item.sku }}</span>
+                <Check v-if="copiedType === 'sku'" class="w-3.5 h-3.5 text-emerald-500" />
+                <Copy v-else class="w-3.5 h-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
+              </button>
+
+              <!-- Badge SYNC ERP vs NOT SYNC ERP -->
+              <span
+                v-if="item.isSynced"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shadow-xs"
+                title="Item ini tersinkronisasi otomatis dengan ERP"
+              >
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                SYNC ERP
+              </span>
+              <span
+                v-else
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 shadow-xs"
+                title="Item ini belum tersinkronisasi di ERP"
+              >
+                <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                NOT SYNC ERP
+              </span>
+            </div>
           </div>
 
           <!-- Product Title & Headline -->
@@ -595,6 +615,12 @@ const specRows = computed(() => {
 
           <!-- Key Spec Highlights Chips -->
           <div class="flex flex-wrap gap-2 pt-1">
+            <!-- Available Stock (Khusus Sync ERP) -->
+            <div v-if="item.isSynced" class="px-3 py-1.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs font-medium text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+              <Package class="w-3.5 h-3.5" />
+              <span>Available Stock:</span>
+              <span class="font-bold font-mono">{{ (item.availableStock || 0).toLocaleString('id-ID') }} Unit</span>
+            </div>
             <div v-if="item.size" class="px-3 py-1.5 rounded-xl bg-muted/60 border border-border/60 text-xs font-medium text-foreground flex items-center gap-1.5">
               <span class="text-muted-foreground">Ukuran:</span>
               <span class="font-bold font-mono">{{ item.size }}</span>

@@ -1079,21 +1079,41 @@ const hasLinkColumn = computed(() => {
           >
             <!-- Card Header: SKU & Type Badge -->
             <div class="space-y-2">
-              <div class="flex items-center justify-between gap-2 min-w-0">
-                <button
-                  type="button"
-                  class="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-muted text-[11px] font-mono text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors min-w-0 max-w-[78%] shrink"
-                  title="Klik untuk menyalin SKU"
-                  @click.stop="copyToClipboard(item.sku)"
-                >
-                  <span class="truncate">{{ item.sku }}</span>
-                  <Check v-if="copiedSku === item.sku" class="w-3 h-3 text-emerald-500 shrink-0" />
-                  <Copy v-else class="w-3 h-3 shrink-0 opacity-60" />
-                </button>
+              <div class="flex items-center justify-between gap-1.5 min-w-0">
+                <div class="flex items-center gap-1.5 min-w-0 flex-1">
+                  <button
+                    type="button"
+                    class="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-muted text-[11px] font-mono text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors min-w-0 shrink truncate"
+                    title="Klik untuk menyalin SKU"
+                    @click.stop="copyToClipboard(item.sku)"
+                  >
+                    <span class="truncate">{{ item.sku }}</span>
+                    <Check v-if="copiedSku === item.sku" class="w-3 h-3 text-emerald-500 shrink-0" />
+                    <Copy v-else class="w-3 h-3 shrink-0 opacity-60" />
+                  </button>
+
+                  <!-- Badge SYNC ERP vs NOT SYNC ERP -->
+                  <span
+                    v-if="item.isSynced"
+                    class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 shrink-0 shadow-xs"
+                    title="Item ini tersinkronisasi otomatis dengan ERP"
+                  >
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    SYNC ERP
+                  </span>
+                  <span
+                    v-else
+                    class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[9px] font-bold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30 shrink-0 shadow-xs"
+                    title="Item ini belum tersinkronisasi di ERP"
+                  >
+                    <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                    NOT SYNC ERP
+                  </span>
+                </div>
 
                 <span
                   v-if="item.type"
-                  class="px-2 py-0.5 rounded-full text-[10px] font-bold tracking-tight uppercase shrink-0 max-w-[36%] truncate"
+                  class="px-2 py-0.5 rounded-full text-[10px] font-bold tracking-tight uppercase shrink-0 max-w-[30%] truncate"
                   :class="[
                     item.type?.toLowerCase().includes('curve')
                       ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
@@ -1388,20 +1408,38 @@ const hasLinkColumn = computed(() => {
               </div>
             </div>
 
-            <!-- Card Bottom: Price -->
-            <div class="pt-3 mt-3 border-t border-border/60 flex items-center justify-between gap-2">
-              <div class="min-w-0 flex-1">
-                <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider truncate">
-                  {{
-                    item.category.includes('rental')
-                      ? 'Harga Cash (Termurah)'
-                      : item.category === 'led_poster'
-                      ? 'Harga Flat'
-                      : item.category === 'led_cube'
-                      ? 'Harga 4 Sisi'
-                      : 'Harga Satuan'
-                  }}
-                </p>
+            <!-- Card Bottom: Stock & Price -->
+            <div class="pt-2.5 mt-3 border-t border-border/60">
+              <!-- Available Stock (Khusus Item yang sudah Sync ERP) -->
+              <div
+                v-if="item.isSynced"
+                class="flex items-center justify-between text-[11px] mb-2 pb-1.5 border-b border-border/40"
+              >
+                <span class="text-muted-foreground font-medium flex items-center gap-1.5">
+                  <Package class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <span>Available Stock</span>
+                </span>
+                <span
+                  class="font-mono font-bold px-2 py-0.5 rounded text-[11px]"
+                  :class="(item.availableStock || 0) > 0 ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' : 'bg-muted text-muted-foreground'"
+                >
+                  {{ (item.availableStock || 0).toLocaleString('id-ID') }} Unit
+                </span>
+              </div>
+
+              <div class="flex items-center justify-between gap-2">
+                <div class="min-w-0 flex-1">
+                  <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider truncate">
+                    {{
+                      item.category.includes('rental')
+                        ? 'Harga Cash (Termurah)'
+                        : item.category === 'led_poster'
+                        ? 'Harga Flat'
+                        : item.category === 'led_cube'
+                        ? 'Harga 4 Sisi'
+                        : 'Harga Satuan'
+                    }}
+                  </p>
                 <div class="flex items-baseline gap-1.5 flex-wrap">
                   <span
                     class="text-base sm:text-lg font-black tracking-tight whitespace-nowrap"
@@ -1434,6 +1472,7 @@ const hasLinkColumn = computed(() => {
             </div>
           </div>
           </div>
+        </div>
         </div>
 
         <!-- B1. SPECIALIZED FULL BOM COSTING SPREADSHEET FOR LED POSTER (Matches Google Sheets gid=773747421) -->
@@ -1604,19 +1643,45 @@ const hasLinkColumn = computed(() => {
                   </TableCell>
 
                   <TableCell>
-                    <div class="flex items-center gap-1.5">
-                      <Badge variant="secondary" class="font-mono text-[11px] font-normal px-2 py-0.5 max-w-[140px] truncate">
-                        {{ item.sku }}
-                      </Badge>
-                      <button
-                        type="button"
-                        class="text-muted-foreground hover:text-foreground opacity-60 group-hover:opacity-100 transition-opacity"
-                        title="Salin SKU"
-                        @click="copyToClipboard(item.sku)"
-                      >
-                        <Check v-if="copiedSku === item.sku" class="w-3.5 h-3.5 text-emerald-500" />
-                        <Copy v-else class="w-3.5 h-3.5" />
-                      </button>
+                    <div class="space-y-1">
+                      <div class="flex items-center gap-1.5">
+                        <Badge variant="secondary" class="font-mono text-[11px] font-normal px-2 py-0.5 max-w-[140px] truncate">
+                          {{ item.sku }}
+                        </Badge>
+                        <button
+                          type="button"
+                          class="text-muted-foreground hover:text-foreground opacity-60 group-hover:opacity-100 transition-opacity"
+                          title="Salin SKU"
+                          @click="copyToClipboard(item.sku)"
+                        >
+                          <Check v-if="copiedSku === item.sku" class="w-3.5 h-3.5 text-emerald-500" />
+                          <Copy v-else class="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+
+                      <div class="flex items-center gap-1 flex-wrap">
+                        <span
+                          v-if="item.isSynced"
+                          class="inline-flex items-center gap-1 px-1.5 py-0.2 rounded-full text-[8.5px] font-bold bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30"
+                        >
+                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                          SYNC ERP
+                        </span>
+                        <span
+                          v-else
+                          class="inline-flex items-center gap-1 px-1.5 py-0.2 rounded-full text-[8.5px] font-bold bg-rose-500/15 text-rose-600 dark:text-rose-400 border border-rose-500/30"
+                        >
+                          <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                          NOT SYNC ERP
+                        </span>
+
+                        <span
+                          v-if="item.isSynced"
+                          class="font-mono text-[9.5px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-1.5 py-0.2 rounded"
+                        >
+                          Stok: {{ (item.availableStock || 0).toLocaleString('id-ID') }}
+                        </span>
+                      </div>
                     </div>
                   </TableCell>
 

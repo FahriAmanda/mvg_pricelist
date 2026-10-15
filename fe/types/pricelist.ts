@@ -18,6 +18,8 @@ export interface PricelistItem {
   metadata?: Record<string, any>
   previousPrice?: number
   updatedAt?: string
+  isSynced?: boolean
+  availableStock?: number
 }
 
 export interface SheetCategory {

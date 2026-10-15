@@ -1,6 +1,39 @@
 import Papa from 'papaparse'
 import crypto from 'node:crypto'
+import erpStockInitialCache from './erpStockCache.json'
 import type { PricelistItem, SheetCategory } from '../../types/pricelist'
+
+let erpStockMap: Record<string, any> = { ...erpStockInitialCache }
+let lastStockFetch = 0
+
+async function refreshErpStockMap() {
+  const now = Date.now()
+  if (now - lastStockFetch < 30000 && Object.keys(erpStockMap).length > 0) {
+    return erpStockMap
+  }
+
+  try {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 4000)
+    const BE_URL = process.env.MVG_API_BASE || 'https://be-mvg.mitravisualgroup.com'
+    const res = await fetch(`${BE_URL}/api/marketing/pricelist-sync-stock`, {
+      signal: controller.signal,
+      headers: { 'Accept': 'application/json' }
+    })
+    clearTimeout(timeoutId)
+
+    if (res.ok) {
+      const json: any = await res.json()
+      if (json && json.status === 'success' && json.data) {
+        erpStockMap = { ...erpStockInitialCache, ...json.data }
+        lastStockFetch = now
+      }
+    }
+  } catch (err: any) {
+    // Silently fall back to cached stock
+  }
+  return erpStockMap
+}
 
 export const SHEET_CATEGORIES: Array<{
   id: string
@@ -2232,7 +2265,10 @@ export async function fetchAllSheets(force = false): Promise<{
       }
     })
 
-    const results = await Promise.all(fetchPromises)
+    const [results] = await Promise.all([
+      Promise.all(fetchPromises),
+      refreshErpStockMap()
+    ])
 
     // Calculate composite hash
     const hash = crypto.createHash('md5')
@@ -2258,6 +2294,17 @@ export async function fetchAllSheets(force = false): Promise<{
             item.previousPrice = oldPrice
           }
           store.previousPrices[item.sku] = item.price
+
+          // Check ERP Sync & Available Stock
+          const stockInfo = erpStockMap[item.sku]
+          if (stockInfo && stockInfo.is_synced) {
+            item.isSynced = true
+            item.availableStock = Number(stockInfo.available_stock || 0)
+          } else {
+            item.isSynced = false
+            item.availableStock = 0
+          }
+
           return item
         })
 
