@@ -13,11 +13,16 @@ export default defineEventHandler(async (event) => {
 
   const query = getQuery(event)
   const search = String(query.search || '').trim()
-  const limit = String(query.limit || '50')
+  const noPaginate = query.no_paginate !== undefined ? String(query.no_paginate) : 'true'
+  const limit = query.limit ? String(query.limit) : ''
 
   const url = new URL(`${BE_MVG_URL}/api/marketing/unsynced-items`)
   if (search) url.searchParams.set('search', search)
-  if (limit) url.searchParams.set('limit', limit)
+  if (noPaginate === 'true') {
+    url.searchParams.set('no_paginate', 'true')
+  } else if (limit) {
+    url.searchParams.set('limit', limit)
+  }
 
   try {
     const res = await fetch(url.toString(), {

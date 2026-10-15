@@ -137,7 +137,7 @@ async function fetchUnsyncedItems(query: string = '') {
   isLoadingErpItems.value = true
   syncError.value = null
   try {
-    const url = `/api/erp/unsynced-items?search=${encodeURIComponent(query)}&limit=50`
+    const url = `/api/erp/unsynced-items?no_paginate=true&search=${encodeURIComponent(query)}`
     const res = await $fetch<any>(url, {
       headers: {
         Authorization: `Bearer ${authStore.token}`
@@ -1285,8 +1285,8 @@ const specRows = computed(() => {
             />
           </div>
           <div class="flex items-center justify-between text-[11px] text-muted-foreground mt-2 px-1">
-            <span>Menampilkan item ERP yang belum memiliki SKU resmi (<span class="font-mono">ITM-%</span>)</span>
-            <span v-if="unsyncedItems.length > 0">{{ unsyncedItems.length }} item ditemukan</span>
+            <span>Menampilkan seluruh master item ERP yang belum memiliki SKU (<span class="font-mono font-semibold">ITM-%</span>)</span>
+            <span v-if="unsyncedItems.length > 0" class="font-semibold text-emerald-600 dark:text-emerald-400 font-mono">{{ unsyncedItems.length }} item</span>
           </div>
         </div>
 
