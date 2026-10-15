@@ -193,6 +193,14 @@ export const SHEET_CATEGORIES: Array<{
     gid: '1564770284',
     icon: 'ShieldCheck',
     description: 'LED Videotron Magnustek Bersertifikat Resmi TKDN Kemenperin'
+  },
+  {
+    id: 'finished_cabinet',
+    name: 'Finished Cabinet',
+    catalog: 'av',
+    gid: '2026050501',
+    icon: 'LayoutGrid',
+    description: 'Finished Cabinet Die-Cast, Iron, Curve, Corner & COB 600x337.5mm'
   }
 ]
 
@@ -458,6 +466,17 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
       '1. Bersertifikat Resmi TKDN Kemenperin RI dengan nilai hingga 42.82%',
       '2. Memenuhi standar pengadaan e-Katalog LKPP instansi pemerintah & BUMN',
       '3. Tersedia teknologi mutakhir COB Ultra-Fine Pitch P0.9 - P1.5 dan SMD Outdoor'
+    ]
+  },
+  finished_cabinet: {
+    bannerTitle: 'FINISHED CABINET VIDEOTRON SIAP PAKAI',
+    bannerSubtitle: 'Katalog Kabinet Jadi Die-Cast Aluminium, Iron Outdoor, Curve, Corner & COB Mitra Visual Group (AV)',
+    bannerImage: '/images/products/finished-cabinet-banner.svg',
+    kursUSD: 'Kabinet Siap Rakit',
+    notes: [
+      '1. Finished Cabinet siap pakai mencakup modul, kabinet presisi, dan mounting hardware',
+      '2. Tersedia pilihan Die-Cast Aluminium 64x48cm, 64x64cm, 96x96cm & Iron Outdoor Waterproof',
+      '3. Varian khusus: Iron Curve 112x96cm, Iron Corner (32+64)x96cm, Transparent & COB 600x337.5mm'
     ]
   }
 }
@@ -2054,6 +2073,82 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
             paket,
             subType,
             no: seq
+          },
+          updatedAt: new Date().toISOString()
+        })
+      }
+      break
+    }
+
+    // ==========================================
+    // 22. AV: Finished Cabinet
+    // ==========================================
+    case 'finished_cabinet': {
+      let seq = 0
+      for (let i = 1; i < rows.length; i++) {
+        const r = rows[i]
+        if (!r || r.length < 4) continue
+        const rawModel = (r[1] || '').trim()
+        const cabType = (r[2] || '').trim()
+        const price = parsePrice(r[3])
+        const sku = (r[4] || '').trim() || `FC-${i}`
+        if (!rawModel && !cabType) continue
+        if (!price && !sku) continue
+
+        seq++
+
+        // Extract size e.g. "96x96 CM", "64x48 CM", "(32+64)x96 CM", "600x337.5 MM"
+        const sizeMatch = cabType.match(/(?:\(?\d+(?:\+\d+)?\)?\s*x\s*\d+(?:\.\d+)?\s*(?:CM|MM|cm|mm))/i)
+        const size = sizeMatch ? sizeMatch[0] : ''
+
+        // Categorize Type
+        let type = 'Diecast'
+        const lowerCab = cabType.toLowerCase()
+        const lowerModel = rawModel.toLowerCase()
+        if (lowerCab.includes('corner')) {
+          type = 'Iron Corner'
+        } else if (lowerCab.includes('curve')) {
+          type = 'Iron Curve'
+        } else if (lowerCab.includes('cob') || lowerModel.includes('cob')) {
+          type = 'COB Diecast'
+        } else if (lowerModel.includes('transparent')) {
+          type = 'Diecast Transparent'
+        } else if (lowerCab.includes('die-cast') || lowerCab.includes('diecast')) {
+          type = 'Diecast'
+        } else if (lowerCab.includes('iron')) {
+          type = 'Iron'
+        }
+
+        // Map Image
+        let itemImg = '/images/products/av-cabinet-diecast.svg'
+        if (type.includes('Iron')) {
+          itemImg = '/images/products/av-cabinet-iron.svg'
+        } else if (type === 'Diecast Transparent') {
+          itemImg = '/images/products/qiangli-mavic-xt-transparant.png'
+        } else if (type === 'COB Diecast') {
+          itemImg = '/images/products/av-cabinet-diecast.svg'
+        }
+
+        const desc = `${rawModel} (${cabType})`
+
+        items.push({
+          id: `${categoryId}-${seq}`,
+          no: seq,
+          category: categoryId,
+          catalog: 'av',
+          model: rawModel,
+          type,
+          description: desc,
+          size: size || cabType,
+          price,
+          priceFormatted: formatRupiah(price),
+          sku,
+          image: itemImg,
+          metadata: {
+            no: seq,
+            model: rawModel,
+            cabinetType: cabType,
+            specification: cabType
           },
           updatedAt: new Date().toISOString()
         })

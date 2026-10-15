@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 220" width="100%" height="100%">
+  <defs>
+    <linearGradient id="fcBgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1329" />
+      <stop offset="50%" stop-color="#172554" />
+      <stop offset="100%" stop-color="#090d16" />
+    </linearGradient>
+    <linearGradient id="fcBlueGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <pattern id="fcGrid" width="30" height="30" patternUnits="userSpaceOnUse">
+      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#1e3a8a" stroke-width="0.8" opacity="0.35" />
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="220" rx="16" fill="url(#fcBgGrad)" />
+  <rect width="1200" height="220" rx="16" fill="url(#fcGrid)" />
+
+  <!-- Accent glow border -->
+  <rect width="1196" height="216" x="2" y="2" rx="15" fill="none" stroke="#3b82f6" stroke-width="1.5" opacity="0.35" />
+
+  <!-- Left Accent Bar -->
+  <rect x="24" y="30" width="6" height="160" rx="3" fill="url(#fcBlueGrad)" />
+
+  <!-- Content Left -->
+  <g transform="translate(48, 32)">
+    <!-- Badge -->
+    <rect x="0" y="0" width="200" height="26" rx="6" fill="#1e3a8a" stroke="#60a5fa" stroke-width="1" />
+    <text x="14" y="17" fill="#93c5fd" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="800" letter-spacing="1">AV PRICE LIST RESMI</text>
+
+    <!-- Main Title -->
+    <text x="0" y="68" fill="#ffffff" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="32" font-weight="900" letter-spacing="0.5">
+      FINISHED CABINET VIDEOTRON
+    </text>
+
+    <!-- Subtitle -->
+    <text x="0" y="104" fill="#38bdf8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" letter-spacing="0.3">
+      KABINET JADI SIAP PAKAI • DIECAST, IRON, CURVE, CORNER &amp; COB
+    </text>
+
+    <text x="0" y="132" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="13" font-weight="500">
+      Koleksi Lengkap 64 Tipe Kabinet • QiangLi Indoor, Outdoor, Flexible, Transparent &amp; COB 600x337.5mm
+    </text>
+  </g>
+
+  <!-- Decorative Badges Right -->
+  <g transform="translate(860, 40)">
+    <!-- Badge 1: Diecast Cabinet -->
+    <rect x="0" y="0" width="150" height="34" rx="8" fill="#1e293b" stroke="#3b82f6" stroke-width="1.2" />
+    <circle cx="18" cy="17" r="5" fill="#3b82f6" />
+    <text x="32" y="22" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">DIE-CAST ALUM</text>
+
+    <!-- Badge 2: Iron Cabinet -->
+    <rect x="165" y="0" width="150" height="34" rx="8" fill="#1e293b" stroke="#f59e0b" stroke-width="1.2" />
+    <circle cx="183" cy="17" r="5" fill="#f59e0b" />
+    <text x="197" y="22" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">IRON OUTDOOR</text>
+
+    <!-- Badge 3: Curve & Corner -->
+    <rect x="0" y="48" width="150" height="34" rx="8" fill="#1e293b" stroke="#10b981" stroke-width="1.2" />
+    <circle cx="18" cy="65" r="5" fill="#10b981" />
+    <text x="32" y="70" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">CURVE &amp; CORNER</text>
+
+    <!-- Badge 4: COB 600x337.5 -->
+    <rect x="165" y="48" width="150" height="34" rx="8" fill="#1e293b" stroke="#8b5cf6" stroke-width="1.2" />
+    <circle cx="183" cy="65" r="5" fill="#8b5cf6" />
+    <text x="197" y="70" fill="#e2e8f0" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="700">COB DIECAST</text>
+
+    <!-- Footer guarantee tag -->
+    <rect x="0" y="96" width="315" height="34" rx="8" fill="#0f172a" stroke="#334155" stroke-width="1" />
+    <text x="14" y="118" fill="#60a5fa" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11.5" font-weight="700">✓ Presisi Tinggi Siap Rakit &amp; Pasang</text>
+  </g>
+</svg>

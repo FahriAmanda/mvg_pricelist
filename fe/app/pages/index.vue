@@ -454,7 +454,7 @@ function formatTime(isoString: string) {
                   <Boxes class="w-7 h-7" />
                 </div>
                 <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary border border-primary/20 font-mono">
-                  10 Kategori
+                  11 Kategori
                 </span>
               </div>
 
@@ -638,7 +638,7 @@ function formatTime(isoString: string) {
             <h1 class="text-xl sm:text-2xl font-black tracking-tight text-foreground uppercase flex items-center gap-2">
               <span>PRICELIST AV</span>
               <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold border border-primary/20 font-mono tracking-normal">
-                10 Kategori
+                11 Kategori
               </span>
             </h1>
             <p class="text-xs text-muted-foreground">
