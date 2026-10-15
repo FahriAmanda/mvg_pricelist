@@ -38,6 +38,7 @@ import {
   Package
 } from '@lucide/vue'
 import ThemeToggle from '~/components/ThemeToggle.vue'
+import FieldSelect from '~/components/FieldSelect.vue'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useAuthStore } from '~/stores/auth'
@@ -135,6 +136,22 @@ const availableCategories = computed(() => {
     .sort((a, b) => a.localeCompare(b))
     .map(name => ({ name, count: counts[name] }))
 })
+
+const categoryOptions = computed(() => {
+  return [
+    { value: 'ALL', label: `Semua Kategori (${unsyncedItems.value.length})` },
+    ...availableCategories.value.map(cat => ({
+      value: cat.name,
+      label: `${cat.name} (${cat.count})`
+    }))
+  ]
+})
+
+const stockOptions = [
+  { value: 'ALL', label: 'Semua Kondisi Stok Gudang' },
+  { value: 'AVAILABLE', label: 'Hanya Ada Stok Saja (> 0)' },
+  { value: 'EMPTY', label: 'Stok Kosong (= 0)' }
+]
 
 // Filtered items based on Category, Stock, and Search
 const filteredErpItems = computed(() => {
@@ -1375,7 +1392,7 @@ const specRows = computed(() => {
         </div>
 
         <!-- Search & Filter Bar -->
-        <div class="p-4 border-b border-border/60 bg-background/50 space-y-2.5">
+        <div class="p-4 border-b border-border/60 bg-background/50 space-y-2.5 relative z-20">
           <div class="relative">
             <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <input
@@ -1387,34 +1404,27 @@ const specRows = computed(() => {
             />
           </div>
 
-          <!-- Dual Filter: Group Category & Stock Availability -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <!-- Dual Filter: Group Category & Stock Availability (FieldSelect Components) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 relative z-30">
             <!-- Group Category Filter -->
-            <div class="relative">
-              <select
-                v-model="erpSelectedCategory"
-                class="w-full text-xs rounded-xl border border-border/80 bg-background px-3 py-2 text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary/40 transition-all font-sans cursor-pointer"
-                @change="onErpFilterChange"
-              >
-                <option value="ALL">Semua Kategori ({{ unsyncedItems.length }})</option>
-                <option v-for="cat in availableCategories" :key="cat.name" :value="cat.name">
-                  {{ cat.name }} ({{ cat.count }})
-                </option>
-              </select>
-            </div>
+            <FieldSelect
+              v-model="erpSelectedCategory"
+              :options="categoryOptions"
+              placeholder="Pilih Kategori..."
+              size="sm"
+              :searchable="true"
+              @change="onErpFilterChange"
+            />
 
             <!-- Stock Filter -->
-            <div class="relative">
-              <select
-                v-model="erpStockFilter"
-                class="w-full text-xs rounded-xl border border-border/80 bg-background px-3 py-2 text-foreground focus:outline-hidden focus:ring-2 focus:ring-primary/40 transition-all font-sans cursor-pointer"
-                @change="onErpFilterChange"
-              >
-                <option value="ALL">Semua Kondisi Stok Gudang</option>
-                <option value="AVAILABLE">Hanya Ada Stok Saja (> 0)</option>
-                <option value="EMPTY">Stok Kosong (= 0)</option>
-              </select>
-            </div>
+            <FieldSelect
+              v-model="erpStockFilter"
+              :options="stockOptions"
+              placeholder="Kondisi Stok..."
+              size="sm"
+              :searchable="false"
+              @change="onErpFilterChange"
+            />
           </div>
 
           <div class="flex items-center justify-between text-[11px] text-muted-foreground px-1 pt-0.5">
