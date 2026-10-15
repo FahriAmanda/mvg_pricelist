@@ -1238,6 +1238,26 @@ const hasLinkColumn = computed(() => {
                 </span>
               </div>
 
+              <!-- Special Breakdown: Instalasi LED Dual Prices (Modular vs Cabinet) -->
+              <div v-if="item.category === 'mvg_instalasi_led'" class="pt-2 space-y-2 text-xs">
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="p-2.5 rounded-xl bg-primary/5 border border-primary/20">
+                    <p class="text-[10px] text-muted-foreground font-medium flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                      Harga Modular
+                    </p>
+                    <p class="font-bold text-foreground font-mono mt-0.5 text-xs">{{ item.metadata?.hargaModularFormatted || '-' }}</p>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-purple-500/5 border border-purple-500/20">
+                    <p class="text-[10px] text-muted-foreground font-medium flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
+                      Harga Cabinet
+                    </p>
+                    <p class="font-bold text-foreground font-mono mt-0.5 text-xs">{{ item.metadata?.hargaCabinetFormatted || '-' }}</p>
+                  </div>
+                </div>
+              </div>
+
               <!-- Special Breakdown: LED Poster Dual Prices & Full BOM -->
               <div v-if="item.category === 'led_poster'" class="pt-2 space-y-2 text-xs">
                 <div class="grid grid-cols-2 gap-2">
@@ -1515,6 +1535,9 @@ const hasLinkColumn = computed(() => {
                   <TableHead class="w-[120px] text-xs font-semibold">Tipe</TableHead>
                   <TableHead class="w-[110px] text-xs font-semibold">Ukuran / Spek</TableHead>
 
+                  <TableHead v-if="activeCategoryId === 'mvg_instalasi_led'" class="w-[140px] text-xs font-semibold">
+                    Harga Modular
+                  </TableHead>
                   <TableHead v-if="activeCategoryId === 'led_poster'" class="w-[150px] text-xs font-semibold">
                     Foldable
                   </TableHead>
@@ -1530,7 +1553,9 @@ const hasLinkColumn = computed(() => {
 
                   <TableHead class="w-[150px] text-right text-xs font-semibold">
                     {{
-                      activeCategoryId.includes('rental')
+                      activeCategoryId === 'mvg_instalasi_led'
+                        ? 'Harga Cabinet'
+                        : activeCategoryId.includes('rental')
                         ? 'Harga Cash'
                         : activeCategoryId === 'led_poster'
                         ? 'Harga Flat'
@@ -1637,6 +1662,9 @@ const hasLinkColumn = computed(() => {
                     </div>
                   </TableCell>
 
+                  <TableCell v-if="activeCategoryId === 'mvg_instalasi_led'" class="text-xs font-mono font-semibold text-primary">
+                    {{ item.metadata?.hargaModularFormatted || '-' }}
+                  </TableCell>
                   <TableCell v-if="activeCategoryId === 'led_poster'" class="text-xs font-medium">
                     {{ item.metadata?.foldablePriceFormatted || '-' }}
                   </TableCell>

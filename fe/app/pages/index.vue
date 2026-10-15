@@ -388,7 +388,7 @@ function formatTime(isoString: string) {
                   <Sparkles class="w-7 h-7" />
                 </div>
                 <span class="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-mono">
-                  11 Kategori
+                  12 Kategori
                 </span>
               </div>
 
@@ -407,7 +407,7 @@ function formatTime(isoString: string) {
 
               <!-- Description -->
               <p class="text-xs text-muted-foreground/90 leading-relaxed">
-                Katalog lengkap LED Rental (Qiangli, Fabulux, Maven), Special Effects MOKA, Electric Hoist, Moving Head Lighting Meanreal, Rigging Alumino, Ringlock Scaffolding, Laser Gaga, Mojo Barrier & Aksesoris Event.
+                Katalog lengkap Paket Instalasi LED Videotron (Modular & Cabinet), LED Rental (Qiangli, Fabulux, Maven), Special Effects MOKA, Electric Hoist, Moving Head Lighting Meanreal, Rigging Alumino, Ringlock Scaffolding, Laser Gaga, Mojo Barrier & Aksesoris Event.
               </p>
 
               <!-- Tags Preview -->
@@ -533,7 +533,7 @@ function formatTime(isoString: string) {
             <h1 class="text-xl sm:text-2xl font-black tracking-tight text-foreground uppercase flex items-center gap-2">
               <span>PRICELIST MVG</span>
               <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/20 font-mono tracking-normal">
-                11 Kategori
+                12 Kategori
               </span>
             </h1>
             <p class="text-xs text-muted-foreground">

@@ -193,6 +193,8 @@ function copyFullSpecs() {
     `Harga Satuan Cash: ${formatRupiah(item.value.price)}`,
     item.value.metadata?.priceKredit ? `Harga Satuan Kredit: ${formatRupiah(item.value.metadata.priceKredit)}` : null,
     item.value.metadata?.foldablePriceFormatted ? `Harga Cabinet Foldable: ${item.value.metadata.foldablePriceFormatted}` : null,
+    item.value.metadata?.hargaModularFormatted ? `Harga Modular: ${item.value.metadata.hargaModularFormatted}` : null,
+    item.value.metadata?.hargaCabinetFormatted ? `Harga Cabinet: ${item.value.metadata.hargaCabinetFormatted}` : null,
     item.value.metadata?.price5SideFormatted ? `Harga Cube 5 Sisi: ${item.value.metadata.price5SideFormatted}` : null,
     item.value.metadata?.tkdnValue ? `Nilai TKDN: ${item.value.metadata.tkdnValue}%` : null,
     `----------------------------------------`,
@@ -265,6 +267,12 @@ const specRows = computed(() => {
   }
   if (item.value.metadata?.foldablePriceFormatted) {
     rows.push({ label: 'Harga Cabinet Foldable (Include A35)', value: item.value.metadata.foldablePriceFormatted, isHighlight: true })
+  }
+  if (item.value.metadata?.hargaModularFormatted) {
+    rows.push({ label: 'Harga Pemasangan Modular', value: item.value.metadata.hargaModularFormatted, isHighlight: true })
+  }
+  if (item.value.metadata?.hargaCabinetFormatted) {
+    rows.push({ label: 'Harga Pemasangan Cabinet', value: item.value.metadata.hargaCabinetFormatted, isHighlight: true })
   }
   if (item.value.metadata?.moduleUnitPrice) {
     rows.push({
@@ -655,6 +663,18 @@ const specRows = computed(() => {
               <div class="p-3 rounded-2xl bg-muted/40 border border-border/60">
                 <p class="text-[11px] text-muted-foreground font-medium">Versi Cube 5 Sisi (Berdiri 360° Display)</p>
                 <p class="text-lg font-bold text-foreground font-mono mt-0.5">{{ item.metadata?.price5SideFormatted || '-' }}</p>
+              </div>
+            </div>
+
+            <!-- Instalasi LED Dual Price (Modular vs Cabinet) -->
+            <div v-if="item.category === 'mvg_instalasi_led'" class="grid grid-cols-2 gap-3 pt-1">
+              <div class="p-3 rounded-2xl bg-primary/5 border border-primary/20">
+                <p class="text-[11px] text-muted-foreground font-medium">Harga Pemasangan Modular</p>
+                <p class="text-lg font-bold text-primary font-mono mt-0.5">{{ item.metadata?.hargaModularFormatted || '-' }}</p>
+              </div>
+              <div class="p-3 rounded-2xl bg-purple-500/5 border border-purple-500/20">
+                <p class="text-[11px] text-muted-foreground font-medium">Harga Pemasangan Cabinet</p>
+                <p class="text-lg font-bold text-purple-600 dark:text-purple-400 font-mono mt-0.5">{{ item.metadata?.hargaCabinetFormatted || '-' }}</p>
               </div>
             </div>
 

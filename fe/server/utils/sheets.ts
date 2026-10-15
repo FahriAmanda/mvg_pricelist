@@ -102,6 +102,14 @@ export const SHEET_CATEGORIES: Array<{
     icon: 'Cable',
     description: 'Power Distribution Panel 3-Phase, PowerCON, Cat6, Clamps, Bracket & Fiber Optic'
   },
+  {
+    id: 'mvg_instalasi_led',
+    name: 'Instalasi LED',
+    catalog: 'mvg',
+    customUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRuMDmEzh4w7r09LH3Quoio4lHUZIR7Krur4FNfuxCskrN0onGEyiDGtr_ff7NGRG47Uq8HaNhXmS1a/pub?single=true&output=csv&gid=81890595',
+    icon: 'Monitor',
+    description: 'Price List Paket Instalasi LED Videotron Modular & Cabinet (Qiangli & ABSEN Pro Series)'
+  },
 
   // ==========================================
   // 2. AV PRICE LIST (10 Kategori Display & Controller)
@@ -335,6 +343,17 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
       '1. Power Distribution Panel 3-Phase dilengkapi MCB individual & digital meter',
       '2. Kabel PowerCON, Cat6 UTP, dan Fiber Optic standar RoHS compliant',
       '3. Flightcase ABS shockproof melindungi modul & kabinet saat mobilitas rental'
+    ]
+  },
+  mvg_instalasi_led: {
+    bannerTitle: 'PRICE LIST PAKET INSTALASI LED VIDEOTRON',
+    bannerSubtitle: 'Katalog Resmi Paket Instalasi Modular & Cabinet QiangLi & ABSEN Mitra Visual Group (MVG)',
+    bannerImage: '/images/products/instalasi-led-banner.svg',
+    kursUSD: 'Paket Siap Pasang',
+    notes: [
+      '1. Tersedia pilihan sistem pemasangan Modular (Besi Hollo/Struktur) dan Cabinet Diecast / Iron',
+      '2. Mencakup varian Indoor, Outdoor, GOB Protective, Flexible & COB Pro Series',
+      '3. Garansi resmi panel modul, receiving card, power supply dan purna jual Mitra Visual Group'
     ]
   },
 
@@ -1453,6 +1472,72 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           metadata: {
             specification: desc,
             no: seq
+          },
+          updatedAt: new Date().toISOString()
+        })
+      }
+      break
+    }
+
+    // ==========================================
+    // 12. MVG: Instalasi LED Videotron (Modular & Cabinet)
+    // ==========================================
+    case 'mvg_instalasi_led': {
+      let seq = 0
+      for (let i = 1; i < rows.length; i++) {
+        const r = rows[i]
+        if (!r || r.length < 2) continue
+        const model = (r[0] || '').trim()
+        const type = (r[1] || '').trim()
+        if (!model && !type) continue
+
+        const modularStr = (r[2] || '').trim()
+        const cabinetStr = (r[3] || '').trim()
+
+        const hargaModular = parsePrice(modularStr)
+        const hargaCabinet = parsePrice(cabinetStr)
+
+        const primaryPrice = hargaCabinet > 0 ? hargaCabinet : hargaModular
+        if (primaryPrice <= 0) continue
+
+        seq++
+
+        // Determine representative product image
+        let itemImg = '/images/products/qiangli-new-lite-indoor.png'
+        if (model.toLowerCase().includes('outdoor')) {
+          itemImg = '/images/products/qiangli-new-lite-outdoor.png'
+        } else if (type.toLowerCase().includes('flexible')) {
+          itemImg = '/images/products/av-qiangli-module.svg'
+        } else if (model.toLowerCase().includes('absen') || type.toLowerCase().includes('absen')) {
+          itemImg = '/images/products/av-cabinet-diecast.svg'
+        } else if (type.toLowerCase().includes('cob')) {
+          itemImg = '/images/products/qiangli-saga-indoor.png'
+        }
+
+        const sku = `INST-LED-${seq.toString().padStart(2, '0')}`
+        const desc = `Paket Instalasi LED Videotron ${model} ${type} (Modular & Cabinet)`
+
+        items.push({
+          id: `${categoryId}-${seq}`,
+          no: seq,
+          category: categoryId,
+          catalog: 'mvg',
+          model,
+          type,
+          description: desc,
+          price: primaryPrice,
+          priceFormatted: formatRupiah(primaryPrice),
+          sku,
+          image: itemImg,
+          metadata: {
+            no: seq,
+            model,
+            type,
+            hargaModular: hargaModular > 0 ? hargaModular : null,
+            hargaModularFormatted: hargaModular > 0 ? formatRupiah(hargaModular) : '-',
+            hargaCabinet: hargaCabinet > 0 ? hargaCabinet : null,
+            hargaCabinetFormatted: hargaCabinet > 0 ? formatRupiah(hargaCabinet) : '-',
+            specification: `${model} ${type}`
           },
           updatedAt: new Date().toISOString()
         })
