@@ -1,18 +1,28 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import type { PricelistItem, SheetCategory } from '../types/pricelist'
 
-export function usePricelist() {
+export interface UsePricelistOptions {
+  catalog?: 'mvg' | 'av'
+  categoryId?: string
+  search?: string
+  type?: string
+  sort?: 'default' | 'price-asc' | 'price-desc' | 'name'
+}
+
+export function usePricelist(initialOptions?: UsePricelistOptions) {
   const categories = ref<SheetCategory[]>([])
-  const activeCatalog = ref<'mvg' | 'av'>('mvg')
-  const activeCategoryId = ref<string>('mvg_rental_qiangli')
+  const activeCatalog = ref<'mvg' | 'av'>(initialOptions?.catalog || 'mvg')
+  const activeCategoryId = ref<string>(
+    initialOptions?.categoryId || (activeCatalog.value === 'av' ? 'qiangli' : 'mvg_rental_qiangli')
+  )
   const allItems = ref<Record<string, PricelistItem[]>>({})
   const isLoading = ref<boolean>(false)
   const isSyncing = ref<boolean>(false)
   const isLiveConnected = ref<boolean>(false)
   const lastSyncTime = ref<string>('')
-  const searchQuery = ref<string>('')
-  const typeFilter = ref<string>('ALL')
-  const sortBy = ref<'default' | 'price-asc' | 'price-desc' | 'name'>('default')
+  const searchQuery = ref<string>(initialOptions?.search || '')
+  const typeFilter = ref<string>(initialOptions?.type || 'ALL')
+  const sortBy = ref<'default' | 'price-asc' | 'price-desc' | 'name'>(initialOptions?.sort || 'default')
   const updatedItemIds = ref<Set<string>>(new Set())
 
   let eventSource: EventSource | null = null
@@ -45,15 +55,19 @@ export function usePricelist() {
 
       // Ensure active category matches active catalog if not set properly
       if (categories.value.length > 0) {
-        const found = categories.value.find((c) => c.id === activeCategoryId.value)
-        if (found) {
-          activeCatalog.value = found.catalog
+        if (activeCategoryId.value === 'all') {
+          // 'all' is explicitly allowed across all categories, keep it!
         } else {
-          const firstInCatalog = categories.value.find(
-            (c) => c.catalog === activeCatalog.value
-          )
-          if (firstInCatalog) {
-            activeCategoryId.value = firstInCatalog.id
+          const found = categories.value.find((c) => c.id === activeCategoryId.value)
+          if (found) {
+            activeCatalog.value = found.catalog
+          } else {
+            const firstInCatalog = categories.value.find(
+              (c) => c.catalog === activeCatalog.value
+            )
+            if (firstInCatalog) {
+              activeCategoryId.value = firstInCatalog.id
+            }
           }
         }
       }

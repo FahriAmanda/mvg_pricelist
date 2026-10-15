@@ -61,9 +61,39 @@ import type { PricelistItem } from '~/types/pricelist'
 const route = useRoute()
 const router = useRouter()
 
+// 1. Initial State from URL Query Parameters
+const queryCatalog = route.query.catalog as string
+const queryCategory = route.query.category as string
+const queryView = route.query.view as string
+const queryType = route.query.type as string
+const querySearch = route.query.search as string
+const querySort = route.query.sort as string
+
+let initialCatalog: 'mvg' | 'av' = 'mvg'
+if (queryCatalog === 'av' || queryCatalog === 'mvg') {
+  initialCatalog = queryCatalog
+} else if (queryCategory) {
+  if (queryCategory.startsWith('mvg_')) {
+    initialCatalog = 'mvg'
+  } else if (
+    ['qiangli', 'lampro', 'huidu', 'colorlight', 'novastar', 'cabinet', 'psu', 'led_poster', 'led_cube', 'magnustek_tkdn'].includes(queryCategory)
+  ) {
+    initialCatalog = 'av'
+  }
+}
+
+const initialCategory = queryCategory || (initialCatalog === 'av' ? 'qiangli' : 'mvg_rental_qiangli')
+
 function goToDetail(itemId: string) {
   if (!itemId) return
-  router.push(`/item/${itemId}`)
+  router.push({
+    path: `/item/${itemId}`,
+    query: {
+      fromCatalog: activeCatalog.value,
+      fromCategory: activeCategoryId.value,
+      fromView: viewMode.value
+    }
+  })
 }
 
 const {
@@ -88,23 +118,102 @@ const {
   sortBy,
   updatedItemIds,
   triggerSync
-} = usePricelist()
-
-// Set active category from URL query if provided (e.g. /pricelist?category=mvg_moka_effect)
-onMounted(() => {
-  const catQuery = route.query.category as string
-  if (catQuery) {
-    activeCategoryId.value = catQuery
-  }
+} = usePricelist({
+  catalog: initialCatalog,
+  categoryId: initialCategory,
+  type: queryType || 'ALL',
+  search: querySearch || '',
+  sort: (querySort as any) || 'default'
 })
 
-watch(
-  () => route.query.category,
-  (newCat) => {
-    if (newCat && typeof newCat === 'string') {
-      activeCategoryId.value = newCat
-    }
+// Display View Mode: 'cards' or 'table'
+const viewMode = ref<'cards' | 'table'>(queryView === 'table' ? 'table' : 'cards')
+
+// 2. Synchronize State to URL Query Parameters
+function syncStateToUrl() {
+  const nextQuery: Record<string, string> = {
+    catalog: activeCatalog.value,
+    category: activeCategoryId.value
   }
+
+  if (viewMode.value === 'table') {
+    nextQuery.view = 'table'
+  }
+  if (typeFilter.value && typeFilter.value !== 'ALL') {
+    nextQuery.type = typeFilter.value
+  }
+  if (searchQuery.value && searchQuery.value.trim()) {
+    nextQuery.search = searchQuery.value.trim()
+  }
+  if (sortBy.value && sortBy.value !== 'default') {
+    nextQuery.sort = sortBy.value
+  }
+
+  const curr = route.query
+  const isSame =
+    curr.catalog === nextQuery.catalog &&
+    curr.category === nextQuery.category &&
+    (curr.view || 'cards') === (nextQuery.view || 'cards') &&
+    (curr.type || 'ALL') === (nextQuery.type || 'ALL') &&
+    (curr.search || '') === (nextQuery.search || '') &&
+    (curr.sort || 'default') === (nextQuery.sort || 'default')
+
+  if (!isSame) {
+    router.replace({ query: nextQuery }).catch(() => {})
+  }
+}
+
+// Watch state changes and sync to URL query
+watch([activeCatalog, activeCategoryId, viewMode, typeFilter, sortBy], () => {
+  syncStateToUrl()
+})
+
+let searchDebounceTimer: any = null
+watch(searchQuery, () => {
+  clearTimeout(searchDebounceTimer)
+  searchDebounceTimer = setTimeout(() => {
+    syncStateToUrl()
+  }, 250)
+})
+
+// Watch URL changes (e.g. browser Back / Forward buttons) and sync to state
+watch(
+  () => route.query,
+  (newQuery) => {
+    if (newQuery.catalog && (newQuery.catalog === 'mvg' || newQuery.catalog === 'av')) {
+      if (activeCatalog.value !== newQuery.catalog) {
+        activeCatalog.value = newQuery.catalog
+      }
+    }
+    if (newQuery.category && typeof newQuery.category === 'string') {
+      if (activeCategoryId.value !== newQuery.category) {
+        activeCategoryId.value = newQuery.category
+      }
+    }
+    if (newQuery.view && (newQuery.view === 'cards' || newQuery.view === 'table')) {
+      if (viewMode.value !== newQuery.view) {
+        viewMode.value = newQuery.view
+      }
+    }
+    if (newQuery.type && typeof newQuery.type === 'string') {
+      if (typeFilter.value !== newQuery.type) {
+        typeFilter.value = newQuery.type
+      }
+    }
+    if (typeof newQuery.search === 'string') {
+      if (searchQuery.value !== newQuery.search) {
+        searchQuery.value = newQuery.search
+      }
+    } else if (!newQuery.search && searchQuery.value) {
+      searchQuery.value = ''
+    }
+    if (newQuery.sort && typeof newQuery.sort === 'string') {
+      if (sortBy.value !== newQuery.sort) {
+        sortBy.value = newQuery.sort as any
+      }
+    }
+  },
+  { deep: true }
 )
 
 // Complete 21 Categories Icon Mapping
@@ -221,6 +330,9 @@ onMounted(() => {
     el.addEventListener('scroll', updateScrollButtons, { passive: true })
     updateScrollButtons()
   }
+  nextTick(() => {
+    syncStateToUrl()
+  })
 })
 
 onBeforeUnmount(() => {
@@ -242,8 +354,6 @@ const sortSelectOptions = [
   { value: 'name', label: 'Nama A-Z' }
 ]
 
-// Display View Mode: 'cards' (Mobile-First default) or 'table'
-const viewMode = ref<'cards' | 'table'>('cards')
 const isMobileScreen = ref(false)
 const isCategorySheetOpen = ref(false)
 const mobileCardDensity = ref<'normal' | 'compact'>('normal')

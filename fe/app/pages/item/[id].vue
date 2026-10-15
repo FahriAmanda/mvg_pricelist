@@ -211,11 +211,22 @@ function printDetail() {
 
 // Back navigation
 function goBack() {
-  if (category.value) {
-    router.push(`/pricelist?catalog=${category.value.catalog}&category=${category.value.id}`)
-  } else {
-    router.push('/pricelist?catalog=mvg')
+  const fromCatalog = (route.query.fromCatalog as string) || category.value?.catalog || item.value?.catalog || 'mvg'
+  const fromCategory = (route.query.fromCategory as string) || category.value?.id || item.value?.category || 'all'
+  const fromView = route.query.fromView as string
+
+  const query: Record<string, string> = {
+    catalog: fromCatalog,
+    category: fromCategory
   }
+  if (fromView) {
+    query.view = fromView
+  }
+
+  router.push({
+    path: '/pricelist',
+    query
+  })
 }
 
 // Navigate to related item
