@@ -2349,6 +2349,33 @@ export function getCategoryItems(categoryId: string): PricelistItem[] {
   return store.itemsByCategory[categoryId] || []
 }
 
+export function updateItemErpSyncStatus(sku: string, isSynced: boolean, availableStock: number) {
+  erpStockMap[sku] = {
+    sku,
+    is_synced: isSynced,
+    available_stock: availableStock
+  }
+
+  // Update in memory items across all categories
+  for (const catId of Object.keys(store.itemsByCategory)) {
+    const list = store.itemsByCategory[catId] || []
+    for (const item of list) {
+      if (item.sku === sku) {
+        item.isSynced = isSynced
+        item.availableStock = availableStock
+      }
+    }
+  }
+
+  // Broadcast update
+  broadcastSSE('item_sync_updated', {
+    sku,
+    isSynced,
+    availableStock,
+    lastSync: new Date().toISOString()
+  })
+}
+
 // Background auto-sync interval (every 60 seconds)
 let intervalStarted = false
 export function startAutoSyncPoller() {

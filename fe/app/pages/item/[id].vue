@@ -27,11 +27,19 @@ import {
   TrendingUp,
   Tag,
   ArrowRight,
-  Maximize2
+  Maximize2,
+  Link2,
+  RefreshCw,
+  Search,
+  Loader2,
+  CheckCircle2,
+  AlertCircle,
+  Package
 } from '@lucide/vue'
 import ThemeToggle from '~/components/ThemeToggle.vue'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { useAuthStore } from '~/stores/auth'
 import type { PricelistItem, SheetCategory } from '~/types/pricelist'
 
 const route = useRoute()
@@ -93,6 +101,130 @@ const item = computed(() => data.value?.item)
 const category = computed(() => data.value?.category)
 const categoryExtra = computed(() => data.value?.categoryExtra)
 const relatedItems = computed(() => data.value?.relatedItems || [])
+
+// Super Admin & ERP Sync States
+const authStore = useAuthStore()
+const isSuperAdmin = computed(() => {
+  const role = (authStore.user?.roleName || '').trim().toUpperCase()
+  return role === 'SUPER ADMIN' || role === 'SUPERADMIN'
+})
+
+const isSyncModalOpen = ref(false)
+const erpSearchQuery = ref('')
+const unsyncedItems = ref<any[]>([])
+const isLoadingErpItems = ref(false)
+const selectedErpItem = ref<any | null>(null)
+const isSubmittingSync = ref(false)
+const syncError = ref<string | null>(null)
+const syncSuccessMessage = ref<string | null>(null)
+let searchDebounceTimer: any = null
+
+function openSyncModal() {
+  isSyncModalOpen.value = true
+  erpSearchQuery.value = ''
+  selectedErpItem.value = null
+  syncError.value = null
+  syncSuccessMessage.value = null
+  fetchUnsyncedItems('')
+}
+
+function closeSyncModal() {
+  if (isSubmittingSync.value) return
+  isSyncModalOpen.value = false
+}
+
+async function fetchUnsyncedItems(query: string = '') {
+  isLoadingErpItems.value = true
+  syncError.value = null
+  try {
+    const url = `/api/erp/unsynced-items?search=${encodeURIComponent(query)}&limit=50`
+    const res = await $fetch<any>(url, {
+      headers: {
+        Authorization: `Bearer ${authStore.token}`
+      }
+    })
+    if (res && res.status === 'success') {
+      unsyncedItems.value = res.data || []
+    } else {
+      unsyncedItems.value = []
+    }
+  } catch (err: any) {
+    console.error('Error fetching unsynced items:', err)
+    syncError.value = err?.data?.statusMessage || err?.message || 'Gagal memuat item ERP'
+    unsyncedItems.value = []
+  } finally {
+    isLoadingErpItems.value = false
+  }
+}
+
+function onErpSearchInput() {
+  if (searchDebounceTimer) clearTimeout(searchDebounceTimer)
+  searchDebounceTimer = setTimeout(() => {
+    fetchUnsyncedItems(erpSearchQuery.value)
+  }, 350)
+}
+
+function selectErpItem(itemObj: any) {
+  selectedErpItem.value = itemObj
+  syncError.value = null
+}
+
+async function handleConfirmSync() {
+  if (!selectedErpItem.value || !item.value || isSubmittingSync.value) return
+  isSubmittingSync.value = true
+  syncError.value = null
+  syncSuccessMessage.value = null
+
+  try {
+    const cashPrice = item.value.price || 0
+    const kreditPrice = item.value.metadata?.hargaKreditRaw || item.value.metadata?.kreditPrice || null
+    const bottomPrice = item.value.metadata?.bottomPrice || item.value.price || 0
+
+    let imageUrl: string | null = null
+    if (item.value.image) {
+      imageUrl = item.value.image.startsWith('http')
+        ? item.value.image
+        : `https://pricelist.mitravisualgroup.com${item.value.image.startsWith('/') ? '' : '/'}${item.value.image}`
+    }
+
+    const payload = {
+      m_items_id: selectedErpItem.value.id,
+      sku: item.value.sku,
+      harga: cashPrice,
+      harga_kredit: kreditPrice,
+      bt_price: bottomPrice,
+      image_url: imageUrl,
+      previous_m_items_id: null
+    }
+
+    const res = await $fetch<any>('/api/erp/sync-item', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${authStore.token}`
+      },
+      body: payload
+    })
+
+    if (res && res.status === 'success') {
+      syncSuccessMessage.value = res.message || 'Item ERP berhasil disinkronkan!'
+      // Update item state immediately
+      item.value.isSynced = true
+      item.value.availableStock = Number(res.data?.available_stock || 0)
+
+      setTimeout(() => {
+        isSyncModalOpen.value = false
+        syncSuccessMessage.value = null
+      }, 1500)
+    } else {
+      syncError.value = res?.message || 'Gagal melakukan sinkronisasi item'
+    }
+  } catch (err: any) {
+    console.error('Error syncing item:', err)
+    syncError.value = err?.data?.statusMessage || err?.message || 'Gagal melakukan sinkronisasi dengan ERP'
+  } finally {
+    isSubmittingSync.value = false
+  }
+}
 
 // Gallery Images
 const galleryImages = computed<string[]>(() => {
@@ -600,6 +732,22 @@ const specRows = computed(() => {
                 <span class="w-2 h-2 rounded-full bg-rose-500"></span>
                 NOT SYNC ERP
               </span>
+
+              <!-- KHUSUS SUPER ADMIN: TOMBOL SYNC / GANTI SINKRONISASI -->
+              <button
+                v-if="isSuperAdmin"
+                type="button"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all shadow-xs cursor-pointer"
+                :class="item.isSynced
+                  ? 'bg-muted/80 hover:bg-muted text-foreground border border-border/80'
+                  : 'bg-emerald-600 hover:bg-emerald-700 text-white border border-emerald-600'"
+                title="Khusus Akun Super Admin: Sinkronkan atau Ganti Pemetaan Item dengan ERP"
+                @click="openSyncModal"
+              >
+                <RefreshCw v-if="item.isSynced" class="w-3.5 h-3.5" />
+                <Link2 v-else class="w-3.5 h-3.5" />
+                <span>{{ item.isSynced ? 'Ganti Sinkronisasi ERP' : 'Sync Item dengan ERP' }}</span>
+              </button>
             </div>
           </div>
 
@@ -1091,6 +1239,186 @@ const specRows = computed(() => {
           <p class="font-bold text-base">{{ item?.model }}</p>
           <p class="text-xs text-white/70 font-mono mt-1">SKU: {{ item?.sku }}</p>
         </div>
+      </div>
+    </div>
+
+    <!-- MODAL DIALOG: SYNC ITEM DENGAN ERP (KHUSUS SUPER ADMIN) -->
+    <div
+      v-if="isSyncModalOpen"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+      @click.self="closeSyncModal"
+    >
+      <div class="relative w-full max-w-2xl bg-card border border-border/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+        
+        <!-- Modal Header -->
+        <div class="px-6 py-4 border-b border-border/60 flex items-center justify-between bg-muted/30">
+          <div class="space-y-0.5">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              <h2 class="text-base font-bold text-foreground">
+                {{ item?.isSynced ? 'Ganti Sinkronisasi Item ERP' : 'Sinkronkan Item dengan ERP' }}
+              </h2>
+            </div>
+            <p class="text-xs text-muted-foreground">
+              Pasangkan SKU <strong class="font-mono text-foreground">{{ item?.sku }}</strong> ({{ item?.model }}) dengan Master Item di ERP
+            </p>
+          </div>
+          <button
+            type="button"
+            class="p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            @click="closeSyncModal"
+          >
+            <X class="w-4 h-4" />
+          </button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="p-4 border-b border-border/60 bg-background/50">
+          <div class="relative">
+            <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              v-model="erpSearchQuery"
+              type="text"
+              placeholder="Cari item ERP yang belum di-sync (ketik nama atau spesifikasi barang)..."
+              class="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-border/80 bg-background focus:outline-hidden focus:ring-2 focus:ring-primary/40 transition-all font-sans"
+              @input="onErpSearchInput"
+            />
+          </div>
+          <div class="flex items-center justify-between text-[11px] text-muted-foreground mt-2 px-1">
+            <span>Menampilkan item ERP yang belum memiliki SKU resmi (<span class="font-mono">ITM-%</span>)</span>
+            <span v-if="unsyncedItems.length > 0">{{ unsyncedItems.length }} item ditemukan</span>
+          </div>
+        </div>
+
+        <!-- Items List Container -->
+        <div class="flex-1 overflow-y-auto p-4 space-y-2 max-h-[340px] custom-scrollbar">
+          <!-- Loading state -->
+          <div v-if="isLoadingErpItems" class="py-12 flex flex-col items-center justify-center gap-2 text-muted-foreground">
+            <Loader2 class="w-6 h-6 animate-spin text-primary" />
+            <span class="text-xs">Memuat daftar master item ERP...</span>
+          </div>
+
+          <!-- Empty state -->
+          <div v-else-if="unsyncedItems.length === 0" class="py-10 text-center space-y-1 text-muted-foreground">
+            <Package class="w-8 h-8 mx-auto opacity-40" />
+            <p class="text-xs font-semibold text-foreground">Tidak Ada Item ERP yang Cocok</p>
+            <p class="text-[11px]">Seluruh item mungkin sudah disinkronkan, atau tidak sesuai dengan kata kunci pencarian.</p>
+          </div>
+
+          <!-- Items list -->
+          <div
+            v-else
+            v-for="erpItem in unsyncedItems"
+            :key="erpItem.id"
+            class="p-3 rounded-xl border transition-all cursor-pointer flex items-center justify-between gap-3 text-left"
+            :class="selectedErpItem?.id === erpItem.id
+              ? 'border-emerald-500 bg-emerald-500/10 ring-2 ring-emerald-500/30'
+              : 'border-border/60 hover:border-primary/50 hover:bg-muted/40 bg-card'"
+            @click="selectErpItem(erpItem)"
+          >
+            <div class="min-w-0 flex-1 space-y-1">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-mono text-[10.5px] font-semibold px-2 py-0.5 rounded bg-muted text-muted-foreground">
+                  {{ erpItem.kode_item || 'KODE KOSONG' }}
+                </span>
+                <span v-if="erpItem.kategori" class="text-[10px] uppercase font-bold text-muted-foreground">
+                  {{ erpItem.kategori }}
+                </span>
+                <span v-if="erpItem.uom" class="text-[10px] text-muted-foreground">
+                  • Satuan: {{ erpItem.uom }}
+                </span>
+              </div>
+              <p class="text-xs font-bold text-foreground leading-snug">
+                {{ erpItem.nama_item }}
+              </p>
+              <p v-if="erpItem.spesifikasi && erpItem.spesifikasi !== '-'" class="text-[11px] text-muted-foreground line-clamp-1">
+                {{ erpItem.spesifikasi }}
+              </p>
+            </div>
+
+            <!-- Stock pill & selection indicator -->
+            <div class="shrink-0 flex items-center gap-3">
+              <div class="text-right">
+                <span class="text-[10px] text-muted-foreground block">Stok Gudang</span>
+                <span
+                  class="font-mono text-xs font-bold px-2 py-0.5 rounded"
+                  :class="Number(erpItem.available_stock || 0) > 0 ? 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400' : 'bg-muted text-muted-foreground'"
+                >
+                  {{ Number(erpItem.available_stock || 0).toLocaleString('id-ID') }}
+                </span>
+              </div>
+              <div
+                class="w-5 h-5 rounded-full border flex items-center justify-center transition-colors"
+                :class="selectedErpItem?.id === erpItem.id
+                  ? 'border-emerald-500 bg-emerald-500 text-white'
+                  : 'border-muted-foreground/30'"
+              >
+                <Check v-if="selectedErpItem?.id === erpItem.id" class="w-3 h-3 stroke-[3]" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Selected Summary & Confirmation Banner -->
+        <div v-if="selectedErpItem" class="px-5 py-3 bg-muted/40 border-t border-border/60 text-xs space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-foreground flex items-center gap-1.5">
+              <CheckCircle2 class="w-4 h-4 text-emerald-500" />
+              Item ERP Terpilih:
+            </span>
+            <span class="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
+              Stok Tersedia: {{ Number(selectedErpItem.available_stock || 0).toLocaleString('id-ID') }} Unit
+            </span>
+          </div>
+          <p class="font-semibold text-foreground text-[11.5px]">
+            {{ selectedErpItem.nama_item }} <span class="font-mono text-muted-foreground font-normal">({{ selectedErpItem.kode_item }})</span>
+          </p>
+          <div class="text-[11px] text-muted-foreground space-y-0.5 pt-0.5">
+            <div>✓ Kode item ERP akan diubah menjadi SKU <strong class="font-mono text-foreground">{{ item?.sku }}</strong>.</div>
+            <div>✓ Harga master ERP otomatis tersinkron: <strong>{{ item?.priceFormatted }}</strong> (Cash) &amp; <strong>{{ item?.metadata?.hargaKreditFormatted || '-' }}</strong> (Kredit).</div>
+            <div>✓ Foto produk resmi akan disematkan ke master gambar item ERP.</div>
+            <div>✓ HPP persediaan 100% aman (tanpa perubahan kartu stok).</div>
+          </div>
+        </div>
+
+        <!-- Error & Success alerts -->
+        <div v-if="syncError" class="mx-4 mt-2 p-2.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 text-xs flex items-center gap-2">
+          <AlertCircle class="w-4 h-4 shrink-0" />
+          <span>{{ syncError }}</span>
+        </div>
+
+        <div v-if="syncSuccessMessage" class="mx-4 mt-2 p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 text-xs flex items-center gap-2">
+          <CheckCircle2 class="w-4 h-4 shrink-0" />
+          <span class="font-bold">{{ syncSuccessMessage }}</span>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="px-6 py-3 border-t border-border/60 flex items-center justify-between gap-3 bg-muted/20">
+          <span class="text-[11px] text-muted-foreground">
+            Aksi ini hanya dapat dilakukan oleh Super Admin.
+          </span>
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
+              :disabled="isSubmittingSync"
+              @click="closeSyncModal"
+            >
+              Batal
+            </button>
+            <button
+              type="button"
+              class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition-all shadow-sm flex items-center gap-1.5 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              :disabled="!selectedErpItem || isSubmittingSync"
+              @click="handleConfirmSync"
+            >
+              <Loader2 v-if="isSubmittingSync" class="w-3.5 h-3.5 animate-spin" />
+              <Link2 v-else class="w-3.5 h-3.5" />
+              <span>{{ isSubmittingSync ? 'Menyinkronkan...' : 'Hubungkan & Sinkronkan Sekarang' }}</span>
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
