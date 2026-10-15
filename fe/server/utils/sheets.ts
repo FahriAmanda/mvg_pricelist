@@ -166,7 +166,7 @@ export const SHEET_CATEGORIES: Array<{
     id: 'led_poster',
     name: 'LED Poster',
     catalog: 'av',
-    gid: '1858422740',
+    gid: '773747421',
     icon: 'Tv',
     description: 'LED Poster Flat & Foldable Complete Sets with A35 Player'
   },
@@ -402,6 +402,7 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
   psu: {
     bannerTitle: 'POWER SUPPLY (PSU) VIDEOTRON 200W - 400W',
     bannerSubtitle: 'Katalog Power Supply 5V/4.5V Lampro, Meanwell Ultra Slim & G-Energy',
+    bannerImage: '/images/products/psu-banner.png',
     kursUSD: '5V / 4.5V Output',
     notes: [
       '1. Power Supply efisiensi tinggi standar videotron 5V / 4.5V output stabil',
@@ -411,12 +412,13 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
   },
   led_poster: {
     bannerTitle: 'LED POSTER DISPLAY FLAT & FOLDABLE SERIES',
-    bannerSubtitle: 'Katalog LED Poster 640x1920mm Plug & Play Mobile Display AV & MVG',
-    kursUSD: 'Include A35 Player',
+    bannerSubtitle: 'Katalog LED Poster 640x1920mm Plug & Play Mobile Display AV & MVG - Rincian Lengkap BOM & Costing',
+    kursUSD: 'Include A35 Player • BOM 24 Modul (Margin 25%)',
     notes: [
-      '1. Ukuran standar display 640 x 1920 mm dengan frame aluminium ultra-slim',
-      '2. Tersedia model Flat (kaki roda mobile) dan Foldable (lipat portable)',
-      '3. Sudah include Colorlight A35 Player, speaker terintegrasi & Wi-Fi control'
+      '1. Ukuran standar display 640 x 1920 mm (24 Modul 320x160mm) dengan frame aluminium & kabinet besi presisi',
+      '2. Tersedia model Flat (kaki roda mobile) dan Foldable (engsel lipat portable memudahkan transportasi)',
+      '3. Rincian BOM resmi pabrikan: 24 Modul LED, Kabinet Besi Flat/Foldable, 4-8 PSU, 2-4 Receiving Card, Kabel Jumper & Power, Biaya Rakit Rp270.000, dan Processor Colorlight A35 Player Rp1.786.423 (Target Profit Margin 25%)',
+      '4. Sistem siap pakai Plug & Play dengan software CMS Colorlight via Wi-Fi, LAN, USB, dan Cloud'
     ]
   },
   led_cube: {
@@ -1656,30 +1658,52 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
       let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
-        if (!r || r.length < 4 || !r[0]) continue
-        const model = r[0]?.trim() || 'Cabinet'
-        const type = r[1]?.trim() || ''
-        const size = r[2]?.trim() || ''
+        if (!r || r.length < 4 || !r[0]?.trim()) continue
+        const rawModel = (r[0]?.trim() || 'Cabinet').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ')
+        const rawSize = r[1]?.trim() || (rawModel.toLowerCase().includes('vacuum') ? 'Wireless' : '')
+        const cleanSize = rawSize.replace(/^\(+|\)+$/g, '').trim()
+        const desc = (r[2]?.trim() || '').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ')
         const price = parsePrice(r[3])
-        const desc = r[4]?.trim() || ''
-        const sku = r[5]?.trim() || `${categoryId}-${i}`
+        const sku = r[4]?.trim() || `${categoryId}-${i}`
+        if (!price && !sku) continue
         seq++
+
+        // Categorize Type
+        let type = 'Cabinet'
+        const lowerModel = rawModel.toLowerCase()
+        if (lowerModel.includes('iron')) type = 'Iron'
+        else if (lowerModel.includes('die-cast') || lowerModel.includes('diecast')) type = 'Die-cast'
+        else if (lowerModel.includes('poster')) type = 'Poster'
+        else if (lowerModel.includes('cube')) type = 'Cube'
+        else if (lowerModel.includes('sign')) type = 'Sign'
+        else if (lowerModel.includes('vacuum')) type = 'Tools'
+
+        // Map specific graphic per cabinet type
+        let cabinetImg = '/images/products/av-cabinet-iron.svg'
+        if (type === 'Die-cast') cabinetImg = '/images/products/av-cabinet-diecast.svg'
+        else if (type === 'Poster' || type === 'Sign') cabinetImg = '/images/products/av-cabinet-poster.svg'
+        else if (type === 'Cube') cabinetImg = '/images/products/av-cabinet-cube.svg'
+        else if (type === 'Tools') cabinetImg = '/images/products/av-cabinet-tools.svg'
+        else cabinetImg = '/images/products/av-cabinet-iron.svg'
+
+        const displayDesc = rawModel
 
         items.push({
           id: `${categoryId}-${seq}`,
           no: seq,
           category: categoryId,
           catalog: 'av',
-          model,
+          model: rawModel,
           type,
-          description: desc || `${type} ${size}`.trim(),
-          size,
+          description: displayDesc,
+          size: rawSize,
           price,
           priceFormatted: formatRupiah(price),
           sku,
-          image: '/images/products/av-cabinet-diecast.svg',
+          image: cabinetImg,
           metadata: {
-            no: seq
+            no: seq,
+            specification: desc && desc !== '-' ? desc : undefined
           },
           updatedAt: new Date().toISOString()
         })
@@ -1695,7 +1719,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 6 || !r[0]) continue
-        const model = r[0]?.trim() || 'PSU'
+        const model = (r[0]?.trim() || 'PSU').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ')
         const type = r[1]?.trim() || ''
         const desc = r[3]?.trim() || ''
         const watt = r[1]?.trim() || ''
@@ -1704,6 +1728,33 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         seq++
 
         const fullName = desc ? `${model} - ${desc}` : model
+
+        // Map physical images extracted from the official spreadsheet
+        let psuImg = '/images/products/psu/psu-lampro-200w.png'
+        const skuUpper = sku.toUpperCase()
+        if (skuUpper.includes('LAM-LD200')) psuImg = '/images/products/psu/psu-lampro-200w.png'
+        else if (skuUpper.includes('LAM-LD300')) psuImg = '/images/products/psu/psu-lampro-300w.png'
+        else if (skuUpper.includes('LEY-LYD-200') || skuUpper.includes('LEY-200')) psuImg = '/images/products/psu/psu-leyard-200w.png'
+        else if (skuUpper.includes('LEY-LYD-H300') || skuUpper.includes('LEY-H300')) psuImg = '/images/products/psu/psu-leyard-300w.png'
+        else if (skuUpper.includes('CZCL')) psuImg = '/images/products/psu/psu-czcl-200w.png'
+        else if (skuUpper.includes('CL-AS15') || (model.includes('Indoor 500mm') && model.includes('ChengLian'))) psuImg = '/images/products/psu/psu-chenglian-200w.png'
+        else if (skuUpper.includes('CL-PAS6-H400') || (model.includes('Indoor 1000mm') && model.includes('ChengLian'))) psuImg = '/images/products/psu/psu-chenglian-400w.png'
+        else if (skuUpper.includes('CL-PAS6-H500') || (model.includes('Outdoor 1000mm') && model.includes('ChengLian'))) psuImg = '/images/products/psu/psu-chenglian-500w.png'
+        else if (skuUpper.includes('SC-NDC300') || model.includes('South Creative')) psuImg = '/images/products/psu/psu-southcreative-300w.png'
+        else {
+          const fallbackMap: Record<number, string> = {
+            1: '/images/products/psu/psu-lampro-200w.png',
+            2: '/images/products/psu/psu-lampro-300w.png',
+            3: '/images/products/psu/psu-leyard-200w.png',
+            4: '/images/products/psu/psu-leyard-300w.png',
+            5: '/images/products/psu/psu-czcl-200w.png',
+            6: '/images/products/psu/psu-chenglian-200w.png',
+            7: '/images/products/psu/psu-chenglian-400w.png',
+            8: '/images/products/psu/psu-chenglian-500w.png',
+            9: '/images/products/psu/psu-southcreative-300w.png'
+          }
+          psuImg = fallbackMap[seq] || '/images/products/psu/psu-lampro-200w.png'
+        }
 
         items.push({
           id: `${categoryId}-${seq}`,
@@ -1717,9 +1768,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           price,
           priceFormatted: formatRupiah(price),
           sku,
-          image: '/images/products/av-psu-meanwell.svg',
+          image: psuImg,
           metadata: {
-            no: seq
+            no: seq,
+            watt,
+            specification: desc
           },
           updatedAt: new Date().toISOString()
         })
@@ -1732,19 +1785,48 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     // ==========================================
     case 'led_poster': {
       let seq = 0
-      for (let i = 1; i < rows.length; i++) {
+      for (let i = 2; i < rows.length; i++) {
         const r = rows[i]
-        if (!r || r.length < 5 || !r[2]) continue
-        const brand = r[0]?.trim() || 'LED Poster'
-        const rawType = r[1]?.trim() || ''
-        const size = r[2]?.trim() || ''
-        const price = parsePrice(r[4])
-        const sku = r[5]?.trim() || `${categoryId}-${i}`
+        if (!r || r.length < 18 || !r[0]?.trim()) continue
+        const brand = (r[0]?.trim() || 'LED Poster').replace(/[\r\n]+/g, ' ').replace(/\s+/g, ' ')
+        
+        const moduleUnitPrice = parsePrice(r[2])
+        const modulePcs = parseInt(r[3]) || 24
+        const moduleTotalPrice = moduleUnitPrice * modulePcs
+
+        const cabinetFlatCost = parsePrice(r[4])
+        const cabinetFoldableCost = parsePrice(r[5])
+
+        const psuPcs = parseInt(r[6]) || 4
+        const psuUnitPrice = parsePrice(r[7])
+        const psuTotalPrice = psuPcs * psuUnitPrice
+
+        const rcPcs = parseInt(r[8]) || 2
+        const rcUnitPrice = parsePrice(r[9])
+        const rcTotalPrice = rcPcs * rcUnitPrice
+
+        const cablesJumper = parsePrice(r[10]) || 200000
+        const cablesPower = parsePrice(r[11]) || 150000
+        const cablesTotal = cablesJumper + cablesPower
+
+        const assemblyCost = parsePrice(r[12]) || 270000
+        const processorA35Cost = parsePrice(r[13]) || 1786423
+        const profitMargin = r[14]?.trim() || '25.00%'
+
+        const priceFlat = parsePrice(r[15])
+        const priceFoldable = parsePrice(r[16]) || priceFlat
+        const size = r[17]?.trim() || '64x192cm'
+        const sku = r[18]?.trim() || `QL-POSTER-${seq + 1}`
+        const baseCost = parsePrice(r[19])
+
+        if (!priceFlat || priceFlat <= 0) continue
         seq++
 
-        let typeBadge = 'Foldable'
-        if (rawType.toLowerCase().includes('flat')) typeBadge = 'Flat'
-        else if (rawType.toLowerCase().includes('foldable')) typeBadge = 'Foldable'
+        let typeBadge = 'Indoor'
+        const lowerBrand = brand.toLowerCase()
+        if (lowerBrand.includes('outdoor')) typeBadge = 'Outdoor'
+        else if (lowerBrand.includes('gob')) typeBadge = 'Indoor GOB'
+        else typeBadge = 'Indoor'
 
         items.push({
           id: `${categoryId}-${seq}`,
@@ -1753,14 +1835,41 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           catalog: 'av',
           model: brand,
           type: typeBadge,
-          description: rawType || `${brand} ${size}`,
+          description: `LED Poster ${size} with A35 Player`,
           size,
-          price,
-          priceFormatted: formatRupiah(price),
+          price: priceFlat,
+          priceFormatted: formatRupiah(priceFlat),
           sku,
           image: '/images/products/av-led-poster.svg',
           metadata: {
-            no: seq
+            no: seq,
+            priceFlat,
+            priceFlatFormatted: formatRupiah(priceFlat),
+            foldablePrice: priceFoldable,
+            foldablePriceFormatted: formatRupiah(priceFoldable),
+            moduleUnitPrice,
+            modulePcs,
+            moduleTotalPrice,
+            modulePrice: moduleUnitPrice,
+            cabinetFlatCost,
+            cabinetFoldableCost,
+            psuPcs,
+            psuUnitPrice,
+            psuTotalPrice,
+            psuCost: psuUnitPrice,
+            rcPcs,
+            rcUnitPrice,
+            rcTotalPrice,
+            rcCost: rcUnitPrice,
+            cablesJumper,
+            cablesPower,
+            cablesTotal,
+            assemblyCost,
+            processorA35Cost,
+            processorCost: processorA35Cost,
+            profitMargin,
+            profit: profitMargin,
+            baseCost
           },
           updatedAt: new Date().toISOString()
         })

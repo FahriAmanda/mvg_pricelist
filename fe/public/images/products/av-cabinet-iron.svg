@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <rect width="500" height="500" rx="28" fill="#090d16"/>
+  <!-- Iron Frame -->
+  <rect x="75" y="75" width="350" height="350" rx="10" fill="#131720" stroke="#475569" stroke-width="5"/>
+  <!-- Ventilation Fans / Grill -->
+  <circle cx="170" cy="180" r="50" fill="#1e293b" stroke="#334155" stroke-width="3"/>
+  <circle cx="170" cy="180" r="16" fill="#0f172a"/>
+  <circle cx="330" cy="180" r="50" fill="#1e293b" stroke="#334155" stroke-width="3"/>
+  <circle cx="330" cy="180" r="16" fill="#0f172a"/>
+  <!-- Corner Mounts / Handles -->
+  <rect x="85" y="85" width="25" height="15" rx="3" fill="#64748b"/>
+  <rect x="390" y="85" width="25" height="15" rx="3" fill="#64748b"/>
+  <rect x="85" y="400" width="25" height="15" rx="3" fill="#64748b"/>
+  <rect x="390" y="400" width="25" height="15" rx="3" fill="#64748b"/>
+  <!-- Label Bar -->
+  <rect x="110" y="290" width="280" height="60" rx="8" fill="#090d16" stroke="#3b82f6" stroke-width="2"/>
+  <text x="250" y="316" fill="#ffffff" font-family="sans-serif" font-weight="900" font-size="16" text-anchor="middle">IRON CABINET</text>
+  <text x="250" y="336" fill="#38bdf8" font-family="sans-serif" font-weight="700" font-size="11" text-anchor="middle">Outdoor Waterproof &amp; Curve Option</text>
+</svg>

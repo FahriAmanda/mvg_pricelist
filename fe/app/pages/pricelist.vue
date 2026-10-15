@@ -59,6 +59,12 @@ import {
 import type { PricelistItem } from '~/types/pricelist'
 
 const route = useRoute()
+const router = useRouter()
+
+function goToDetail(itemId: string) {
+  if (!itemId) return
+  router.push(`/item/${itemId}`)
+}
 
 const {
   categories,
@@ -330,6 +336,12 @@ function handleManualSync() {
 const expandedCubeId = ref<string | null>(null)
 function toggleCubeExpand(id: string) {
   expandedCubeId.value = expandedCubeId.value === id ? null : id
+}
+
+// Expanded state for LED Poster BOM breakdown on cards
+const expandedPosterId = ref<string | null>(null)
+function togglePosterExpand(id: string) {
+  expandedPosterId.value = expandedPosterId.value === id ? null : id
 }
 
 // Check if current category has brochure/video links
@@ -865,13 +877,14 @@ const hasLinkColumn = computed(() => {
             <div
               v-for="(item, idx) in filteredItems"
               :key="`compact-${item.id}`"
-              class="flex items-center gap-3 p-2.5 rounded-2xl border border-border/80 bg-card hover:bg-muted/40 transition-colors shadow-2xs active:scale-[0.99] min-h-[64px]"
+              class="flex items-center gap-3 p-2.5 rounded-2xl border border-border/80 bg-card hover:bg-muted/40 transition-colors shadow-2xs active:scale-[0.99] min-h-[64px] cursor-pointer"
+              @click="goToDetail(item.id)"
             >
               <!-- Thumbnail 56x56 -->
               <div
                 v-if="item.image"
                 class="w-14 h-14 shrink-0 min-w-[56px] max-w-[56px] min-h-[56px] max-h-[56px] rounded-xl bg-muted/30 border border-border/70 p-1 flex items-center justify-center cursor-pointer overflow-hidden"
-                @click="openImageLightbox(item.image, item.model, item.images)"
+                @click.stop="openImageLightbox(item.image, item.model, item.images)"
               >
                 <img :src="item.image" :alt="item.model" class="w-full h-full object-contain pointer-events-none" loading="lazy" />
               </div>
@@ -948,19 +961,20 @@ const hasLinkColumn = computed(() => {
               transition: { type: 'spring', stiffness: 400, damping: 22 }
             }"
             :tapped="{ scale: 0.99 }"
-            class="group rounded-2xl border border-border/80 bg-card p-4 flex flex-col justify-between shadow-xs hover:shadow-md hover:border-primary/50 transition-colors duration-150"
+            class="group rounded-2xl border border-border/80 bg-card p-4 flex flex-col justify-between shadow-xs hover:shadow-md hover:border-primary/50 transition-colors duration-150 cursor-pointer"
             :class="{
               'ring-2 ring-emerald-500 bg-emerald-500/5': updatedItemIds.has(item.id)
             }"
+            @click="goToDetail(item.id)"
           >
             <!-- Card Header: SKU & Type Badge -->
             <div class="space-y-2">
               <div class="flex items-center justify-between gap-2 min-w-0">
                 <button
                   type="button"
-                  class="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-muted text-[11px] font-mono text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors min-w-0 max-w-[62%] shrink"
+                  class="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-muted text-[11px] font-mono text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors min-w-0 max-w-[78%] shrink"
                   title="Klik untuk menyalin SKU"
-                  @click="copyToClipboard(item.sku)"
+                  @click.stop="copyToClipboard(item.sku)"
                 >
                   <span class="truncate">{{ item.sku }}</span>
                   <Check v-if="copiedSku === item.sku" class="w-3 h-3 text-emerald-500 shrink-0" />
@@ -995,7 +1009,7 @@ const hasLinkColumn = computed(() => {
                 v-if="item.image"
                 class="relative w-full h-36 rounded-xl overflow-hidden bg-muted/20 border border-border/60 p-2 flex items-center justify-center cursor-pointer group/img hover:border-primary/60 transition-colors"
                 :title="item.images && item.images.length > 1 ? `Klik untuk melihat ${item.images.length} foto produk` : 'Klik untuk melihat foto modul/kabinet penuh'"
-                @click="openImageLightbox(item.image, item.model, item.images)"
+                @click.stop="openImageLightbox(item.image, item.model, item.images)"
               >
                 <img
                   :src="item.image"
@@ -1114,15 +1128,87 @@ const hasLinkColumn = computed(() => {
                 </span>
               </div>
 
-              <!-- Special Breakdown: LED Poster Dual Prices -->
-              <div v-if="item.category === 'led_poster'" class="pt-2 grid grid-cols-2 gap-2 text-xs">
-                <div class="p-2 rounded-xl bg-muted/40 border border-border/50">
-                  <p class="text-[10px] text-muted-foreground">Cabinet Flat</p>
-                  <p class="font-bold text-foreground">{{ item.priceFormatted }}</p>
+              <!-- Special Breakdown: LED Poster Dual Prices & Full BOM -->
+              <div v-if="item.category === 'led_poster'" class="pt-2 space-y-2 text-xs">
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="p-2 rounded-xl bg-muted/40 border border-border/50">
+                    <p class="text-[10px] text-muted-foreground font-medium">Cabinet Flat</p>
+                    <p class="font-bold text-foreground font-mono">{{ item.priceFormatted }}</p>
+                  </div>
+                  <div class="p-2 rounded-xl bg-muted/40 border border-border/50">
+                    <p class="text-[10px] text-muted-foreground font-medium">Foldable</p>
+                    <p class="font-bold text-foreground font-mono">{{ item.metadata?.foldablePriceFormatted || '-' }}</p>
+                  </div>
                 </div>
-                <div class="p-2 rounded-xl bg-muted/40 border border-border/50">
-                  <p class="text-[10px] text-muted-foreground">Foldable</p>
-                  <p class="font-bold text-foreground">{{ item.metadata?.foldablePriceFormatted || '-' }}</p>
+
+                <!-- Quick BOM Chips -->
+                <div class="flex flex-wrap gap-1 text-[10px] text-muted-foreground">
+                  <span class="px-1.5 py-0.5 rounded bg-muted/60 font-mono">24 Modul</span>
+                  <span class="px-1.5 py-0.5 rounded bg-muted/60 font-mono">{{ item.metadata?.psuPcs || 4 }} PSU</span>
+                  <span class="px-1.5 py-0.5 rounded bg-muted/60 font-mono">{{ item.metadata?.rcPcs || 2 }} RC</span>
+                  <span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary font-bold">A35 Player</span>
+                  <span class="px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-500 font-bold">Margin 25%</span>
+                </div>
+
+                <button
+                  type="button"
+                  class="text-[11px] text-primary font-semibold flex items-center gap-1 hover:underline pt-0.5"
+                  @click.stop="togglePosterExpand(item.id)"
+                >
+                  <Layers class="w-3.5 h-3.5" />
+                  <span>{{ expandedPosterId === item.id ? 'Sembunyikan Rincian BOM' : 'Lihat Rincian BOM / Costing' }}</span>
+                  <ChevronDown class="w-3 h-3 transition-transform" :class="{ 'rotate-180': expandedPosterId === item.id }" />
+                </button>
+
+                <div
+                  v-if="expandedPosterId === item.id"
+                  class="p-2.5 rounded-xl bg-muted/30 border border-border/60 text-[11px] space-y-1.5 text-muted-foreground font-mono animate-in fade-in duration-200"
+                  @click.stop
+                >
+                  <div class="flex justify-between items-center pb-1 border-b border-border/40">
+                    <span class="font-sans font-semibold text-foreground">Komponen Spek</span>
+                    <span class="font-sans font-semibold text-foreground">Biaya / Jumlah</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="font-sans">Modul ({{ item.metadata?.modulePcs || 24 }} pcs):</span>
+                    <span class="font-semibold text-foreground">Rp {{ (item.metadata?.moduleTotalPrice || 0).toLocaleString('id-ID') }}</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="font-sans">Kabinet Flat:</span>
+                    <span class="text-foreground">Rp {{ (item.metadata?.cabinetFlatCost || 0).toLocaleString('id-ID') }}</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="font-sans">Kabinet Foldable:</span>
+                    <span class="text-foreground">Rp {{ (item.metadata?.cabinetFoldableCost || 0).toLocaleString('id-ID') }}</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="font-sans">Power Supply ({{ item.metadata?.psuPcs || 4 }} pcs):</span>
+                    <span class="text-foreground">Rp {{ (item.metadata?.psuTotalPrice || 0).toLocaleString('id-ID') }}</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="font-sans">Receiving Card ({{ item.metadata?.rcPcs || 2 }} pcs):</span>
+                    <span class="text-foreground">Rp {{ (item.metadata?.rcTotalPrice || 0).toLocaleString('id-ID') }}</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="font-sans">Kabel (Jumper + Power):</span>
+                    <span class="text-foreground">Rp {{ (item.metadata?.cablesTotal || 350000).toLocaleString('id-ID') }}</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="font-sans">Assembly Cost:</span>
+                    <span class="text-foreground">Rp {{ (item.metadata?.assemblyCost || 270000).toLocaleString('id-ID') }}</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="font-sans">Processor A35:</span>
+                    <span class="text-foreground">Rp {{ (item.metadata?.processorA35Cost || 0).toLocaleString('id-ID') }}</span>
+                  </div>
+                  <div class="flex justify-between items-center pt-1 border-t border-border/40">
+                    <span class="font-sans font-bold text-foreground">Profit Margin:</span>
+                    <span class="font-bold text-amber-500">{{ item.metadata?.profitMargin || '25.00%' }}</span>
+                  </div>
+                  <div class="flex justify-between items-center" v-if="item.metadata?.baseCost">
+                    <span class="font-sans font-bold text-foreground">HPP Modal:</span>
+                    <span class="font-bold text-foreground">Rp {{ Number(item.metadata.baseCost).toLocaleString('id-ID') }}</span>
+                  </div>
                 </div>
               </div>
 
@@ -1204,12 +1290,109 @@ const hasLinkColumn = computed(() => {
                   Kredit: <span class="font-mono text-foreground font-semibold">{{ item.metadata.hargaKreditFormatted }}</span>
                 </p>
               </div>
+
+              <!-- Quick Detail Action -->
+              <button
+                type="button"
+                class="px-2.5 py-1.5 rounded-xl bg-muted/70 hover:bg-primary hover:text-primary-foreground text-xs font-semibold text-muted-foreground transition-all flex items-center gap-1 shrink-0 group-hover:bg-primary group-hover:text-primary-foreground shadow-2xs"
+                title="Lihat Detail Lengkap Produk"
+                @click.stop="goToDetail(item.id)"
+              >
+                <span>Detail</span>
+                <ChevronRight class="w-3.5 h-3.5" />
+              </button>
             </div>
           </div>
           </div>
         </div>
 
-        <!-- B. DESKTOP SPREADSHEET TABLE VIEW (Desktop Only) -->
+        <!-- B1. SPECIALIZED FULL BOM COSTING SPREADSHEET FOR LED POSTER (Matches Google Sheets gid=773747421) -->
+        <div v-else-if="!isMobileScreen && viewMode === 'table' && activeCategoryId === 'led_poster'" class="rounded-2xl border border-border/70 bg-card overflow-hidden shadow-xs">
+          <!-- Banner Information Bar -->
+          <div class="px-4 py-2.5 bg-muted/40 border-b border-border/70 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="font-bold text-foreground">Format Spreadsheet BOM &amp; Costing Lengkap (Google Sheets GID: 773747421)</span>
+              <span class="text-muted-foreground">• 19 Parameter Komponen Resmi</span>
+            </div>
+            <div class="text-[11px] text-muted-foreground font-mono flex items-center gap-1.5">
+              <span>↔ Geser horizontal untuk meninjau seluruh komponen, biaya rakit &amp; harga jadi</span>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto custom-scrollbar">
+            <Table class="border-collapse text-[11px] min-w-[1700px]">
+              <TableHeader class="bg-muted/80 text-foreground font-bold sticky top-0 z-20">
+                <!-- Row 1: Group Headers -->
+                <TableRow class="border-b border-border/80 hover:bg-transparent">
+                  <TableHead rowspan="2" class="w-[45px] text-center border-r border-border/60 sticky left-0 bg-background dark:bg-zinc-900 z-30 opacity-100">NO</TableHead>
+                  <TableHead rowspan="2" class="w-[60px] text-center border-r border-border/60 sticky left-[45px] bg-background dark:bg-zinc-900 z-30 opacity-100">PICTURE</TableHead>
+                  <TableHead rowspan="2" class="min-w-[180px] border-r-2 border-border sticky left-[105px] bg-background dark:bg-zinc-900 z-30 opacity-100 shadow-[4px_0_8px_rgba(0,0,0,0.12)]">TYPE / MODEL</TableHead>
+                  <TableHead colspan="2" class="text-center border-r border-border/60 bg-primary/10 text-primary">MODULE</TableHead>
+                  <TableHead rowspan="2" class="text-right border-r border-border/60 min-w-[115px]">CABINET IRON<br><span class="text-[10px] text-muted-foreground font-normal">Flat 64*192cm</span></TableHead>
+                  <TableHead rowspan="2" class="text-right border-r border-border/60 min-w-[115px]">CABINET IRON<br><span class="text-[10px] text-muted-foreground font-normal">Foldable 64*192cm</span></TableHead>
+                  <TableHead colspan="2" class="text-center border-r border-border/60 bg-blue-500/10 text-blue-600 dark:text-blue-400">POWER SUPPLY</TableHead>
+                  <TableHead colspan="2" class="text-center border-r border-border/60 bg-purple-500/10 text-purple-600 dark:text-purple-400">RC (RECEIVING CARD)</TableHead>
+                  <TableHead colspan="2" class="text-center border-r border-border/60 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">CABLES</TableHead>
+                  <TableHead rowspan="2" class="text-right border-r border-border/60 min-w-[95px]">ASSEMBLY COST</TableHead>
+                  <TableHead rowspan="2" class="text-right border-r border-border/60 min-w-[115px]">PROCESSOR<br><span class="text-[10px] text-muted-foreground font-normal">A35 Colorlight</span></TableHead>
+                  <TableHead rowspan="2" class="text-center border-r border-border/60 min-w-[65px]">PROFIT</TableHead>
+                  <TableHead rowspan="2" class="text-right border-r border-border/60 min-w-[130px] bg-rose-500/10 text-rose-600 dark:text-rose-400 font-extrabold">PRICE FLAT<br><span class="text-[10px] font-normal">With A35 Player</span></TableHead>
+                  <TableHead rowspan="2" class="text-right border-r border-border/60 min-w-[130px] bg-amber-500/10 text-amber-600 dark:text-amber-400 font-extrabold">PRICE FOLDABLE<br><span class="text-[10px] font-normal">With A35 Player</span></TableHead>
+                  <TableHead rowspan="2" class="text-center border-r border-border/60 min-w-[75px]">SIZE</TableHead>
+                  <TableHead rowspan="2" class="border-r border-border/60 min-w-[150px] font-mono">SKU</TableHead>
+                  <TableHead rowspan="2" class="text-right min-w-[105px] font-mono">BASE COST</TableHead>
+                </TableRow>
+                <!-- Row 2: Sub Headers -->
+                <TableRow class="border-b border-border/80 hover:bg-transparent text-[10px]">
+                  <TableHead class="text-right border-r border-border/60 min-w-[90px] bg-primary/5">PRICE</TableHead>
+                  <TableHead class="text-center border-r border-border/60 min-w-[40px] bg-primary/5">PCS</TableHead>
+                  <TableHead class="text-center border-r border-border/60 min-w-[40px] bg-blue-500/5">PCS</TableHead>
+                  <TableHead class="text-right border-r border-border/60 min-w-[85px] bg-blue-500/5">PRICE</TableHead>
+                  <TableHead class="text-center border-r border-border/60 min-w-[40px] bg-purple-500/5">PCS</TableHead>
+                  <TableHead class="text-right border-r border-border/60 min-w-[85px] bg-purple-500/5">PRICE</TableHead>
+                  <TableHead class="text-right border-r border-border/60 min-w-[80px] bg-emerald-500/5">JUMPER</TableHead>
+                  <TableHead class="text-right border-r border-border/60 min-w-[80px] bg-emerald-500/5">POWER</TableHead>
+                </TableRow>
+              </TableHeader>
+
+              <TableBody>
+                <TableRow
+                  v-for="(item, idx) in filteredItems"
+                  :key="item.id"
+                  class="transition-colors hover:bg-muted/40 cursor-pointer font-mono text-[11px] divide-x divide-border/60"
+                  @click="goToDetail(item.id)"
+                >
+                  <TableCell class="text-center text-muted-foreground sticky left-0 bg-background dark:bg-zinc-900 z-10 opacity-100">{{ item.no || idx + 1 }}</TableCell>
+                  <TableCell class="text-center p-1 sticky left-[45px] bg-background dark:bg-zinc-900 z-10 opacity-100" @click.stop="openImageLightbox(item.image, item.model, item.images)">
+                    <img :src="item.image" :alt="item.model" class="w-7 h-7 object-contain mx-auto rounded border border-border/60 bg-muted/20" />
+                  </TableCell>
+                  <TableCell class="font-sans font-bold text-foreground sticky left-[105px] bg-background dark:bg-zinc-900 z-10 opacity-100 shadow-[4px_0_8px_rgba(0,0,0,0.12)] border-r-2 border-border truncate max-w-[200px]">{{ item.model }}</TableCell>
+                  <TableCell class="text-right">Rp {{ (item.metadata?.moduleUnitPrice || 0).toLocaleString('id-ID') }}</TableCell>
+                  <TableCell class="text-center font-bold">{{ item.metadata?.modulePcs || 24 }}</TableCell>
+                  <TableCell class="text-right">Rp {{ (item.metadata?.cabinetFlatCost || 0).toLocaleString('id-ID') }}</TableCell>
+                  <TableCell class="text-right">Rp {{ (item.metadata?.cabinetFoldableCost || 0).toLocaleString('id-ID') }}</TableCell>
+                  <TableCell class="text-center font-bold">{{ item.metadata?.psuPcs || 4 }}</TableCell>
+                  <TableCell class="text-right">Rp {{ (item.metadata?.psuUnitPrice || 0).toLocaleString('id-ID') }}</TableCell>
+                  <TableCell class="text-center font-bold">{{ item.metadata?.rcPcs || 2 }}</TableCell>
+                  <TableCell class="text-right">Rp {{ (item.metadata?.rcUnitPrice || 0).toLocaleString('id-ID') }}</TableCell>
+                  <TableCell class="text-right">Rp {{ (item.metadata?.cablesJumper || 200000).toLocaleString('id-ID') }}</TableCell>
+                  <TableCell class="text-right">Rp {{ (item.metadata?.cablesPower || 150000).toLocaleString('id-ID') }}</TableCell>
+                  <TableCell class="text-right">Rp {{ (item.metadata?.assemblyCost || 270000).toLocaleString('id-ID') }}</TableCell>
+                  <TableCell class="text-right">Rp {{ (item.metadata?.processorA35Cost || 0).toLocaleString('id-ID') }}</TableCell>
+                  <TableCell class="text-center font-bold text-amber-500">{{ item.metadata?.profitMargin || '25.00%' }}</TableCell>
+                  <TableCell class="text-right font-extrabold text-rose-600 dark:text-rose-400 bg-rose-500/5">{{ item.priceFormatted }}</TableCell>
+                  <TableCell class="text-right font-extrabold text-amber-600 dark:text-amber-400 bg-amber-500/5">{{ item.metadata?.foldablePriceFormatted || '-' }}</TableCell>
+                  <TableCell class="text-center font-sans text-muted-foreground">{{ item.size || '64x192Cm' }}</TableCell>
+                  <TableCell class="text-[10px] text-muted-foreground">{{ item.sku }}</TableCell>
+                  <TableCell class="text-right text-muted-foreground">{{ item.metadata?.baseCost ? 'Rp ' + Number(item.metadata.baseCost).toLocaleString('id-ID') : '-' }}</TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </div>
+        </div>
+
+        <!-- B2. STANDARD DESKTOP SPREADSHEET TABLE VIEW (All Other Categories) -->
         <div v-else-if="!isMobileScreen && viewMode === 'table'" class="rounded-2xl border border-border/70 bg-card overflow-hidden shadow-xs">
           <div class="overflow-x-auto custom-scrollbar">
             <Table>
@@ -1256,10 +1439,11 @@ const hasLinkColumn = computed(() => {
                 <TableRow
                   v-for="(item, idx) in filteredItems"
                   :key="item.id"
-                  class="transition-colors duration-150 group"
+                  class="transition-colors duration-150 group cursor-pointer hover:bg-muted/40"
                   :class="{
                     'bg-emerald-500/10 dark:bg-emerald-500/20 font-medium': updatedItemIds.has(item.id)
                   }"
+                  @click="goToDetail(item.id)"
                 >
                   <TableCell class="text-xs text-muted-foreground font-mono">
                     {{ item.no || idx + 1 }}
