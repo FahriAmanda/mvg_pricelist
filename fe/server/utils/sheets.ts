@@ -1166,11 +1166,12 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     }
 
     // ==========================================
-    // 5. MVG: Alumino
+    // 7. MVG: Alumino
     // ==========================================
     case 'mvg_alumino': {
       let currItem = '300x300mm Bolt Truss'
       let currDesc = 'Material: aluminum 6082-T6'
+      let isFullBrace = false
       let seq = 0
       let startIdx = 3
       for (let i = 0; i < rows.length; i++) {
@@ -1183,6 +1184,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
       for (let i = startIdx; i < rows.length; i++) {
         const r = rows[i]
         if (!r || !r.length) continue
+        const rawLine = (r.join(' ')).toLowerCase()
+        if (rawLine.includes('bolt truss full brace')) {
+          isFullBrace = true
+        }
+
         const itemRaw = r[0]?.trim().replace(/\n+/g, ' ') || ''
         const descRaw = r[2]?.trim() || ''
         if (itemRaw) currItem = itemRaw
@@ -1193,6 +1199,9 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         seq++
 
         let model = currItem
+        if (isFullBrace && !model.toLowerCase().includes('full brace') && model.toLowerCase().includes('truss')) {
+          model = `${model} (Full Brace)`
+        }
         if (size) model += ` (${size})`
 
         let typeBadge = 'Truss'
@@ -1658,7 +1667,12 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const sku = r[6]?.trim() || `${categoryId}-${i}`
         seq++
 
-        const actualModel = desc || rawModel
+        let actualModel = desc || rawModel
+        const lowerDesc = actualModel.toLowerCase()
+        const lowerType = type.toLowerCase()
+        if (lowerType && !lowerDesc.includes(lowerType)) {
+          actualModel = `${actualModel} ${type}`
+        }
         const actualDesc = rawModel && rawModel !== actualModel
           ? `${rawModel} ${type ? '• ' + type : ''}`.trim()
           : (type ? `Modul LED ${type}` : 'Modul LED')
@@ -1741,7 +1755,9 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const brand = r[0]?.trim() || 'Colorlight'
         const rawType = r[1]?.trim() || ''
         const rawDesc = r[2]?.trim() || ''
-        const price = parsePrice(r[4])
+        const rawPrice = r[4]?.trim() || ''
+        const price = parsePrice(rawPrice)
+        const priceFormatted = price > 0 ? formatRupiah(price) : (rawPrice || 'Hubungi Sales')
         const sku = r[5]?.trim() || `${categoryId}-${i}`
         seq++
 
@@ -1771,10 +1787,13 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           type: displayType,
           description: `${brand} ${rawType} ${rawDesc}`.trim(),
           price,
-          priceFormatted: formatRupiah(price),
+          priceFormatted,
           sku,
           image: '/images/products/av-colorlight-controller.svg',
           metadata: {
+            rawPrice,
+            isDiscontinued: rawPrice.toLowerCase().includes('discontinued'),
+            isCustom: rawPrice.toLowerCase().includes('custom'),
             no: seq
           },
           updatedAt: new Date().toISOString()
@@ -1874,6 +1893,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         else if (type === 'Tools') cabinetImg = '/images/products/av-cabinet-tools.svg'
         else cabinetImg = '/images/products/av-cabinet-iron.svg'
 
+        const displayModel = cleanSize ? `${rawModel} (${cleanSize})` : rawModel
         const displayDesc = rawModel
 
         items.push({
@@ -1881,7 +1901,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           no: seq,
           category: categoryId,
           catalog: 'av',
-          model: rawModel,
+          model: displayModel,
           type,
           description: displayDesc,
           size: rawSize,
@@ -1915,7 +1935,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const sku = r[6]?.trim() || `${categoryId}-${i}`
         seq++
 
-        const fullName = desc ? `${model} - ${desc}` : model
+        const fullName = desc ? `${model} ${type} (${desc})`.trim() : `${model} ${type}`.trim()
 
         // Map physical images extracted from the official spreadsheet
         let psuImg = '/images/products/psu/psu-lampro-200w.png'
@@ -1949,7 +1969,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           no: seq,
           category: categoryId,
           catalog: 'av',
-          model,
+          model: fullName,
           type,
           description: fullName,
           size: watt,
@@ -2075,6 +2095,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         if (!r || r.length < 18 || !r[0]?.trim()) continue
         const rawType = r[0]?.trim()
         const price4Side = parsePrice(r[16])
+        if (price4Side <= 0) continue
         const price5Side = parsePrice(r[17]) || price4Side
         const size = r[18]?.trim() || '32x32x32cm'
         const sku = `LED-CUBE-${rawType.replace(/\s+/g, '-').toUpperCase()}`
@@ -2238,6 +2259,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           itemImg = '/images/products/av-cabinet-diecast.svg'
         }
 
+        const displayModel = cabType ? `${rawModel} - ${cabType}` : rawModel
         const desc = `${rawModel} (${cabType})`
 
         items.push({
@@ -2245,7 +2267,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           no: seq,
           category: categoryId,
           catalog: categoryId.startsWith('mvg_') ? 'mvg' : 'av',
-          model: rawModel,
+          model: displayModel,
           type,
           description: desc,
           size: size || cabType,
