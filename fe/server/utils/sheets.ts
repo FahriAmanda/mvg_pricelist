@@ -2127,25 +2127,43 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 6 || !r[3]) continue
-        const model = r[1]?.trim() || 'TKDN MAGNUSTEK'
-        const type = r[2]?.trim() || ''
-        const desc = r[3]?.trim() || ''
+        const rawBrand = r[1]?.trim() || 'TKDN MAGNUSTEK'
+        const locationType = r[2]?.trim() || '' // Indoor / Outdoor
+        const rawModel = r[3]?.trim() || ''     // e.g. "Magnustek TKDN P0.9 COB", "Magnustek TKDN P1.2"
         const tkdnValue = r[4]?.trim() || ''
         const price = parsePrice(r[5])
-        const paket = r[6]?.trim() || ''
-        const subType = r[7]?.trim() || ''
+        const paket = r[6]?.trim() || ''        // Meter / Pcs
+        const subType = r[7]?.trim() || ''      // Cabinet / Module
         const size = r[8]?.trim() || ''
         const refresh = r[9]?.trim() || ''
         const sku = r[10]?.trim() || `MAG-TKDN-${i}`
         seq++
+
+        // Distinct, professional model title per item:
+        // e.g. "Magnustek TKDN P0.9 COB Indoor (Cabinet)"
+        //      "Magnustek TKDN P1.2 Indoor (Module)"
+        //      "Magnustek TKDN P2 Outdoor (Module)"
+        const formFactor = subType || (paket.toLowerCase().includes('meter') ? 'Cabinet' : 'Module')
+        let modelTitle = rawModel
+        const lowerModel = modelTitle.toLowerCase()
+        const lowerLoc = locationType.toLowerCase()
+        if (lowerLoc && !lowerModel.includes(lowerLoc)) {
+          modelTitle = `${modelTitle} ${locationType}`
+        }
+        const lowerForm = formFactor.toLowerCase()
+        if (lowerForm && !lowerModel.includes(lowerForm)) {
+          modelTitle = `${modelTitle} (${formFactor})`
+        }
+
+        const desc = `LED Videotron ${modelTitle} • ${size} • ${refresh ? `${refresh}Hz` : '4200Hz'} • Sertifikat Resmi TKDN Kemenperin ${tkdnValue}`
 
         items.push({
           id: `${categoryId}-${seq}`,
           no: seq,
           category: categoryId,
           catalog: 'av',
-          model,
-          type: `${type} (${subType || paket})`,
+          model: modelTitle,
+          type: `${locationType} (${formFactor})`,
           description: desc,
           size,
           refreshRate: refresh,
@@ -2156,7 +2174,12 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           metadata: {
             tkdnValue,
             paket,
-            subType,
+            subType: formFactor,
+            rawModel,
+            brand: rawBrand,
+            locationType,
+            specification: `${size} • ${refresh ? `${refresh}Hz` : '4200Hz'} • TKDN ${tkdnValue}`,
+            hargaCash: price,
             no: seq
           },
           updatedAt: new Date().toISOString()
