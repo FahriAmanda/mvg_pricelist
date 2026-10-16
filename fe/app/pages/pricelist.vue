@@ -47,6 +47,7 @@ import ThemeToggle from '~/components/ThemeToggle.vue'
 import FieldSelect from '~/components/FieldSelect.vue'
 import CartDrawer from '~/components/CartDrawer.vue'
 import BatchSelectDialog from '~/components/BatchSelectDialog.vue'
+import SyncLoadingDialog from '~/components/SyncLoadingDialog.vue'
 import type { ErpBatchItem } from '~/types/pricelist'
 
 const authStore = useAuthStore()
@@ -207,6 +208,29 @@ function syncStateToUrl() {
 // Watch state changes and sync to URL query
 watch([activeCatalog, activeCategoryId, viewMode, typeFilter, erpSyncFilter, sortBy], () => {
   syncStateToUrl()
+})
+
+// 2-Hour Auto-Sync & Tab-Switching Sync Management
+let lastTabSyncTime = 0
+let periodicSyncTimer: any = null
+
+function handleTabOrVisibilitySync(minIntervalMs = 20000) {
+  const now = Date.now()
+  if (now - lastTabSyncTime > minIntervalMs && !isSyncing.value) {
+    lastTabSyncTime = now
+    triggerSync().catch((err) => console.warn('Tab auto-sync error:', err))
+  }
+}
+
+function handleVisibilityChange() {
+  if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
+    handleTabOrVisibilitySync(30000)
+  }
+}
+
+// Watch tab & category switching to sync prices
+watch([activeCatalog, activeCategoryId], () => {
+  handleTabOrVisibilitySync(15000)
 })
 
 let searchDebounceTimer: any = null
@@ -374,12 +398,31 @@ onMounted(() => {
   nextTick(() => {
     syncStateToUrl()
   })
+
+  // Auto-sync saat halaman dibuka
+  handleTabOrVisibilitySync(0)
+
+  // Auto-sync saat kembali ke tab browser
+  if (typeof document !== 'undefined') {
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+  }
+
+  // Interval otomatis refresh setiap 2 jam sekali
+  periodicSyncTimer = setInterval(() => {
+    triggerSync().catch((err) => console.warn('2-hour auto sync error:', err))
+  }, 2 * 60 * 60 * 1000)
 })
 
 onBeforeUnmount(() => {
   if (typeof window !== 'undefined') {
     window.removeEventListener('resize', checkScreenSize)
     window.removeEventListener('scroll', handleWindowScroll)
+  }
+  if (periodicSyncTimer) {
+    clearInterval(periodicSyncTimer)
+  }
+  if (typeof document !== 'undefined') {
+    document.removeEventListener('visibilitychange', handleVisibilityChange)
   }
 })
 
@@ -2283,6 +2326,9 @@ const hasLinkColumn = computed(() => {
       :item="selectedItemForBatch"
       @confirm="onBatchDialogConfirm"
     />
+
+    <!-- ELEGANT SYNC LOADING DIALOG -->
+    <SyncLoadingDialog :open="isSyncing" />
 
     <!-- FLOATING CART & SLIDE-OVER DRAWER FOR SALES QUOTATION -->
     <CartDrawer />
