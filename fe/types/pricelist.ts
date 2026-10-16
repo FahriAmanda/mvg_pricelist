@@ -20,6 +20,7 @@ export interface PricelistItem {
   updatedAt?: string
   isSynced?: boolean
   availableStock?: number
+  erpItemId?: string
 }
 
 export interface SheetCategory {

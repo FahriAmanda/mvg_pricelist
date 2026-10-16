@@ -35,13 +35,18 @@ import {
   Loader2,
   CheckCircle2,
   AlertCircle,
-  Package
+  Package,
+  ShoppingCart
 } from '@lucide/vue'
 import ThemeToggle from '~/components/ThemeToggle.vue'
 import FieldSelect from '~/components/FieldSelect.vue'
+import CartDrawer from '~/components/CartDrawer.vue'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useAuthStore } from '~/stores/auth'
+import { useCart } from '~/composables/useCart'
+
+const cart = useCart()
 import type { PricelistItem, SheetCategory } from '~/types/pricelist'
 
 const route = useRoute()
@@ -1045,6 +1050,42 @@ const specRows = computed(() => {
               </div>
             </div>
 
+            <!-- ACTION BUTTON: ADD TO SALES QUOTATION CART (RETAIL) -->
+            <div class="pt-2">
+              <Button
+                v-if="item?.isSynced"
+                size="lg"
+                class="w-full rounded-2xl gap-2 font-bold text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/20 active:scale-[0.99] cursor-pointer"
+                @click="item && cart.addToCart(item)"
+              >
+                <ShoppingCart class="w-4 h-4" />
+                <span v-if="item && cart.isInCart(item.sku)">
+                  ✓ Sudah di Keranjang SQ ({{ cart.getItemQty(item.sku) }} unit) - Tambah Lagi
+                </span>
+                <span v-else>
+                  + Tambah ke Keranjang Penawaran (SQ)
+                </span>
+              </Button>
+
+              <div
+                v-else
+                class="p-3.5 rounded-2xl border border-dashed border-border/80 bg-muted/30 flex items-center justify-between gap-3 text-xs text-muted-foreground"
+              >
+                <span class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-rose-500 shrink-0"></span>
+                  Item ini belum disinkronkan ke Master Item ERP sehingga belum dapat dibuatkan SQ.
+                </span>
+                <button
+                  v-if="isSuperAdmin"
+                  type="button"
+                  class="font-bold text-emerald-600 dark:text-emerald-400 hover:underline shrink-0 cursor-pointer"
+                  @click="openSyncModal"
+                >
+                  Sync Sekarang ›
+                </button>
+              </div>
+            </div>
+
             <!-- ACTION BUTTONS: INTERNAL UTILITIES (SALIN PENAWARAN & SPESIFIKASI) -->
             <div class="pt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
               <Button
@@ -1645,6 +1686,9 @@ const specRows = computed(() => {
 
       </div>
     </div>
+
+    <!-- FLOATING CART & SLIDE-OVER DRAWER FOR SALES QUOTATION -->
+    <CartDrawer />
   </div>
 </template>
 

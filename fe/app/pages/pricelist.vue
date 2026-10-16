@@ -37,14 +37,18 @@ import {
   X,
   Images,
   ArrowUp,
-  List
+  List,
+  ShoppingCart
 } from '@lucide/vue'
 import { usePricelist } from '~/composables/usePricelist'
 import { useAuthStore } from '~/stores/auth'
+import { useCart } from '~/composables/useCart'
 import ThemeToggle from '~/components/ThemeToggle.vue'
 import FieldSelect from '~/components/FieldSelect.vue'
+import CartDrawer from '~/components/CartDrawer.vue'
 
 const authStore = useAuthStore()
+const cart = useCart()
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -1031,15 +1035,30 @@ const hasLinkColumn = computed(() => {
                 <div v-if="item.metadata?.hargaKreditFormatted" class="text-[9px] text-muted-foreground font-mono">
                   Krd: {{ item.metadata.hargaKreditFormatted }}
                 </div>
-                <a
-                  v-if="item.brochureUrl || item.videoUrl"
-                  :href="item.brochureUrl || item.videoUrl"
-                  target="_blank"
-                  rel="noopener"
-                  class="inline-block mt-0.5 text-[9px] font-bold text-sky-600 dark:text-sky-400 hover:underline"
-                >
-                  {{ item.videoUrl ? 'Video ▶' : 'Brosur ↗' }}
-                </a>
+                <div class="flex items-center justify-end gap-1.5 mt-1">
+                  <button
+                    v-if="item.isSynced"
+                    type="button"
+                    class="px-2 py-0.5 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 cursor-pointer active:scale-95"
+                    :class="cart.isInCart(item.sku)
+                      ? 'bg-emerald-600 text-white'
+                      : 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30'"
+                    :title="cart.isInCart(item.sku) ? `Sudah di draf SQ (${cart.getItemQty(item.sku)})` : 'Tambah ke Draf SQ'"
+                    @click.stop="cart.addToCart(item)"
+                  >
+                    <ShoppingCart class="w-3 h-3" />
+                    <span>{{ cart.isInCart(item.sku) ? `+(${cart.getItemQty(item.sku)})` : '+ SQ' }}</span>
+                  </button>
+                  <a
+                    v-if="item.brochureUrl || item.videoUrl"
+                    :href="item.brochureUrl || item.videoUrl"
+                    target="_blank"
+                    rel="noopener"
+                    class="inline-block text-[9px] font-bold text-sky-600 dark:text-sky-400 hover:underline"
+                  >
+                    {{ item.videoUrl ? 'Video ▶' : 'Brosur ↗' }}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -1459,16 +1478,46 @@ const hasLinkColumn = computed(() => {
                 </p>
               </div>
 
-              <!-- Quick Detail Action -->
-              <button
-                type="button"
-                class="px-2.5 py-1.5 rounded-xl bg-muted/70 hover:bg-primary hover:text-primary-foreground text-xs font-semibold text-muted-foreground transition-all flex items-center gap-1 shrink-0 group-hover:bg-primary group-hover:text-primary-foreground shadow-2xs"
-                title="Lihat Detail Lengkap Produk"
-                @click.stop="goToDetail(item.id)"
-              >
-                <span>Detail</span>
-                <ChevronRight class="w-3.5 h-3.5" />
-              </button>
+              <!-- Action Buttons: Add to Cart (Only for SYNC ERP) + Quick Detail Action -->
+              <div class="flex items-center gap-1.5 shrink-0">
+                <!-- Add to Cart -->
+                <button
+                  v-if="item.isSynced"
+                  type="button"
+                  class="px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 shadow-2xs cursor-pointer active:scale-95"
+                  :class="cart.isInCart(item.sku)
+                    ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-500/20'
+                    : 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/25 border border-emerald-500/30'"
+                  :title="cart.isInCart(item.sku) ? `Sudah di keranjang (${cart.getItemQty(item.sku)} unit). Klik untuk tambah.` : 'Tambahkan ke Keranjang Penawaran (SQ)'"
+                  @click.stop="cart.addToCart(item)"
+                >
+                  <ShoppingCart class="w-3.5 h-3.5" />
+                  <span v-if="cart.isInCart(item.sku)">+ ({{ cart.getItemQty(item.sku) }})</span>
+                  <span v-else>+ Keranjang</span>
+                </button>
+
+                <button
+                  v-else
+                  type="button"
+                  disabled
+                  class="px-2 py-1.5 rounded-xl bg-muted/60 text-[10.5px] font-semibold text-muted-foreground/60 cursor-not-allowed border border-border/50"
+                  title="Item ini belum disinkronkan dengan ERP"
+                  @click.stop
+                >
+                  Belum Sync
+                </button>
+
+                <!-- Quick Detail Action -->
+                <button
+                  type="button"
+                  class="px-2.5 py-1.5 rounded-xl bg-muted/70 hover:bg-primary hover:text-primary-foreground text-xs font-semibold text-muted-foreground transition-all flex items-center gap-1 shrink-0 group-hover:bg-primary group-hover:text-primary-foreground shadow-2xs cursor-pointer"
+                  title="Lihat Detail Lengkap Produk"
+                  @click.stop="goToDetail(item.id)"
+                >
+                  <span>Detail</span>
+                  <ChevronRight class="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
           </div>
           </div>
@@ -2115,5 +2164,8 @@ const hasLinkColumn = computed(() => {
         <ArrowUp class="w-5 h-5" />
       </button>
     </transition>
+
+    <!-- FLOATING CART & SLIDE-OVER DRAWER FOR SALES QUOTATION -->
+    <CartDrawer />
   </div>
 </template>

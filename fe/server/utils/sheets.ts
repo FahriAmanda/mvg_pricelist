@@ -2300,9 +2300,11 @@ export async function fetchAllSheets(force = false): Promise<{
           if (stockInfo && stockInfo.is_synced) {
             item.isSynced = true
             item.availableStock = Number(stockInfo.available_stock || 0)
+            item.erpItemId = stockInfo.m_items_id || stockInfo.id
           } else {
             item.isSynced = false
             item.availableStock = 0
+            item.erpItemId = undefined
           }
 
           return item
@@ -2349,11 +2351,12 @@ export function getCategoryItems(categoryId: string): PricelistItem[] {
   return store.itemsByCategory[categoryId] || []
 }
 
-export function updateItemErpSyncStatus(sku: string, isSynced: boolean, availableStock: number) {
+export function updateItemErpSyncStatus(sku: string, isSynced: boolean, availableStock: number, erpItemId?: string) {
   erpStockMap[sku] = {
     sku,
     is_synced: isSynced,
-    available_stock: availableStock
+    available_stock: availableStock,
+    m_items_id: erpItemId
   }
 
   // Update in memory items across all categories
@@ -2363,6 +2366,7 @@ export function updateItemErpSyncStatus(sku: string, isSynced: boolean, availabl
       if (item.sku === sku) {
         item.isSynced = isSynced
         item.availableStock = availableStock
+        if (erpItemId) item.erpItemId = erpItemId
       }
     }
   }
@@ -2372,6 +2376,7 @@ export function updateItemErpSyncStatus(sku: string, isSynced: boolean, availabl
     sku,
     isSynced,
     availableStock,
+    erpItemId,
     lastSync: new Date().toISOString()
   })
 }
