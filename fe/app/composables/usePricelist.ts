@@ -51,7 +51,7 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
         lastSync: string
         hash: string
         totalItems: number
-      }>('/api/sheets')
+      }>('/api/sheets', { query: force ? { fresh: 'true' } : undefined })
 
       categories.value = catRes.categories
       lastSyncTime.value = catRes.lastSync
@@ -79,7 +79,7 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
         itemsByCategory: Record<string, PricelistItem[]>
         lastSync: string
         hash: string
-      }>('/api/sheets/all')
+      }>('/api/sheets/all', { query: force ? { fresh: 'true' } : undefined })
 
       allItems.value = dataRes.itemsByCategory || {}
       lastSyncTime.value = dataRes.lastSync

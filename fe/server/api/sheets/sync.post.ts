@@ -1,6 +1,12 @@
 import { fetchAllSheets } from '../../utils/sheets'
 
-export default defineEventHandler(async () => {
+export default defineEventHandler(async (event) => {
+  setResponseHeaders(event, {
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0'
+  })
+
   const result = await fetchAllSheets(true)
   return {
     success: true,

@@ -2,12 +2,21 @@ import { SHEET_CATEGORIES, getStoreState, fetchAllSheets } from '../../utils/she
 import type { SheetCategory } from '../../../types/pricelist'
 
 export default defineEventHandler(async (event) => {
+  setResponseHeaders(event, {
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0'
+  })
+
   const query = getQuery(event)
   const includeItems = query.include_items === 'true' || query.all === 'true'
 
   const store = getStoreState()
-  if (!store.lastSync) {
+  const isStale = !store.lastSync || (Date.now() - new Date(store.lastSync).getTime() > 60 * 1000)
+  if (!store.lastSync || query.fresh === 'true' || query.force === 'true') {
     await fetchAllSheets(true)
+  } else if (isStale && !store.isFetching) {
+    fetchAllSheets(false).catch(console.error)
   }
 
   const categories: SheetCategory[] = SHEET_CATEGORIES.map((cat) => {

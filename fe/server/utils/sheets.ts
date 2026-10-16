@@ -2270,7 +2270,20 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
   return items
 }
 
-async function fetchWithRetry(url: string, retries = 2, timeoutMs = 8000): Promise<string> {
+async function mapConcurrent<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
+  const results: R[] = new Array(items.length)
+  let index = 0
+  const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (index < items.length) {
+      const current = index++
+      results[current] = await fn(items[current])
+    }
+  })
+  await Promise.all(workers)
+  return results
+}
+
+async function fetchWithRetry(url: string, retries = 3, timeoutMs = 15000): Promise<string> {
   for (let attempt = 1; attempt <= retries; attempt++) {
     const controller = new AbortController()
     const timer = setTimeout(() => controller.abort(), timeoutMs)
@@ -2323,27 +2336,29 @@ export async function fetchAllSheets(force = false): Promise<{
   const updatedCategories: string[] = []
 
   try {
-    const fetchPromises = SHEET_CATEGORIES.map(async (cat) => {
-      const url = cat.customUrl
-        ? `${cat.customUrl}&_t=${Date.now()}`
-        : `${BASE_CSV_URL}${cat.gid}&_t=${Date.now()}`
+    const fetchCategoryRows = async () => {
+      return mapConcurrent(SHEET_CATEGORIES, 5, async (cat) => {
+        const url = cat.customUrl
+          ? `${cat.customUrl}&_t=${Date.now()}`
+          : `${BASE_CSV_URL}${cat.gid}&_t=${Date.now()}`
 
-      try {
-        const text = await fetchWithRetry(url)
-        const items = parseSheetRows(cat.id, text)
-        return { catId: cat.id, items, rawText: text }
-      } catch (err: any) {
-        console.warn(
-          `[AutoSync] Catatan: Gagal memuat ${cat.name} (${
-            err?.message || err
-          }), menggunakan cache sebelumnya.`
-        )
-        return { catId: cat.id, items: store.itemsByCategory[cat.id] || [], rawText: '' }
-      }
-    })
+        try {
+          const text = await fetchWithRetry(url)
+          const items = parseSheetRows(cat.id, text)
+          return { catId: cat.id, items, rawText: text }
+        } catch (err: any) {
+          console.warn(
+            `[AutoSync] Catatan: Gagal memuat ${cat.name} (${
+              err?.message || err
+            }), menggunakan cache sebelumnya.`
+          )
+          return { catId: cat.id, items: store.itemsByCategory[cat.id] || [], rawText: '' }
+        }
+      })
+    }
 
     const [results] = await Promise.all([
-      Promise.all(fetchPromises),
+      fetchCategoryRows(),
       refreshErpStockMap()
     ])
 
