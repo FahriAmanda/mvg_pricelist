@@ -699,7 +699,7 @@ const hasLinkColumn = computed(() => {
               class="px-1.5 py-0.2 rounded-full text-[10px] font-bold font-mono"
               :class="activeCatalog === 'mvg' ? 'bg-white/20 text-white' : 'bg-muted text-muted-foreground'"
             >
-              11
+              {{ mvgCategories.length }}
             </span>
           </button>
 
@@ -721,7 +721,7 @@ const hasLinkColumn = computed(() => {
               class="px-1.5 py-0.2 rounded-full text-[10px] font-bold font-mono"
               :class="activeCatalog === 'av' ? 'bg-primary-foreground/20 text-primary-foreground' : 'bg-muted text-muted-foreground'"
             >
-              10
+              {{ avCategories.length }}
             </span>
           </button>
         </div>
@@ -730,7 +730,7 @@ const hasLinkColumn = computed(() => {
         <div class="text-xs text-muted-foreground hidden sm:flex items-center gap-2 font-medium">
           <span>Katalog Terpilih:</span>
           <Badge variant="outline" class="font-bold uppercase tracking-wider text-[11px]">
-            {{ activeCatalog === 'mvg' ? 'Mitra Visual Group (11 Kategori)' : 'Asia Visiotron (10 Kategori)' }}
+            {{ activeCatalog === 'mvg' ? `Mitra Visual Group (${mvgCategories.length} Kategori)` : `Asia Visiotron (${avCategories.length} Kategori)` }}
           </Badge>
         </div>
       </section>

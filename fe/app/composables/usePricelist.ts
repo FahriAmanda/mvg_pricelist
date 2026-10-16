@@ -249,8 +249,8 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
         catalog: activeCatalog.value,
         icon: isMvg ? 'Sparkles' : 'Boxes',
         description: isMvg
-          ? 'Menampilkan seluruh produk hardware & rental Mitra Visual Group (11 Kategori)'
-          : 'Menampilkan seluruh produk display & controller Asia Visiotron (10 Kategori)',
+          ? `Menampilkan seluruh produk hardware & rental Mitra Visual Group (${targetCats.length} Kategori)`
+          : `Menampilkan seluruh produk display & controller Asia Visiotron (${targetCats.length} Kategori)`,
         itemCount: total,
         lastUpdated: lastSyncTime.value || ''
       }

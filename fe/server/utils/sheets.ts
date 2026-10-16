@@ -143,9 +143,17 @@ export const SHEET_CATEGORIES: Array<{
     icon: 'Monitor',
     description: 'Price List Paket Instalasi LED Videotron Modular & Cabinet (Qiangli & ABSEN Pro Series)'
   },
+  {
+    id: 'mvg_finished_cabinet',
+    name: 'Finished Cabinet',
+    catalog: 'mvg',
+    customUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRuMDmEzh4w7r09LH3Quoio4lHUZIR7Krur4FNfuxCskrN0onGEyiDGtr_ff7NGRG47Uq8HaNhXmS1a/pub?single=true&output=csv&gid=2026050501',
+    icon: 'LayoutGrid',
+    description: 'Finished Cabinet Die-Cast, Iron, Curve, Corner & COB 600x337.5mm Siap Pakai'
+  },
 
   // ==========================================
-  // 2. AV PRICE LIST (10 Kategori Display & Controller)
+  // 2. AV PRICE LIST (11 Kategori Display & Controller)
   // ==========================================
   {
     id: 'qiangli',
@@ -504,6 +512,17 @@ export const DEFAULT_CATEGORY_EXTRA: Record<string, CategoryExtra> = {
   finished_cabinet: {
     bannerTitle: 'FINISHED CABINET VIDEOTRON SIAP PAKAI',
     bannerSubtitle: 'Katalog Kabinet Jadi Die-Cast Aluminium, Iron Outdoor, Curve, Corner & COB Mitra Visual Group (AV)',
+    bannerImage: '/images/products/finished-cabinet-banner.svg',
+    kursUSD: 'Kabinet Siap Rakit',
+    notes: [
+      '1. Finished Cabinet siap pakai mencakup modul, kabinet presisi, dan mounting hardware',
+      '2. Tersedia pilihan Die-Cast Aluminium 64x48cm, 64x64cm, 96x96cm & Iron Outdoor Waterproof',
+      '3. Varian khusus: Iron Curve 112x96cm, Iron Corner (32+64)x96cm, Transparent & COB 600x337.5mm'
+    ]
+  },
+  mvg_finished_cabinet: {
+    bannerTitle: 'FINISHED CABINET VIDEOTRON SIAP PAKAI',
+    bannerSubtitle: 'Katalog Kabinet Jadi Die-Cast Aluminium, Iron Outdoor, Curve, Corner & COB Mitra Visual Group',
     bannerImage: '/images/products/finished-cabinet-banner.svg',
     kursUSD: 'Kabinet Siap Rakit',
     notes: [
@@ -2123,9 +2142,10 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
     }
 
     // ==========================================
-    // 22. AV: Finished Cabinet
+    // 22. AV & MVG: Finished Cabinet
     // ==========================================
-    case 'finished_cabinet': {
+    case 'finished_cabinet':
+    case 'mvg_finished_cabinet': {
       let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
@@ -2177,7 +2197,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           id: `${categoryId}-${seq}`,
           no: seq,
           category: categoryId,
-          catalog: 'av',
+          catalog: categoryId.startsWith('mvg_') ? 'mvg' : 'av',
           model: rawModel,
           type,
           description: desc,
@@ -2190,7 +2210,8 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
             no: seq,
             model: rawModel,
             cabinetType: cabType,
-            specification: cabType
+            specification: cabType,
+            hargaCash: price
           },
           updatedAt: new Date().toISOString()
         })
