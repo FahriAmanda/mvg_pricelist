@@ -22,6 +22,9 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
   const lastSyncTime = ref<string>('')
   const searchQuery = ref<string>(initialOptions?.search || '')
   const typeFilter = ref<string>(initialOptions?.type || 'ALL')
+  const erpSyncFilter = ref<'ALL' | 'SYNCED' | 'NOT_SYNCED'>(
+    (initialOptions?.erpSync as any) || 'ALL'
+  )
   const sortBy = ref<'default' | 'price-asc' | 'price-desc' | 'name'>(initialOptions?.sort || 'default')
   const updatedItemIds = ref<Set<string>>(new Set())
 
@@ -292,6 +295,21 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
     return Array.from(set)
   })
 
+  // ERP Sync Status Statistics for filter badges & dropdown
+  const erpSyncCounts = computed(() => {
+    let synced = 0
+    let notSynced = 0
+    for (const item of activeItems.value) {
+      if (item.isSynced) synced++
+      else notSynced++
+    }
+    return {
+      all: activeItems.value.length,
+      synced,
+      notSynced
+    }
+  })
+
   // Filtered and sorted items
   const filteredItems = computed(() => {
     let result = [...activeItems.value]
@@ -311,6 +329,12 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
       result = result.filter((item) =>
         item.type.toLowerCase().includes(typeFilter.value.toLowerCase())
       )
+    }
+
+    if (erpSyncFilter.value === 'SYNCED') {
+      result = result.filter((item) => Boolean(item.isSynced))
+    } else if (erpSyncFilter.value === 'NOT_SYNCED') {
+      result = result.filter((item) => !item.isSynced)
     }
 
     if (sortBy.value === 'price-asc') {
@@ -369,6 +393,8 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
     lastSyncTime,
     searchQuery,
     typeFilter,
+    erpSyncFilter,
+    erpSyncCounts,
     sortBy,
     updatedItemIds,
     loadData,

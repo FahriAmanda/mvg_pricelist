@@ -19,6 +19,7 @@ const props = withDefaults(
     disabled?: boolean
     dropdownMinWidth?: number
     size?: 'sm' | 'default' | 'lg'
+    align?: 'left' | 'right' | 'auto'
     class?: string
   }>(),
   {
@@ -33,6 +34,7 @@ const props = withDefaults(
     disabled: false,
     dropdownMinWidth: 200,
     size: 'default',
+    align: 'auto',
     class: ''
   }
 )
@@ -48,6 +50,17 @@ const containerRef = ref<HTMLElement | null>(null)
 const dropdownRef = ref<HTMLElement | null>(null)
 const searchInputRef = ref<HTMLInputElement | null>(null)
 const isMobile = ref(false)
+
+const dropdownAlign = computed(() => {
+  if (props.align && props.align !== 'auto') return props.align
+  if (containerRef.value && typeof window !== 'undefined') {
+    const rect = containerRef.value.getBoundingClientRect()
+    if (rect.right > window.innerWidth - 180) {
+      return 'right'
+    }
+  }
+  return 'left'
+})
 
 function checkMobile() {
   if (typeof window !== 'undefined') {
@@ -184,7 +197,11 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div ref="containerRef" class="relative inline-block w-full text-left font-sans select-none" :class="props.class">
+  <div
+    ref="containerRef"
+    class="relative inline-block w-full text-left font-sans select-none"
+    :class="[isOpen ? 'z-50' : 'z-10', props.class]"
+  >
     <!-- Optional Top Label -->
     <label v-if="props.label" class="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-1 block">
       {{ props.label }}
@@ -325,7 +342,8 @@ onBeforeUnmount(() => {
       <div
         v-if="isOpen && !isMobile"
         ref="dropdownRef"
-        class="absolute left-0 z-50 mt-1.5 rounded-xl border border-border/80 bg-popover text-popover-foreground shadow-xl overflow-hidden focus:outline-none max-w-[calc(100vw-32px)]"
+        class="absolute z-[100] mt-1.5 rounded-xl border border-border/80 bg-popover text-popover-foreground shadow-2xl overflow-hidden focus:outline-none max-w-[calc(100vw-32px)] backdrop-blur-none"
+        :class="dropdownAlign === 'right' ? 'right-0' : 'left-0'"
         :style="{ minWidth: `${Math.max(props.dropdownMinWidth, 160)}px` }"
       >
         <!-- Search Input Bar (if searchable) -->

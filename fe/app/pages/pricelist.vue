@@ -72,6 +72,7 @@ const queryView = route.query.view as string
 const queryType = route.query.type as string
 const querySearch = route.query.search as string
 const querySort = route.query.sort as string
+const queryErpSync = (route.query.erp_sync as string)?.toUpperCase()
 
 let initialCatalog: 'mvg' | 'av' = 'mvg'
 if (queryCatalog === 'av' || queryCatalog === 'mvg') {
@@ -119,6 +120,8 @@ const {
   lastSyncTime,
   searchQuery,
   typeFilter,
+  erpSyncFilter,
+  erpSyncCounts,
   sortBy,
   updatedItemIds,
   triggerSync
@@ -126,6 +129,7 @@ const {
   catalog: initialCatalog,
   categoryId: initialCategory,
   type: queryType || 'ALL',
+  erpSync: (queryErpSync === 'SYNCED' || queryErpSync === 'NOT_SYNCED') ? queryErpSync : 'ALL',
   search: querySearch || '',
   sort: (querySort as any) || 'default'
 })
@@ -146,6 +150,9 @@ function syncStateToUrl() {
   if (typeFilter.value && typeFilter.value !== 'ALL') {
     nextQuery.type = typeFilter.value
   }
+  if (erpSyncFilter.value && erpSyncFilter.value !== 'ALL') {
+    nextQuery.erp_sync = erpSyncFilter.value.toLowerCase()
+  }
   if (searchQuery.value && searchQuery.value.trim()) {
     nextQuery.search = searchQuery.value.trim()
   }
@@ -159,6 +166,7 @@ function syncStateToUrl() {
     curr.category === nextQuery.category &&
     (curr.view || 'cards') === (nextQuery.view || 'cards') &&
     (curr.type || 'ALL') === (nextQuery.type || 'ALL') &&
+    (curr.erp_sync || 'all') === (nextQuery.erp_sync || 'all') &&
     (curr.search || '') === (nextQuery.search || '') &&
     (curr.sort || 'default') === (nextQuery.sort || 'default')
 
@@ -168,7 +176,7 @@ function syncStateToUrl() {
 }
 
 // Watch state changes and sync to URL query
-watch([activeCatalog, activeCategoryId, viewMode, typeFilter, sortBy], () => {
+watch([activeCatalog, activeCategoryId, viewMode, typeFilter, erpSyncFilter, sortBy], () => {
   syncStateToUrl()
 })
 
@@ -349,6 +357,12 @@ onBeforeUnmount(() => {
 const typeSelectOptions = computed(() => [
   { value: 'ALL', label: `Semua Tipe (${activeItems.value?.length || 0})` },
   ...availableTypes.value.map((t) => ({ value: t, label: t }))
+])
+
+const erpSyncSelectOptions = computed(() => [
+  { value: 'ALL', label: `Semua Status ERP (${erpSyncCounts.value.all})` },
+  { value: 'SYNCED', label: `● SYNC ERP (${erpSyncCounts.value.synced})` },
+  { value: 'NOT_SYNCED', label: `● NOT SYNC ERP (${erpSyncCounts.value.notSynced})` }
 ])
 
 const sortSelectOptions = [
@@ -783,12 +797,9 @@ const hasLinkColumn = computed(() => {
         </div>
       </section>
 
-      <!-- 3. SEARCH & FILTERS BAR (Zero Overleap, Mobile Balanced Grid) -->
+      <!-- 3. SEARCH & FILTERS BAR (Zero Overleap, Mobile Balanced Grid, Explicit Z-Index) -->
       <section
-        v-motion
-        :initial="{ opacity: 0, y: 15 }"
-        :enter="{ opacity: 1, y: 0, transition: { type: 'spring', stiffness: 280, damping: 24, delay: 90 } }"
-        class="p-3 sm:p-4 rounded-2xl border border-border/70 bg-card shadow-xs space-y-2.5"
+        class="relative z-30 p-3 sm:p-4 rounded-2xl border border-border/70 bg-card shadow-xs space-y-3"
       >
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
           <!-- Search input -->
@@ -802,16 +813,16 @@ const hasLinkColumn = computed(() => {
             <button
               v-if="searchQuery"
               type="button"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground hover:text-foreground p-1"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-muted-foreground hover:text-foreground p-1 cursor-pointer"
               @click="searchQuery = ''"
             >
               ×
             </button>
           </div>
 
-          <!-- Dual Filter Selects: 2-column on mobile with ZERO OVERLEAP (uses Bottom Sheet) -->
-          <div class="grid grid-cols-2 gap-2 w-full sm:flex sm:w-auto sm:items-center">
-            <div v-if="availableTypes.length > 0" class="w-full sm:min-w-[170px]">
+          <!-- Triple Filter Selects: Responsive grid on mobile, inline on desktop -->
+          <div class="grid grid-cols-2 sm:flex sm:w-auto sm:items-center gap-2 w-full">
+            <div v-if="availableTypes.length > 0" class="w-full sm:min-w-[160px]">
               <FieldSelect
                 v-model="typeFilter"
                 :options="typeSelectOptions"
@@ -820,31 +831,88 @@ const hasLinkColumn = computed(() => {
               />
             </div>
 
-            <div class="w-full sm:min-w-[155px]">
+            <!-- Filter Status ERP (SYNC ERP / NOT SYNC ERP) -->
+            <div class="w-full sm:min-w-[170px]">
+              <FieldSelect
+                v-model="erpSyncFilter"
+                :options="erpSyncSelectOptions"
+                placeholder="Status ERP"
+                label="Status ERP"
+              />
+            </div>
+
+            <!-- Urutan Harga -->
+            <div class="w-full sm:min-w-[155px] col-span-2 sm:col-span-1">
               <FieldSelect
                 v-model="sortBy"
                 :options="sortSelectOptions"
                 placeholder="Urutan..."
                 label="Urutan Harga"
+                align="right"
               />
             </div>
           </div>
         </div>
 
-        <!-- Summary Strip & Mobile Density Switcher -->
-        <div class="flex items-center justify-between text-xs text-muted-foreground pt-1.5 border-t border-border/40">
-          <div class="flex items-center gap-1.5 truncate">
-            <span class="font-bold text-foreground truncate">
-              {{ activeCategoryId === 'all' ? 'Semua Kategori' : currentCategory?.name }}
+        <!-- Quick ERP Filter Segment Buttons + Summary Strip -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-2 border-t border-border/50">
+          <!-- Quick Status ERP Pills -->
+          <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+            <span class="text-[10.5px] font-bold text-muted-foreground uppercase tracking-wider hidden xs:inline-block mr-1">
+              Status:
             </span>
-            <span class="text-muted-foreground/60">•</span>
-            <span class="font-mono text-[11px] truncate">
-              {{ filteredItems.length }} item
-            </span>
+            <button
+              type="button"
+              class="px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap active:scale-95"
+              :class="erpSyncFilter === 'ALL'
+                ? 'bg-foreground text-background shadow-xs'
+                : 'bg-muted/70 hover:bg-muted text-muted-foreground'"
+              @click="erpSyncFilter = 'ALL'"
+            >
+              <span>Semua</span>
+              <span class="text-[10px] opacity-80 font-mono">({{ erpSyncCounts.all }})</span>
+            </button>
+
+            <button
+              type="button"
+              class="px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap active:scale-95"
+              :class="erpSyncFilter === 'SYNCED'
+                ? 'bg-emerald-600 text-white shadow-emerald-500/20 shadow-xs'
+                : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/20 border border-emerald-500/30'"
+              @click="erpSyncFilter = 'SYNCED'"
+            >
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>SYNC ERP</span>
+              <span class="text-[10px] font-mono">({{ erpSyncCounts.synced }})</span>
+            </button>
+
+            <button
+              type="button"
+              class="px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer whitespace-nowrap active:scale-95"
+              :class="erpSyncFilter === 'NOT_SYNCED'
+                ? 'bg-rose-600 text-white shadow-rose-500/20 shadow-xs'
+                : 'bg-rose-500/10 text-rose-700 dark:text-rose-400 hover:bg-rose-500/20 border border-rose-500/30'"
+              @click="erpSyncFilter = 'NOT_SYNCED'"
+            >
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+              <span>NOT SYNC ERP</span>
+              <span class="text-[10px] font-mono">({{ erpSyncCounts.notSynced }})</span>
+            </button>
           </div>
 
-          <!-- Mobile Card View Density Switcher (Detailed vs Compact) -->
-          <div class="flex items-center gap-1.5 shrink-0">
+          <!-- Right side: Count & Density Switcher & Reset -->
+          <div class="flex items-center justify-between sm:justify-end gap-2 text-xs text-muted-foreground">
+            <div class="flex items-center gap-1.5 truncate">
+              <span class="font-bold text-foreground truncate">
+                {{ activeCategoryId === 'all' ? 'Semua Kategori' : currentCategory?.name }}
+              </span>
+              <span class="text-muted-foreground/60">•</span>
+              <span class="font-mono text-[11px] font-semibold text-foreground">
+                {{ filteredItems.length }} item
+              </span>
+            </div>
+
+            <!-- Mobile Card View Density Switcher (Detailed vs Compact) -->
             <div class="sm:hidden flex items-center p-0.5 rounded-lg border border-border/80 bg-muted/40">
               <button
                 type="button"
@@ -866,10 +934,10 @@ const hasLinkColumn = computed(() => {
 
             <!-- Clear Search/Filter Button -->
             <button
-              v-if="searchQuery || typeFilter !== 'ALL' || sortBy !== 'default'"
+              v-if="searchQuery || typeFilter !== 'ALL' || erpSyncFilter !== 'ALL' || sortBy !== 'default'"
               type="button"
-              class="text-[10px] font-bold text-rose-500 hover:underline px-1.5 py-0.5 rounded bg-rose-500/10 cursor-pointer shrink-0"
-              @click="searchQuery = ''; typeFilter = 'ALL'; sortBy = 'default'"
+              class="text-[10.5px] font-bold text-rose-500 hover:underline px-2 py-0.5 rounded bg-rose-500/10 cursor-pointer shrink-0"
+              @click="searchQuery = ''; typeFilter = 'ALL'; erpSyncFilter = 'ALL'; sortBy = 'default'"
             >
               Reset
             </button>
