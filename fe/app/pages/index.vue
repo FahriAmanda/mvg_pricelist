@@ -41,9 +41,7 @@ const router = useRouter()
 const {
   categories,
   isLiveConnected,
-  lastSyncTime,
-  isSyncing,
-  triggerSync
+  lastSyncTime
 } = usePricelist()
 
 // Selected catalog state: null = 2 Main Hero Cards, 'mvg' = MVG Categories, 'av' = AV Categories
@@ -327,17 +325,6 @@ function formatTime(isoString: string) {
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span class="font-mono text-[10px] hidden xs:inline">{{ formatTime(lastSyncTime) }}</span>
           </div>
-
-          <Button
-            variant="outline"
-            size="sm"
-            class="h-8 w-8 p-0 border-border/70 text-muted-foreground hover:text-foreground"
-            :disabled="isSyncing"
-            title="Refresh Data"
-            @click="triggerSync()"
-          >
-            <RefreshCw class="w-3.5 h-3.5" :class="{ 'animate-spin text-primary': isSyncing }" />
-          </Button>
 
           <ThemeToggle />
 

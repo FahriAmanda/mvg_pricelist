@@ -47,7 +47,6 @@ import ThemeToggle from '~/components/ThemeToggle.vue'
 import FieldSelect from '~/components/FieldSelect.vue'
 import CartDrawer from '~/components/CartDrawer.vue'
 import BatchSelectDialog from '~/components/BatchSelectDialog.vue'
-import SyncLoadingDialog from '~/components/SyncLoadingDialog.vue'
 import type { ErpBatchItem } from '~/types/pricelist'
 
 const authStore = useAuthStore()
@@ -145,7 +144,6 @@ const {
   availableTypes,
   stats,
   isLoading,
-  isSyncing,
   isLiveConnected,
   lastSyncTime,
   searchQuery,
@@ -153,8 +151,7 @@ const {
   erpSyncFilter,
   erpSyncCounts,
   sortBy,
-  updatedItemIds,
-  triggerSync
+  updatedItemIds
 } = usePricelist({
   catalog: initialCatalog,
   categoryId: initialCategory,
@@ -208,29 +205,6 @@ function syncStateToUrl() {
 // Watch state changes and sync to URL query
 watch([activeCatalog, activeCategoryId, viewMode, typeFilter, erpSyncFilter, sortBy], () => {
   syncStateToUrl()
-})
-
-// 2-Hour Auto-Sync & Tab-Switching Sync Management
-let lastTabSyncTime = 0
-let periodicSyncTimer: any = null
-
-function handleTabOrVisibilitySync(minIntervalMs = 20000) {
-  const now = Date.now()
-  if (now - lastTabSyncTime > minIntervalMs && !isSyncing.value) {
-    lastTabSyncTime = now
-    triggerSync().catch((err) => console.warn('Tab auto-sync error:', err))
-  }
-}
-
-function handleVisibilityChange() {
-  if (typeof document !== 'undefined' && document.visibilityState === 'visible') {
-    handleTabOrVisibilitySync(30000)
-  }
-}
-
-// Watch tab & category switching to sync prices
-watch([activeCatalog, activeCategoryId], () => {
-  handleTabOrVisibilitySync(15000)
 })
 
 let searchDebounceTimer: any = null
@@ -398,31 +372,12 @@ onMounted(() => {
   nextTick(() => {
     syncStateToUrl()
   })
-
-  // Auto-sync saat halaman dibuka
-  handleTabOrVisibilitySync(0)
-
-  // Auto-sync saat kembali ke tab browser
-  if (typeof document !== 'undefined') {
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-  }
-
-  // Interval otomatis refresh setiap 2 jam sekali
-  periodicSyncTimer = setInterval(() => {
-    triggerSync().catch((err) => console.warn('2-hour auto sync error:', err))
-  }, 2 * 60 * 60 * 1000)
 })
 
 onBeforeUnmount(() => {
   if (typeof window !== 'undefined') {
     window.removeEventListener('resize', checkScreenSize)
     window.removeEventListener('scroll', handleWindowScroll)
-  }
-  if (periodicSyncTimer) {
-    clearInterval(periodicSyncTimer)
-  }
-  if (typeof document !== 'undefined') {
-    document.removeEventListener('visibilitychange', handleVisibilityChange)
   }
 })
 
@@ -613,21 +568,6 @@ const hasLinkColumn = computed(() => {
             <Clock class="w-3 h-3 text-primary" />
             <span>{{ formatTime(lastSyncTime) }}</span>
           </div>
-
-          <Button
-            variant="outline"
-            size="sm"
-            class="h-9 w-9 p-0 sm:w-auto sm:px-2.5 sm:gap-1.5 text-xs font-medium border-border/80"
-            :disabled="isSyncing"
-            title="Perbarui Data Katalog"
-            @click="handleManualSync"
-          >
-            <RefreshCw
-              class="w-4 h-4"
-              :class="{ 'animate-spin text-primary': isSyncing }"
-            />
-            <span class="hidden sm:inline">{{ isSyncing ? 'Syncing...' : 'Sync' }}</span>
-          </Button>
 
           <div class="hidden sm:flex items-center p-0.5 rounded-lg border border-border/80 bg-muted/40">
             <button
@@ -2328,9 +2268,6 @@ const hasLinkColumn = computed(() => {
       :item="selectedItemForBatch"
       @confirm="onBatchDialogConfirm"
     />
-
-    <!-- ELEGANT SYNC LOADING DIALOG -->
-    <SyncLoadingDialog :open="isSyncing" />
 
     <!-- FLOATING CART & SLIDE-OVER DRAWER FOR SALES QUOTATION -->
     <CartDrawer />
