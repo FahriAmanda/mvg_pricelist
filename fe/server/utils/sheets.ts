@@ -1606,7 +1606,7 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 5 || !r[2]) continue
-        const model = r[0]?.trim() || ''
+        const rawModel = r[0]?.trim() || ''
         const type = r[1]?.trim() || ''
         const desc = r[2]?.trim() || ''
         const size = r[3]?.trim() || ''
@@ -1615,14 +1615,19 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const sku = r[6]?.trim() || `${categoryId}-${i}`
         seq++
 
+        const actualModel = desc || rawModel
+        const actualDesc = rawModel && rawModel !== actualModel
+          ? `${rawModel} ${type ? '• ' + type : ''}`.trim()
+          : (type ? `Modul LED ${type}` : 'Modul LED')
+
         items.push({
           id: `${categoryId}-${seq}`,
           no: seq,
           category: categoryId,
           catalog: 'av',
-          model,
+          model: actualModel,
           type,
-          description: desc,
+          description: actualDesc,
           size,
           refreshRate: refresh,
           price,
@@ -1657,14 +1662,17 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
         const sku = r[5]?.trim() || `${categoryId}-${i}`
         seq++
 
+        const actualModel = productName || `${brand} ${sku}`
+        const actualDesc = rawSpecs || `${brand} ${subCat}`
+
         items.push({
           id: `${categoryId}-${seq}`,
           no: seq,
           category: categoryId,
           catalog: 'av',
-          model: brand,
+          model: actualModel,
           type: subCat,
-          description: productName,
+          description: actualDesc,
           price,
           priceFormatted: formatRupiah(price),
           sku,
@@ -2031,15 +2039,16 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
 
         const isOutdoor = rawType.toLowerCase().includes('outdoor')
         const typeBadge = isOutdoor ? 'Outdoor' : 'Indoor'
+        const actualModel = `LED Cube ${size} - ${rawType}`
 
         items.push({
           id: `${categoryId}-${seq}`,
           no: seq,
           category: categoryId,
           catalog: 'av',
-          model: 'LED Cube 32x32cm',
+          model: actualModel,
           type: typeBadge,
-          description: rawType,
+          description: `Custom 4/5 Sisi Cube (${rawType})`,
           size,
           price: price4Side,
           priceFormatted: formatRupiah(price4Side),
