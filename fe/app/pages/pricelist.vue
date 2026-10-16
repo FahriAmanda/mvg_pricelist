@@ -1166,8 +1166,8 @@ const hasLinkColumn = computed(() => {
           >
             <!-- Card Header: SKU & Type Badge -->
             <div class="space-y-2">
-              <div class="flex items-center justify-between gap-1.5 min-w-0">
-                <div class="flex items-center gap-1.5 min-w-0 flex-1">
+              <div class="flex items-center justify-between gap-1.5 min-w-0 flex-wrap">
+                <div class="flex items-center gap-1.5 min-w-0 flex-wrap flex-1">
                   <button
                     type="button"
                     class="inline-flex items-center gap-1 px-2 py-1 rounded-lg bg-muted text-[11px] font-mono text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors min-w-0 shrink truncate"
@@ -1200,7 +1200,7 @@ const hasLinkColumn = computed(() => {
 
                 <span
                   v-if="item.type"
-                  class="px-2 py-0.5 rounded-full text-[10px] font-bold tracking-tight uppercase shrink-0 max-w-[30%] truncate"
+                  class="px-2 py-0.5 rounded-full text-[10px] font-bold tracking-tight uppercase shrink-0 max-w-[40%] truncate"
                   :class="[
                     item.type?.toLowerCase().includes('curve')
                       ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
@@ -1495,12 +1495,12 @@ const hasLinkColumn = computed(() => {
               </div>
             </div>
 
-            <!-- Card Bottom: Stock & Price -->
-            <div class="pt-2.5 mt-3 border-t border-border/60">
+            <!-- Card Bottom: Stock, Price, & Action Buttons (Separated into clean vertical tiers to prevent overlap) -->
+            <div class="pt-2.5 mt-3 border-t border-border/60 space-y-2.5">
               <!-- Available Stock (Khusus Item yang sudah Sync ERP) -->
               <div
                 v-if="item.isSynced"
-                class="flex items-center justify-between text-[11px] mb-2 pb-1.5 border-b border-border/40"
+                class="flex items-center justify-between text-[11px] pb-1.5 border-b border-border/40"
               >
                 <span class="text-muted-foreground font-medium flex items-center gap-1.5">
                   <Package class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
@@ -1514,22 +1514,22 @@ const hasLinkColumn = computed(() => {
                 </span>
               </div>
 
-              <div class="flex items-center justify-between gap-2">
-                <div class="min-w-0 flex-1">
-                  <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider truncate">
-                    {{
-                      item.category.includes('rental')
-                        ? 'Harga Cash (Termurah)'
-                        : item.category === 'led_poster'
-                        ? 'Harga Flat'
-                        : item.category === 'led_cube'
-                        ? 'Harga 4 Sisi'
-                        : 'Harga Satuan'
-                    }}
-                  </p>
+              <!-- Price Section (Full width, zero overlap) -->
+              <div class="space-y-0.5">
+                <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider truncate">
+                  {{
+                    item.category.includes('rental')
+                      ? 'Harga Cash (Termurah)'
+                      : item.category === 'led_poster'
+                      ? 'Harga Flat'
+                      : item.category === 'led_cube'
+                      ? 'Harga 4 Sisi'
+                      : 'Harga Satuan'
+                  }}
+                </p>
                 <div class="flex items-baseline gap-1.5 flex-wrap">
                   <span
-                    class="text-base sm:text-lg font-black tracking-tight whitespace-nowrap"
+                    class="text-base sm:text-lg font-black tracking-tight"
                     :class="item.category.includes('rental') ? 'text-rose-600 dark:text-rose-400 font-extrabold' : 'text-foreground'"
                   >
                     {{ item.priceFormatted }}
@@ -1546,29 +1546,28 @@ const hasLinkColumn = computed(() => {
                 </p>
               </div>
 
-              <!-- Action Buttons: Add to Cart (Only for SYNC ERP) + Quick Detail Action -->
-              <div class="flex items-center gap-1.5 shrink-0">
+              <!-- Action Buttons Row: Add to Cart (flex-1) + Quick Detail Action -->
+              <div class="grid grid-cols-12 gap-1.5 pt-1">
                 <!-- Add to Cart -->
                 <button
                   v-if="item.isSynced"
                   type="button"
-                  class="px-2.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1 shadow-2xs cursor-pointer active:scale-95"
+                  class="col-span-8 py-2 px-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
                   :class="cart.isInCart(item.sku)
                     ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-500/20'
                     : 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/25 border border-emerald-500/30'"
                   :title="cart.isInCart(item.sku) ? `Sudah di keranjang (${cart.getItemQty(item.sku)} unit). Klik untuk tambah.` : 'Tambahkan ke Keranjang Penawaran (SQ)'"
                   @click.stop="cart.addToCart(item)"
                 >
-                  <ShoppingCart class="w-3.5 h-3.5" />
-                  <span v-if="cart.isInCart(item.sku)">+ ({{ cart.getItemQty(item.sku) }})</span>
-                  <span v-else>+ Keranjang</span>
+                  <ShoppingCart class="w-3.5 h-3.5 shrink-0" />
+                  <span class="truncate">{{ cart.isInCart(item.sku) ? `+ (${cart.getItemQty(item.sku)}) Keranjang` : '+ Keranjang' }}</span>
                 </button>
 
                 <button
                   v-else
                   type="button"
                   disabled
-                  class="px-2 py-1.5 rounded-xl bg-muted/60 text-[10.5px] font-semibold text-muted-foreground/60 cursor-not-allowed border border-border/50"
+                  class="col-span-8 py-2 px-2.5 rounded-xl bg-muted/60 text-[10.5px] font-semibold text-muted-foreground/60 cursor-not-allowed border border-border/50 flex items-center justify-center"
                   title="Item ini belum disinkronkan dengan ERP"
                   @click.stop
                 >
@@ -1578,19 +1577,18 @@ const hasLinkColumn = computed(() => {
                 <!-- Quick Detail Action -->
                 <button
                   type="button"
-                  class="px-2.5 py-1.5 rounded-xl bg-muted/70 hover:bg-primary hover:text-primary-foreground text-xs font-semibold text-muted-foreground transition-all flex items-center gap-1 shrink-0 group-hover:bg-primary group-hover:text-primary-foreground shadow-2xs cursor-pointer"
+                  class="col-span-4 py-2 px-2 rounded-xl bg-muted/70 hover:bg-primary hover:text-primary-foreground text-xs font-semibold text-muted-foreground transition-all flex items-center justify-center gap-1 group-hover:bg-primary group-hover:text-primary-foreground shadow-2xs cursor-pointer"
                   title="Lihat Detail Lengkap Produk"
                   @click.stop="goToDetail(item.id)"
                 >
                   <span>Detail</span>
-                  <ChevronRight class="w-3.5 h-3.5" />
+                  <ChevronRight class="w-3.5 h-3.5 shrink-0" />
                 </button>
               </div>
             </div>
           </div>
-          </div>
         </div>
-        </div>
+      </div>
 
         <!-- B1. SPECIALIZED FULL BOM COSTING SPREADSHEET FOR LED POSTER (Matches Google Sheets gid=773747421) -->
         <div v-else-if="!isMobileScreen && viewMode === 'table' && activeCategoryId === 'led_poster'" class="rounded-2xl border border-border/70 bg-card overflow-hidden shadow-xs">
