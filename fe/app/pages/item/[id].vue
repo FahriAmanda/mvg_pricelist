@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import {
   ArrowLeft,
@@ -112,6 +112,28 @@ const isSuperAdmin = computed(() => {
 })
 
 const isSyncModalOpen = ref(false)
+
+// Body scroll lock when any dialog/modal is open (prevents background scroll up/down)
+const isAnyModalOpen = computed(() => Boolean(isSyncModalOpen.value || isLightboxOpen.value))
+
+watch(isAnyModalOpen, (isOpen) => {
+  if (import.meta.client) {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+      document.documentElement.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+      document.documentElement.style.overflow = ''
+    }
+  }
+}, { immediate: true })
+
+onBeforeUnmount(() => {
+  if (import.meta.client) {
+    document.body.style.overflow = ''
+    document.documentElement.style.overflow = ''
+  }
+})
 const erpSearchQuery = ref('')
 const erpSelectedCategory = ref('ALL')
 const erpStockFilter = ref('ALL')
@@ -1364,10 +1386,14 @@ const specRows = computed(() => {
     <!-- MODAL DIALOG: SYNC ITEM DENGAN ERP (KHUSUS SUPER ADMIN) -->
     <div
       v-if="isSyncModalOpen"
-      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200 overscroll-contain"
       @click.self="closeSyncModal"
+      @wheel.self.prevent
     >
-      <div class="relative w-full max-w-2xl bg-card border border-border/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
+      <div 
+        class="relative w-full max-w-2xl bg-card border border-border/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh] overscroll-contain"
+        @wheel.stop
+      >
         
         <!-- Modal Header -->
         <div class="px-6 py-4 border-b border-border/60 flex items-center justify-between bg-muted/30">
@@ -1434,7 +1460,7 @@ const specRows = computed(() => {
         </div>
 
         <!-- Items List Container (15 items per page) -->
-        <div class="flex-1 overflow-y-auto p-4 space-y-2 max-h-[340px] custom-scrollbar">
+        <div class="flex-1 overflow-y-auto p-4 space-y-2 max-h-[340px] custom-scrollbar overscroll-contain">
           <!-- Loading state -->
           <div v-if="isLoadingErpItems" class="py-12 flex flex-col items-center justify-center gap-2 text-muted-foreground">
             <Loader2 class="w-6 h-6 animate-spin text-primary" />

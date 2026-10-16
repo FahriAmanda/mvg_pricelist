@@ -344,7 +344,7 @@ onBeforeUnmount(() => {
         </div>
 
         <!-- Options Scrollable List -->
-        <div class="max-h-60 overflow-y-auto no-scrollbar p-1.5 space-y-0.5">
+        <div class="max-h-60 overflow-y-auto no-scrollbar p-1.5 space-y-0.5 overscroll-contain">
           <div
             v-if="filteredOptions.length === 0"
             class="py-4 text-center text-xs text-muted-foreground"

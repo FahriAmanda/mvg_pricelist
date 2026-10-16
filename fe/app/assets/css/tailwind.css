@@ -71,6 +71,10 @@
 }
 
 /* Elegant subtle scrollbar */
+.custom-scrollbar {
+  overscroll-behavior: contain;
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   height: 4px;
   width: 4px;
