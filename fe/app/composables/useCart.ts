@@ -188,7 +188,7 @@ export function useCart() {
       }
     }
 
-    const targetUrl = `${erpOrigin}/marketing/transaksi/t_sales_quotation?from=pricelist_cart&cart=${encoded}`
+    const targetUrl = `${erpOrigin}/marketing/transaksi/t_sales_quotation/form?from=pricelist_cart&cart=${encoded}`
     return { url: targetUrl }
   }
 
