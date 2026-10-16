@@ -23,7 +23,11 @@ function handleProceed() {
     return
   }
   if (result.url) {
-    window.location.href = result.url
+    // Buka di tab baru / halaman baru di browser (_blank)
+    const newTab = window.open(result.url, '_blank', 'noopener,noreferrer')
+    if (!newTab || newTab.closed || typeof newTab.closed === 'undefined') {
+      window.location.href = result.url
+    }
   }
 }
 </script>
