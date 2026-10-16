@@ -1558,9 +1558,9 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 2) continue
-        const model = (r[0] || '').trim()
-        const type = (r[1] || '').trim()
-        if (!model && !type) continue
+        const rawGroup = (r[0] || '').trim() // e.g. "Qiangli Indoor", "Qiangli Outdoor", "ABSEN Indoor"
+        const rawType = (r[1] || '').trim()  // e.g. "Qiangli P4 Pro", "Qiangli P10", "ABSEN CPS P2.5 Indoor"
+        if (!rawGroup && !rawType) continue
 
         const modularStr = (r[2] || '').trim()
         const cabinetStr = (r[3] || '').trim()
@@ -1573,28 +1573,49 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
 
         seq++
 
+        // Distinct, clean product name derived from TIPE + Group (Indoor/Outdoor)
+        const isOutdoor = rawGroup.toLowerCase().includes('outdoor')
+        const isIndoor = rawGroup.toLowerCase().includes('indoor')
+        const lowerType = rawType.toLowerCase()
+
+        let modelTitle = rawType
+        if (!lowerType.includes('indoor') && !lowerType.includes('outdoor')) {
+          if (isOutdoor) {
+            modelTitle = `${rawType} Outdoor`
+          } else if (isIndoor) {
+            modelTitle = `${rawType} Indoor`
+          }
+        }
+
         // Determine representative product image
         let itemImg = '/images/products/qiangli-new-lite-indoor.png'
-        if (model.toLowerCase().includes('outdoor')) {
+        if (rawGroup.toLowerCase().includes('outdoor')) {
           itemImg = '/images/products/qiangli-new-lite-outdoor.png'
-        } else if (type.toLowerCase().includes('flexible')) {
+        } else if (rawType.toLowerCase().includes('flexible')) {
           itemImg = '/images/products/av-qiangli-module.svg'
-        } else if (model.toLowerCase().includes('absen') || type.toLowerCase().includes('absen')) {
+        } else if (rawGroup.toLowerCase().includes('absen') || rawType.toLowerCase().includes('absen')) {
           itemImg = '/images/products/av-cabinet-diecast.svg'
-        } else if (type.toLowerCase().includes('cob')) {
+        } else if (rawType.toLowerCase().includes('cob')) {
           itemImg = '/images/products/qiangli-saga-indoor.png'
         }
 
-        const sku = `INST-LED-${seq.toString().padStart(2, '0')}`
-        const desc = `Paket Instalasi LED Videotron ${model} ${type} (Modular & Cabinet)`
+        // Generate clean and recognizable SKU
+        const cleanSkuCode = modelTitle
+          .toUpperCase()
+          .replace(/QIANGLI/g, 'QL')
+          .replace(/[^A-Z0-9]+/g, '-')
+          .replace(/^-|-$/g, '')
+        const sku = `INST-${cleanSkuCode}`
+
+        const desc = `Paket Instalasi LED Videotron ${modelTitle} (Modular & Cabinet)`
 
         items.push({
           id: `${categoryId}-${seq}`,
           no: seq,
           category: categoryId,
           catalog: 'mvg',
-          model,
-          type,
+          model: modelTitle,
+          type: rawGroup,
           description: desc,
           price: primaryPrice,
           priceFormatted: formatRupiah(primaryPrice),
@@ -1602,13 +1623,16 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           image: itemImg,
           metadata: {
             no: seq,
-            model,
-            type,
+            model: modelTitle,
+            rawModel: rawGroup,
+            type: rawGroup,
+            rawType,
             hargaModular: hargaModular > 0 ? hargaModular : null,
             hargaModularFormatted: hargaModular > 0 ? formatRupiah(hargaModular) : '-',
             hargaCabinet: hargaCabinet > 0 ? hargaCabinet : null,
             hargaCabinetFormatted: hargaCabinet > 0 ? formatRupiah(hargaCabinet) : '-',
-            specification: `${model} ${type}`
+            specification: `Modular: ${hargaModular > 0 ? formatRupiah(hargaModular) : '-'} • Cabinet: ${hargaCabinet > 0 ? formatRupiah(hargaCabinet) : '-'}`,
+            hargaCash: primaryPrice
           },
           updatedAt: new Date().toISOString()
         })

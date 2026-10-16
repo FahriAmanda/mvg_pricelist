@@ -1602,6 +1602,8 @@ const hasLinkColumn = computed(() => {
                       ? 'Harga Flat'
                       : item.category === 'led_cube'
                       ? 'Harga 4 Sisi'
+                      : item.category === 'mvg_instalasi_led'
+                      ? 'Harga Cabinet (Paket)'
                       : 'Harga Satuan'
                   }}
                 </p>

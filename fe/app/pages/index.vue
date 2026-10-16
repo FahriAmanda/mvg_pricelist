@@ -17,6 +17,8 @@ import {
   Shield,
   ShieldAlert,
   Cable,
+  Monitor,
+  LayoutGrid,
   ChevronRight,
   Clock,
   ArrowRight,
@@ -153,10 +155,24 @@ const mvgGateCategories = [
     desc: 'Power Distribution Panel, PowerCON, Cat6, Clamps & Fiber Optic',
     icon: Cable,
     color: 'text-teal-500 bg-teal-500/10 border-teal-500/20'
+  },
+  {
+    id: 'mvg_instalasi_led',
+    title: 'INSTALASI LED',
+    desc: 'Paket Instalasi LED Videotron Modular & Cabinet (Qiangli & ABSEN)',
+    icon: Monitor,
+    color: 'text-blue-600 bg-blue-600/10 border-blue-600/20'
+  },
+  {
+    id: 'mvg_finished_cabinet',
+    title: 'FINISHED CABINET',
+    desc: 'Finished Cabinet Die-Cast, Iron, Curve, Corner & COB Siap Pakai',
+    icon: LayoutGrid,
+    color: 'text-amber-600 bg-amber-600/10 border-amber-600/20'
   }
 ]
 
-// 2. AV PRICE LIST (10 Kategori Display & Controller)
+// 2. AV PRICE LIST (11 Kategori Display & Controller)
 const avGateCategories = [
   {
     id: 'led_cube',
@@ -171,6 +187,13 @@ const avGateCategories = [
     desc: 'Standing LED Poster Flat & Foldable Portable Inc. A35 Player',
     icon: Tv,
     color: 'text-blue-500 bg-blue-500/10 border-blue-500/20'
+  },
+  {
+    id: 'finished_cabinet',
+    title: 'FINISHED CABINET',
+    desc: 'Finished Cabinet Die-Cast, Iron, Curve, Corner & COB Siap Pakai',
+    icon: LayoutGrid,
+    color: 'text-teal-500 bg-teal-500/10 border-teal-500/20'
   },
   {
     id: 'cabinet',
@@ -533,7 +556,7 @@ function formatTime(isoString: string) {
             <h1 class="text-xl sm:text-2xl font-black tracking-tight text-foreground uppercase flex items-center gap-2">
               <span>PRICELIST MVG</span>
               <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/20 font-mono tracking-normal">
-                12 Kategori
+                {{ mvgGateCategories.length }} Kategori
               </span>
             </h1>
             <p class="text-xs text-muted-foreground">
@@ -638,7 +661,7 @@ function formatTime(isoString: string) {
             <h1 class="text-xl sm:text-2xl font-black tracking-tight text-foreground uppercase flex items-center gap-2">
               <span>PRICELIST AV</span>
               <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-primary/10 text-primary font-bold border border-primary/20 font-mono tracking-normal">
-                11 Kategori
+                {{ avGateCategories.length }} Kategori
               </span>
             </h1>
             <p class="text-xs text-muted-foreground">
