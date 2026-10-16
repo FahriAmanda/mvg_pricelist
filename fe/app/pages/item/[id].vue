@@ -41,13 +41,41 @@ import {
 import ThemeToggle from '~/components/ThemeToggle.vue'
 import FieldSelect from '~/components/FieldSelect.vue'
 import CartDrawer from '~/components/CartDrawer.vue'
+import BatchSelectDialog from '~/components/BatchSelectDialog.vue'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { useAuthStore } from '~/stores/auth'
 import { useCart } from '~/composables/useCart'
 
 const cart = useCart()
-import type { PricelistItem, SheetCategory } from '~/types/pricelist'
+import type { PricelistItem, SheetCategory, ErpBatchItem } from '~/types/pricelist'
+
+// Batch Selection Modal State
+const selectedItemForBatch = ref<PricelistItem | null>(null)
+const isBatchDialogOpen = ref(false)
+
+function handleAddToCart(it: PricelistItem) {
+  if (!it.isSynced || (it.availableStock || 0) <= 0) return
+  const availableBatches = (it.batches || []).filter(b => Number(b.available_stock || 0) > 0)
+  if (availableBatches.length > 0) {
+    selectedItemForBatch.value = it
+    isBatchDialogOpen.value = true
+  } else {
+    cart.addToCart(it, 1)
+    cart.openCart()
+  }
+}
+
+function onBatchDialogConfirm(payload: { item: PricelistItem; qty: number; batch: ErpBatchItem | null }) {
+  cart.addToCart(payload.item, {
+    qty: payload.qty,
+    batchNumber: payload.batch?.batch_number,
+    warehouseName: payload.batch?.nama_gudang,
+    warehouseId: payload.batch?.m_gudang_id,
+    batchAvailableStock: payload.batch?.available_stock
+  })
+  cart.openCart()
+}
 
 const route = useRoute()
 const router = useRouter()
@@ -1053,19 +1081,26 @@ const specRows = computed(() => {
             <!-- ACTION BUTTON: ADD TO SALES QUOTATION CART (RETAIL) -->
             <div class="pt-2">
               <Button
-                v-if="item?.isSynced"
+                v-if="item?.isSynced && (item.availableStock || 0) > 0"
                 size="lg"
                 class="w-full rounded-2xl gap-2 font-bold text-sm bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg shadow-emerald-600/20 active:scale-[0.99] cursor-pointer"
-                @click="item && cart.addToCart(item)"
+                @click="item && handleAddToCart(item)"
               >
                 <ShoppingCart class="w-4 h-4" />
                 <span v-if="item && cart.isInCart(item.sku)">
-                  ✓ Sudah di Keranjang SQ ({{ cart.getItemQty(item.sku) }} unit) - Tambah Lagi
+                  ✓ Sudah di Keranjang SQ ({{ cart.getItemQty(item.sku) }} unit) - Pilih Batch Lagi
                 </span>
                 <span v-else>
                   + Tambah ke Keranjang Penawaran (SQ)
                 </span>
               </Button>
+
+              <div
+                v-else-if="item?.isSynced && (item.availableStock || 0) <= 0"
+                class="p-3.5 rounded-2xl border border-dashed border-border/80 bg-muted/40 text-center text-xs font-semibold text-muted-foreground"
+              >
+                Stok Habis di Seluruh Gudang Lokal (Available: 0 Unit)
+              </div>
 
               <div
                 v-else
@@ -1686,6 +1721,13 @@ const specRows = computed(() => {
 
       </div>
     </div>
+
+    <!-- BATCH & QUANTITY SELECTION MODAL -->
+    <BatchSelectDialog
+      v-model:open="isBatchDialogOpen"
+      :item="selectedItemForBatch"
+      @confirm="onBatchDialogConfirm"
+    />
 
     <!-- FLOATING CART & SLIDE-OVER DRAWER FOR SALES QUOTATION -->
     <CartDrawer />

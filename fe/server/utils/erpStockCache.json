@@ -1,1906 +1,4835 @@
 {
-  "SFX-MOKA-RED-POWER-BUTTON": {
-    "sku": "SFX-MOKA-RED-POWER-BUTTON",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 2,
-    "locked_stock": 0
-  },
-  "NS-RC-NV3210": {
-    "sku": "NS-RC-NV3210",
-    "is_synced": true,
-    "available_stock": 1,
-    "physical_stock": 1,
-    "locked_stock": 0
-  },
-  "NS-SC-MCTRL4K": {
-    "sku": "NS-SC-MCTRL4K",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 3,
-    "locked_stock": 3
-  },
-  "MRL-LT-24": {
-    "sku": "MRL-LT-24",
-    "is_synced": true,
-    "available_stock": 8,
-    "physical_stock": 8,
-    "locked_stock": 0
-  },
-  "HD-R716": {
-    "sku": "HD-R716",
-    "is_synced": true,
-    "available_stock": 221,
-    "physical_stock": 221,
-    "locked_stock": 0
-  },
-  "HD-A5L": {
-    "sku": "HD-A5L",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-OC-16LAN-2FBR-H": {
-    "sku": "NS-OC-16LAN-2FBR-H",
-    "is_synced": true,
-    "available_stock": 20,
-    "physical_stock": 20,
-    "locked_stock": 0
-  },
-  "MRL-LT-57": {
-    "sku": "MRL-LT-57",
-    "is_synced": true,
-    "available_stock": 5,
-    "physical_stock": 5,
-    "locked_stock": 0
-  },
-  "A200-17V": {
-    "sku": "A200-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-IC-1HDMI-1DP-H": {
-    "sku": "NS-IC-1HDMI-1DP-H",
-    "is_synced": true,
-    "available_stock": 4,
-    "physical_stock": 4,
-    "locked_stock": 0
-  },
-  "NS-CS-H5": {
-    "sku": "NS-CS-H5",
-    "is_synced": true,
-    "available_stock": 5,
-    "physical_stock": 5,
-    "locked_stock": 0
-  },
-  "E120-17V": {
-    "sku": "E120-17V",
-    "is_synced": true,
-    "available_stock": 2212,
-    "physical_stock": 2227,
-    "locked_stock": 15
-  },
-  "A4K-17V": {
-    "sku": "A4K-17V",
-    "is_synced": true,
-    "available_stock": 6,
-    "physical_stock": 7,
-    "locked_stock": 1
-  },
-  "HD-D16": {
-    "sku": "HD-D16",
-    "is_synced": true,
-    "available_stock": 29,
-    "physical_stock": 29,
-    "locked_stock": 0
-  },
-  "MRL-LT-1": {
-    "sku": "MRL-LT-1",
-    "is_synced": true,
-    "available_stock": 17,
-    "physical_stock": 17,
-    "locked_stock": 0
-  },
-  "Preview board-17V": {
-    "sku": "Preview board-17V",
-    "is_synced": true,
-    "available_stock": 3,
-    "physical_stock": 3,
-    "locked_stock": 0
-  },
-  "HD-VP410A": {
-    "sku": "HD-VP410A",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 2,
-    "locked_stock": 0
-  },
-  "A35-17V": {
-    "sku": "A35-17V",
-    "is_synced": true,
-    "available_stock": 49,
-    "physical_stock": 51,
-    "locked_stock": 2
-  },
-  "MRL-LT-78": {
-    "sku": "MRL-LT-78",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 2,
-    "locked_stock": 0
-  },
-  "MRL-LT-36": {
-    "sku": "MRL-LT-36",
-    "is_synced": true,
-    "available_stock": 38,
-    "physical_stock": 38,
-    "locked_stock": 0
-  },
-  "QL-MOD-INDOOR-P4-PRO": {
-    "sku": "QL-MOD-INDOOR-P4-PRO",
-    "is_synced": true,
-    "available_stock": 5177,
-    "physical_stock": 5177,
-    "locked_stock": 0
-  },
-  "HD-A7": {
-    "sku": "HD-A7",
-    "is_synced": true,
-    "available_stock": 1,
-    "physical_stock": 1,
-    "locked_stock": 0
-  },
-  "Network port output board-17V": {
-    "sku": "Network port output board-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 5,
-    "locked_stock": 5
-  },
-  "NS-SC-MCTRL660": {
-    "sku": "NS-SC-MCTRL660",
-    "is_synced": true,
-    "available_stock": 6,
-    "physical_stock": 6,
-    "locked_stock": 0
-  },
-  "NS-VP-VC2ID": {
-    "sku": "NS-VP-VC2ID",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 2,
-    "locked_stock": 0
-  },
-  "K5+-17V": {
-    "sku": "K5+-17V",
-    "is_synced": true,
-    "available_stock": 73,
-    "physical_stock": 73,
-    "locked_stock": 0
-  },
-  "E320-17V": {
-    "sku": "E320-17V",
-    "is_synced": true,
-    "available_stock": 49,
-    "physical_stock": 49,
-    "locked_stock": 0
-  },
-  "MRL-LT-10": {
-    "sku": "MRL-LT-10",
-    "is_synced": true,
-    "available_stock": 27,
-    "physical_stock": 27,
-    "locked_stock": 0
-  },
-  "NS-HC-A5S-PLUS": {
-    "sku": "NS-HC-A5S-PLUS",
-    "is_synced": true,
-    "available_stock": 2312,
-    "physical_stock": 2312,
-    "locked_stock": 0
-  },
-  "MRL-LT-31": {
-    "sku": "MRL-LT-31",
-    "is_synced": true,
-    "available_stock": 79,
-    "physical_stock": 79,
-    "locked_stock": 0
-  },
-  "H10 FIX-17V": {
-    "sku": "H10 FIX-17V",
-    "is_synced": true,
-    "available_stock": 7,
-    "physical_stock": 7,
-    "locked_stock": 0
-  },
-  "GAG-LSR-10": {
-    "sku": "GAG-LSR-10",
-    "is_synced": true,
-    "available_stock": 25,
-    "physical_stock": 25,
-    "locked_stock": 0
-  },
-  "NS-MP-TB60": {
-    "sku": "NS-MP-TB60",
-    "is_synced": true,
-    "available_stock": 4,
-    "physical_stock": 4,
-    "locked_stock": 0
-  },
-  "HD-VP210H": {
-    "sku": "HD-VP210H",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-42": {
-    "sku": "MRL-LT-42",
-    "is_synced": true,
-    "available_stock": 25,
-    "physical_stock": 25,
-    "locked_stock": 0
-  },
-  "GAG-LSR-4": {
-    "sku": "GAG-LSR-4",
-    "is_synced": true,
-    "available_stock": 9,
-    "physical_stock": 9,
-    "locked_stock": 0
-  },
-  "MRL-LT-18": {
-    "sku": "MRL-LT-18",
-    "is_synced": true,
-    "available_stock": 47,
-    "physical_stock": 47,
-    "locked_stock": 0
-  },
-  "NS-RC-DH7508-8P": {
-    "sku": "NS-RC-DH7508-8P",
-    "is_synced": true,
-    "available_stock": 100,
-    "physical_stock": 100,
-    "locked_stock": 0
-  },
-  "HD-VP410C": {
-    "sku": "HD-VP410C",
-    "is_synced": true,
-    "available_stock": 8,
-    "physical_stock": 8,
-    "locked_stock": 0
-  },
-  "X6-17V": {
-    "sku": "X6-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-28": {
-    "sku": "MRL-LT-28",
-    "is_synced": true,
-    "available_stock": 28,
-    "physical_stock": 28,
-    "locked_stock": 0
-  },
-  "MRL-LT-15": {
-    "sku": "MRL-LT-15",
-    "is_synced": true,
-    "available_stock": 74,
-    "physical_stock": 74,
-    "locked_stock": 0
-  },
-  "X12m-17V": {
-    "sku": "X12m-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "QL-MOD-INDOOR-P4-FLEX": {
-    "sku": "QL-MOD-INDOOR-P4-FLEX",
-    "is_synced": true,
-    "available_stock": 209,
-    "physical_stock": 209,
-    "locked_stock": 0
-  },
-  "MRL-LT-17": {
-    "sku": "MRL-LT-17",
-    "is_synced": true,
-    "available_stock": 28,
-    "physical_stock": 28,
-    "locked_stock": 0
-  },
-  "NS-VP-VX1000-PRO": {
-    "sku": "NS-VP-VX1000-PRO",
-    "is_synced": true,
-    "available_stock": 3,
-    "physical_stock": 6,
-    "locked_stock": 3
-  },
-  "A2K-17V": {
-    "sku": "A2K-17V",
-    "is_synced": true,
-    "available_stock": 9,
-    "physical_stock": 9,
-    "locked_stock": 0
-  },
-  "HD-VP820A": {
-    "sku": "HD-VP820A",
-    "is_synced": true,
-    "available_stock": 1,
-    "physical_stock": 1,
-    "locked_stock": 0
-  },
-  "HD-KV210": {
-    "sku": "HD-KV210",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "SFX-MOKA-HAZE-LIQUID-OIL-BASE": {
-    "sku": "SFX-MOKA-HAZE-LIQUID-OIL-BASE",
-    "is_synced": true,
-    "available_stock": 343,
-    "physical_stock": 343,
-    "locked_stock": 0
-  },
-  "NS-VP-VX2000-PRO": {
-    "sku": "NS-VP-VX2000-PRO",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 2,
-    "locked_stock": 0
-  },
-  "MRL-LT-52": {
-    "sku": "MRL-LT-52",
-    "is_synced": true,
-    "available_stock": 225,
-    "physical_stock": 226,
-    "locked_stock": 1
-  },
-  "NS-VP-VX400": {
-    "sku": "NS-VP-VX400",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 2,
-    "locked_stock": 0
-  },
-  "MRL-LT-4": {
-    "sku": "MRL-LT-4",
-    "is_synced": true,
-    "available_stock": 86,
-    "physical_stock": 86,
-    "locked_stock": 0
-  },
-  "NS-IC-1DP-H": {
-    "sku": "NS-IC-1DP-H",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "SFX-MOKA-PRO-MORNING-HAZE-LIQUID": {
-    "sku": "SFX-MOKA-PRO-MORNING-HAZE-LIQUID",
-    "is_synced": true,
-    "available_stock": 328,
-    "physical_stock": 328,
-    "locked_stock": 0
-  },
-  "X40M-17V": {
-    "sku": "X40M-17V",
-    "is_synced": true,
-    "available_stock": 3,
-    "physical_stock": 3,
-    "locked_stock": 0
-  },
-  "NS-MP-TU15-PRO": {
-    "sku": "NS-MP-TU15-PRO",
-    "is_synced": true,
-    "available_stock": 3,
-    "physical_stock": 3,
-    "locked_stock": 0
-  },
-  "E80-17V": {
-    "sku": "E80-17V",
-    "is_synced": true,
-    "available_stock": 55,
-    "physical_stock": 55,
-    "locked_stock": 0
-  },
-  "NS-IC-2HDMI-H15-H": {
-    "sku": "NS-IC-2HDMI-H15-H",
-    "is_synced": true,
-    "available_stock": 5,
-    "physical_stock": 5,
-    "locked_stock": 0
-  },
-  "NS-RC-MRV416": {
-    "sku": "NS-RC-MRV416",
-    "is_synced": true,
-    "available_stock": 866,
-    "physical_stock": 866,
-    "locked_stock": 0
-  },
-  "MRL-LT-16": {
-    "sku": "MRL-LT-16",
-    "is_synced": true,
-    "available_stock": 14,
-    "physical_stock": 14,
-    "locked_stock": 0
-  },
-  "NS-MP-TB40": {
-    "sku": "NS-MP-TB40",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 1,
-    "locked_stock": 1
-  },
-  "MRL-LT-35": {
-    "sku": "MRL-LT-35",
-    "is_synced": true,
-    "available_stock": 68,
-    "physical_stock": 68,
-    "locked_stock": 0
-  },
-  "NS-VP-VC4ID": {
-    "sku": "NS-VP-VC4ID",
-    "is_synced": true,
-    "available_stock": 20,
-    "physical_stock": 23,
-    "locked_stock": 3
-  },
-  "NS-IC-2DP-H": {
-    "sku": "NS-IC-2DP-H",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "X100 Pro - 7U-17V": {
-    "sku": "X100 Pro - 7U-17V",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 3,
-    "locked_stock": 1
-  },
-  "MRL-LT-32": {
-    "sku": "MRL-LT-32",
-    "is_synced": true,
-    "available_stock": 27,
-    "physical_stock": 27,
-    "locked_stock": 0
-  },
-  "MRL-LT-12": {
-    "sku": "MRL-LT-12",
-    "is_synced": true,
-    "available_stock": 1,
-    "physical_stock": 1,
-    "locked_stock": 0
-  },
-  "NS-RC-DH7516-S": {
-    "sku": "NS-RC-DH7516-S",
-    "is_synced": true,
-    "available_stock": 931,
-    "physical_stock": 931,
-    "locked_stock": 0
-  },
-  "ACC-RNT-37": {
-    "sku": "ACC-RNT-37",
-    "is_synced": true,
-    "available_stock": 252,
-    "physical_stock": 252,
-    "locked_stock": 0
-  },
-  "X100 Pro - 2U-17V": {
-    "sku": "X100 Pro - 2U-17V",
-    "is_synced": true,
-    "available_stock": 4,
-    "physical_stock": 4,
-    "locked_stock": 0
-  },
-  "MRL-LT-77": {
-    "sku": "MRL-LT-77",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 2,
-    "locked_stock": 0
-  },
-  "HD-VP620": {
-    "sku": "HD-VP620",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "QL-MOD-OUTDOOR-P4-PRO": {
-    "sku": "QL-MOD-OUTDOOR-P4-PRO",
-    "is_synced": true,
-    "available_stock": 2363,
-    "physical_stock": 3563,
-    "locked_stock": 1200
-  },
-  "MRL-LT-29": {
-    "sku": "MRL-LT-29",
-    "is_synced": true,
-    "available_stock": 11,
-    "physical_stock": 11,
-    "locked_stock": 0
-  },
-  "MRL-LT-51": {
-    "sku": "MRL-LT-51",
-    "is_synced": true,
-    "available_stock": 198,
-    "physical_stock": 198,
-    "locked_stock": 0
-  },
-  "NS-CS-H2": {
-    "sku": "NS-CS-H2",
-    "is_synced": true,
-    "available_stock": 1,
-    "physical_stock": 1,
-    "locked_stock": 0
-  },
-  "GAG-LSR-8": {
-    "sku": "GAG-LSR-8",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 2,
-    "locked_stock": 0
-  },
-  "HD-VP410H": {
-    "sku": "HD-VP410H",
-    "is_synced": true,
-    "available_stock": 5,
-    "physical_stock": 10,
-    "locked_stock": 5
-  },
-  "MRL-LT-34": {
-    "sku": "MRL-LT-34",
-    "is_synced": true,
-    "available_stock": 16,
-    "physical_stock": 16,
-    "locked_stock": 0
-  },
-  "NS-FC-CVT4K-S": {
-    "sku": "NS-FC-CVT4K-S",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 3,
-    "locked_stock": 3
-  },
-  "NS-MP-TB50": {
-    "sku": "NS-MP-TB50",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 1,
-    "locked_stock": 1
-  },
-  "4K input board-17V": {
-    "sku": "4K input board-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-VP-VX400-PRO": {
-    "sku": "NS-VP-VX400-PRO",
-    "is_synced": true,
-    "available_stock": 3,
-    "physical_stock": 3,
-    "locked_stock": 0
-  },
-  "X20m-17V": {
-    "sku": "X20m-17V",
-    "is_synced": true,
-    "available_stock": 1,
-    "physical_stock": 2,
-    "locked_stock": 1
-  },
-  "MRL-LT-3": {
-    "sku": "MRL-LT-3",
-    "is_synced": true,
-    "available_stock": 68,
-    "physical_stock": 68,
-    "locked_stock": 0
-  },
-  "MRL-LT-11": {
-    "sku": "MRL-LT-11",
-    "is_synced": true,
-    "available_stock": 24,
-    "physical_stock": 24,
-    "locked_stock": 0
-  },
-  "HD-A8": {
-    "sku": "HD-A8",
-    "is_synced": true,
-    "available_stock": 1,
-    "physical_stock": 1,
-    "locked_stock": 0
-  },
-  "NS-RC-MRV412": {
-    "sku": "NS-RC-MRV412",
-    "is_synced": true,
-    "available_stock": 783,
-    "physical_stock": 783,
-    "locked_stock": 0
-  },
-  "NS-IC-1HDMI-2.0-H": {
-    "sku": "NS-IC-1HDMI-2.0-H",
-    "is_synced": true,
-    "available_stock": 5,
-    "physical_stock": 5,
-    "locked_stock": 0
-  },
-  "GAG-LSR-1": {
-    "sku": "GAG-LSR-1",
-    "is_synced": true,
-    "available_stock": 16,
-    "physical_stock": 16,
-    "locked_stock": 0
-  },
-  "MRL-LT-54": {
-    "sku": "MRL-LT-54",
-    "is_synced": true,
-    "available_stock": 6,
-    "physical_stock": 6,
-    "locked_stock": 0
-  },
-  "MOJO-BAR-1": {
-    "sku": "MOJO-BAR-1",
-    "is_synced": true,
-    "available_stock": 690,
-    "physical_stock": 690,
-    "locked_stock": 0
-  },
-  "QL-MOD-OUTDOOR-P5-PRO": {
-    "sku": "QL-MOD-OUTDOOR-P5-PRO",
-    "is_synced": true,
-    "available_stock": 3357,
-    "physical_stock": 4557,
-    "locked_stock": 1200
-  },
-  "NS-IC-4HDMI-DVI-H": {
-    "sku": "NS-IC-4HDMI-DVI-H",
-    "is_synced": true,
-    "available_stock": 9,
-    "physical_stock": 9,
-    "locked_stock": 0
-  },
-  "HD-H8": {
-    "sku": "HD-H8",
-    "is_synced": true,
-    "available_stock": 7,
-    "physical_stock": 7,
-    "locked_stock": 0
-  },
-  "MRL-LT-13": {
-    "sku": "MRL-LT-13",
-    "is_synced": true,
-    "available_stock": 68,
-    "physical_stock": 68,
-    "locked_stock": 0
-  },
-  "MRL-LT-40": {
-    "sku": "MRL-LT-40",
-    "is_synced": true,
-    "available_stock": 75,
-    "physical_stock": 75,
-    "locked_stock": 0
-  },
-  "NS-MP-TB20-PLUS": {
-    "sku": "NS-MP-TB20-PLUS",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 2,
-    "locked_stock": 0
-  },
-  "HD-A3L": {
-    "sku": "HD-A3L",
-    "is_synced": true,
-    "available_stock": 1,
-    "physical_stock": 1,
-    "locked_stock": 0
-  },
-  "HD-KV410": {
-    "sku": "HD-KV410",
-    "is_synced": true,
-    "available_stock": 6,
-    "physical_stock": 6,
-    "locked_stock": 0
-  },
-  "NS-VP-VC6PRO-ID": {
-    "sku": "NS-VP-VC6PRO-ID",
-    "is_synced": true,
-    "available_stock": 23,
-    "physical_stock": 23,
-    "locked_stock": 0
-  },
-  "MRL-LT-30": {
-    "sku": "MRL-LT-30",
-    "is_synced": true,
-    "available_stock": 8,
-    "physical_stock": 8,
-    "locked_stock": 0
-  },
-  "GAG-LSR-3": {
-    "sku": "GAG-LSR-3",
-    "is_synced": true,
-    "available_stock": 6,
-    "physical_stock": 6,
-    "locked_stock": 0
-  },
-  "GAG-LSR-6": {
-    "sku": "GAG-LSR-6",
-    "is_synced": true,
-    "available_stock": 4,
-    "physical_stock": 4,
-    "locked_stock": 0
-  },
-  "MRL-LT-9": {
-    "sku": "MRL-LT-9",
-    "is_synced": true,
-    "available_stock": 7,
-    "physical_stock": 7,
-    "locked_stock": 0
-  },
-  "X26M-17V": {
-    "sku": "X26M-17V",
-    "is_synced": true,
-    "available_stock": 7,
-    "physical_stock": 7,
-    "locked_stock": 0
-  },
-  "NS-MP-TB10-PLUS": {
-    "sku": "NS-MP-TB10-PLUS",
-    "is_synced": true,
-    "available_stock": 9,
-    "physical_stock": 9,
-    "locked_stock": 0
-  },
-  "QL-MOD-OUTDOOR-P8-PRO": {
-    "sku": "QL-MOD-OUTDOOR-P8-PRO",
-    "is_synced": true,
-    "available_stock": 7670,
-    "physical_stock": 7670,
-    "locked_stock": 0
-  },
-  "QL-MOD-INDOOR-P2-PRO": {
-    "sku": "QL-MOD-INDOOR-P2-PRO",
-    "is_synced": true,
-    "available_stock": 8,
-    "physical_stock": 8,
-    "locked_stock": 0
-  },
-  "K8-17V": {
-    "sku": "K8-17V",
-    "is_synced": true,
-    "available_stock": 306,
-    "physical_stock": 306,
-    "locked_stock": 0
-  },
-  "SFX-MOKA-QUICK-SMOKE-LIQUID": {
-    "sku": "SFX-MOKA-QUICK-SMOKE-LIQUID",
-    "is_synced": true,
-    "available_stock": 313,
-    "physical_stock": 313,
-    "locked_stock": 0
-  },
-  "HD-R712": {
-    "sku": "HD-R712",
-    "is_synced": true,
-    "available_stock": 431,
-    "physical_stock": 441,
-    "locked_stock": 10
-  },
-  "X16E-17V": {
-    "sku": "X16E-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-53": {
-    "sku": "MRL-LT-53",
-    "is_synced": true,
-    "available_stock": 12,
-    "physical_stock": 12,
-    "locked_stock": 0
-  },
-  "NS-HC-A8S-N": {
-    "sku": "NS-HC-A8S-N",
-    "is_synced": true,
-    "available_stock": 237,
-    "physical_stock": 237,
-    "locked_stock": 0
-  },
-  "MOJO-BAR-3": {
-    "sku": "MOJO-BAR-3",
-    "is_synced": true,
-    "available_stock": 10,
-    "physical_stock": 10,
-    "locked_stock": 0
-  },
-  "QL-MOD-OUTDOOR-P2-PRO": {
-    "sku": "QL-MOD-OUTDOOR-P2-PRO",
-    "is_synced": true,
-    "available_stock": 219,
-    "physical_stock": 219,
-    "locked_stock": 0
-  },
-  "SFX-MOKA-MK-B12": {
-    "sku": "SFX-MOKA-MK-B12",
-    "is_synced": true,
-    "available_stock": 10,
-    "physical_stock": 10,
-    "locked_stock": 0
-  },
-  "X2M-17V": {
-    "sku": "X2M-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-5": {
-    "sku": "MRL-LT-5",
-    "is_synced": true,
-    "available_stock": 59,
-    "physical_stock": 59,
-    "locked_stock": 0
-  },
-  "HD-A6L": {
-    "sku": "HD-A6L",
-    "is_synced": true,
-    "available_stock": 1,
-    "physical_stock": 1,
-    "locked_stock": 0
-  },
-  "MRL-LT-14": {
-    "sku": "MRL-LT-14",
-    "is_synced": true,
-    "available_stock": 50,
-    "physical_stock": 50,
-    "locked_stock": 0
-  },
-  "MRL-LT-68": {
-    "sku": "MRL-LT-68",
-    "is_synced": true,
-    "available_stock": 6,
-    "physical_stock": 6,
-    "locked_stock": 0
-  },
-  "MRL-LT-79": {
-    "sku": "MRL-LT-79",
-    "is_synced": true,
-    "available_stock": 1,
-    "physical_stock": 1,
-    "locked_stock": 0
-  },
-  "X8M-17V": {
-    "sku": "X8M-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-MP-TB30": {
-    "sku": "NS-MP-TB30",
-    "is_synced": true,
-    "available_stock": 14,
-    "physical_stock": 14,
-    "locked_stock": 0
-  },
-  "MRL-LT-75": {
-    "sku": "MRL-LT-75",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 2,
-    "locked_stock": 0
-  },
-  "MRL-LT-27": {
-    "sku": "MRL-LT-27",
-    "is_synced": true,
-    "available_stock": 158,
-    "physical_stock": 158,
-    "locked_stock": 0
-  },
-  "X7-17V": {
-    "sku": "X7-17V",
-    "is_synced": true,
-    "available_stock": 1,
-    "physical_stock": 1,
-    "locked_stock": 0
-  },
-  "MRL-LT-26": {
-    "sku": "MRL-LT-26",
-    "is_synced": true,
-    "available_stock": 14,
-    "physical_stock": 14,
-    "locked_stock": 0
-  },
-  "X4M-17V": {
-    "sku": "X4M-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-73": {
-    "sku": "MRL-LT-73",
-    "is_synced": true,
-    "available_stock": 5,
-    "physical_stock": 5,
-    "locked_stock": 0
-  },
-  "MRL-LT-8": {
-    "sku": "MRL-LT-8",
-    "is_synced": true,
-    "available_stock": 187,
-    "physical_stock": 187,
-    "locked_stock": 0
-  },
-  "NS-OC-20LAN-H": {
-    "sku": "NS-OC-20LAN-H",
-    "is_synced": true,
-    "available_stock": 18,
-    "physical_stock": 18,
-    "locked_stock": 0
-  },
-  "GAG-LSR-5": {
-    "sku": "GAG-LSR-5",
-    "is_synced": true,
-    "available_stock": 40,
-    "physical_stock": 40,
-    "locked_stock": 0
-  },
-  "MRL-LT-2": {
-    "sku": "MRL-LT-2",
-    "is_synced": true,
-    "available_stock": 71,
-    "physical_stock": 71,
-    "locked_stock": 0
-  },
-  "MRL-LT-25": {
-    "sku": "MRL-LT-25",
-    "is_synced": true,
-    "available_stock": 61,
-    "physical_stock": 61,
-    "locked_stock": 0
-  },
-  "HD-A4L": {
-    "sku": "HD-A4L",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "A100-17V": {
-    "sku": "A100-17V",
-    "is_synced": true,
-    "available_stock": 56,
-    "physical_stock": 58,
-    "locked_stock": 2
-  },
-  "VX10 for rental-17V": {
-    "sku": "VX10 for rental-17V",
-    "is_synced": true,
-    "available_stock": 48,
-    "physical_stock": 48,
-    "locked_stock": 0
-  },
-  "HD-R732": {
-    "sku": "HD-R732",
-    "is_synced": true,
-    "available_stock": 195,
-    "physical_stock": 195,
-    "locked_stock": 0
-  },
-  "NS-MP-TU20-PRO": {
-    "sku": "NS-MP-TU20-PRO",
-    "is_synced": true,
-    "available_stock": 4,
-    "physical_stock": 4,
-    "locked_stock": 0
-  },
-  "NS-VP-VX600-PRO": {
-    "sku": "NS-VP-VX600-PRO",
-    "is_synced": true,
-    "available_stock": 7,
-    "physical_stock": 7,
-    "locked_stock": 0
-  },
-  "X100 Pro - 4U-17V": {
-    "sku": "X100 Pro - 4U-17V",
-    "is_synced": true,
-    "available_stock": 4,
-    "physical_stock": 4,
-    "locked_stock": 0
-  },
-  "75E-17V": {
-    "sku": "75E-17V",
-    "is_synced": true,
-    "available_stock": 818,
-    "physical_stock": 1110,
-    "locked_stock": 292
-  },
-  "SFX-MOKA-BUBBLE-LIQUID": {
-    "sku": "SFX-MOKA-BUBBLE-LIQUID",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-33": {
-    "sku": "MRL-LT-33",
-    "is_synced": true,
-    "available_stock": 23,
-    "physical_stock": 23,
-    "locked_stock": 0
-  },
-  "Optical output board-17V": {
-    "sku": "Optical output board-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-SC-MCTRL600": {
-    "sku": "NS-SC-MCTRL600",
-    "is_synced": true,
-    "available_stock": 14,
-    "physical_stock": 14,
-    "locked_stock": 0
-  },
-  "SFX-MOKA-MK-CMP1": {
-    "sku": "SFX-MOKA-MK-CMP1",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 2,
-    "locked_stock": 0
-  },
-  "A500-17V": {
-    "sku": "A500-17V",
-    "is_synced": true,
-    "available_stock": 8,
-    "physical_stock": 8,
-    "locked_stock": 0
-  },
-  "MRL-LT-56": {
-    "sku": "MRL-LT-56",
-    "is_synced": true,
-    "available_stock": 12,
-    "physical_stock": 12,
-    "locked_stock": 0
-  },
-  "GAG-LSR-2": {
-    "sku": "GAG-LSR-2",
-    "is_synced": true,
-    "available_stock": 22,
-    "physical_stock": 22,
-    "locked_stock": 0
-  },
-  "MRL-LT-23": {
-    "sku": "MRL-LT-23",
-    "is_synced": true,
-    "available_stock": 1,
-    "physical_stock": 1,
-    "locked_stock": 0
-  },
-  "SFX-MOKA-LOW-FOG-LIQUID": {
-    "sku": "SFX-MOKA-LOW-FOG-LIQUID",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
   "12G input board-17V": {
+    "m_items_id": "5b45c60c-373c-4573-8ce7-6436c3d1ae26",
     "sku": "12G input board-17V",
+    "nama_item": "Colorlight X100 Pro 12G-SDI Input Board",
     "is_synced": true,
     "available_stock": 1,
-    "physical_stock": 1,
-    "locked_stock": 0
-  },
-  "NS-VP-VX16S": {
-    "sku": "NS-VP-VX16S",
-    "is_synced": true,
-    "available_stock": 2,
-    "physical_stock": 2,
-    "locked_stock": 0
-  },
-  "MRL-LT-6": {
-    "sku": "MRL-LT-6",
-    "is_synced": true,
-    "available_stock": 6,
-    "physical_stock": 6,
-    "locked_stock": 0
-  },
-  "X8E 4K-17V": {
-    "sku": "X8E 4K-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P1-8-INDOOR-GOB-D64X48": {
-    "sku": "FC-QL-P1-8-INDOOR-GOB-D64X48",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-VP-VC10PRO": {
-    "sku": "NS-VP-VC10PRO",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "H10 FN-17V": {
-    "sku": "H10 FN-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P5-OUT-D96X96": {
-    "sku": "FC-QL-P5-OUT-D96X96",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "CS20-8K Pro-17V": {
-    "sku": "CS20-8K Pro-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "Z6PRO G2-17V": {
-    "sku": "Z6PRO G2-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-46": {
-    "sku": "MRL-LT-46",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-SC-MCTRL700": {
-    "sku": "NS-SC-MCTRL700",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-38": {
-    "sku": "MRL-LT-38",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-58": {
-    "sku": "MRL-LT-58",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-67": {
-    "sku": "MRL-LT-67",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-IC-4SDI-3G-H": {
-    "sku": "NS-IC-4SDI-3G-H",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P2-5-IN-D64X48": {
-    "sku": "FC-QL-P2-5-IN-D64X48",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "VX20 for rental-17V": {
-    "sku": "VX20 for rental-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-SC-MCTRL660-PRO": {
-    "sku": "NS-SC-MCTRL660-PRO",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-41": {
-    "sku": "MRL-LT-41",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-HC-A10S-PLUS-N": {
-    "sku": "NS-HC-A10S-PLUS-N",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "HD-VP1640A": {
-    "sku": "HD-VP1640A",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P2-5-IN-D64X64": {
-    "sku": "FC-QL-P2-5-IN-D64X64",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P1-2-INDOOR-GOB-D64X48": {
-    "sku": "FC-QL-P1-2-INDOOR-GOB-D64X48",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-45": {
-    "sku": "MRL-LT-45",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "GAG-LSR-9": {
-    "sku": "GAG-LSR-9",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P4-OUT-I96X96": {
-    "sku": "FC-QL-P4-OUT-I96X96",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P1-8-IN-D64X48": {
-    "sku": "FC-QL-P1-8-IN-D64X48",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-39": {
-    "sku": "MRL-LT-39",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-65": {
-    "sku": "MRL-LT-65",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P2-5-INDOOR-GOB-D64X64": {
-    "sku": "FC-QL-P2-5-INDOOR-GOB-D64X64",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P1-5-IN-D64X48": {
-    "sku": "FC-QL-P1-5-IN-D64X48",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "AX 08-17V": {
-    "sku": "AX 08-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-49": {
-    "sku": "MRL-LT-49",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-48": {
-    "sku": "MRL-LT-48",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-VP-VX4S-N": {
-    "sku": "NS-VP-VX4S-N",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "A35-4G-17V": {
-    "sku": "A35-4G-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-MP-TU40-PRO": {
-    "sku": "NS-MP-TU40-PRO",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "HD-VP210C": {
-    "sku": "HD-VP210C",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-RC-MRV208-1": {
-    "sku": "NS-RC-MRV208-1",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "QL-MOD-OUTDOOR-P30-FLEX": {
-    "sku": "QL-MOD-OUTDOOR-P30-FLEX",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-47": {
-    "sku": "MRL-LT-47",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P1-8-IN-D64X64": {
-    "sku": "FC-QL-P1-8-IN-D64X64",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P6-6-OUT-I96X96": {
-    "sku": "FC-QL-P6-6-OUT-I96X96",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "SFX-MOKA-SNOW-LIQUID": {
-    "sku": "SFX-MOKA-SNOW-LIQUID",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "X12-17V": {
-    "sku": "X12-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "GAG-LSR-7": {
-    "sku": "GAG-LSR-7",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "CS16k-17V": {
-    "sku": "CS16k-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P2-5-OUT-D96X96": {
-    "sku": "FC-QL-P2-5-OUT-D96X96",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-55": {
-    "sku": "MRL-LT-55",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-FC-CVT10": {
-    "sku": "NS-FC-CVT10",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-LCD-LCB2K": {
-    "sku": "NS-LCD-LCB2K",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P6-6-OUT-D96X96": {
-    "sku": "FC-QL-P6-6-OUT-D96X96",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-VP-VC16PRO": {
-    "sku": "NS-VP-VC16PRO",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-OC-4OPT-H": {
-    "sku": "NS-OC-4OPT-H",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P10-OUT-I96X96": {
-    "sku": "FC-QL-P10-OUT-I96X96",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P8-OUT-I96X96": {
-    "sku": "FC-QL-P8-OUT-I96X96",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P1-2-INDOOR-GOB-D64X64": {
-    "sku": "FC-QL-P1-2-INDOOR-GOB-D64X64",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "AX 06-17V": {
-    "sku": "AX 06-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-74": {
-    "sku": "MRL-LT-74",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-CS-H15-ENHANCED": {
-    "sku": "NS-CS-H15-ENHANCED",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P1-5-INDOOR-GOB-D64X64": {
-    "sku": "FC-QL-P1-5-INDOOR-GOB-D64X64",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "Z4PRO-17V": {
-    "sku": "Z4PRO-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-66": {
-    "sku": "MRL-LT-66",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-IC-1SDI-12G-H": {
-    "sku": "NS-IC-1SDI-12G-H",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "HD-R708": {
-    "sku": "HD-R708",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P5-OUT-I96X96": {
-    "sku": "FC-QL-P5-OUT-I96X96",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-SC-MSD600-1": {
-    "sku": "NS-SC-MSD600-1",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "QL-MOD-OUTDOOR-P30-PRO": {
-    "sku": "QL-MOD-OUTDOOR-P30-PRO",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "Z5-17V": {
-    "sku": "Z5-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      }
+    ]
   },
   "3G input board-17V": {
+    "m_items_id": "d06675e1-29ab-4102-9717-4c9af0daccfe",
     "sku": "3G input board-17V",
+    "nama_item": "Colorlight X100 Pro 4×3G-SDI Input Board",
     "is_synced": true,
     "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
+    "batches": []
   },
-  "PIX-4K-VIEW-PRO-FC": {
-    "sku": "PIX-4K-VIEW-PRO-FC",
+  "4K input board-17V": {
+    "m_items_id": "77b8449f-e551-40d9-a5fe-8ba558c57c81",
+    "sku": "4K input board-17V",
+    "nama_item": "Colorlight X100 Pro HDMI2.0 + DP1.2 Input Board",
     "is_synced": true,
     "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P1-2-IN-D64X48": {
-    "sku": "FC-QL-P1-2-IN-D64X48",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-RC-MRV432": {
-    "sku": "NS-RC-MRV432",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-OC-1HDMIOUT-2.0-H": {
-    "sku": "NS-OC-1HDMIOUT-2.0-H",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-37": {
-    "sku": "MRL-LT-37",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "A60-17V": {
-    "sku": "A60-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-7": {
-    "sku": "MRL-LT-7",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-SC-MSD300-1": {
-    "sku": "NS-SC-MSD300-1",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-OC-1HDMI-2LAN-H": {
-    "sku": "NS-OC-1HDMI-2LAN-H",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-CS-H9-ENHANCED": {
-    "sku": "NS-CS-H9-ENHANCED",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "QL-MOD-OUTDOOR-P8-S": {
-    "sku": "QL-MOD-OUTDOOR-P8-S",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-VP-NOVAPRO-UHD-JR": {
-    "sku": "NS-VP-NOVAPRO-UHD-JR",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P4-OUT-D96X96": {
-    "sku": "FC-QL-P4-OUT-D96X96",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-LCD-LCB4K": {
-    "sku": "NS-LCD-LCB4K",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-72": {
-    "sku": "MRL-LT-72",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-CS-H20": {
-    "sku": "NS-CS-H20",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "VP1220A": {
-    "sku": "VP1220A",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P10-OUT-D96X96": {
-    "sku": "FC-QL-P10-OUT-D96X96",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P1-8-INDOOR-GOB-D64X64": {
-    "sku": "FC-QL-P1-8-INDOOR-GOB-D64X64",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "QL-MOD-INDOOR-P30-PRO": {
-    "sku": "QL-MOD-INDOOR-P30-PRO",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P4-IN-D64X48": {
-    "sku": "FC-QL-P4-IN-D64X48",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-76": {
-    "sku": "MRL-LT-76",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-OC-4HDMI-DVI-H": {
-    "sku": "NS-OC-4HDMI-DVI-H",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-43": {
-    "sku": "MRL-LT-43",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "QL-MOD-OUTDOOR-P4-FLEX": {
-    "sku": "QL-MOD-OUTDOOR-P4-FLEX",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-19": {
-    "sku": "MRL-LT-19",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "QL-MOD-OUTDOOR-P10": {
-    "sku": "QL-MOD-OUTDOOR-P10",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P2-5-OUT-I96X96": {
-    "sku": "FC-QL-P2-5-OUT-I96X96",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "MRL-LT-50": {
-    "sku": "MRL-LT-50",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "QL-MOD-INDOOR-P2-FLEX": {
-    "sku": "QL-MOD-INDOOR-P2-FLEX",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "VX6 for rental-17V": {
-    "sku": "VX6 for rental-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "DS 40-17V": {
-    "sku": "DS 40-17V",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P2-5-INDOOR-GOB-D64X48": {
-    "sku": "FC-QL-P2-5-INDOOR-GOB-D64X48",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-CS-H9": {
-    "sku": "NS-CS-H9",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P1-5-INDOOR-GOB-D64X48": {
-    "sku": "FC-QL-P1-5-INDOOR-GOB-D64X48",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
+    "batches": []
   },
   "4K output board-17V": {
+    "m_items_id": "1ce9dd66-29ff-4935-b5b6-b67c2d91010e",
     "sku": "4K output board-17V",
+    "nama_item": "Colorlight X100 Pro HDMI2.0 Output Board",
     "is_synced": true,
     "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
+    "batches": []
   },
-  "NS-SC-MCTRL300": {
-    "sku": "NS-SC-MCTRL300",
+  "75E-17V": {
+    "m_items_id": "5b480690-6244-44fc-ba6a-f62b638e2921",
+    "sku": "75E-17V",
+    "nama_item": "Colorlight 5A-75E LED Receiving Card",
+    "is_synced": true,
+    "available_stock": 818,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 663
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 144
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 10
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "A100-17V": {
+    "m_items_id": "c81d6d2b-83a9-4ce8-96bf-c46422982593",
+    "sku": "A100-17V",
+    "nama_item": "Colorlight A100 Cloud Player",
+    "is_synced": true,
+    "available_stock": 56,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 36
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 19
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 1
+      }
+    ]
+  },
+  "A200-17V": {
+    "m_items_id": "f7e46279-cd03-4c45-979a-b42e17bc58a9",
+    "sku": "A200-17V",
+    "nama_item": "Colorlight A200 Cloud Player",
     "is_synced": true,
     "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
+    "batches": []
+  },
+  "A2K-17V": {
+    "m_items_id": "d951ee36-7e91-442a-bca5-56522f93a9a6",
+    "sku": "A2K-17V",
+    "nama_item": "Colorlight A2K Cloud Player",
+    "is_synced": true,
+    "available_stock": 9,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 5
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 4
+      }
+    ]
+  },
+  "A35-17V": {
+    "m_items_id": "f0af0d5a-5ce9-4adc-9dbe-d10605f0c25f",
+    "sku": "A35-17V",
+    "nama_item": "Colorlight A35 Cloud Player",
+    "is_synced": true,
+    "available_stock": 49,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 27
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 18
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 4
+      }
+    ]
+  },
+  "A35-4G-17V": {
+    "m_items_id": "b31f0639-7b90-41da-b3fd-b9d3604890e2",
+    "sku": "A35-4G-17V",
+    "nama_item": "Colorlight A35-4G Cloud Player",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "A4K-17V": {
+    "m_items_id": "01fef283-3f65-419c-b32b-b2d27e3ae109",
+    "sku": "A4K-17V",
+    "nama_item": "Colorlight A4K Cloud Player",
+    "is_synced": true,
+    "available_stock": 6,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 5
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      }
+    ]
+  },
+  "A500-17V": {
+    "m_items_id": "098c0bc4-5ec7-4659-80c0-447f66f252b7",
+    "sku": "A500-17V",
+    "nama_item": "Colorlight A500 Cloud Player",
+    "is_synced": true,
+    "available_stock": 8,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 5
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 3
+      }
+    ]
+  },
+  "A60-17V": {
+    "m_items_id": "cf65d10e-20ec-4442-ba27-d3163836ca8b",
+    "sku": "A60-17V",
+    "nama_item": "Colorlight A60 Cloud Player",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "ACC-RNT-37": {
+    "m_items_id": "913083a5-71c4-550e-972e-59bfec1beb3d",
+    "sku": "ACC-RNT-37",
+    "nama_item": "Jack Base For LED Floor M10x150mm",
+    "is_synced": true,
+    "available_stock": 252,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 252
+      }
+    ]
+  },
+  "AX 06-17V": {
+    "m_items_id": "a49bdd88-bb25-41d1-bb81-020a978e9943",
+    "sku": "AX 06-17V",
+    "nama_item": "Colorlight AX06 AI Media Station",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "AX 08-17V": {
+    "m_items_id": "90191575-51ee-4936-9192-59cc0e87bb59",
+    "sku": "AX 08-17V",
+    "nama_item": "Colorlight AX08 AI Media Station",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "CS16k-17V": {
+    "m_items_id": "2056b315-5e5d-4346-bf73-6b828e1e4477",
+    "sku": "CS16k-17V",
+    "nama_item": "Colorlight CS16K Media Server",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "CS20-8K Pro-17V": {
+    "m_items_id": "5dc49fbf-0899-48b4-85e8-c2b7f88e1a8b",
+    "sku": "CS20-8K Pro-17V",
+    "nama_item": "Colorlight CS20-8K Pro Media Server",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
   },
   "CS6K G3-17V": {
+    "m_items_id": "7c0c7241-1685-4261-9b9b-8f7abbe872c5",
     "sku": "CS6K G3-17V",
+    "nama_item": "Colorlight CS6K-G3 Media Server",
     "is_synced": true,
     "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P8-OUT-D96X96": {
-    "sku": "FC-QL-P8-OUT-D96X96",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P1-2-IN-D64X64": {
-    "sku": "FC-QL-P1-2-IN-D64X64",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P4-IN-D64X64": {
-    "sku": "FC-QL-P4-IN-D64X64",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "FC-QL-P1-5-IN-D64X64": {
-    "sku": "FC-QL-P1-5-IN-D64X64",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
-  },
-  "NS-CS-H15": {
-    "sku": "NS-CS-H15",
-    "is_synced": true,
-    "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
+    "batches": []
   },
   "CS8K G3-17V": {
+    "m_items_id": "5bf54b20-c444-43af-b5c0-b84fe01c96f0",
     "sku": "CS8K G3-17V",
+    "nama_item": "Colorlight CS8K-G3 Media Server",
     "is_synced": true,
     "available_stock": 0,
-    "physical_stock": 0,
-    "locked_stock": 0
+    "batches": []
+  },
+  "DS 40-17V": {
+    "m_items_id": "041badd8-c998-484b-ac2d-e910a82389e2",
+    "sku": "DS 40-17V",
+    "nama_item": "Colorlight DS40 4K Distributed KVM Controller",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "E120-17V": {
+    "m_items_id": "b6c28638-049e-4e62-b99b-1fe88dfe407d",
+    "sku": "E120-17V",
+    "nama_item": "Colorlight E120 LED Receiving Card",
+    "is_synced": true,
+    "available_stock": 2212,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1463
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 749
+      }
+    ]
+  },
+  "E320-17V": {
+    "m_items_id": "92d198ce-340d-4ebc-8197-76283a40ce6f",
+    "sku": "E320-17V",
+    "nama_item": "Colorlight E320 LED Receiving Card",
+    "is_synced": true,
+    "available_stock": 49,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 39
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 10
+      }
+    ]
+  },
+  "E80-17V": {
+    "m_items_id": "8c64f8aa-b464-45e6-a0a7-fa65bb7c8e24",
+    "sku": "E80-17V",
+    "nama_item": "Colorlight E80 LED Receiving Card",
+    "is_synced": true,
+    "available_stock": 55,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 37
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 11
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 7
+      }
+    ]
+  },
+  "FC-QL-P10-OUT-D96X96": {
+    "m_items_id": "61df720e-eaa4-4ca6-b091-7accdf53f5f7",
+    "sku": "FC-QL-P10-OUT-D96X96",
+    "nama_item": "Finished Cabinet Qiangli P10 Pro Outdoor Diecast 96x96",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P10-OUT-I96X96": {
+    "m_items_id": "9a7acf23-e5ba-4c90-bb61-0c3ed8aa550d",
+    "sku": "FC-QL-P10-OUT-I96X96",
+    "nama_item": "Finished Cabinet Qiangli P10 Pro Outdoor Iron 96x96",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P1-2-IN-D64X48": {
+    "m_items_id": "d5bbacc2-f175-48ed-a046-544f653441f3",
+    "sku": "FC-QL-P1-2-IN-D64X48",
+    "nama_item": "Finished Cabinet Qiangli P1.2 Pro Indoor 64x48",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P1-2-IN-D64X64": {
+    "m_items_id": "d980e4dc-1fca-4820-91e8-2641b3e90639",
+    "sku": "FC-QL-P1-2-IN-D64X64",
+    "nama_item": "Finished Cabinet Qiangli P1.2 Pro Indoor 64x64",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P1-2-INDOOR-GOB-D64X48": {
+    "m_items_id": "11160cb7-221c-4d63-ba14-7eb55de2b7b8",
+    "sku": "FC-QL-P1-2-INDOOR-GOB-D64X48",
+    "nama_item": "Finished Cabinet Lampro P1.2 GOB Indoor 64x48",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P1-2-INDOOR-GOB-D64X64": {
+    "m_items_id": "fd07ed97-217c-4844-9a23-b957f40deb19",
+    "sku": "FC-QL-P1-2-INDOOR-GOB-D64X64",
+    "nama_item": "Finished Cabinet Lampro P1.2 GOB Indoor 64x64",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P1-5-IN-D64X48": {
+    "m_items_id": "83467196-1dbf-48f0-874f-b98fad775efe",
+    "sku": "FC-QL-P1-5-IN-D64X48",
+    "nama_item": "Finished Cabinet Qiangli P1.5 Pro Indoor 64x48",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P1-5-IN-D64X64": {
+    "m_items_id": "6cba115c-782f-4865-858b-7cbb06c99f49",
+    "sku": "FC-QL-P1-5-IN-D64X64",
+    "nama_item": "Finished Cabinet Qiangli P1.5 Pro Indoor 64x64",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P1-5-INDOOR-GOB-D64X48": {
+    "m_items_id": "c72f60db-cbd7-4944-8619-f18bab93b0ef",
+    "sku": "FC-QL-P1-5-INDOOR-GOB-D64X48",
+    "nama_item": "Finished Cabinet Lampro P1.5 GOB Indoor 64x48",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P1-5-INDOOR-GOB-D64X64": {
+    "m_items_id": "05cc4e39-78df-417c-970f-42b16da036be",
+    "sku": "FC-QL-P1-5-INDOOR-GOB-D64X64",
+    "nama_item": "Finished Cabinet Lampro P1.5 GOB Indoor 64x64",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P1-8-IN-D64X48": {
+    "m_items_id": "e2b34c3d-b77e-4456-82ba-c45c76a4e683",
+    "sku": "FC-QL-P1-8-IN-D64X48",
+    "nama_item": "Finished Cabinet Qiangli P1.8 Pro Indoor 64x48",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P1-8-IN-D64X64": {
+    "m_items_id": "e2f6c071-2981-4878-ab41-1982ff736cc1",
+    "sku": "FC-QL-P1-8-IN-D64X64",
+    "nama_item": "Finished Cabinet Qiangli P1.8 Pro Indoor 64x64",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P1-8-INDOOR-GOB-D64X48": {
+    "m_items_id": "d72051d4-53e7-4087-9177-e41e05e6750c",
+    "sku": "FC-QL-P1-8-INDOOR-GOB-D64X48",
+    "nama_item": "Finished Cabinet Lampro P1.8 GOB Indoor 64x48",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P1-8-INDOOR-GOB-D64X64": {
+    "m_items_id": "8af31b9b-2721-490c-90f6-f9500813c8c5",
+    "sku": "FC-QL-P1-8-INDOOR-GOB-D64X64",
+    "nama_item": "Finished Cabinet Lampro P1.8 GOB Indoor 64x64",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P2-5-IN-D64X48": {
+    "m_items_id": "1a6f6f24-0844-4229-8a71-e38a99681a8f",
+    "sku": "FC-QL-P2-5-IN-D64X48",
+    "nama_item": "Finished Cabinet Qiangli P2.5 Pro Indoor 64x48",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P2-5-IN-D64X64": {
+    "m_items_id": "36df2e84-4892-4d7c-8778-97306a2cb4d6",
+    "sku": "FC-QL-P2-5-IN-D64X64",
+    "nama_item": "Finished Cabinet Qiangli P2.5 Pro Indoor 64x64",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P2-5-INDOOR-GOB-D64X48": {
+    "m_items_id": "e019d104-d554-4c21-ada6-5bd763f955b7",
+    "sku": "FC-QL-P2-5-INDOOR-GOB-D64X48",
+    "nama_item": "Finished Cabinet Lampro P2.5 GOB Indoor 64x48",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P2-5-INDOOR-GOB-D64X64": {
+    "m_items_id": "d06dce92-146d-4cce-8767-9cf29f4b4847",
+    "sku": "FC-QL-P2-5-INDOOR-GOB-D64X64",
+    "nama_item": "Finished Cabinet Lampro P2.5 GOB Indoor 64x64",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P2-5-OUT-D96X96": {
+    "m_items_id": "3019837f-a987-407c-9ae0-4ce286526e0b",
+    "sku": "FC-QL-P2-5-OUT-D96X96",
+    "nama_item": "Finished Cabinet Qiangli P2.5 Pro Outdoor Diecast 96x96",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P2-5-OUT-I96X96": {
+    "m_items_id": "be6d9382-7cac-4226-9c58-b20be3770ee8",
+    "sku": "FC-QL-P2-5-OUT-I96X96",
+    "nama_item": "Finished Cabinet Qiangli P2.5 Pro Outdoor Iron 96x96",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P4-IN-D64X48": {
+    "m_items_id": "db2d550e-34a0-4193-9083-83a981da2072",
+    "sku": "FC-QL-P4-IN-D64X48",
+    "nama_item": "Finished Cabinet Qiangli P4 Pro Indoor 64x48",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P4-IN-D64X64": {
+    "m_items_id": "a02e1689-bc41-4eb5-a488-b35c6e627698",
+    "sku": "FC-QL-P4-IN-D64X64",
+    "nama_item": "Finished Cabinet Qiangli P4 Pro Indoor 64x64",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P4-OUT-D96X96": {
+    "m_items_id": "ccd0fe8d-e9ba-4547-a83d-f06561922589",
+    "sku": "FC-QL-P4-OUT-D96X96",
+    "nama_item": "Finished Cabinet Qiangli P4 Pro Outdoor Diecast 96x96",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P4-OUT-I96X96": {
+    "m_items_id": "026a62ff-6cde-4c43-b3a0-d044cf34be50",
+    "sku": "FC-QL-P4-OUT-I96X96",
+    "nama_item": "Finished Cabinet Qiangli P4 Pro Outdoor Iron 96x96",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P5-OUT-D96X96": {
+    "m_items_id": "c771b520-7086-4e8c-8d12-32f4f04919f4",
+    "sku": "FC-QL-P5-OUT-D96X96",
+    "nama_item": "Finished Cabinet Qiangli P5 Pro Outdoor Diecast 96x96",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P5-OUT-I96X96": {
+    "m_items_id": "e56922fe-22d1-4eb1-85fd-f53badf1972c",
+    "sku": "FC-QL-P5-OUT-I96X96",
+    "nama_item": "Finished Cabinet Qiangli P5 Pro Outdoor Iron 96x96",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P6-6-OUT-D96X96": {
+    "m_items_id": "92c45fc1-5534-4438-a8ad-9378c514e9cf",
+    "sku": "FC-QL-P6-6-OUT-D96X96",
+    "nama_item": "Finished Cabinet Qiangli P6.6 Pro Outdoor Diecast 96x96",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P6-6-OUT-I96X96": {
+    "m_items_id": "cdbb401b-7ca5-497d-884e-7c88683d35e4",
+    "sku": "FC-QL-P6-6-OUT-I96X96",
+    "nama_item": "Finished Cabinet Qiangli P6.6 Pro Outdoor Iron 96x96",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P8-OUT-D96X96": {
+    "m_items_id": "dddd4c27-178d-4866-9470-ef4264ac035f",
+    "sku": "FC-QL-P8-OUT-D96X96",
+    "nama_item": "Finished Cabinet Qiangli P8 Pro Outdoor Diecast 96x96",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "FC-QL-P8-OUT-I96X96": {
+    "m_items_id": "af0a90f6-5ff6-4c97-be6d-976f77b65ef0",
+    "sku": "FC-QL-P8-OUT-I96X96",
+    "nama_item": "Finished Cabinet Qiangli P8 Pro Outdoor Iron 96x96",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "GAG-LSR-1": {
+    "m_items_id": "1a51e7d5-c12a-4812-b3e5-01cf97894446",
+    "sku": "GAG-LSR-1",
+    "nama_item": "GAGA RGB 3W Laser Light",
+    "is_synced": true,
+    "available_stock": 16,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 9
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 3
+      }
+    ]
+  },
+  "GAG-LSR-10": {
+    "m_items_id": "01e2bbd5-9e96-4e5e-bc6b-5846a695efa2",
+    "sku": "GAG-LSR-10",
+    "nama_item": "Pangolin Quickshow FB4 (Original)",
+    "is_synced": true,
+    "available_stock": 25,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 16
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 7
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 1
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 1
+      }
+    ]
+  },
+  "GAG-LSR-2": {
+    "m_items_id": "4ee32e16-4d44-4d6c-aa29-4490fcf93266",
+    "sku": "GAG-LSR-2",
+    "nama_item": "GAGA Mini RGB 4W Laser Light",
+    "is_synced": true,
+    "available_stock": 22,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 12
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "4d9712bd-c7fb-4f44-b8bf-278261ef436d",
+        "nama_gudang": "Showroom Jakarta",
+        "kode_gudang": "GDNG-260722-MVG0001",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 3
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "GAG-LSR-3": {
+    "m_items_id": "7c791f24-968d-47cd-a986-782b05416fda",
+    "sku": "GAG-LSR-3",
+    "nama_item": "GAGA RGB 5W Laser Light",
+    "is_synced": true,
+    "available_stock": 6,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 6
+      }
+    ]
+  },
+  "GAG-LSR-4": {
+    "m_items_id": "3ed0c61a-2b6b-4886-87da-46b4952e2b86",
+    "sku": "GAG-LSR-4",
+    "nama_item": "GAGA Mini RGB 6W Laser Light",
+    "is_synced": true,
+    "available_stock": 9,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "4d9712bd-c7fb-4f44-b8bf-278261ef436d",
+        "nama_gudang": "Showroom Jakarta",
+        "kode_gudang": "GDNG-260722-MVG0001",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 3
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      }
+    ]
+  },
+  "GAG-LSR-5": {
+    "m_items_id": "b4024466-11e0-4256-bfb4-fbaec566970f",
+    "sku": "GAG-LSR-5",
+    "nama_item": "GAGA RGB 10W Laser Light",
+    "is_synced": true,
+    "available_stock": 39,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 16
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 12
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "4d9712bd-c7fb-4f44-b8bf-278261ef436d",
+        "nama_gudang": "Showroom Jakarta",
+        "kode_gudang": "GDNG-260722-MVG0001",
+        "available_stock": 7
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 1
+      }
+    ]
+  },
+  "GAG-LSR-6": {
+    "m_items_id": "6d24937c-685a-4004-ae34-2a45f540d275",
+    "sku": "GAG-LSR-6",
+    "nama_item": "GAGA Waterproof RGB 20W Laser Light",
+    "is_synced": true,
+    "available_stock": 4,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 3
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 1
+      }
+    ]
+  },
+  "GAG-LSR-7": {
+    "m_items_id": "22623faa-bc09-410a-a9f0-1140b07655c2",
+    "sku": "GAG-LSR-7",
+    "nama_item": "GAGA Waterproof RGB 30W Laser Light",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "GAG-LSR-8": {
+    "m_items_id": "f906bde0-ada6-48d0-ab8a-d64b96a4721c",
+    "sku": "GAG-LSR-8",
+    "nama_item": "GAGA Waterproof RGB 40W Laser Light",
+    "is_synced": true,
+    "available_stock": 2,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 2
+      }
+    ]
+  },
+  "GAG-LSR-9": {
+    "m_items_id": "a2e10fd8-6822-495f-a62c-15ab222fc5f4",
+    "sku": "GAG-LSR-9",
+    "nama_item": "Pangolin Quickshow FB3 (Original)",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "H10 FIX-17V": {
+    "m_items_id": "73590769-056a-42a7-a436-8860a25e8442",
+    "sku": "H10 FIX-17V",
+    "nama_item": "Colorlight H10Fix Optical Fiber Transceiver",
+    "is_synced": true,
+    "available_stock": 7,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 5
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      }
+    ]
+  },
+  "H10 FN-17V": {
+    "m_items_id": "a3af2695-553b-4962-bc21-a5b752831844",
+    "sku": "H10 FN-17V",
+    "nama_item": "Colorlight H10FN Optical Fiber Transceiver",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "HD-A3L": {
+    "m_items_id": "9500f67e-3f64-4921-99c5-e66e2590f01e",
+    "sku": "HD-A3L",
+    "nama_item": "Huidu A3L Full Color LED Controller",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "HD-A4L": {
+    "m_items_id": "4b703807-4238-4a1d-87e3-bc6ebb0c011d",
+    "sku": "HD-A4L",
+    "nama_item": "Huidu A4L Dual Mode Multimedia Player",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "HD-A5L": {
+    "m_items_id": "1ed53505-1ce0-4b6f-9ddf-6a4ebb048d62",
+    "sku": "HD-A5L",
+    "nama_item": "Huidu A5L Dual Mode Multimedia Player",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "HD-A6L": {
+    "m_items_id": "28fc78a4-4880-4c04-ac08-3af9cddc3c95",
+    "sku": "HD-A6L",
+    "nama_item": "Huidu A6L Dual Mode Multimedia Player",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      }
+    ]
+  },
+  "HD-A7": {
+    "m_items_id": "7d157d1e-c96e-4b80-a77a-7ecefab0728d",
+    "sku": "HD-A7",
+    "nama_item": "Huidu A7 Dual Mode Multimedia Player",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      }
+    ]
+  },
+  "HD-A8": {
+    "m_items_id": "69997953-a0bf-41dc-947c-4177cfbabec5",
+    "sku": "HD-A8",
+    "nama_item": "Huidu A8 Dual Mode Multimedia Player",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      }
+    ]
+  },
+  "HD-D16": {
+    "m_items_id": "9f8443dd-028a-4299-a3c0-2113d44890be",
+    "sku": "HD-D16",
+    "nama_item": "Huidu D16 Full Color LED Control Card",
+    "is_synced": true,
+    "available_stock": 29,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 29
+      }
+    ]
+  },
+  "HD-H8": {
+    "m_items_id": "6981ef88-549d-40c8-8c4f-c2c431c2ce69",
+    "sku": "HD-H8",
+    "nama_item": "Huidu H8 Dual Mode Multimedia Player",
+    "is_synced": true,
+    "available_stock": 7,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 3
+      }
+    ]
+  },
+  "HD-KV210": {
+    "m_items_id": "4712df4f-e502-444e-ab14-36e4af3375a0",
+    "sku": "HD-KV210",
+    "nama_item": "Huidu KV210 3 in 1 LED Controller",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "HD-KV410": {
+    "m_items_id": "4fd0a93d-d895-4639-896b-51af282495af",
+    "sku": "HD-KV410",
+    "nama_item": "Huidu KV410 3 in 1 LED Controller",
+    "is_synced": true,
+    "available_stock": 6,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 6
+      }
+    ]
+  },
+  "HD-R708": {
+    "m_items_id": "a2f330e7-7625-435a-97b8-8f2144201849",
+    "sku": "HD-R708",
+    "nama_item": "Huidu R708 Receiving Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "HD-R712": {
+    "m_items_id": "1ecf63c9-f9ce-4e0b-9c3a-1c3c2627c082",
+    "sku": "HD-R712",
+    "nama_item": "Huidu R712 Receiving Card",
+    "is_synced": true,
+    "available_stock": 431,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 307
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 120
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 4
+      }
+    ]
+  },
+  "HD-R716": {
+    "m_items_id": "089359e6-d666-4b3d-8af4-e4677b3ae3d8",
+    "sku": "HD-R716",
+    "nama_item": "Huidu R716 Receiving Card",
+    "is_synced": true,
+    "available_stock": 221,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 120
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 101
+      }
+    ]
+  },
+  "HD-R732": {
+    "m_items_id": "ca206bf5-1de2-4bc6-80da-62ac554cef0a",
+    "sku": "HD-R732",
+    "nama_item": "Huidu R732 Receiving Card",
+    "is_synced": true,
+    "available_stock": 195,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 179
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 16
+      }
+    ]
+  },
+  "HD-VP1640A": {
+    "m_items_id": "285a469f-f46e-497b-9300-43425badc996",
+    "sku": "HD-VP1640A",
+    "nama_item": "Huidu VP1640A All in One Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "HD-VP210C": {
+    "m_items_id": "132a8ed2-da3a-40a4-b064-3a1e0019e433",
+    "sku": "HD-VP210C",
+    "nama_item": "Huidu VP210C All in One Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "HD-VP210H": {
+    "m_items_id": "d7a8ba2d-18d7-4bea-9069-07a11b9b474d",
+    "sku": "HD-VP210H",
+    "nama_item": "Huidu VP210H Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "HD-VP410A": {
+    "m_items_id": "9b487236-8cb6-40fd-9678-d0b4296f0b7d",
+    "sku": "HD-VP410A",
+    "nama_item": "Huidu VP410A All in One Video Processor",
+    "is_synced": true,
+    "available_stock": 2,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 1
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "HD-VP410C": {
+    "m_items_id": "89d35195-e2aa-492b-87d8-922a10b21329",
+    "sku": "HD-VP410C",
+    "nama_item": "Huidu VP410C All in One Video Processor",
+    "is_synced": true,
+    "available_stock": 8,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 8
+      }
+    ]
+  },
+  "HD-VP410H": {
+    "m_items_id": "01419abd-c17f-4faf-8e9c-f471082bb0d6",
+    "sku": "HD-VP410H",
+    "nama_item": "Huidu VP410H Video Processor",
+    "is_synced": true,
+    "available_stock": 5,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 5
+      }
+    ]
+  },
+  "HD-VP620": {
+    "m_items_id": "96b37da2-e167-48e7-90b8-fa561b4f379f",
+    "sku": "HD-VP620",
+    "nama_item": "Huidu VP620A All in One Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "HD-VP820A": {
+    "m_items_id": "830f2879-afc1-4d30-a7e7-078fa0926326",
+    "sku": "HD-VP820A",
+    "nama_item": "Huidu VP820A All in One Video Processor",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "K5+-17V": {
+    "m_items_id": "932c3b75-348b-4861-9a57-00056bb9bcba",
+    "sku": "K5+-17V",
+    "nama_item": "Colorlight K5+ LED Receiving Card",
+    "is_synced": true,
+    "available_stock": 73,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 69
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 4
+      }
+    ]
+  },
+  "K8-17V": {
+    "m_items_id": "82690a69-abc9-4e66-99d4-6db30d8d3800",
+    "sku": "K8-17V",
+    "nama_item": "Colorlight K8 LED Receiving Card",
+    "is_synced": true,
+    "available_stock": 306,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 190
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 116
+      }
+    ]
+  },
+  "MOJO-BAR-1": {
+    "m_items_id": "c506aac4-512e-4c85-b127-b3dbde7e3994",
+    "sku": "MOJO-BAR-1",
+    "nama_item": "Alumunium Barrier Mojo Gate (Straight)",
+    "is_synced": true,
+    "available_stock": 690,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 690
+      }
+    ]
+  },
+  "MOJO-BAR-3": {
+    "m_items_id": "988d245c-891f-4a73-bde1-b7fa804e6d8c",
+    "sku": "MOJO-BAR-3",
+    "nama_item": "Aluminum Barrier Door",
+    "is_synced": true,
+    "available_stock": 10,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 10
+      }
+    ]
+  },
+  "MRL-LT-1": {
+    "m_items_id": "60ec6797-54cb-457c-a380-a4e4519355fe",
+    "sku": "MRL-LT-1",
+    "nama_item": "Meanreal BSW 550 PLUS",
+    "is_synced": true,
+    "available_stock": 17,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 8
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-10": {
+    "m_items_id": "33233ca5-06da-4f07-80ba-627a479c89a8",
+    "sku": "MRL-LT-10",
+    "nama_item": "Meanreal ALED BSW 480 CMY",
+    "is_synced": true,
+    "available_stock": 27,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 21
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-11": {
+    "m_items_id": "53f98085-4464-46ef-9747-c2dea8164975",
+    "sku": "MRL-LT-11",
+    "nama_item": "Meanreal ALED BSW 400 CMY",
+    "is_synced": true,
+    "available_stock": 24,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 20
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-12": {
+    "m_items_id": "21fe3312-530c-46c1-9656-13a346254677",
+    "sku": "MRL-LT-12",
+    "nama_item": "Meanreal FT 1200 BSWF",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-13": {
+    "m_items_id": "a18e5f65-ee16-458f-84dc-1ad5f38de57d",
+    "sku": "MRL-LT-13",
+    "nama_item": "Meanreal B-Eye K10",
+    "is_synced": true,
+    "available_stock": 68,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 30
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 24
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-14": {
+    "m_items_id": "8625fe7a-392c-46be-8681-44f362fbeff4",
+    "sku": "MRL-LT-14",
+    "nama_item": "Meanreal Mini B-Eye K15",
+    "is_synced": true,
+    "available_stock": 50,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 30
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 10
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-15": {
+    "m_items_id": "cac3216c-ee86-4fba-bf90-ceca85c537bb",
+    "sku": "MRL-LT-15",
+    "nama_item": "Meanreal B-Eye K15",
+    "is_synced": true,
+    "available_stock": 74,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 40
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 16
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 11
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 5
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-16": {
+    "m_items_id": "bfef096d-2fec-4463-a528-8c6735141623",
+    "sku": "MRL-LT-16",
+    "nama_item": "Meanreal B-Eye K25",
+    "is_synced": true,
+    "available_stock": 14,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-17": {
+    "m_items_id": "69798d6c-127e-4d43-a1f6-dabe6b583c29",
+    "sku": "MRL-LT-17",
+    "nama_item": "Meanreal Stormy M IP65",
+    "is_synced": true,
+    "available_stock": 28,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 18
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 7
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-18": {
+    "m_items_id": "97e42d94-2167-4b16-864b-64c6d0b78f5a",
+    "sku": "MRL-LT-18",
+    "nama_item": "Meanreal Strike M IP65",
+    "is_synced": true,
+    "available_stock": 46,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 43
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-19": {
+    "m_items_id": "2bb6d15f-2034-448f-b226-5119b55667ca",
+    "sku": "MRL-LT-19",
+    "nama_item": "Meanreal B-Eye 760 IP65",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-2": {
+    "m_items_id": "145da6bf-2de5-4634-98d5-395af74406f2",
+    "sku": "MRL-LT-2",
+    "nama_item": "Meanreal BSW 480 (CMY)",
+    "is_synced": true,
+    "available_stock": 71,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 34
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 19
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-23": {
+    "m_items_id": "db550a03-3e9f-4bd9-9b75-eb5f096326e2",
+    "sku": "MRL-LT-23",
+    "nama_item": "Meanreal Solaris 1525Z",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-24": {
+    "m_items_id": "e9484891-7265-4b6e-abc5-01b5d1a39609",
+    "sku": "MRL-LT-24",
+    "nama_item": "Meanreal Wash 1925",
+    "is_synced": true,
+    "available_stock": 8,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 3
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-25": {
+    "m_items_id": "a0e78a8d-bf00-4d88-b559-a14940c1a415",
+    "sku": "MRL-LT-25",
+    "nama_item": "Meanreal 1810 Wall Beam Wash",
+    "is_synced": true,
+    "available_stock": 57,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 24
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 12
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 10
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 9
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-26": {
+    "m_items_id": "cbbed639-e20e-4a99-b9de-d59519e47c06",
+    "sku": "MRL-LT-26",
+    "nama_item": "Meanreal 1810 Wall Beam Wash IP65",
+    "is_synced": true,
+    "available_stock": 14,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 10
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-27": {
+    "m_items_id": "ee6e7dc4-7458-49b7-857e-967819a4a696",
+    "sku": "MRL-LT-27",
+    "nama_item": "Meanreal Minibrut / Blinder 2",
+    "is_synced": true,
+    "available_stock": 158,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 134
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 12
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 5
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 3
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-28": {
+    "m_items_id": "fc08481f-3220-444e-b8bb-c55b724c6117",
+    "sku": "MRL-LT-28",
+    "nama_item": "Meanreal Minibrut / Blinder 4",
+    "is_synced": true,
+    "available_stock": 28,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 22
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-29": {
+    "m_items_id": "ce553ef5-0cdd-416e-b4b0-6ee8b4546ec9",
+    "sku": "MRL-LT-29",
+    "nama_item": "Meanreal 300W LED Profile Zoom",
+    "is_synced": true,
+    "available_stock": 11,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-3": {
+    "m_items_id": "70cceccf-6ef1-4794-a137-2c394c018168",
+    "sku": "MRL-LT-3",
+    "nama_item": "Meanreal BSW 380",
+    "is_synced": true,
+    "available_stock": 68,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 28
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 24
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 10
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-30": {
+    "m_items_id": "02abc3bd-58d4-425b-bdba-b4b28d68f442",
+    "sku": "MRL-LT-30",
+    "nama_item": "Meanreal 300W LED Fresnel",
+    "is_synced": true,
+    "available_stock": 8,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 8
+      }
+    ]
+  },
+  "MRL-LT-31": {
+    "m_items_id": "dcf95f33-1a98-4e91-a4ac-58fca47c5840",
+    "sku": "MRL-LT-31",
+    "nama_item": "Meanreal Jolt Panel",
+    "is_synced": true,
+    "available_stock": 79,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 42
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 16
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 9
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 8
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 4
+      }
+    ]
+  },
+  "MRL-LT-32": {
+    "m_items_id": "e085a41f-9c2f-4463-a414-fb77e9817052",
+    "sku": "MRL-LT-32",
+    "nama_item": "Meanreal Stormy 960-8",
+    "is_synced": true,
+    "available_stock": 26,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 13
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 5
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-33": {
+    "m_items_id": "bd79d247-99a3-448c-810f-4d34735b011c",
+    "sku": "MRL-LT-33",
+    "nama_item": "Meanreal Color Bar IP65",
+    "is_synced": true,
+    "available_stock": 23,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 17
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-34": {
+    "m_items_id": "86c2f0ef-898c-43b6-8c1d-4874fe64a5a0",
+    "sku": "MRL-LT-34",
+    "nama_item": "Meanreal Laser Bar 12W",
+    "is_synced": true,
+    "available_stock": 16,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 11
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-35": {
+    "m_items_id": "504951af-a0ab-4f15-8957-33dfdde113a4",
+    "sku": "MRL-LT-35",
+    "nama_item": "Meanreal Diamond Line 1240",
+    "is_synced": true,
+    "available_stock": 68,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 50
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 10
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-36": {
+    "m_items_id": "c7d27c09-bd80-4793-935d-c2857f85f2a1",
+    "sku": "MRL-LT-36",
+    "nama_item": "Meanreal PAR 1815 5 in 1",
+    "is_synced": true,
+    "available_stock": 36,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 28
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-37": {
+    "m_items_id": "68f19443-14dc-49cc-99b0-04274db2b788",
+    "sku": "MRL-LT-37",
+    "nama_item": "Meanreal PAR 1815 6 in 1",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-38": {
+    "m_items_id": "c14d9385-1421-49cd-9d53-b4b6fca3ed86",
+    "sku": "MRL-LT-38",
+    "nama_item": "Meanreal Par 1815 5 in 1 White Body",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-39": {
+    "m_items_id": "ec661556-2ef1-4f0c-a4a9-2e5c161414e6",
+    "sku": "MRL-LT-39",
+    "nama_item": "Meanreal COB PAR 200",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-4": {
+    "m_items_id": "e91b8178-a4f9-453b-8471-13f6f382d0e6",
+    "sku": "MRL-LT-4",
+    "nama_item": "Meanreal Super Beam 480",
+    "is_synced": true,
+    "available_stock": 85,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 62
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 13
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-40": {
+    "m_items_id": "84d241fc-063f-421b-a4cc-1a9afef52754",
+    "sku": "MRL-LT-40",
+    "nama_item": "Meanreal COB PAR 300",
+    "is_synced": true,
+    "available_stock": 75,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 45
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 17
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 10
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-41": {
+    "m_items_id": "c46dd326-1990-4676-8543-d4b299cbab47",
+    "sku": "MRL-LT-41",
+    "nama_item": "Meanreal Well Par",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-42": {
+    "m_items_id": "07e04769-fdc3-4537-b2df-38ff43456462",
+    "sku": "MRL-LT-42",
+    "nama_item": "Meanreal COB PAR 300Z",
+    "is_synced": true,
+    "available_stock": 25,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 19
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-43": {
+    "m_items_id": "41c0cb37-e069-47ab-8e57-079475dc15ae",
+    "sku": "MRL-LT-43",
+    "nama_item": "Tripod Lighting",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-45": {
+    "m_items_id": "ca5b6dd9-38d4-474f-b000-253ee4df05ba",
+    "sku": "MRL-LT-45",
+    "nama_item": "Follow Spot 330W LED w/flightcase",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-46": {
+    "m_items_id": "eb527c0b-c08f-4aa6-8107-80d2f81d645a",
+    "sku": "MRL-LT-46",
+    "nama_item": "Follow Spot 380W Bohlam w/flightcase",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-47": {
+    "m_items_id": "a0de12aa-22ed-403b-aee3-986d18698ad9",
+    "sku": "MRL-LT-47",
+    "nama_item": "Follow Spot 400W LED w/flightcase",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-48": {
+    "m_items_id": "b024b223-7974-42be-b575-9e54202cd3e7",
+    "sku": "MRL-LT-48",
+    "nama_item": "Follow Spot 440W Bohlam w/flightcase",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-49": {
+    "m_items_id": "87233a8c-d48a-4fcb-99ce-e1449556480d",
+    "sku": "MRL-LT-49",
+    "nama_item": "Wallwasher LED 18x10W No Brand",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-5": {
+    "m_items_id": "fe669955-9015-4cfc-bf86-1c724c69d3e6",
+    "sku": "MRL-LT-5",
+    "nama_item": "Meanreal Super Beam 420",
+    "is_synced": true,
+    "available_stock": 58,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 50
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-50": {
+    "m_items_id": "c2bb4c12-5383-4e11-b4b1-397ae650402a",
+    "sku": "MRL-LT-50",
+    "nama_item": "Long Strobe / Pixelbar No Brand",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-51": {
+    "m_items_id": "838323d2-063f-4bdd-a9e5-f404ef470eb8",
+    "sku": "MRL-LT-51",
+    "nama_item": "Artnet Node 8",
+    "is_synced": true,
+    "available_stock": 198,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 198
+      }
+    ]
+  },
+  "MRL-LT-52": {
+    "m_items_id": "b676cf78-41ce-4ee1-8374-0ab0683c5164",
+    "sku": "MRL-LT-52",
+    "nama_item": "DMX Splitter 2-8 A+B",
+    "is_synced": true,
+    "available_stock": 225,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 212
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 11
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 1
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-53": {
+    "m_items_id": "81a39be8-ea6a-4475-bb7a-af26324c58a7",
+    "sku": "MRL-LT-53",
+    "nama_item": "Mini Wing",
+    "is_synced": true,
+    "available_stock": 12,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 12
+      }
+    ]
+  },
+  "MRL-LT-54": {
+    "m_items_id": "8f5234bd-dd2c-4111-af11-bc2fc3e72e50",
+    "sku": "MRL-LT-54",
+    "nama_item": "Plus Wing",
+    "is_synced": true,
+    "available_stock": 6,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 6
+      }
+    ]
+  },
+  "MRL-LT-55": {
+    "m_items_id": "93d4fb8e-0768-46e5-bdf6-18f2d7e43d0c",
+    "sku": "MRL-LT-55",
+    "nama_item": "T1 - MA 2 Command Wing Touch Screen (Core i7)",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-56": {
+    "m_items_id": "f9220c33-76b5-45ab-8bef-82728f8bce83",
+    "sku": "MRL-LT-56",
+    "nama_item": "T2 - MA 2 Command Wing Touch Screen (Core i7)",
+    "is_synced": true,
+    "available_stock": 12,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 11
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-57": {
+    "m_items_id": "7a5166bb-1c3f-40fa-9ceb-5a16e806642d",
+    "sku": "MRL-LT-57",
+    "nama_item": "GrandMA 2 Light Console A2 (Core i7)",
+    "is_synced": true,
+    "available_stock": 5,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 3
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-58": {
+    "m_items_id": "2eefb87a-29d3-4fd0-9db6-255027b0d719",
+    "sku": "MRL-LT-58",
+    "nama_item": "Grand MA2 Full Size (Core i7)",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-6": {
+    "m_items_id": "f34501b4-1dfb-4b27-af70-858d0538f0e9",
+    "sku": "MRL-LT-6",
+    "nama_item": "Meanreal Super Mini Beam 400 IP65",
+    "is_synced": true,
+    "available_stock": 6,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-65": {
+    "m_items_id": "87c4cc55-0f2a-49e1-9f02-2cff65ef7dbc",
+    "sku": "MRL-LT-65",
+    "nama_item": "MA Command Wing (Carton Package)",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-66": {
+    "m_items_id": "369df519-eb11-44bf-9f0f-4903f6c17647",
+    "sku": "MRL-LT-66",
+    "nama_item": "MA Fader Wing (Carton Package)",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-67": {
+    "m_items_id": "6418ef30-c235-43a7-9c1c-ee7ae936722e",
+    "sku": "MRL-LT-67",
+    "nama_item": "MA Command Wing (with Flightcase)",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-68": {
+    "m_items_id": "747828bc-ed77-4891-8fb3-62e4116a5424",
+    "sku": "MRL-LT-68",
+    "nama_item": "MA Fader Wing (with Flightcase)",
+    "is_synced": true,
+    "available_stock": 6,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 5
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-7": {
+    "m_items_id": "81727338-9571-47b1-8c8b-68a20f133209",
+    "sku": "MRL-LT-7",
+    "nama_item": "Meanreal Super Beam 380",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-72": {
+    "m_items_id": "c65678ea-800e-492f-a137-5c0b2079ebef",
+    "sku": "MRL-LT-72",
+    "nama_item": "1024 Lighting Console (Carton Package)",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-73": {
+    "m_items_id": "e1845e52-b5c9-4628-ab67-501814163614",
+    "sku": "MRL-LT-73",
+    "nama_item": "Pearl 1024A Console (Carton Package)",
+    "is_synced": true,
+    "available_stock": 5,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 5
+      }
+    ]
+  },
+  "MRL-LT-74": {
+    "m_items_id": "45d60fb1-935f-437c-8bdf-03251ac96f10",
+    "sku": "MRL-LT-74",
+    "nama_item": "DMX 256A Console (Carton Package)",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-75": {
+    "m_items_id": "ea3a8c70-6067-4224-82a5-8c1eece37930",
+    "sku": "MRL-LT-75",
+    "nama_item": "Dmx 384B/512 Console (Carton Package)",
+    "is_synced": true,
+    "available_stock": 2,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "MRL-LT-76": {
+    "m_items_id": "dcbf5e46-4a18-4f53-8f8e-1cea0e785acd",
+    "sku": "MRL-LT-76",
+    "nama_item": "DMX 240 Console",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "MRL-LT-77": {
+    "m_items_id": "286b0072-039b-46c5-af05-0b8e6ae6bc65",
+    "sku": "MRL-LT-77",
+    "nama_item": "Midas M32 Live",
+    "is_synced": true,
+    "available_stock": 2,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-78": {
+    "m_items_id": "6bebe29c-570e-40ac-a2fc-c51173eed827",
+    "sku": "MRL-LT-78",
+    "nama_item": "Midas M32R Live",
+    "is_synced": true,
+    "available_stock": 2,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 1
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-79": {
+    "m_items_id": "6df56af3-f634-45f1-9466-0f4e0a41edd4",
+    "sku": "MRL-LT-79",
+    "nama_item": "DL M32 Live",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      }
+    ]
+  },
+  "MRL-LT-8": {
+    "m_items_id": "d806c32a-2db8-402d-9f45-f6a3ff22998a",
+    "sku": "MRL-LT-8",
+    "nama_item": "Meanreal Super Beam 300 V2",
+    "is_synced": true,
+    "available_stock": 186,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 150
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 32
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 4
+      }
+    ]
+  },
+  "MRL-LT-9": {
+    "m_items_id": "dc28b608-e9aa-49f8-8f4f-918df06abd3d",
+    "sku": "MRL-LT-9",
+    "nama_item": "Meanreal Super Beam 411 IP65",
+    "is_synced": true,
+    "available_stock": 7,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "a92bb3ea-2fef-4f09-ad0b-95119aa434c3",
+        "nama_gudang": "Showroom Bali",
+        "kode_gudang": "GDNG-260927-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 1
+      }
+    ]
+  },
+  "Network port output board-17V": {
+    "m_items_id": "f052500a-82c7-482d-9565-0450355965d5",
+    "sku": "Network port output board-17V",
+    "nama_item": "Colorlight X100 Pro 10×RJ45 Ethernet Output Board",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-CS-H15": {
+    "m_items_id": "af20fa1f-88ef-426b-9c43-5b107dca87a9",
+    "sku": "NS-CS-H15",
+    "nama_item": "Novastar H15 Video Splicing Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-CS-H15-ENHANCED": {
+    "m_items_id": "ca4426bd-68c9-46dd-88d9-c4982645fcbd",
+    "sku": "NS-CS-H15-ENHANCED",
+    "nama_item": "Novastar H15 Enhanced Video Splicing Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-CS-H2": {
+    "m_items_id": "5e3d1458-b76b-40c9-897c-2953fce70453",
+    "sku": "NS-CS-H2",
+    "nama_item": "Novastar H2 Video Splicing Processor",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 1
+      }
+    ]
+  },
+  "NS-CS-H20": {
+    "m_items_id": "5cecd56a-2bb4-488f-96d5-e4f50dc52add",
+    "sku": "NS-CS-H20",
+    "nama_item": "Novastar H20 Video Splicing Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-CS-H5": {
+    "m_items_id": "d545b3a3-c763-44c9-b9ec-20e72d9120d4",
+    "sku": "NS-CS-H5",
+    "nama_item": "Novastar H5 Video Splicing Processor",
+    "is_synced": true,
+    "available_stock": 5,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 1
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c9f2a482-2b5f-4c2b-ad5a-9a76a30d43fb",
+        "nama_gudang": "Showroom Pusat Surabaya",
+        "kode_gudang": "GDNG-260722-MVG0003",
+        "available_stock": 1
+      }
+    ]
+  },
+  "NS-CS-H9": {
+    "m_items_id": "10d67362-a2cd-477d-883b-452bc35cccf3",
+    "sku": "NS-CS-H9",
+    "nama_item": "Novastar H9 Video Splicing Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-CS-H9-ENHANCED": {
+    "m_items_id": "ac52d2f5-d1d6-4117-aef5-8e04cc63c99d",
+    "sku": "NS-CS-H9-ENHANCED",
+    "nama_item": "Novastar H9 Enhanced Video Splicing Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-FC-CVT10": {
+    "m_items_id": "1b978f5b-6d74-4a20-8ea9-6c4ea456a04b",
+    "sku": "NS-FC-CVT10",
+    "nama_item": "Novastar CVT10 Fiber Converter",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-FC-CVT4K-S": {
+    "m_items_id": "4cb364c3-ff40-40d1-83de-5159aed6276a",
+    "sku": "NS-FC-CVT4K-S",
+    "nama_item": "Novastar CVT4K-S Fiber Converter",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-HC-A10S-PLUS-N": {
+    "m_items_id": "b8eb7301-d6c9-4bef-9611-d73c70b6b316",
+    "sku": "NS-HC-A10S-PLUS-N",
+    "nama_item": "Novastar A10s Plus-N Receiving Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-HC-A5S-PLUS": {
+    "m_items_id": "3d707dc0-686b-4442-ba71-bb96b16f8c01",
+    "sku": "NS-HC-A5S-PLUS",
+    "nama_item": "Novastar A5s Plus / A5s Plus-N Receiving Card",
+    "is_synced": true,
+    "available_stock": 2312,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2162
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 150
+      }
+    ]
+  },
+  "NS-HC-A8S-N": {
+    "m_items_id": "9d258e05-bb78-42cf-b577-fe384862b3da",
+    "sku": "NS-HC-A8S-N",
+    "nama_item": "Novastar A8s-N Receiving Card",
+    "is_synced": true,
+    "available_stock": 237,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 136
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 101
+      }
+    ]
+  },
+  "NS-IC-1DP-H": {
+    "m_items_id": "d4cc0ac9-554a-41ee-9de7-e32d5bf4ca07",
+    "sku": "NS-IC-1DP-H",
+    "nama_item": "Novastar H Series 1×DP1.2 Input Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-IC-1HDMI-1DP-H": {
+    "m_items_id": "3d7e1111-d71e-44d3-9a54-e4aab293dc6d",
+    "sku": "NS-IC-1HDMI-1DP-H",
+    "nama_item": "Novastar H Series 1×HDMI2.0 + 1×DP1.2 Input Card",
+    "is_synced": true,
+    "available_stock": 4,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 4
+      }
+    ]
+  },
+  "NS-IC-1HDMI-2.0-H": {
+    "m_items_id": "fad19e35-70af-4c58-8998-600c7432b8db",
+    "sku": "NS-IC-1HDMI-2.0-H",
+    "nama_item": "Novastar H Series 1×HDMI2.0 Input Card",
+    "is_synced": true,
+    "available_stock": 5,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 5
+      }
+    ]
+  },
+  "NS-IC-1SDI-12G-H": {
+    "m_items_id": "b7b60b8f-0ac0-47f6-b100-6099c42c907a",
+    "sku": "NS-IC-1SDI-12G-H",
+    "nama_item": "Novastar H Series 1×12G-SDI Input Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-IC-2DP-H": {
+    "m_items_id": "7bd63d09-3900-423f-b621-9f6447fddeb0",
+    "sku": "NS-IC-2DP-H",
+    "nama_item": "Novastar H Series 2×DP1.1 Input Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-IC-2HDMI-H15-H": {
+    "m_items_id": "feb9a95c-59a0-422f-9d9a-cb138c685c40",
+    "sku": "NS-IC-2HDMI-H15-H",
+    "nama_item": "Novastar H Series 2×HDMI2.0 Input Card (H15/H15 Enhanced)",
+    "is_synced": true,
+    "available_stock": 5,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 5
+      }
+    ]
+  },
+  "NS-IC-4HDMI-DVI-H": {
+    "m_items_id": "7803398b-61d8-4330-ae94-46742a14cdd2",
+    "sku": "NS-IC-4HDMI-DVI-H",
+    "nama_item": "Novastar H Series 4×HDMI/DVI Input Card",
+    "is_synced": true,
+    "available_stock": 9,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 9
+      }
+    ]
+  },
+  "NS-IC-4SDI-3G-H": {
+    "m_items_id": "480474d0-8ab3-41a8-94f1-2905ba7e02b0",
+    "sku": "NS-IC-4SDI-3G-H",
+    "nama_item": "Novastar H Series 4×3G-SDI Input Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-LCD-LCB2K": {
+    "m_items_id": "50bbb84f-d985-4013-9723-bbd0d6325bd2",
+    "sku": "NS-LCD-LCB2K",
+    "nama_item": "Novastar LCB2K LCD Controller",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-LCD-LCB4K": {
+    "m_items_id": "68d9f3f2-7a4a-4f16-8b40-6c135535de9b",
+    "sku": "NS-LCD-LCB4K",
+    "nama_item": "Novastar LCB4K LCD Controller",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-MP-TB10-PLUS": {
+    "m_items_id": "45c74650-12fc-45ee-8f47-53c50103c3d0",
+    "sku": "NS-MP-TB10-PLUS",
+    "nama_item": "Novastar TB10 Plus LED Playback Control Processor",
+    "is_synced": true,
+    "available_stock": 9,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 5
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 4
+      }
+    ]
+  },
+  "NS-MP-TB20-PLUS": {
+    "m_items_id": "6ee64960-076f-46f8-a8a0-a231d5b301bf",
+    "sku": "NS-MP-TB20-PLUS",
+    "nama_item": "Novastar TB20 Plus LED Playback Control Processor",
+    "is_synced": true,
+    "available_stock": 2,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      }
+    ]
+  },
+  "NS-MP-TB30": {
+    "m_items_id": "6fb9ce79-2fe7-4e99-b30a-df4781b03af6",
+    "sku": "NS-MP-TB30",
+    "nama_item": "Novastar TB30 LED Playback Control Processor",
+    "is_synced": true,
+    "available_stock": 14,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 7
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "NS-MP-TB40": {
+    "m_items_id": "472e3a1a-5688-49ba-9d96-f407691529d6",
+    "sku": "NS-MP-TB40",
+    "nama_item": "Novastar TB40 LED Playback Control Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-MP-TB50": {
+    "m_items_id": "0c8ff298-c1f8-480c-8c27-a2eb38dbcdbd",
+    "sku": "NS-MP-TB50",
+    "nama_item": "Novastar TB50 LED Playback Control Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-MP-TB60": {
+    "m_items_id": "5ff65756-6b60-446c-8184-91fcfbcbee3d",
+    "sku": "NS-MP-TB60",
+    "nama_item": "Novastar TB60 LED Playback Control Processor",
+    "is_synced": true,
+    "available_stock": 4,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 4
+      }
+    ]
+  },
+  "NS-MP-TU15-PRO": {
+    "m_items_id": "10102295-b4ab-4557-88cc-03a60c993193",
+    "sku": "NS-MP-TU15-PRO",
+    "nama_item": "Novastar TU15 Pro LED Playback Control Processor",
+    "is_synced": true,
+    "available_stock": 3,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      }
+    ]
+  },
+  "NS-MP-TU20-PRO": {
+    "m_items_id": "ad2aa026-360b-4b8d-a8bd-b0a6667af635",
+    "sku": "NS-MP-TU20-PRO",
+    "nama_item": "Novastar TU20 Pro LED Playback Control Processor",
+    "is_synced": true,
+    "available_stock": 4,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 3
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      }
+    ]
+  },
+  "NS-MP-TU40-PRO": {
+    "m_items_id": "4f4a5e48-f922-4b81-af07-3317de4c173b",
+    "sku": "NS-MP-TU40-PRO",
+    "nama_item": "Novastar TU40 Pro LED Playback Control Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-OC-16LAN-2FBR-H": {
+    "m_items_id": "c335eef7-fae6-4391-9a8b-30c165c5442a",
+    "sku": "NS-OC-16LAN-2FBR-H",
+    "nama_item": "Novastar H Series 16×RJ45 + 2×Fiber Sending Card",
+    "is_synced": true,
+    "available_stock": 20,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 13
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "NS-OC-1HDMI-2LAN-H": {
+    "m_items_id": "54ac1806-4ea6-49a3-b7cb-c15fca0968f0",
+    "sku": "NS-OC-1HDMI-2LAN-H",
+    "nama_item": "Novastar H Series 1×HDMI1.3 + 2×RJ45 Preview Output Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-OC-1HDMIOUT-2.0-H": {
+    "m_items_id": "808c59de-dc5b-4cfe-a62a-c5567ae37b80",
+    "sku": "NS-OC-1HDMIOUT-2.0-H",
+    "nama_item": "Novastar H Series 1×HDMI2.0 Output Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-OC-20LAN-H": {
+    "m_items_id": "3f64c2ab-5c8b-44f5-ab0e-1ef62c840745",
+    "sku": "NS-OC-20LAN-H",
+    "nama_item": "Novastar H Series 20×RJ45 Sending Card",
+    "is_synced": true,
+    "available_stock": 18,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 12
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 6
+      }
+    ]
+  },
+  "NS-OC-4HDMI-DVI-H": {
+    "m_items_id": "62d51379-8213-4147-8bee-1bbc883abd29",
+    "sku": "NS-OC-4HDMI-DVI-H",
+    "nama_item": "Novastar H Series 4×HDMI/DVI Output Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-OC-4OPT-H": {
+    "m_items_id": "93fd312b-172d-488f-b99c-f4f4f38a3d83",
+    "sku": "NS-OC-4OPT-H",
+    "nama_item": "Novastar H Series 4×OPT Output Card Enhanced",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-RC-DH7508-8P": {
+    "m_items_id": "c3e6bc5a-a5d6-4343-a29d-5c020ab094f0",
+    "sku": "NS-RC-DH7508-8P",
+    "nama_item": "Novastar DH7508 Receiving Card",
+    "is_synced": true,
+    "available_stock": 100,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 36
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 30
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "5ec64890-df2d-4c94-ba70-9c36163e0de2",
+        "nama_gudang": "Gudang Bekas Manukan",
+        "kode_gudang": "GDNG-260927-MVG0003",
+        "available_stock": 30
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 4
+      }
+    ]
+  },
+  "NS-RC-DH7516-S": {
+    "m_items_id": "0112c7d6-ea9d-49cd-9244-1273450226ca",
+    "sku": "NS-RC-DH7516-S",
+    "nama_item": "Novastar DH7516-S Receiving Card",
+    "is_synced": true,
+    "available_stock": 931,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 530
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 401
+      }
+    ]
+  },
+  "NS-RC-MRV208-1": {
+    "m_items_id": "e6ac4f0a-fb80-412f-be9b-f92879f7e871",
+    "sku": "NS-RC-MRV208-1",
+    "nama_item": "Novastar MRV208-1 Receiving Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-RC-MRV412": {
+    "m_items_id": "033851c9-2922-4ed9-b6a3-1e727895d56f",
+    "sku": "NS-RC-MRV412",
+    "nama_item": "Novastar MRV412 Receiving Card",
+    "is_synced": true,
+    "available_stock": 783,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 783
+      }
+    ]
+  },
+  "NS-RC-MRV416": {
+    "m_items_id": "425145a7-53ad-47cf-b711-c7fc4de26c0a",
+    "sku": "NS-RC-MRV416",
+    "nama_item": "Novastar MRV416 Receiving Card",
+    "is_synced": true,
+    "available_stock": 866,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 464
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 400
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 2
+      }
+    ]
+  },
+  "NS-RC-MRV432": {
+    "m_items_id": "3f65c5dc-0ea3-479f-a513-0c580414ebfa",
+    "sku": "NS-RC-MRV432",
+    "nama_item": "Novastar MRV432 / DH3208 HUB320 Receiving Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-RC-NV3210": {
+    "m_items_id": "f3c1c05e-fae6-481d-bc65-812e16ed041e",
+    "sku": "NS-RC-NV3210",
+    "nama_item": "Novastar NV3210 HUB320 Receiving Card",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 1
+      }
+    ]
+  },
+  "NS-SC-MCTRL300": {
+    "m_items_id": "9bab44af-af2d-4daa-91bc-69abfdcef21e",
+    "sku": "NS-SC-MCTRL300",
+    "nama_item": "Novastar MCTRL300 LED Display Controller",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-SC-MCTRL4K": {
+    "m_items_id": "6f354576-2153-439a-b9e4-086836253c56",
+    "sku": "NS-SC-MCTRL4K",
+    "nama_item": "Novastar MCTRL 4K LED Display Controller",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-SC-MCTRL600": {
+    "m_items_id": "eb776eaf-07c3-4ead-87df-0e29bd2f0904",
+    "sku": "NS-SC-MCTRL600",
+    "nama_item": "Novastar MCTRL600 LED Display Controller",
+    "is_synced": true,
+    "available_stock": 14,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 10
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 4
+      }
+    ]
+  },
+  "NS-SC-MCTRL660": {
+    "m_items_id": "a6de5b81-58dd-4e3e-a75e-3b121445917f",
+    "sku": "NS-SC-MCTRL660",
+    "nama_item": "Novastar MCTRL660 LED Display Controller",
+    "is_synced": true,
+    "available_stock": 6,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 2
+      }
+    ]
+  },
+  "NS-SC-MCTRL660-PRO": {
+    "m_items_id": "8cfea0f5-dfee-4045-b97e-9f1a4e1839eb",
+    "sku": "NS-SC-MCTRL660-PRO",
+    "nama_item": "Novastar MCTRL660 Pro LED Display Controller",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-SC-MCTRL700": {
+    "m_items_id": "7a86b4a4-2f66-4f80-9ad7-243e0788a263",
+    "sku": "NS-SC-MCTRL700",
+    "nama_item": "Novastar MCTRL700 LED Display Controller",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-SC-MSD300-1": {
+    "m_items_id": "a307ea6c-4b88-4b7d-a409-b5e1dcafcdcf",
+    "sku": "NS-SC-MSD300-1",
+    "nama_item": "Novastar MSD300-1 Sending Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-SC-MSD600-1": {
+    "m_items_id": "067dd315-b966-426e-b6ba-396282620ec1",
+    "sku": "NS-SC-MSD600-1",
+    "nama_item": "Novastar MSD600-1 Sending Card",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-VP-NOVAPRO-UHD-JR": {
+    "m_items_id": "2b0a635d-0a47-4726-8715-ae00924fc216",
+    "sku": "NS-VP-NOVAPRO-UHD-JR",
+    "nama_item": "NovaPro UHD Jr Video Controller",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-VP-VC10PRO": {
+    "m_items_id": "8705b5b9-4e7e-48fe-af54-0fbfc289a41a",
+    "sku": "NS-VP-VC10PRO",
+    "nama_item": "Novastar VC10 Pro Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-VP-VC16PRO": {
+    "m_items_id": "4d3a728d-56c5-42c6-8d79-2fe51d36130f",
+    "sku": "NS-VP-VC16PRO",
+    "nama_item": "Novastar VC16 Pro Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-VP-VC2ID": {
+    "m_items_id": "a4713b9b-6acf-4ad6-aad0-203263d9bc4c",
+    "sku": "NS-VP-VC2ID",
+    "nama_item": "Novastar VC2 ID Video Processor",
+    "is_synced": true,
+    "available_stock": 2,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "NS-VP-VC4ID": {
+    "m_items_id": "a210e473-0de6-4f00-832e-40198071dfe2",
+    "sku": "NS-VP-VC4ID",
+    "nama_item": "Novastar VC4 ID Video Processor",
+    "is_synced": true,
+    "available_stock": 20,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 17
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 3
+      }
+    ]
+  },
+  "NS-VP-VC6PRO-ID": {
+    "m_items_id": "8dd4c0a7-aafa-4801-a9cf-2cf63b0ff2c7",
+    "sku": "NS-VP-VC6PRO-ID",
+    "nama_item": "Novastar VC6 Pro ID Video Processor",
+    "is_synced": true,
+    "available_stock": 23,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 14
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 9
+      }
+    ]
+  },
+  "NS-VP-VX1000-PRO": {
+    "m_items_id": "13d92fa5-1a14-464f-a0ed-352312c0f1f8",
+    "sku": "NS-VP-VX1000-PRO",
+    "nama_item": "Novastar VX1000 Pro Video Controller",
+    "is_synced": true,
+    "available_stock": 3,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 1
+      }
+    ]
+  },
+  "NS-VP-VX16S": {
+    "m_items_id": "a0e0b064-bbbb-40fa-8b51-731828bc28bd",
+    "sku": "NS-VP-VX16S",
+    "nama_item": "Novastar VX16s Video Controller",
+    "is_synced": true,
+    "available_stock": 2,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "NS-VP-VX2000-PRO": {
+    "m_items_id": "936fc1e5-7177-4c04-bd2e-eab57e4c32e2",
+    "sku": "NS-VP-VX2000-PRO",
+    "nama_item": "Novastar VX2000 Pro Video Controller",
+    "is_synced": true,
+    "available_stock": 2,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "NS-VP-VX400": {
+    "m_items_id": "3a23c769-5f4d-4d4b-8303-580849275e8d",
+    "sku": "NS-VP-VX400",
+    "nama_item": "Novastar VX400 Video Controller",
+    "is_synced": true,
+    "available_stock": 2,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 2
+      }
+    ]
+  },
+  "NS-VP-VX400-PRO": {
+    "m_items_id": "22c7fef4-8cfe-44c1-a6cd-dd8f66e5e905",
+    "sku": "NS-VP-VX400-PRO",
+    "nama_item": "Novastar VX400 Pro Video Controller",
+    "is_synced": true,
+    "available_stock": 3,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 1
+      }
+    ]
+  },
+  "NS-VP-VX4S-N": {
+    "m_items_id": "7b0eca4a-8e0d-4df5-bd25-e662eeedd1c9",
+    "sku": "NS-VP-VX4S-N",
+    "nama_item": "Novastar VX4S-N All-in-One Controller",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "NS-VP-VX600-PRO": {
+    "m_items_id": "fd8fbe70-5195-487a-941d-fbd748851d92",
+    "sku": "NS-VP-VX600-PRO",
+    "nama_item": "Novastar VX600 Pro Video Controller",
+    "is_synced": true,
+    "available_stock": 7,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 7
+      }
+    ]
+  },
+  "Optical output board-17V": {
+    "m_items_id": "50d9e1fa-3707-4f74-a518-380f0762c536",
+    "sku": "Optical output board-17V",
+    "nama_item": "Colorlight X100 Pro Main + Backup Optical Output Board",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "PIX-4K-VIEW-PRO-FC": {
+    "m_items_id": "562e97cb-7538-4aeb-8532-f9b3e2304182",
+    "sku": "PIX-4K-VIEW-PRO-FC",
+    "nama_item": "Novastar Pixelhue Go-4K View Pro with Flight Case",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "Preview board-17V": {
+    "m_items_id": "2ff32218-ef5f-463b-b5f5-937061978360",
+    "sku": "Preview board-17V",
+    "nama_item": "Colorlight X100 Pro Preview Board",
+    "is_synced": true,
+    "available_stock": 3,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 3
+      }
+    ]
+  },
+  "QL-MOD-INDOOR-P2-FLEX": {
+    "m_items_id": "b4579668-c6b7-4243-a861-293049c4f675",
+    "sku": "QL-MOD-INDOOR-P2-FLEX",
+    "nama_item": "Module Qiangli Flexible P2 Indoor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "QL-MOD-INDOOR-P2-PRO": {
+    "m_items_id": "c17aee72-30d6-4f4f-9434-527d3ae670aa",
+    "sku": "QL-MOD-INDOOR-P2-PRO",
+    "nama_item": "Module Qiangli P2 Pro Indoor",
+    "is_synced": true,
+    "available_stock": 8,
+    "batches": [
+      {
+        "batch_number": "M25010015",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 8
+      }
+    ]
+  },
+  "QL-MOD-INDOOR-P30-PRO": {
+    "m_items_id": "81090300-a633-4b43-be55-adac0f54f17f",
+    "sku": "QL-MOD-INDOOR-P30-PRO",
+    "nama_item": "Module Qiangli P3.0 Pro Indoor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "QL-MOD-INDOOR-P4-FLEX": {
+    "m_items_id": "a9bd6721-281a-4fa2-bb9b-b4d2203b6ab4",
+    "sku": "QL-MOD-INDOOR-P4-FLEX",
+    "nama_item": "Module Qiangli Flexible P4 Indoor",
+    "is_synced": true,
+    "available_stock": 209,
+    "batches": [
+      {
+        "batch_number": "H251113",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 209
+      }
+    ]
+  },
+  "QL-MOD-INDOOR-P4-PRO": {
+    "m_items_id": "f565cb29-7298-4c5f-b0b0-206ab134bd46",
+    "sku": "QL-MOD-INDOOR-P4-PRO",
+    "nama_item": "Module Qiangli P4 Pro Indoor",
+    "is_synced": true,
+    "available_stock": 5177,
+    "batches": [
+      {
+        "batch_number": "MFNPK5631ZX",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 4247
+      },
+      {
+        "batch_number": "MFNPK5631ZX",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 212
+      },
+      {
+        "batch_number": "M24100792",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 144
+      },
+      {
+        "batch_number": "MFVMO3331",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 111
+      },
+      {
+        "batch_number": "M23090324",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 70
+      },
+      {
+        "batch_number": "M21110684",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 64
+      },
+      {
+        "batch_number": "M22100062",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 53
+      },
+      {
+        "batch_number": "MFLPX8641ZX (Non-Logo)",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 50
+      },
+      {
+        "batch_number": "M24010641",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 47
+      },
+      {
+        "batch_number": "M24011013YS",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 43
+      },
+      {
+        "batch_number": "M24011013YS",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 37
+      },
+      {
+        "batch_number": "M22100531",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 36
+      },
+      {
+        "batch_number": "M22081322",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 28
+      },
+      {
+        "batch_number": "M22071258",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 22
+      },
+      {
+        "batch_number": "M22020092",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "M23070736",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 3
+      },
+      {
+        "batch_number": "M23020177",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "M25010301",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "M24100792",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      },
+      {
+        "batch_number": "1122287YS",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      }
+    ]
+  },
+  "QL-MOD-OUTDOOR-P10": {
+    "m_items_id": "5138b0d6-5d05-4c4a-a7dc-01377cadd27f",
+    "sku": "QL-MOD-OUTDOOR-P10",
+    "nama_item": "Module Qiangli P10 Outdoor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "QL-MOD-OUTDOOR-P2-PRO": {
+    "m_items_id": "996a949d-0789-4aa1-b65c-f69f3b3f0a63",
+    "sku": "QL-MOD-OUTDOOR-P2-PRO",
+    "nama_item": "Module Qiangli P2.5 Pro Outdoor",
+    "is_synced": true,
+    "available_stock": 219,
+    "batches": [
+      {
+        "batch_number": "MFRPS0191ZX (Non-Logo)",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 188
+      },
+      {
+        "batch_number": "MFQAP5511ZX",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 21
+      },
+      {
+        "batch_number": "MFQAP5511ZX",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 10
+      }
+    ]
+  },
+  "QL-MOD-OUTDOOR-P30-FLEX": {
+    "m_items_id": "b4499157-66ca-4889-baf0-6a958c3a7b66",
+    "sku": "QL-MOD-OUTDOOR-P30-FLEX",
+    "nama_item": "Module Qiangli Flexible P3.0 Outdoor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "QL-MOD-OUTDOOR-P30-PRO": {
+    "m_items_id": "dd17e281-5b07-41b7-9d04-bd94fc6defdf",
+    "sku": "QL-MOD-OUTDOOR-P30-PRO",
+    "nama_item": "Module Qiangli P3.0 Pro Outdoor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "QL-MOD-OUTDOOR-P4-FLEX": {
+    "m_items_id": "23044885-308c-41ad-b5f6-33273649c27f",
+    "sku": "QL-MOD-OUTDOOR-P4-FLEX",
+    "nama_item": "Module Qiangli Flexible P4 Outdoor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "QL-MOD-OUTDOOR-P4-PRO": {
+    "m_items_id": "0cf1916e-550d-4809-9053-024a8ced1f54",
+    "sku": "QL-MOD-OUTDOOR-P4-PRO",
+    "nama_item": "Module Qiangli P4 Pro Outdoor",
+    "is_synced": true,
+    "available_stock": 2363,
+    "batches": [
+      {
+        "batch_number": "MFMTW1911ZX",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2138
+      },
+      {
+        "batch_number": "MFSNE1601",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 81
+      },
+      {
+        "batch_number": "MFWMX8441ZX (Non-Logo)",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 45
+      },
+      {
+        "batch_number": "MFHYS9551ZX",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 43
+      },
+      {
+        "batch_number": "M23090112",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 40
+      },
+      {
+        "batch_number": "MFWMX8441ZX",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 10
+      },
+      {
+        "batch_number": "M25010419",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "M22081423",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "QL-MOD-OUTDOOR-P5-PRO": {
+    "m_items_id": "bdc15fe2-e56f-49aa-99d3-e819345a3ee2",
+    "sku": "QL-MOD-OUTDOOR-P5-PRO",
+    "nama_item": "Module Qiangli P5 Pro Outdoor",
+    "is_synced": true,
+    "available_stock": 3357,
+    "batches": [
+      {
+        "batch_number": "MFMJX6061ZX",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 3020
+      },
+      {
+        "batch_number": "MFNKM7901ZX",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 280
+      },
+      {
+        "batch_number": "M22071286",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 22
+      },
+      {
+        "batch_number": "M23110936",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 12
+      },
+      {
+        "batch_number": "M22010158",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 7
+      },
+      {
+        "batch_number": "M22051201",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "M23090130",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "M23090493",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "M22100709",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "QL-MOD-OUTDOOR-P8-PRO": {
+    "m_items_id": "5c368b67-cff9-47e6-821a-2952690a7d29",
+    "sku": "QL-MOD-OUTDOOR-P8-PRO",
+    "nama_item": "Module Qiangli P8 Pro Outdoor",
+    "is_synced": true,
+    "available_stock": 7670,
+    "batches": [
+      {
+        "batch_number": "MFHJK4831",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 3261
+      },
+      {
+        "batch_number": "M23070704 (Stadium)",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2000
+      },
+      {
+        "batch_number": "M23081615",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1188
+      },
+      {
+        "batch_number": "M23021177",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 688
+      },
+      {
+        "batch_number": "M25040357",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 285
+      },
+      {
+        "batch_number": "M23070692",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 73
+      },
+      {
+        "batch_number": "M23021181",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 72
+      },
+      {
+        "batch_number": "M25020286",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 44
+      },
+      {
+        "batch_number": "M20121119",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 40
+      },
+      {
+        "batch_number": "M23120068",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 10
+      },
+      {
+        "batch_number": "M22010390",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "M23120057",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 3
+      }
+    ]
+  },
+  "QL-MOD-OUTDOOR-P8-S": {
+    "m_items_id": "b0cca9b9-2527-4b59-84e8-78b63e17c8b2",
+    "sku": "QL-MOD-OUTDOOR-P8-S",
+    "nama_item": "Module Qiangli P8 S Outdoor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "SFX-MOKA-BUBBLE-LIQUID": {
+    "m_items_id": "1bf0b78b-3a9f-4c0e-9566-e0dcfd7e3111",
+    "sku": "SFX-MOKA-BUBBLE-LIQUID",
+    "nama_item": "MOKA Bubble Liquid",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "SFX-MOKA-HAZE-LIQUID-OIL-BASE": {
+    "m_items_id": "3e7b2c63-805c-4687-889a-d352d9a04ef6",
+    "sku": "SFX-MOKA-HAZE-LIQUID-OIL-BASE",
+    "nama_item": "MOKA Haze Liquid (Oil Base)",
+    "is_synced": true,
+    "available_stock": 343,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 343
+      }
+    ]
+  },
+  "SFX-MOKA-LOW-FOG-LIQUID": {
+    "m_items_id": "c4ba7a24-f538-496b-b266-8b687f179e96",
+    "sku": "SFX-MOKA-LOW-FOG-LIQUID",
+    "nama_item": "MOKA Low Fog Liquid",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "SFX-MOKA-MK-B12": {
+    "m_items_id": "0d656767-5718-432b-90c3-8b119958ccc9",
+    "sku": "SFX-MOKA-MK-B12",
+    "nama_item": "MOKA MK-B12 LED 4-Way Smoke Bubble Machine",
+    "is_synced": true,
+    "available_stock": 10,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 6
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 4
+      }
+    ]
+  },
+  "SFX-MOKA-MK-CMP1": {
+    "m_items_id": "37faffbe-7c22-4a12-a65e-d250b0445fdc",
+    "sku": "SFX-MOKA-MK-CMP1",
+    "nama_item": "MOKA Streamer Cannon",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "SFX-MOKA-PRO-MORNING-HAZE-LIQUID": {
+    "m_items_id": "790cc76a-ca3d-4c25-b480-205d504dfef2",
+    "sku": "SFX-MOKA-PRO-MORNING-HAZE-LIQUID",
+    "nama_item": "MOKA Pro Morning Haze Liquid",
+    "is_synced": true,
+    "available_stock": 328,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 328
+      }
+    ]
+  },
+  "SFX-MOKA-QUICK-SMOKE-LIQUID": {
+    "m_items_id": "ce5dbff1-c003-4b78-92f7-c2aa2a4a78ce",
+    "sku": "SFX-MOKA-QUICK-SMOKE-LIQUID",
+    "nama_item": "MOKA Quick Smoke Liquid",
+    "is_synced": true,
+    "available_stock": 313,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 313
+      }
+    ]
+  },
+  "SFX-MOKA-RED-POWER-BUTTON": {
+    "m_items_id": "d83e987b-3bb9-465c-8514-cc70133e9c54",
+    "sku": "SFX-MOKA-RED-POWER-BUTTON",
+    "nama_item": "MOKA Red power button",
+    "is_synced": true,
+    "available_stock": 2,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      }
+    ]
+  },
+  "SFX-MOKA-SNOW-LIQUID": {
+    "m_items_id": "f1ad1772-dce0-46f0-a3dd-7fe4667e9877",
+    "sku": "SFX-MOKA-SNOW-LIQUID",
+    "nama_item": "MOKA Snow Liquid",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "VP1220A": {
+    "m_items_id": "bfd672ab-a6ad-4165-a355-710b7ce66ce3",
+    "sku": "VP1220A",
+    "nama_item": "Huidu VP1220A",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "VX10 for rental-17V": {
+    "m_items_id": "029a6e67-5a9c-41b3-978a-04098b4a1c1d",
+    "sku": "VX10 for rental-17V",
+    "nama_item": "Colorlight VX10 LED Video Processor",
+    "is_synced": true,
+    "available_stock": 48,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 26
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 20
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "18f76b64-9338-4c5a-b785-d95a323ac007",
+        "nama_gudang": "Gudang Bali",
+        "kode_gudang": "GDNG-260724-AV0001",
+        "available_stock": 2
+      }
+    ]
+  },
+  "VX20 for rental-17V": {
+    "m_items_id": "61415455-8155-44cf-a1e5-7259a27d9a80",
+    "sku": "VX20 for rental-17V",
+    "nama_item": "Colorlight VX20 LED Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "VX6 for rental-17V": {
+    "m_items_id": "d5b14215-2a80-4bb1-8c17-73e1aa7999c7",
+    "sku": "VX6 for rental-17V",
+    "nama_item": "Colorlight VX6 LED Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "X100 Pro - 2U-17V": {
+    "m_items_id": "465daad8-f5ee-4859-b10e-d113a792da6b",
+    "sku": "X100 Pro - 2U-17V",
+    "nama_item": "Colorlight X100 Pro-2U Video Splicer",
+    "is_synced": true,
+    "available_stock": 4,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 3
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 1
+      }
+    ]
+  },
+  "X100 Pro - 4U-17V": {
+    "m_items_id": "714739c9-583a-4eba-8fc2-8b763d8bbe22",
+    "sku": "X100 Pro - 4U-17V",
+    "nama_item": "Colorlight X100 Pro-4U Video Splicer",
+    "is_synced": true,
+    "available_stock": 4,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 1
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "c41db523-169d-5d11-8232-d6045363f42c",
+        "nama_gudang": "Gudang Rusak/Bekas",
+        "kode_gudang": "GDNG-260927-MVG-RUSAK-BEKAS",
+        "available_stock": 1
+      }
+    ]
+  },
+  "X100 Pro - 7U-17V": {
+    "m_items_id": "af94727d-b19a-4a5a-a5e6-cbab01c8f1ee",
+    "sku": "X100 Pro - 7U-17V",
+    "nama_item": "Colorlight X100 Pro-7U Video Splicer",
+    "is_synced": true,
+    "available_stock": 2,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 1
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      }
+    ]
+  },
+  "X12-17V": {
+    "m_items_id": "75e6a062-1088-40b7-9ba9-d6dfede02d07",
+    "sku": "X12-17V",
+    "nama_item": "Colorlight X12 LED Professional Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "X12m-17V": {
+    "m_items_id": "909ed3be-140a-4211-9afb-184055708090",
+    "sku": "X12m-17V",
+    "nama_item": "Colorlight X12m Dual-4K Professional Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "X16E-17V": {
+    "m_items_id": "d1d6c605-cd69-4a22-bacd-5d3d373d2b27",
+    "sku": "X16E-17V",
+    "nama_item": "Colorlight X16E LED Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "X20m-17V": {
+    "m_items_id": "8fe17db2-7102-42c3-b499-2707573b311c",
+    "sku": "X20m-17V",
+    "nama_item": "Colorlight X20m Ultra-4K LED Video Processor",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 1
+      }
+    ]
+  },
+  "X26M-17V": {
+    "m_items_id": "326e31f0-aa77-4be6-8ecb-8d93d7e617be",
+    "sku": "X26M-17V",
+    "nama_item": "Colorlight X26m Dual-4K Smart Processor",
+    "is_synced": true,
+    "available_stock": 7,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 4
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 3
+      }
+    ]
+  },
+  "X2M-17V": {
+    "m_items_id": "546ab3fc-d449-4d47-ae77-966d7cd1e3de",
+    "sku": "X2M-17V",
+    "nama_item": "Colorlight X2m LED Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "X40M-17V": {
+    "m_items_id": "8016df28-cf87-474e-8fbe-b2c494d2bfb4",
+    "sku": "X40M-17V",
+    "nama_item": "Colorlight X40m Ultra-8K LED Video Processor",
+    "is_synced": true,
+    "available_stock": 3,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 2
+      },
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "fbc320da-e3a8-4ff2-bcdd-73d258001890",
+        "nama_gudang": "Gudang Jakarta",
+        "kode_gudang": "GDNG-260928-MVG0001",
+        "available_stock": 1
+      }
+    ]
+  },
+  "X4M-17V": {
+    "m_items_id": "c223cd5c-2553-4277-a1d7-e2cd19ce3b52",
+    "sku": "X4M-17V",
+    "nama_item": "Colorlight X4m LED Multimedia Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "X6-17V": {
+    "m_items_id": "14e7bc5d-b20c-4cbd-938d-98fd01c8e6b5",
+    "sku": "X6-17V",
+    "nama_item": "Colorlight X6 LED Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "X7-17V": {
+    "m_items_id": "c5c09379-1410-49f0-b55d-62193fc98d15",
+    "sku": "X7-17V",
+    "nama_item": "Colorlight X7 Two-in-One Video Processor",
+    "is_synced": true,
+    "available_stock": 1,
+    "batches": [
+      {
+        "batch_number": "TANPA BATCH",
+        "m_gudang_id": "828821a7-9f24-418a-afcd-bebc4edaade8",
+        "nama_gudang": "Gudang Manukan",
+        "kode_gudang": "GDNG-260722-MVG0002",
+        "available_stock": 1
+      }
+    ]
+  },
+  "X8E 4K-17V": {
+    "m_items_id": "3a7b023f-fe31-46f8-8513-5b84d7aea82d",
+    "sku": "X8E 4K-17V",
+    "nama_item": "Colorlight X8E 4K LED Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "X8M-17V": {
+    "m_items_id": "091e0997-27a6-4720-9650-b52668efba62",
+    "sku": "X8M-17V",
+    "nama_item": "Colorlight X8m Ultra-4K LED Video Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "Z4PRO-17V": {
+    "m_items_id": "bf3a41c2-4924-4f58-9d12-454a53480cf7",
+    "sku": "Z4PRO-17V",
+    "nama_item": "Colorlight Z4 Pro Super Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "Z5-17V": {
+    "m_items_id": "7849d320-6352-48d1-8056-e2be7f3e3dea",
+    "sku": "Z5-17V",
+    "nama_item": "Colorlight Z5 Super Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
+  },
+  "Z6PRO G2-17V": {
+    "m_items_id": "4614eb31-e242-4a75-9425-7da69050ae8f",
+    "sku": "Z6PRO G2-17V",
+    "nama_item": "Colorlight Z6 PRO-G2 Super Processor",
+    "is_synced": true,
+    "available_stock": 0,
+    "batches": []
   }
 }

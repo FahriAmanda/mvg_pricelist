@@ -2301,10 +2301,12 @@ export async function fetchAllSheets(force = false): Promise<{
             item.isSynced = true
             item.availableStock = Number(stockInfo.available_stock || 0)
             item.erpItemId = stockInfo.m_items_id || stockInfo.id
+            item.batches = Array.isArray(stockInfo.batches) ? stockInfo.batches : []
           } else {
             item.isSynced = false
             item.availableStock = 0
             item.erpItemId = undefined
+            item.batches = []
           }
 
           return item

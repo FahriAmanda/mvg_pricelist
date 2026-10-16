@@ -175,7 +175,7 @@ function handleProceed() {
                   <div
                     v-else
                     v-for="item in cart.cartItems.value"
-                    :key="item.sku"
+                    :key="item.cartKey || item.sku"
                     class="p-3 rounded-xl border border-border/80 bg-background/60 hover:border-emerald-500/40 transition-all flex flex-col gap-2.5"
                   >
                     <div class="flex items-start justify-between gap-3">
@@ -191,6 +191,17 @@ function handleProceed() {
                         <h4 class="text-xs font-bold text-foreground line-clamp-2 leading-snug">
                           {{ item.model }}
                         </h4>
+
+                        <!-- Batch & Warehouse Badge -->
+                        <div v-if="item.batchNumber" class="flex items-center gap-1.5 flex-wrap pt-0.5">
+                          <span class="text-[10.5px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">
+                            Batch: {{ item.batchNumber }}
+                          </span>
+                          <span v-if="item.warehouseName" class="text-[10.5px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
+                            {{ item.warehouseName }}
+                          </span>
+                        </div>
+
                         <div class="text-[11px] font-mono text-muted-foreground">
                           @ {{ item.priceFormatted }}
                         </div>
@@ -200,7 +211,7 @@ function handleProceed() {
                         type="button"
                         class="p-1 text-muted-foreground hover:text-red-500 hover:bg-red-500/10 rounded-lg transition-colors cursor-pointer"
                         title="Hapus item"
-                        @click="cart.removeFromCart(item.sku)"
+                        @click="cart.removeFromCart(item.cartKey || item.sku)"
                       >
                         <Trash2 class="w-4 h-4" />
                       </button>
@@ -212,21 +223,23 @@ function handleProceed() {
                         <button
                           type="button"
                           class="w-6 h-6 rounded flex items-center justify-center bg-background hover:bg-muted text-foreground transition-colors cursor-pointer"
-                          @click="cart.decrementQty(item.sku)"
+                          @click="cart.decrementQty(item.cartKey || item.sku)"
                         >
                           <Minus class="w-3 h-3" />
                         </button>
                         <input
                           type="number"
                           min="1"
+                          :max="item.batchAvailableStock || item.availableStock"
                           :value="item.qty"
                           class="w-10 text-center text-xs font-bold font-mono bg-transparent text-foreground border-none focus:outline-none"
-                          @change="(e) => cart.updateQty(item.sku, Number((e.target as HTMLInputElement).value))"
+                          @change="(e) => cart.updateQty(item.cartKey || item.sku, Number((e.target as HTMLInputElement).value))"
                         />
                         <button
                           type="button"
-                          class="w-6 h-6 rounded flex items-center justify-center bg-background hover:bg-muted text-foreground transition-colors cursor-pointer"
-                          @click="cart.incrementQty(item.sku)"
+                          class="w-6 h-6 rounded flex items-center justify-center bg-background hover:bg-muted text-foreground transition-colors cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed"
+                          :disabled="Boolean(item.batchAvailableStock && item.qty >= item.batchAvailableStock)"
+                          @click="cart.incrementQty(item.cartKey || item.sku)"
                         >
                           <Plus class="w-3 h-3" />
                         </button>

@@ -46,9 +46,38 @@ import { useCart } from '~/composables/useCart'
 import ThemeToggle from '~/components/ThemeToggle.vue'
 import FieldSelect from '~/components/FieldSelect.vue'
 import CartDrawer from '~/components/CartDrawer.vue'
+import BatchSelectDialog from '~/components/BatchSelectDialog.vue'
+import type { ErpBatchItem } from '~/types/pricelist'
 
 const authStore = useAuthStore()
 const cart = useCart()
+
+// Batch Selection Modal State
+const selectedItemForBatch = ref<PricelistItem | null>(null)
+const isBatchDialogOpen = ref(false)
+
+function handleAddToCart(item: PricelistItem) {
+  if (!item.isSynced || (item.availableStock || 0) <= 0) return
+  const availableBatches = (item.batches || []).filter(b => Number(b.available_stock || 0) > 0)
+  if (availableBatches.length > 0) {
+    selectedItemForBatch.value = item
+    isBatchDialogOpen.value = true
+  } else {
+    cart.addToCart(item, 1)
+    cart.openCart()
+  }
+}
+
+function onBatchDialogConfirm(payload: { item: PricelistItem; qty: number; batch: ErpBatchItem | null }) {
+  cart.addToCart(payload.item, {
+    qty: payload.qty,
+    batchNumber: payload.batch?.batch_number,
+    warehouseName: payload.batch?.nama_gudang,
+    warehouseId: payload.batch?.m_gudang_id,
+    batchAvailableStock: payload.batch?.available_stock
+  })
+  cart.openCart()
+}
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
@@ -1105,18 +1134,24 @@ const hasLinkColumn = computed(() => {
                 </div>
                 <div class="flex items-center justify-end gap-1.5 mt-1">
                   <button
-                    v-if="item.isSynced"
+                    v-if="item.isSynced && (item.availableStock || 0) > 0"
                     type="button"
                     class="px-2 py-0.5 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 cursor-pointer active:scale-95"
                     :class="cart.isInCart(item.sku)
                       ? 'bg-emerald-600 text-white'
                       : 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30'"
                     :title="cart.isInCart(item.sku) ? `Sudah di draf SQ (${cart.getItemQty(item.sku)})` : 'Tambah ke Draf SQ'"
-                    @click.stop="cart.addToCart(item)"
+                    @click.stop="handleAddToCart(item)"
                   >
                     <ShoppingCart class="w-3 h-3" />
                     <span>{{ cart.isInCart(item.sku) ? `+(${cart.getItemQty(item.sku)})` : '+ SQ' }}</span>
                   </button>
+                  <span
+                    v-else-if="item.isSynced && (item.availableStock || 0) <= 0"
+                    class="px-1.5 py-0.5 rounded text-[9px] bg-muted text-muted-foreground font-medium"
+                  >
+                    Habis
+                  </span>
                   <a
                     v-if="item.brochureUrl || item.videoUrl"
                     :href="item.brochureUrl || item.videoUrl"
@@ -1550,17 +1585,28 @@ const hasLinkColumn = computed(() => {
               <div class="grid grid-cols-12 gap-1.5 pt-1">
                 <!-- Add to Cart -->
                 <button
-                  v-if="item.isSynced"
+                  v-if="item.isSynced && (item.availableStock || 0) > 0"
                   type="button"
                   class="col-span-8 py-2 px-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
                   :class="cart.isInCart(item.sku)
                     ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-500/20'
                     : 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 hover:bg-emerald-500/25 border border-emerald-500/30'"
-                  :title="cart.isInCart(item.sku) ? `Sudah di keranjang (${cart.getItemQty(item.sku)} unit). Klik untuk tambah.` : 'Tambahkan ke Keranjang Penawaran (SQ)'"
-                  @click.stop="cart.addToCart(item)"
+                  :title="cart.isInCart(item.sku) ? `Sudah di keranjang (${cart.getItemQty(item.sku)} unit). Klik untuk pilih batch lagi.` : 'Pilih batch dan masukkan ke keranjang SQ'"
+                  @click.stop="handleAddToCart(item)"
                 >
                   <ShoppingCart class="w-3.5 h-3.5 shrink-0" />
                   <span class="truncate">{{ cart.isInCart(item.sku) ? `+ (${cart.getItemQty(item.sku)}) Keranjang` : '+ Keranjang' }}</span>
+                </button>
+
+                <button
+                  v-else-if="item.isSynced && (item.availableStock || 0) <= 0"
+                  type="button"
+                  disabled
+                  class="col-span-8 py-2 px-2.5 rounded-xl bg-muted/60 text-[10.5px] font-semibold text-muted-foreground/60 cursor-not-allowed border border-border/50 flex items-center justify-center"
+                  title="Stok item ini sedang kosong di gudang"
+                  @click.stop
+                >
+                  Stok Habis
                 </button>
 
                 <button
@@ -2230,6 +2276,13 @@ const hasLinkColumn = computed(() => {
         <ArrowUp class="w-5 h-5" />
       </button>
     </transition>
+
+    <!-- BATCH & QUANTITY SELECTION MODAL -->
+    <BatchSelectDialog
+      v-model:open="isBatchDialogOpen"
+      :item="selectedItemForBatch"
+      @confirm="onBatchDialogConfirm"
+    />
 
     <!-- FLOATING CART & SLIDE-OVER DRAWER FOR SALES QUOTATION -->
     <CartDrawer />

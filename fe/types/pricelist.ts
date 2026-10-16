@@ -1,3 +1,11 @@
+export interface ErpBatchItem {
+  batch_number: string
+  m_gudang_id?: string
+  nama_gudang?: string
+  kode_gudang?: string
+  available_stock: number
+}
+
 export interface PricelistItem {
   id: string
   category: string
@@ -21,6 +29,7 @@ export interface PricelistItem {
   isSynced?: boolean
   availableStock?: number
   erpItemId?: string
+  batches?: ErpBatchItem[]
 }
 
 export interface SheetCategory {
