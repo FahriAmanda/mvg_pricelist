@@ -2426,22 +2426,11 @@ export async function fetchAllSheets(force = false): Promise<{
       store.contentHash = newHash
 
 async function notifyFoxPricelistAnomaly(anomalies: any[]) {
-  if (!Array.isArray(anomalies) || anomalies.length === 0) return
+  // Explicitly muted by admin instruction: do not dispatch urgent alert to WhatsApp
+  console.log(`[NitroCircuitBreaker] 🔇 Fox anomaly alert is muted by admin (${anomalies?.length || 0} anomalies safely blocked).`)
+  return
 
-  try {
-    const statusRes = await fetch('https://be-mvg.mitravisualgroup.com/api/marketing/fox-alert/status', {
-      signal: AbortSignal.timeout(3000)
-    })
-    if (statusRes.ok) {
-      const data: any = await statusRes.json()
-      if (data?.data?.muted) {
-        console.log(`[NitroCircuitBreaker] 🔇 Fox anomaly alert is currently MUTED by admin (${anomalies.length} anomalies blocked).`)
-        return
-      }
-    }
-  } catch (err: any) {
-    // If status check fails, proceed
-  }
+  if (!Array.isArray(anomalies) || anomalies.length === 0) return
 
   const nowWib = new Intl.DateTimeFormat('id-ID', {
     weekday: 'long',
