@@ -136,10 +136,15 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
           const payload = JSON.parse(e.data)
           lastSyncTime.value = payload.lastSync
 
-          // Highlight changed items
-          const dataRes = await $fetch<{
-            itemsByCategory: Record<string, PricelistItem[]>
-          }>('/api/sheets/all')
+          // Refresh categories & items concurrently
+          const [catRes, dataRes] = await Promise.all([
+            $fetch<{ categories: SheetCategory[]; lastSync: string }>('/api/sheets').catch(() => null),
+            $fetch<{ itemsByCategory: Record<string, PricelistItem[]> }>('/api/sheets/all')
+          ])
+
+          if (catRes?.categories) {
+            categories.value = catRes.categories
+          }
 
           const newItems = dataRes.itemsByCategory || {}
           const changed = new Set<string>()
@@ -180,9 +185,12 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
     if (import.meta.server) return
     pollInterval = setInterval(async () => {
       try {
-        const catRes = await $fetch<{ lastSync: string }>('/api/sheets')
+        const catRes = await $fetch<{ categories: SheetCategory[]; lastSync: string }>('/api/sheets')
         if (catRes.lastSync !== lastSyncTime.value) {
           lastSyncTime.value = catRes.lastSync
+          if (catRes.categories) {
+            categories.value = catRes.categories
+          }
           const dataRes = await $fetch<{
             itemsByCategory: Record<string, PricelistItem[]>
           }>('/api/sheets/all')
