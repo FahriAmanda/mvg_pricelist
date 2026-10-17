@@ -2426,6 +2426,10 @@ export async function fetchAllSheets(force = false): Promise<{
       store.contentHash = newHash
 
 async function notifyFoxPricelistAnomaly(anomalies: any[]) {
+  // Temporary mute by admin instruction: do not dispatch urgent alert to WhatsApp
+  console.log(`[NitroCircuitBreaker] 🔇 Fox anomaly alert is temporarily muted (${anomalies?.length || 0} anomalies blocked).`)
+  return
+
   if (!Array.isArray(anomalies) || anomalies.length === 0) return
   const nowWib = new Intl.DateTimeFormat('id-ID', {
     weekday: 'long',
