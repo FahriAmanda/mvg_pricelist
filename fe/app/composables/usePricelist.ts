@@ -180,32 +180,9 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
     }
   }
 
-  // Fallback poller every 60s
-  function startPolling() {
-    if (import.meta.server) return
-    pollInterval = setInterval(async () => {
-      try {
-        const catRes = await $fetch<{ categories: SheetCategory[]; lastSync: string }>('/api/sheets')
-        if (catRes.lastSync !== lastSyncTime.value) {
-          lastSyncTime.value = catRes.lastSync
-          if (catRes.categories) {
-            categories.value = catRes.categories
-          }
-          const dataRes = await $fetch<{
-            itemsByCategory: Record<string, PricelistItem[]>
-          }>('/api/sheets/all')
-          allItems.value = dataRes.itemsByCategory || {}
-        }
-      } catch (e) {
-        // quiet error
-      }
-    }, 60000)
-  }
-
   onMounted(() => {
     loadData()
     connectSSE()
-    startPolling()
   })
 
   onUnmounted(() => {

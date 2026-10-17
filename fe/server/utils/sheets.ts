@@ -1,7 +1,37 @@
 import Papa from 'papaparse'
 import crypto from 'node:crypto'
+import fs from 'node:fs'
+import path from 'node:path'
 import erpStockInitialCache from './erpStockCache.json'
 import type { PricelistItem, SheetCategory } from '../../types/pricelist'
+
+const BASELINE_CACHE_PATH = path.resolve(process.cwd(), '.cache/pricelist_master_baseline.json')
+
+function loadPersistentBaseline(): Record<string, number> {
+  try {
+    if (fs.existsSync(BASELINE_CACHE_PATH)) {
+      const raw = fs.readFileSync(BASELINE_CACHE_PATH, 'utf-8')
+      const data = JSON.parse(raw)
+      console.log(`[PricelistBaseline] 📂 Loaded ${Object.keys(data).length} baseline prices (MVG & AV) from persistent disk cache.`)
+      return data
+    }
+  } catch (err: any) {
+    console.warn('[PricelistBaseline] Failed to load persistent baseline:', err?.message)
+  }
+  return {}
+}
+
+function savePersistentBaseline(prices: Record<string, number>) {
+  try {
+    const dir = path.dirname(BASELINE_CACHE_PATH)
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true })
+    }
+    fs.writeFileSync(BASELINE_CACHE_PATH, JSON.stringify(prices, null, 2), 'utf-8')
+  } catch (err: any) {
+    console.warn('[PricelistBaseline] Failed to save persistent baseline:', err?.message)
+  }
+}
 
 let erpStockMap: Record<string, any> = { ...erpStockInitialCache }
 let lastStockFetch = 0
@@ -545,7 +575,7 @@ export interface StoreState {
 const store: StoreState = {
   itemsByCategory: {},
   categoryExtra: { ...DEFAULT_CATEGORY_EXTRA },
-  previousPrices: {},
+  previousPrices: loadPersistentBaseline(),
   lastSync: '',
   contentHash: '',
   isFetching: false
@@ -2395,6 +2425,65 @@ export async function fetchAllSheets(force = false): Promise<{
       hasChanges = true
       store.contentHash = newHash
 
+async function notifyFoxPricelistAnomaly(anomalies: any[]) {
+  if (!Array.isArray(anomalies) || anomalies.length === 0) return
+  const nowWib = new Intl.DateTimeFormat('id-ID', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: 'Asia/Jakarta'
+  }).format(new Date())
+
+  const lines = [
+    '🚨 *[FOX AI URGENT ALERT — NITRO PRICELIST CIRCUIT BREAKER]*',
+    '_Peringatan Keamanan Web Pricelist & MVG Bisnis_',
+    '',
+    `📅 *Waktu Deteksi:* ${nowWib} WIB`,
+    '🛡️ *Status Tindakan:* 🛑 *CIRCUIT BREAKER AKTIF — HARGA SHEET DIBLOKIR*',
+    '',
+    `⚠️ Terdeteksi *${anomalies.length} item dengan perubahan harga tidak wajar* di Google Sheets (MVG/AV). Server Web Pricelist *MENOLAK* harga tersebut dan *MEMPERTAHANKAN HARGA LAMA*:`,
+    '',
+    '📋 *DAFTAR ITEM YANG DIBLOKIR SEMENTARA:*'
+  ]
+
+  const maxDisplay = 8
+  for (let i = 0; i < Math.min(anomalies.length, maxDisplay); i++) {
+    const a = anomalies[i]
+    lines.push(`• *[${a.sku}]* _${a.model || a.category}_`)
+    lines.push(`  ├─ 🏷️ Harga Aman : *Rp ${Number(a.oldPrice).toLocaleString('id-ID')}*`)
+    lines.push(`  ├─ ⚠️ Harga Sheet : *Rp ${Number(a.sheetPrice).toLocaleString('id-ID')}*`)
+    lines.push(`  └─ ❗ Indikasi : _${a.reason}_`)
+    lines.push('')
+  }
+
+  if (anomalies.length > maxDisplay) {
+    lines.push(`...dan *${anomalies.length - maxDisplay} item anomali lainnya*.`)
+    lines.push('')
+  }
+
+  lines.push('🛠️ *LANGKAH TINDAK LANJUT TIM IT:*')
+  lines.push('1. Periksa Google Sheets untuk kategori terkait.')
+  lines.push('2. Harga di Web Pricelist & Bisnis tetap aman di harga lama.')
+  lines.push('')
+  lines.push('—\n_Fox AI Guardian • IT & Infrastructure Mitra Visual Group_')
+
+  try {
+    const { exec } = await import('node:child_process')
+    const b64 = Buffer.from(lines.join('\n')).toString('base64')
+    const cmd = `(docker exec -u hermes hermes-vps node /opt/data/scripts/whatsapp-bridge/send_fox_message.mjs --base64 ${b64} || sudo -n docker exec -u hermes hermes-vps node /opt/data/scripts/whatsapp-bridge/send_fox_message.mjs --base64 ${b64})`
+    exec(cmd, (err) => {
+      if (err) console.warn('[NitroCircuitBreaker] Failed to invoke Fox:', err.message)
+    })
+  } catch (e: any) {
+    console.warn('[NitroCircuitBreaker] Fox invoke error:', e.message)
+  }
+}
+
+      const globalAnomalies: any[] = []
+
       for (const r of results) {
         const previousCatItems = store.itemsByCategory[r.catId] || []
         const prevPriceMap = new Map<string, number>()
@@ -2404,10 +2493,57 @@ export async function fetchAllSheets(force = false): Promise<{
 
         const enrichedItems = r.items.map((item) => {
           const oldPrice = prevPriceMap.get(item.sku) ?? store.previousPrices[item.sku]
-          if (oldPrice !== undefined && oldPrice !== item.price) {
-            item.previousPrice = oldPrice
+          let isAnomaly = false
+          let anomalyReason = ''
+
+          // Nitro Circuit Breaker: protect both MVG and AV items against drastic drops and typos
+          if (typeof oldPrice === 'number' && oldPrice > 0 && typeof item.price === 'number') {
+            if (item.price <= 0 || !Number.isFinite(item.price)) {
+              isAnomaly = true
+              anomalyReason = `Target price drops to zero or invalid (Rp ${oldPrice.toLocaleString('id-ID')} -> Rp ${item.price})`
+            } else if (item.price < oldPrice) {
+              const dropAmount = oldPrice - item.price
+              const dropPercent = (dropAmount / oldPrice) * 100
+              if (oldPrice >= 1000000 && dropPercent >= 5.0 && dropAmount >= 1000000) {
+                isAnomaly = true
+                anomalyReason = `Drastic price drop: Rp ${oldPrice.toLocaleString('id-ID')} -> Rp ${item.price.toLocaleString('id-ID')} (-${dropPercent.toFixed(1)}%, -Rp ${dropAmount.toLocaleString('id-ID')})`
+              } else if (oldPrice < 1000000 && dropPercent >= 10.0) {
+                isAnomaly = true
+                anomalyReason = `Significant price drop: Rp ${oldPrice.toLocaleString('id-ID')} -> Rp ${item.price.toLocaleString('id-ID')} (-${dropPercent.toFixed(1)}%)`
+              }
+            } else if (item.price > oldPrice) {
+              const surgeAmount = item.price - oldPrice
+              const surgePercent = (surgeAmount / oldPrice) * 100
+              if (surgePercent >= 50.0 && surgeAmount >= 5000000) {
+                isAnomaly = true
+                anomalyReason = `Extreme price surge (possible extra 0 typo): Rp ${oldPrice.toLocaleString('id-ID')} -> Rp ${item.price.toLocaleString('id-ID')} (+${surgePercent.toFixed(1)}%, +Rp ${surgeAmount.toLocaleString('id-ID')})`
+              }
+            }
           }
-          store.previousPrices[item.sku] = item.price
+
+          if (isAnomaly) {
+            console.warn(`[Nitro Circuit Breaker] 🛑 BLOCKED ANOMALY [${item.sku}] (${r.catId}): ${anomalyReason}`)
+            globalAnomalies.push({
+              sku: item.sku,
+              model: item.model || item.name,
+              category: r.catId,
+              oldPrice,
+              sheetPrice: item.price,
+              reason: anomalyReason
+            })
+            // RETAIN OLD PRICE! DO NOT PERMIT UNCONTROLLED DROP/SURGE
+            item.price = oldPrice
+            item.priceFormatted = formatRupiah(oldPrice)
+            if (!item.metadata) item.metadata = {}
+            item.metadata.isAnomalyBlocked = true
+            item.metadata.blockedTargetPrice = item.price
+            item.metadata.anomalyReason = anomalyReason
+          } else {
+            if (oldPrice !== undefined && oldPrice !== item.price) {
+              item.previousPrice = oldPrice
+            }
+            store.previousPrices[item.sku] = item.price
+          }
 
           // Check ERP Sync & Available Stock
           const stockInfo = erpStockMap[item.sku]
@@ -2416,6 +2552,25 @@ export async function fetchAllSheets(force = false): Promise<{
             item.availableStock = Number(stockInfo.available_stock || 0)
             item.erpItemId = stockInfo.m_items_id || stockInfo.id
             item.batches = Array.isArray(stockInfo.batches) ? stockInfo.batches : []
+
+            // ERP Master Price Cross-Validation & Authority Enforcement:
+            // For items synced with ERP, ERP is authoritative. If sheet price deviates anomalously,
+            // enforce the ERP master price so the web interface is never corrupted by spreadsheet typos.
+            if (stockInfo.harga_cash && Number(stockInfo.harga_cash) > 0) {
+              const erpCash = Number(stockInfo.harga_cash)
+              const erpKredit = stockInfo.harga_kredit ? Number(stockInfo.harga_kredit) : null
+              const diffPercent = Math.abs((item.price - erpCash) / erpCash) * 100
+              if (diffPercent >= 5.0 && Math.abs(item.price - erpCash) >= 1000000) {
+                console.warn(`[Nitro Circuit Breaker] 🛡️ Overriding sheet price for ${item.sku} with authoritative ERP price: Rp ${erpCash.toLocaleString('id-ID')} (sheet was Rp ${item.price.toLocaleString('id-ID')})`)
+                item.price = erpCash
+                item.priceFormatted = formatRupiah(erpCash)
+                if (item.metadata) {
+                  item.metadata.hargaCash = erpCash
+                  if (erpKredit) item.metadata.hargaKredit = erpKredit
+                }
+                store.previousPrices[item.sku] = erpCash
+              }
+            }
           } else {
             item.isSynced = false
             item.availableStock = 0
@@ -2430,7 +2585,12 @@ export async function fetchAllSheets(force = false): Promise<{
         updatedCategories.push(r.catId)
       }
 
+      if (globalAnomalies.length > 0) {
+        void notifyFoxPricelistAnomaly(globalAnomalies)
+      }
+
       store.lastSync = now.toISOString()
+      savePersistentBaseline(store.previousPrices)
 
       // Broadcast update to all connected SSE clients
       broadcastSSE('sync', {
@@ -2497,15 +2657,12 @@ export function updateItemErpSyncStatus(sku: string, isSynced: boolean, availabl
   })
 }
 
-// Background auto-sync interval (every 60 seconds)
+// Cold start warm-up only.
+// Automatic periodic sync to Google Sheets is STRICTLY ORCHESTRATED by Hermes VPS via POST /api/sheets/sync.
 let intervalStarted = false
 export function startAutoSyncPoller() {
   if (intervalStarted) return
   intervalStarted = true
 
   fetchAllSheets(true).catch(console.error)
-
-  setInterval(() => {
-    fetchAllSheets(false).catch(console.error)
-  }, 60 * 1000)
 }

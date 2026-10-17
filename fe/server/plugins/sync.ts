@@ -1,6 +1,7 @@
 import { startAutoSyncPoller } from '../utils/sheets'
 
 export default defineNitroPlugin(() => {
-  // Start background auto-sync every 60s
+  // Cold start initialization only — NO recurring background poller to sheets.
+  // All periodic synchronization is strictly orchestrated by Hermes VPS.
   startAutoSyncPoller()
 })

@@ -15,12 +15,9 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const store = getStoreState()
 
-  // Always ensure we have data. If fresh requested or no data yet, force fetch.
-  const isStale = !store.lastSync || (Date.now() - new Date(store.lastSync).getTime() > 60 * 1000)
-  if (!store.lastSync || query.fresh === 'true' || query.force === 'true') {
+  // Cold start bootstrap only. NEVER poll or re-fetch in the background on visitor requests.
+  if (!store.lastSync) {
     await fetchAllSheets(true)
-  } else if (isStale && !store.isFetching) {
-    fetchAllSheets(false).catch(console.error)
   }
 
   if (id === 'all') {

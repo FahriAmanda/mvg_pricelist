@@ -12,11 +12,10 @@ export default defineEventHandler(async (event) => {
   const includeItems = query.include_items === 'true' || query.all === 'true'
 
   const store = getStoreState()
-  const isStale = !store.lastSync || (Date.now() - new Date(store.lastSync).getTime() > 60 * 1000)
-  if (!store.lastSync || query.fresh === 'true' || query.force === 'true') {
+  // Cold start bootstrap only. NEVER poll or re-fetch in the background on visitor requests.
+  // All updates must be triggered explicitly by Hermes VPS Orchestrator.
+  if (!store.lastSync) {
     await fetchAllSheets(true)
-  } else if (isStale && !store.isFetching) {
-    fetchAllSheets(false).catch(console.error)
   }
 
   const categories: SheetCategory[] = SHEET_CATEGORIES.map((cat) => {
