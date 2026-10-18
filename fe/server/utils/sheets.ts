@@ -70,6 +70,61 @@ function savePendingCandidates(candidates: Record<string, PriceCandidate>) {
 
 let pendingCandidates: Record<string, PriceCandidate> = loadPendingCandidates()
 
+const STABILIZED_CACHE_PATH = path.resolve(process.cwd(), '.cache/pricelist_stabilized.json')
+
+function loadStabilizedAdopted(): Record<string, number> {
+  try {
+    if (fs.existsSync(STABILIZED_CACHE_PATH)) {
+      const raw = fs.readFileSync(STABILIZED_CACHE_PATH, 'utf-8')
+      const data = JSON.parse(raw)
+      console.log(`[PricelistStabilized] 📂 Loaded ${Object.keys(data).length} stabilized prices from persistent disk cache.`)
+      return data
+    }
+  } catch (err: any) {
+    console.warn('[PricelistStabilized] Failed to load stabilized prices:', err?.message)
+  }
+  return {}
+}
+
+function saveStabilizedAdopted(stabilized: Record<string, number>) {
+  try {
+    const dir = path.dirname(STABILIZED_CACHE_PATH)
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true })
+    }
+    fs.writeFileSync(STABILIZED_CACHE_PATH, JSON.stringify(stabilized, null, 2), 'utf-8')
+  } catch (err: any) {
+    console.warn('[PricelistStabilized] Failed to save stabilized prices:', err?.message)
+  }
+}
+
+let stabilizedAdoptedSkus: Record<string, number> = loadStabilizedAdopted()
+
+async function promoteStabilizedPriceToErp(sku: string, cashPrice: number, kreditPrice?: number | null, bottomPrice?: number | null) {
+  try {
+    const BE_URL = process.env.MVG_API_BASE || 'https://be-mvg.mitravisualgroup.com'
+    const res = await fetch(`${BE_URL}/api/marketing/promote-stabilized-price`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        sku,
+        cash_price: cashPrice,
+        kredit_price: kreditPrice || null,
+        bottom_price: bottomPrice || null,
+        source: 'WEB_PRICELIST_STABILIZATION'
+      })
+    })
+    if (res.ok) {
+      const data: any = await res.json()
+      console.log(`[PricelistPromotion] ✅ Promoted ${sku} to ERP Master:`, data?.message)
+    } else {
+      console.warn(`[PricelistPromotion] ⚠️ Failed to promote ${sku} to ERP: HTTP ${res.status}`)
+    }
+  } catch (e: any) {
+    console.warn(`[PricelistPromotion] ⚠️ Network error promoting ${sku} to ERP:`, e?.message)
+  }
+}
+
 // Stabilization duration: if the sheet consistently displays the exact same price
 // for >= 2 minutes (120,000 ms) and at least 2 observations, consider it intentional and adopt it!
 const STABILIZATION_WINDOW_MS = 2 * 60 * 1000
@@ -2600,7 +2655,10 @@ async function notifyFoxPricelistAnomaly(anomalies: any[]) {
                   isStabilizedAndAdopted = true
                   isAnomaly = false
                   delete pendingCandidates[item.sku]
+                  stabilizedAdoptedSkus[item.sku] = item.price
+                  saveStabilizedAdopted(stabilizedAdoptedSkus)
                   console.log(`[Nitro Circuit Breaker] ✅ STABILIZED & ADOPTED [${item.sku}] (${r.catId}): Sheet price Rp ${item.price.toLocaleString('id-ID')} stable for ${(durationMs / 60000).toFixed(1)} min (${cand.observations}x observations). Adopted as official baseline!`)
+                  void promoteStabilizedPriceToErp(item.sku, item.price, item.metadata?.hargaKredit, item.metadata?.btPrice)
                 } else {
                   // Still pending stabilization window
                   isAnomaly = true
@@ -2651,7 +2709,8 @@ async function notifyFoxPricelistAnomaly(anomalies: any[]) {
             // ERP Master Price Cross-Validation & Authority Enforcement:
             // For items synced with ERP, if sheet price deviates anomalously and HAS NOT STABILIZED,
             // retain ERP master price. BUT if it was stabilized and adopted from spreadsheet, allow it through!
-            if (!isStabilizedAndAdopted && stockInfo.harga_cash && Number(stockInfo.harga_cash) > 0) {
+            const isAlreadyStabilized = stabilizedAdoptedSkus[item.sku] === item.price
+            if (!isStabilizedAndAdopted && !isAlreadyStabilized && stockInfo.harga_cash && Number(stockInfo.harga_cash) > 0) {
               const erpCash = Number(stockInfo.harga_cash)
               const erpKredit = stockInfo.harga_kredit ? Number(stockInfo.harga_kredit) : null
               const diffPercent = Math.abs((item.price - erpCash) / erpCash) * 100
@@ -2682,8 +2741,11 @@ async function notifyFoxPricelistAnomaly(anomalies: any[]) {
 
                   if (durationMs >= STABILIZATION_WINDOW_MS && cand.observations >= 2) {
                     delete pendingCandidates[erpKey]
+                    stabilizedAdoptedSkus[item.sku] = item.price
+                    saveStabilizedAdopted(stabilizedAdoptedSkus)
                     console.log(`[Nitro Circuit Breaker] ✅ ERP DEVIATION STABILIZED [${item.sku}]: Sheet consistently displayed Rp ${item.price.toLocaleString('id-ID')} for ${(durationMs / 60000).toFixed(1)} min. Promoting to web pricelist!`)
                     store.previousPrices[item.sku] = item.price
+                    void promoteStabilizedPriceToErp(item.sku, item.price, item.metadata?.hargaKredit, item.metadata?.btPrice)
                   } else {
                     item.price = erpCash
                     item.priceFormatted = formatRupiah(erpCash)
@@ -2707,6 +2769,9 @@ async function notifyFoxPricelistAnomaly(anomalies: any[]) {
             item.batches = []
           }
 
+          if (!item.metadata) item.metadata = {}
+          item.metadata.isStabilized = isStabilizedAndAdopted || (stabilizedAdoptedSkus[item.sku] === item.price)
+
           return item
         })
 
@@ -2721,6 +2786,7 @@ async function notifyFoxPricelistAnomaly(anomalies: any[]) {
       store.lastSync = now.toISOString()
       savePersistentBaseline(store.previousPrices)
       savePendingCandidates(pendingCandidates)
+      saveStabilizedAdopted(stabilizedAdoptedSkus)
 
       // Broadcast update to all connected SSE clients
       broadcastSSE('sync', {
