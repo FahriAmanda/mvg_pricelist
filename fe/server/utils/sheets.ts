@@ -33,6 +33,47 @@ function savePersistentBaseline(prices: Record<string, number>) {
   }
 }
 
+interface PriceCandidate {
+  candidatePrice: number
+  firstSeenAt: number
+  lastSeenAt: number
+  observations: number
+}
+
+const CANDIDATE_CACHE_PATH = path.resolve(process.cwd(), '.cache/pricelist_pending_candidates.json')
+
+function loadPendingCandidates(): Record<string, PriceCandidate> {
+  try {
+    if (fs.existsSync(CANDIDATE_CACHE_PATH)) {
+      const raw = fs.readFileSync(CANDIDATE_CACHE_PATH, 'utf-8')
+      const data = JSON.parse(raw)
+      console.log(`[PricelistCandidates] 📂 Loaded ${Object.keys(data).length} candidate prices from persistent disk cache.`)
+      return data
+    }
+  } catch (err: any) {
+    console.warn('[PricelistCandidates] Failed to load pending candidates:', err?.message)
+  }
+  return {}
+}
+
+function savePendingCandidates(candidates: Record<string, PriceCandidate>) {
+  try {
+    const dir = path.dirname(CANDIDATE_CACHE_PATH)
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true })
+    }
+    fs.writeFileSync(CANDIDATE_CACHE_PATH, JSON.stringify(candidates, null, 2), 'utf-8')
+  } catch (err: any) {
+    console.warn('[PricelistCandidates] Failed to save pending candidates:', err?.message)
+  }
+}
+
+let pendingCandidates: Record<string, PriceCandidate> = loadPendingCandidates()
+
+// Stabilization duration: if the sheet consistently displays the exact same price
+// for >= 2 minutes (120,000 ms) and at least 2 observations, consider it intentional and adopt it!
+const STABILIZATION_WINDOW_MS = 2 * 60 * 1000
+
 let erpStockMap: Record<string, any> = { ...erpStockInitialCache }
 let lastStockFetch = 0
 
@@ -2421,7 +2462,9 @@ export async function fetchAllSheets(force = false): Promise<{
     }
     const newHash = hash.digest('hex')
 
-    if (newHash !== store.contentHash || force) {
+    const hasPendingCandidates = Object.keys(pendingCandidates).length > 0
+
+    if (newHash !== store.contentHash || force || hasPendingCandidates) {
       hasChanges = true
       store.contentHash = newHash
 
@@ -2500,28 +2543,75 @@ async function notifyFoxPricelistAnomaly(anomalies: any[]) {
           const oldPrice = prevPriceMap.get(item.sku) ?? store.previousPrices[item.sku]
           let isAnomaly = false
           let anomalyReason = ''
+          let isStabilizedAndAdopted = false
 
-          // Nitro Circuit Breaker: protect both MVG and AV items against drastic drops and typos
-          if (typeof oldPrice === 'number' && oldPrice > 0 && typeof item.price === 'number') {
-            if (item.price <= 0 || !Number.isFinite(item.price)) {
-              isAnomaly = true
-              anomalyReason = `Target price drops to zero or invalid (Rp ${oldPrice.toLocaleString('id-ID')} -> Rp ${item.price})`
-            } else if (item.price < oldPrice) {
+          // Absolute hard invalid check: price must be a valid positive finite number and not Rp 1
+          const isHardInvalid = !Number.isFinite(item.price) || item.price <= 0 || item.price === 1
+
+          if (isHardInvalid) {
+            isAnomaly = true
+            anomalyReason = `Target price drops to zero, invalid or Rp 1 (Rp ${oldPrice?.toLocaleString('id-ID') || 0} -> Rp ${item.price})`
+            if (pendingCandidates[item.sku]) {
+              delete pendingCandidates[item.sku]
+            }
+          } else if (typeof oldPrice === 'number' && oldPrice > 0 && typeof item.price === 'number') {
+            let isDrasticChange = false
+
+            if (item.price < oldPrice) {
               const dropAmount = oldPrice - item.price
               const dropPercent = (dropAmount / oldPrice) * 100
               if (oldPrice >= 1000000 && dropPercent >= 5.0 && dropAmount >= 1000000) {
-                isAnomaly = true
+                isDrasticChange = true
                 anomalyReason = `Drastic price drop: Rp ${oldPrice.toLocaleString('id-ID')} -> Rp ${item.price.toLocaleString('id-ID')} (-${dropPercent.toFixed(1)}%, -Rp ${dropAmount.toLocaleString('id-ID')})`
               } else if (oldPrice < 1000000 && dropPercent >= 10.0) {
-                isAnomaly = true
+                isDrasticChange = true
                 anomalyReason = `Significant price drop: Rp ${oldPrice.toLocaleString('id-ID')} -> Rp ${item.price.toLocaleString('id-ID')} (-${dropPercent.toFixed(1)}%)`
               }
             } else if (item.price > oldPrice) {
               const surgeAmount = item.price - oldPrice
               const surgePercent = (surgeAmount / oldPrice) * 100
               if (surgePercent >= 50.0 && surgeAmount >= 5000000) {
-                isAnomaly = true
+                isDrasticChange = true
                 anomalyReason = `Extreme price surge (possible extra 0 typo): Rp ${oldPrice.toLocaleString('id-ID')} -> Rp ${item.price.toLocaleString('id-ID')} (+${surgePercent.toFixed(1)}%, +Rp ${surgeAmount.toLocaleString('id-ID')})`
+              }
+            }
+
+            if (isDrasticChange) {
+              const nowTime = now.getTime()
+              const cand = pendingCandidates[item.sku]
+
+              if (!cand || cand.candidatePrice !== item.price) {
+                // First observation of this new price deviation
+                pendingCandidates[item.sku] = {
+                  candidatePrice: item.price,
+                  firstSeenAt: nowTime,
+                  lastSeenAt: nowTime,
+                  observations: 1
+                }
+                isAnomaly = true
+              } else {
+                // Same deviating price seen consecutively in sheet
+                cand.lastSeenAt = nowTime
+                cand.observations += 1
+                const durationMs = nowTime - cand.firstSeenAt
+
+                if (durationMs >= STABILIZATION_WINDOW_MS && cand.observations >= 2) {
+                  // STABILIZED! Consistently displayed in spreadsheet for several minutes
+                  isStabilizedAndAdopted = true
+                  isAnomaly = false
+                  delete pendingCandidates[item.sku]
+                  console.log(`[Nitro Circuit Breaker] ✅ STABILIZED & ADOPTED [${item.sku}] (${r.catId}): Sheet price Rp ${item.price.toLocaleString('id-ID')} stable for ${(durationMs / 60000).toFixed(1)} min (${cand.observations}x observations). Adopted as official baseline!`)
+                } else {
+                  // Still pending stabilization window
+                  isAnomaly = true
+                  const remSec = Math.max(0, Math.ceil((STABILIZATION_WINDOW_MS - durationMs) / 1000))
+                  anomalyReason += ` [Stabilizing: ${cand.observations}x observed, ~${remSec}s remaining]`
+                }
+              }
+            } else {
+              // Not a drastic change or price restored: clean candidate
+              if (pendingCandidates[item.sku]) {
+                delete pendingCandidates[item.sku]
               }
             }
           }
@@ -2536,7 +2626,7 @@ async function notifyFoxPricelistAnomaly(anomalies: any[]) {
               sheetPrice: item.price,
               reason: anomalyReason
             })
-            // RETAIN OLD PRICE! DO NOT PERMIT UNCONTROLLED DROP/SURGE
+            // RETAIN OLD PRICE! DO NOT PERMIT UNCONTROLLED DROP/SURGE WHILE STABILIZING
             item.price = oldPrice
             item.priceFormatted = formatRupiah(oldPrice)
             if (!item.metadata) item.metadata = {}
@@ -2559,21 +2649,55 @@ async function notifyFoxPricelistAnomaly(anomalies: any[]) {
             item.batches = Array.isArray(stockInfo.batches) ? stockInfo.batches : []
 
             // ERP Master Price Cross-Validation & Authority Enforcement:
-            // For items synced with ERP, ERP is authoritative. If sheet price deviates anomalously,
-            // enforce the ERP master price so the web interface is never corrupted by spreadsheet typos.
-            if (stockInfo.harga_cash && Number(stockInfo.harga_cash) > 0) {
+            // For items synced with ERP, if sheet price deviates anomalously and HAS NOT STABILIZED,
+            // retain ERP master price. BUT if it was stabilized and adopted from spreadsheet, allow it through!
+            if (!isStabilizedAndAdopted && stockInfo.harga_cash && Number(stockInfo.harga_cash) > 0) {
               const erpCash = Number(stockInfo.harga_cash)
               const erpKredit = stockInfo.harga_kredit ? Number(stockInfo.harga_kredit) : null
               const diffPercent = Math.abs((item.price - erpCash) / erpCash) * 100
               if (diffPercent >= 5.0 && Math.abs(item.price - erpCash) >= 1000000) {
-                console.warn(`[Nitro Circuit Breaker] 🛡️ Overriding sheet price for ${item.sku} with authoritative ERP price: Rp ${erpCash.toLocaleString('id-ID')} (sheet was Rp ${item.price.toLocaleString('id-ID')})`)
-                item.price = erpCash
-                item.priceFormatted = formatRupiah(erpCash)
-                if (item.metadata) {
-                  item.metadata.hargaCash = erpCash
-                  if (erpKredit) item.metadata.hargaKredit = erpKredit
+                const nowTime = now.getTime()
+                const erpKey = `erp_${item.sku}`
+                const cand = pendingCandidates[erpKey]
+
+                if (!cand || cand.candidatePrice !== item.price) {
+                  pendingCandidates[erpKey] = {
+                    candidatePrice: item.price,
+                    firstSeenAt: nowTime,
+                    lastSeenAt: nowTime,
+                    observations: 1
+                  }
+                  console.warn(`[Nitro Circuit Breaker] 🛡️ Overriding sheet price for ${item.sku} with authoritative ERP price: Rp ${erpCash.toLocaleString('id-ID')} (sheet was Rp ${item.price.toLocaleString('id-ID')}). Waiting for sheet stabilization.`)
+                  item.price = erpCash
+                  item.priceFormatted = formatRupiah(erpCash)
+                  if (item.metadata) {
+                    item.metadata.hargaCash = erpCash
+                    if (erpKredit) item.metadata.hargaKredit = erpKredit
+                  }
+                  store.previousPrices[item.sku] = erpCash
+                } else {
+                  cand.lastSeenAt = nowTime
+                  cand.observations += 1
+                  const durationMs = nowTime - cand.firstSeenAt
+
+                  if (durationMs >= STABILIZATION_WINDOW_MS && cand.observations >= 2) {
+                    delete pendingCandidates[erpKey]
+                    console.log(`[Nitro Circuit Breaker] ✅ ERP DEVIATION STABILIZED [${item.sku}]: Sheet consistently displayed Rp ${item.price.toLocaleString('id-ID')} for ${(durationMs / 60000).toFixed(1)} min. Promoting to web pricelist!`)
+                    store.previousPrices[item.sku] = item.price
+                  } else {
+                    item.price = erpCash
+                    item.priceFormatted = formatRupiah(erpCash)
+                    if (item.metadata) {
+                      item.metadata.hargaCash = erpCash
+                      if (erpKredit) item.metadata.hargaKredit = erpKredit
+                    }
+                    store.previousPrices[item.sku] = erpCash
+                  }
                 }
-                store.previousPrices[item.sku] = erpCash
+              } else {
+                if (pendingCandidates[`erp_${item.sku}`]) {
+                  delete pendingCandidates[`erp_${item.sku}`]
+                }
               }
             }
           } else {
@@ -2596,6 +2720,7 @@ async function notifyFoxPricelistAnomaly(anomalies: any[]) {
 
       store.lastSync = now.toISOString()
       savePersistentBaseline(store.previousPrices)
+      savePendingCandidates(pendingCandidates)
 
       // Broadcast update to all connected SSE clients
       broadcastSSE('sync', {
@@ -2662,12 +2787,19 @@ export function updateItemErpSyncStatus(sku: string, isSynced: boolean, availabl
   })
 }
 
-// Cold start warm-up only.
-// Automatic periodic sync to Google Sheets is STRICTLY ORCHESTRATED by Hermes VPS via POST /api/sheets/sync.
+// Automatic periodic observation poller (every 60s).
+// Ensures candidate prices from Google Sheets are tracked, verified over time,
+// and automatically promoted if they remain stable across several minutes to prevent stuck prices.
 let intervalStarted = false
 export function startAutoSyncPoller() {
   if (intervalStarted) return
   intervalStarted = true
 
   fetchAllSheets(true).catch(console.error)
+
+  setInterval(() => {
+    fetchAllSheets(false).catch((err) => {
+      console.warn('[AutoSyncPoller] Periodic check error:', err?.message)
+    })
+  }, 60 * 1000)
 }
