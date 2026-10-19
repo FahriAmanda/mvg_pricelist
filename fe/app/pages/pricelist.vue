@@ -50,6 +50,10 @@ import BatchSelectDialog from '~/components/BatchSelectDialog.vue'
 import type { ErpBatchItem } from '~/types/pricelist'
 
 const authStore = useAuthStore()
+const isSuperAdmin = computed(() => {
+  const role = (authStore.user?.roleName || '').trim().toUpperCase()
+  return role === 'SUPER ADMIN' || role === 'SUPERADMIN'
+})
 const cart = useCart()
 
 // Batch Selection Modal State
@@ -1161,7 +1165,7 @@ const hasLinkColumn = computed(() => {
                 <div v-if="item.metadata?.hargaKreditFormatted" class="text-[9px] text-muted-foreground font-mono">
                   Krd: {{ item.metadata.hargaKreditFormatted }}
                 </div>
-                <div v-if="item.metadata?.capitalHpp" class="text-[9px] text-amber-600 dark:text-amber-400 font-mono font-medium">
+                <div v-if="isSuperAdmin && item.metadata?.capitalHpp" class="text-[9px] text-amber-600 dark:text-amber-400 font-mono font-medium">
                   HPP: Rp {{ Number(item.metadata.capitalHpp).toLocaleString('id-ID') }}
                 </div>
                 <div v-if="item.isSynced" class="text-[9px] font-mono mt-0.5" :class="getItemAvailableStock(item) > 0 ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-muted-foreground'">
@@ -1416,8 +1420,8 @@ const hasLinkColumn = computed(() => {
                 </span>
               </div>
 
-              <!-- Special Breakdown: Novastar Capital / HPP & Profit -->
-              <div v-if="item.metadata?.capitalHpp" class="pt-2 text-xs">
+              <!-- Special Breakdown: Novastar Capital / HPP & Profit (Super Admin Only) -->
+              <div v-if="isSuperAdmin && item.metadata?.capitalHpp" class="pt-2 text-xs">
                 <div class="grid grid-cols-2 gap-2">
                   <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20">
                     <p class="text-[10px] text-amber-700 dark:text-amber-400 font-semibold uppercase flex items-center gap-1">
@@ -1642,7 +1646,7 @@ const hasLinkColumn = computed(() => {
                 <p v-if="item.metadata?.hargaKreditFormatted" class="text-[11px] text-muted-foreground mt-0.5 font-medium">
                   Kredit: <span class="font-mono text-foreground font-semibold">{{ item.metadata.hargaKreditFormatted }}</span>
                 </p>
-                <div v-if="item.metadata?.capitalHpp" class="pt-1 flex items-center justify-between text-[11px] text-amber-600 dark:text-amber-400 font-mono">
+                <div v-if="isSuperAdmin && item.metadata?.capitalHpp" class="pt-1 flex items-center justify-between text-[11px] text-amber-600 dark:text-amber-400 font-mono">
                   <span class="text-[10px] uppercase font-bold text-amber-700 dark:text-amber-300">HPP:</span>
                   <span class="font-bold">Rp {{ Number(item.metadata.capitalHpp).toLocaleString('id-ID') }}</span>
                   <span v-if="item.metadata?.profitPercent" class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold ml-1">({{ item.metadata.profitPercent }})</span>
@@ -1818,10 +1822,10 @@ const hasLinkColumn = computed(() => {
                   <TableHead v-if="activeCategoryId === 'magnustek_tkdn'" class="w-[130px] text-xs font-semibold">
                     Nilai TKDN
                   </TableHead>
-                  <TableHead v-if="activeCategoryId === 'novastar'" class="w-[140px] text-xs font-semibold text-amber-600 dark:text-amber-400">
+                  <TableHead v-if="isSuperAdmin && activeCategoryId === 'novastar'" class="w-[140px] text-xs font-semibold text-amber-600 dark:text-amber-400">
                     Capital / HPP
                   </TableHead>
-                  <TableHead v-if="activeCategoryId === 'novastar'" class="w-[90px] text-xs font-semibold text-blue-600 dark:text-blue-400">
+                  <TableHead v-if="isSuperAdmin && activeCategoryId === 'novastar'" class="w-[90px] text-xs font-semibold text-blue-600 dark:text-blue-400">
                     Margin
                   </TableHead>
 
@@ -1981,10 +1985,10 @@ const hasLinkColumn = computed(() => {
                       {{ item.metadata?.tkdnValue || '-' }}
                     </Badge>
                   </TableCell>
-                  <TableCell v-if="activeCategoryId === 'novastar'" class="text-xs font-mono font-bold text-amber-600 dark:text-amber-400">
+                  <TableCell v-if="isSuperAdmin && activeCategoryId === 'novastar'" class="text-xs font-mono font-bold text-amber-600 dark:text-amber-400">
                     {{ item.metadata?.capitalHpp ? 'Rp ' + Number(item.metadata.capitalHpp).toLocaleString('id-ID') : '-' }}
                   </TableCell>
-                  <TableCell v-if="activeCategoryId === 'novastar'" class="text-xs font-semibold text-blue-600 dark:text-blue-400">
+                  <TableCell v-if="isSuperAdmin && activeCategoryId === 'novastar'" class="text-xs font-semibold text-blue-600 dark:text-blue-400">
                     {{ item.metadata?.profitPercent || '-' }}
                   </TableCell>
 

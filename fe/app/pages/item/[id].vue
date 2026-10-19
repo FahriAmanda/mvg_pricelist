@@ -1006,8 +1006,8 @@ const specRows = computed(() => {
               </div>
             </div>
 
-            <!-- Capital / HPP & Profit Breakdown (Novastar & Supported Items) -->
-            <div v-if="item.metadata?.capitalHpp" class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1">
+            <!-- Capital / HPP & Profit Breakdown (Novastar & Supported Items - Super Admin Only) -->
+            <div v-if="isSuperAdmin && item.metadata?.capitalHpp" class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1">
               <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20">
                 <p class="text-[11px] text-amber-700 dark:text-amber-400 font-semibold uppercase tracking-wider">Capital / HPP</p>
                 <p class="text-lg font-bold text-amber-700 dark:text-amber-300 font-mono mt-0.5">Rp {{ Number(item.metadata.capitalHpp).toLocaleString('id-ID') }}</p>
