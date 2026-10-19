@@ -990,6 +990,22 @@ const specRows = computed(() => {
               </div>
             </div>
 
+            <!-- Capital / HPP & Profit Breakdown (Novastar & Supported Items) -->
+            <div v-if="item.metadata?.capitalHpp" class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1">
+              <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20">
+                <p class="text-[11px] text-amber-700 dark:text-amber-400 font-semibold uppercase tracking-wider">Capital / HPP</p>
+                <p class="text-lg font-bold text-amber-700 dark:text-amber-300 font-mono mt-0.5">Rp {{ Number(item.metadata.capitalHpp).toLocaleString('id-ID') }}</p>
+              </div>
+              <div v-if="item.metadata?.profitPercent" class="p-3 rounded-2xl bg-blue-500/10 border border-blue-500/20">
+                <p class="text-[11px] text-blue-700 dark:text-blue-400 font-semibold uppercase tracking-wider">Margin Profit</p>
+                <p class="text-lg font-bold text-blue-700 dark:text-blue-300 font-mono mt-0.5">{{ item.metadata.profitPercent }}</p>
+              </div>
+              <div class="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
+                <p class="text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold uppercase tracking-wider">Cash Price</p>
+                <p class="text-lg font-bold text-emerald-700 dark:text-emerald-300 font-mono mt-0.5">{{ item.priceFormatted }}</p>
+              </div>
+            </div>
+
             <!-- LED Poster Dual Price (if category led_poster) -->
             <div v-if="item.category === 'led_poster'" class="grid grid-cols-2 gap-3 pt-1">
               <div class="p-3 rounded-2xl bg-muted/40 border border-border/60">

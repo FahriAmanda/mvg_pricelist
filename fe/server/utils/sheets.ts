@@ -2520,6 +2520,26 @@ export async function fetchAllSheets(force = false): Promise<{
   try {
     const fetchCategoryRows = async () => {
       return mapConcurrent(SHEET_CATEGORIES, 5, async (cat) => {
+        // Novastar: use daily Hermes processed snapshot unless force refresh is requested
+        if (cat.id === 'novastar' && !force) {
+          const snapshotCandidates = [
+            path.resolve(process.cwd(), 'server/data/novastar_snapshot.json'),
+            path.resolve(process.cwd(), '../data/novastar_snapshot.json'),
+            '/home/hisekawa/mvg/mvg_pricelist/fe/server/data/novastar_snapshot.json',
+            '/home/hisekawa/mvg/outputs/novastar_snapshot.json'
+          ]
+          for (const sp of snapshotCandidates) {
+            try {
+              if (fs.existsSync(sp)) {
+                const snap = JSON.parse(fs.readFileSync(sp, 'utf8'))
+                if (Array.isArray(snap.items) && snap.items.length > 0) {
+                  return { catId: cat.id, items: snap.items, rawText: snap.updatedAt || 'snapshot' }
+                }
+              }
+            } catch {}
+          }
+        }
+
         const url = cat.customUrl
           ? `${cat.customUrl}&_t=${Date.now()}`
           : `${BASE_CSV_URL}${cat.gid}&_t=${Date.now()}`
@@ -2733,7 +2753,12 @@ async function notifyFoxPricelistAnomaly(anomalies: any[]) {
           }
 
           // Check ERP Sync & Available Stock
-          const stockInfo = erpStockMap[item.sku]
+          const skuErp = item.metadata?.skuErp
+          const skuBiasa = item.metadata?.skuBiasa
+          const stockInfo = erpStockMap[item.sku] ||
+            (skuErp ? erpStockMap[skuErp] : undefined) ||
+            (skuBiasa ? erpStockMap[skuBiasa] : undefined)
+
           if (stockInfo && stockInfo.is_synced) {
             item.isSynced = true
             item.availableStock = Number(stockInfo.available_stock || 0)
@@ -2887,19 +2912,35 @@ export function updateItemErpSyncStatus(sku: string, isSynced: boolean, availabl
   })
 }
 
-// Automatic periodic observation poller (every 60s).
-// Ensures candidate prices from Google Sheets are tracked, verified over time,
-// and automatically promoted if they remain stable across several minutes to prevent stuck prices.
+// Scheduled daily 05:00 AM WIB refresh for Web Pricelist.
+// Hermes VPS processes the master sheets, runs anomaly checks, and synchronizes ERP & snapshot.
+function scheduleNextDaily5AmPricelistRefresh() {
+  const now = new Date()
+  const wibOffset = 7 * 60
+  const utcMinutes = now.getUTCHours() * 60 + now.getUTCMinutes()
+  const wibMinutes = (utcMinutes + wibOffset) % (24 * 60)
+  const targetWibMinutes = 5 * 60 // 05:00 WIB
+
+  let diffMinutes = targetWibMinutes - wibMinutes
+  if (diffMinutes <= 0) {
+    diffMinutes += 24 * 60
+  }
+  const delayMs = diffMinutes * 60 * 1000
+  console.log(`[AutoSyncPoller] ⏰ Jadwal refresh harian pricelist berikutnya: dalam ${(delayMs / 3600000).toFixed(1)} jam (05:00 WIB)`)
+
+  setTimeout(() => {
+    console.log('[AutoSyncPoller] 🔔 Menjalankan refresh harian 05:00 WIB...')
+    fetchAllSheets(true).catch(console.error)
+    scheduleNextDaily5AmPricelistRefresh()
+  }, delayMs)
+}
+
 let intervalStarted = false
 export function startAutoSyncPoller() {
   if (intervalStarted) return
   intervalStarted = true
 
-  fetchAllSheets(true).catch(console.error)
-
-  setInterval(() => {
-    fetchAllSheets(false).catch((err) => {
-      console.warn('[AutoSyncPoller] Periodic check error:', err?.message)
-    })
-  }, 60 * 1000)
+  // Initial warmup on server launch
+  fetchAllSheets(false).catch(console.error)
+  scheduleNextDaily5AmPricelistRefresh()
 }

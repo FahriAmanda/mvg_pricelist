@@ -1115,6 +1115,9 @@ const hasLinkColumn = computed(() => {
                 <div v-if="item.metadata?.hargaKreditFormatted" class="text-[9px] text-muted-foreground font-mono">
                   Krd: {{ item.metadata.hargaKreditFormatted }}
                 </div>
+                <div v-if="item.metadata?.capitalHpp" class="text-[9px] text-amber-600 dark:text-amber-400 font-mono font-medium">
+                  HPP: Rp {{ Number(item.metadata.capitalHpp).toLocaleString('id-ID') }}
+                </div>
                 <div class="flex items-center justify-end gap-1.5 mt-1">
                   <button
                     v-if="item.isSynced && (item.availableStock || 0) > 0"
@@ -1363,6 +1366,26 @@ const hasLinkColumn = computed(() => {
                 </span>
               </div>
 
+              <!-- Special Breakdown: Novastar Capital / HPP & Profit -->
+              <div v-if="item.metadata?.capitalHpp" class="pt-2 text-xs">
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                    <p class="text-[10px] text-amber-700 dark:text-amber-400 font-semibold uppercase flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                      Capital / HPP
+                    </p>
+                    <p class="font-bold text-amber-700 dark:text-amber-300 font-mono mt-0.5 text-xs">Rp {{ Number(item.metadata.capitalHpp).toLocaleString('id-ID') }}</p>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20">
+                    <p class="text-[10px] text-emerald-700 dark:text-emerald-400 font-semibold uppercase flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                      Cash Price {{ item.metadata?.profitPercent ? `(${item.metadata.profitPercent})` : '' }}
+                    </p>
+                    <p class="font-bold text-emerald-700 dark:text-emerald-300 font-mono mt-0.5 text-xs">{{ item.priceFormatted }}</p>
+                  </div>
+                </div>
+              </div>
+
               <!-- Special Breakdown: Instalasi LED Dual Prices (Modular vs Cabinet) -->
               <div v-if="item.category === 'mvg_instalasi_led'" class="pt-2 space-y-2 text-xs">
                 <div class="grid grid-cols-2 gap-2">
@@ -1564,6 +1587,11 @@ const hasLinkColumn = computed(() => {
                 <p v-if="item.metadata?.hargaKreditFormatted" class="text-[11px] text-muted-foreground mt-0.5 font-medium">
                   Kredit: <span class="font-mono text-foreground font-semibold">{{ item.metadata.hargaKreditFormatted }}</span>
                 </p>
+                <div v-if="item.metadata?.capitalHpp" class="pt-1 flex items-center justify-between text-[11px] text-amber-600 dark:text-amber-400 font-mono">
+                  <span class="text-[10px] uppercase font-bold text-amber-700 dark:text-amber-300">HPP:</span>
+                  <span class="font-bold">Rp {{ Number(item.metadata.capitalHpp).toLocaleString('id-ID') }}</span>
+                  <span v-if="item.metadata?.profitPercent" class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold ml-1">({{ item.metadata.profitPercent }})</span>
+                </div>
               </div>
 
               <!-- Action Buttons Row: Add to Cart (flex-1) + Quick Detail Action -->
@@ -1735,6 +1763,12 @@ const hasLinkColumn = computed(() => {
                   <TableHead v-if="activeCategoryId === 'magnustek_tkdn'" class="w-[130px] text-xs font-semibold">
                     Nilai TKDN
                   </TableHead>
+                  <TableHead v-if="activeCategoryId === 'novastar'" class="w-[140px] text-xs font-semibold text-amber-600 dark:text-amber-400">
+                    Capital / HPP
+                  </TableHead>
+                  <TableHead v-if="activeCategoryId === 'novastar'" class="w-[90px] text-xs font-semibold text-blue-600 dark:text-blue-400">
+                    Margin
+                  </TableHead>
 
                   <TableHead class="w-[150px] text-right text-xs font-semibold">
                     {{
@@ -1889,6 +1923,12 @@ const hasLinkColumn = computed(() => {
                     <Badge variant="outline" class="font-mono text-xs border-emerald-500/40 text-emerald-600 dark:text-emerald-400 bg-emerald-500/5">
                       {{ item.metadata?.tkdnValue || '-' }}
                     </Badge>
+                  </TableCell>
+                  <TableCell v-if="activeCategoryId === 'novastar'" class="text-xs font-mono font-bold text-amber-600 dark:text-amber-400">
+                    {{ item.metadata?.capitalHpp ? 'Rp ' + Number(item.metadata.capitalHpp).toLocaleString('id-ID') : '-' }}
+                  </TableCell>
+                  <TableCell v-if="activeCategoryId === 'novastar'" class="text-xs font-semibold text-blue-600 dark:text-blue-400">
+                    {{ item.metadata?.profitPercent || '-' }}
                   </TableCell>
 
                   <!-- Harga Cash / Satuan (Bold Bright Red) -->

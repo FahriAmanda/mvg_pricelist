@@ -1,0 +1,1367 @@
+{
+  "updatedAt": "2026-10-19T07:25:53.652Z",
+  "sourceUrl": "https://docs.google.com/spreadsheets/d/1LcCyULM6UJ_c5wKFWF3fgMX350PMMGeGSCZrRUl3148/export?format=csv&gid=958507118",
+  "totalValidItems": 68,
+  "items": [
+    {
+      "id": "novastar-1",
+      "no": 1,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar DH7508 Receiving Card",
+      "type": "Receiving Card",
+      "description": "Novastar NovaStar DH7508 Receiving Card Receiving Card",
+      "price": 191000,
+      "priceFormatted": "Rp 191.000",
+      "sku": "NS-RC-DH7508-8P",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 1,
+        "skuErp": "NS-RC-DH7508-8P",
+        "skuBiasa": "NS-RC-DH7508-8P",
+        "capitalHpp": 162687,
+        "profitPercent": "17%"
+      }
+    },
+    {
+      "id": "novastar-2",
+      "no": 2,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar DH7512-S Receiving Card",
+      "type": "Receiving Card",
+      "description": "Novastar NovaStar DH7512-S Receiving Card Receiving Card",
+      "price": 246000,
+      "priceFormatted": "Rp 246.000",
+      "sku": "RCV-260927-NOVANV7-01",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 2,
+        "skuErp": "RCV-260927-NOVANV7-01",
+        "skuBiasa": "NS-RC-DH7512-S",
+        "capitalHpp": 210123,
+        "profitPercent": "17%"
+      }
+    },
+    {
+      "id": "novastar-3",
+      "no": 3,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar DH7516-S Receiving Card",
+      "type": "Receiving Card",
+      "description": "Novastar NovaStar DH7516-S Receiving Card Receiving Card",
+      "price": 278000,
+      "priceFormatted": "Rp 278.000",
+      "sku": "NS-RC-DH7516-S",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 3,
+        "skuErp": "NS-RC-DH7516-S",
+        "skuBiasa": "NS-RC-DH7516-S",
+        "capitalHpp": 237182,
+        "profitPercent": "17%"
+      }
+    },
+    {
+      "id": "novastar-4",
+      "no": 4,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MRV208-1 Receiving Card",
+      "type": "Receiving Card",
+      "description": "Novastar NovaStar MRV208-1 Receiving Card Receiving Card",
+      "price": 229000,
+      "priceFormatted": "Rp 229.000",
+      "sku": "NS-RC-MRV208-1",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 4,
+        "skuErp": "NS-RC-MRV208-1",
+        "skuBiasa": "NS-RC-MRV208-1",
+        "capitalHpp": 195582,
+        "profitPercent": "17%"
+      }
+    },
+    {
+      "id": "novastar-5",
+      "no": 5,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MRV412 Receiving Card",
+      "type": "Receiving Card",
+      "description": "Novastar NovaStar MRV412 Receiving Card Receiving Card",
+      "price": 283000,
+      "priceFormatted": "Rp 283.000",
+      "sku": "NS-RC-MRV412",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 5,
+        "skuErp": "NS-RC-MRV412",
+        "skuBiasa": "NS-RC-MRV412",
+        "capitalHpp": 241600,
+        "profitPercent": "17%"
+      }
+    },
+    {
+      "id": "novastar-6",
+      "no": 6,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MRV416 Receiving Card",
+      "type": "Receiving Card",
+      "description": "Novastar NovaStar MRV416 Receiving Card Receiving Card",
+      "price": 294000,
+      "priceFormatted": "Rp 294.000",
+      "sku": "NS-RC-MRV416",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 6,
+        "skuErp": "NS-RC-MRV416",
+        "skuBiasa": "NS-RC-MRV416",
+        "capitalHpp": 250803,
+        "profitPercent": "17%"
+      }
+    },
+    {
+      "id": "novastar-7",
+      "no": 7,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar NV3210 HUB320 Receiving Card",
+      "type": "Receiving Card",
+      "description": "Novastar NovaStar NV3210 HUB320 Receiving Card Receiving Card",
+      "price": 293000,
+      "priceFormatted": "Rp 293.000",
+      "sku": "NS-RC-NV3210",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 7,
+        "skuErp": "NS-RC-NV3210",
+        "skuBiasa": "NS-RC-NV3210",
+        "capitalHpp": 249617,
+        "profitPercent": "17%"
+      }
+    },
+    {
+      "id": "novastar-8",
+      "no": 8,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MRV432 / DH3208 HUB320 Receiving Card",
+      "type": "Receiving Card",
+      "description": "Novastar NovaStar MRV432 / DH3208 HUB320 Receiving Card Receiving Card",
+      "price": 283000,
+      "priceFormatted": "Rp 283.000",
+      "sku": "NS-RC-MRV432",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 8,
+        "skuErp": "NS-RC-MRV432",
+        "skuBiasa": "NS-RC-MRV432",
+        "capitalHpp": 241600,
+        "profitPercent": "17%"
+      }
+    },
+    {
+      "id": "novastar-9",
+      "no": 9,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar A5s Plus / A5s Plus-N Receiving Card",
+      "type": "Receiving Card",
+      "description": "Novastar NovaStar A5s Plus / A5s Plus-N Receiving Card Receiving Card",
+      "price": 260000,
+      "priceFormatted": "Rp 260.000",
+      "sku": "NS-HC-A5S-PLUS",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 9,
+        "skuErp": "NS-HC-A5S-PLUS",
+        "skuBiasa": "NS-HC-A5S-PLUS",
+        "capitalHpp": 221441,
+        "profitPercent": "17%"
+      }
+    },
+    {
+      "id": "novastar-10",
+      "no": 10,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar A8s-N Receiving Card",
+      "type": "Receiving Card",
+      "description": "Novastar NovaStar A8s-N Receiving Card Receiving Card",
+      "price": 604000,
+      "priceFormatted": "Rp 604.000",
+      "sku": "NS-HC-A8S-N",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 10,
+        "skuErp": "NS-HC-A8S-N",
+        "skuBiasa": "NS-HC-A8S-N",
+        "capitalHpp": 515956,
+        "profitPercent": "17%"
+      }
+    },
+    {
+      "id": "novastar-11",
+      "no": 11,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar A10s Plus-N Receiving Card",
+      "type": "Receiving Card",
+      "description": "Novastar NovaStar A10s Plus-N Receiving Card Receiving Card",
+      "price": 863000,
+      "priceFormatted": "Rp 863.000",
+      "sku": "NS-HC-A10S-PLUS-N",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 11,
+        "skuErp": "NS-HC-A10S-PLUS-N",
+        "skuBiasa": "NS-HC-A10S-PLUS-N",
+        "capitalHpp": 736843,
+        "profitPercent": "17%"
+      }
+    },
+    {
+      "id": "novastar-12",
+      "no": 12,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar TB10 Plus LED Playback Control Processor",
+      "type": "Multi Media Player",
+      "description": "Novastar NovaStar TB10 Plus LED Playback Control Processor Multi Media Player",
+      "price": 2302000,
+      "priceFormatted": "Rp 2.302.000",
+      "sku": "NS-MP-TB10-PLUS",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 12,
+        "skuErp": "NS-MP-TB10-PLUS",
+        "skuBiasa": "NS-MP-TB10-PLUS",
+        "capitalHpp": 1841319,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-13",
+      "no": 13,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar TB20 Plus LED Playback Control Processor",
+      "type": "Multi Media Player",
+      "description": "Novastar NovaStar TB20 Plus LED Playback Control Processor Multi Media Player",
+      "price": 2839000,
+      "priceFormatted": "Rp 2.839.000",
+      "sku": "NS-MP-TB20-PLUS",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 13,
+        "skuErp": "NS-MP-TB20-PLUS",
+        "skuBiasa": "NS-MP-TB20-PLUS",
+        "capitalHpp": 2270886,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-14",
+      "no": 14,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar TB30 LED Playback Control Processor",
+      "type": "Multi Media Player",
+      "description": "Novastar NovaStar TB30 LED Playback Control Processor Multi Media Player",
+      "price": 4703000,
+      "priceFormatted": "Rp 4.703.000",
+      "sku": "NS-MP-TB30",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 14,
+        "skuErp": "NS-MP-TB30",
+        "skuBiasa": "NS-MP-TB30",
+        "capitalHpp": 3761871,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-15",
+      "no": 15,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar TB40 LED Playback Control Processor",
+      "type": "Multi Media Player",
+      "description": "Novastar NovaStar TB40 LED Playback Control Processor Multi Media Player",
+      "price": 3567000,
+      "priceFormatted": "Rp 3.567.000",
+      "sku": "NS-MP-TB40",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 15,
+        "skuErp": "NS-MP-TB40",
+        "skuBiasa": "NS-MP-TB40",
+        "capitalHpp": 2853095,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-16",
+      "no": 16,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar TB50 LED Playback Control Processor",
+      "type": "Multi Media Player",
+      "description": "Novastar NovaStar TB50 LED Playback Control Processor Multi Media Player",
+      "price": 7267000,
+      "priceFormatted": "Rp 7.267.000",
+      "sku": "NS-MP-TB50",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 16,
+        "skuErp": "NS-MP-TB50",
+        "skuBiasa": "NS-MP-TB50",
+        "capitalHpp": 5813458,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-17",
+      "no": 17,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar TB60 LED Playback Control Processor",
+      "type": "Multi Media Player",
+      "description": "Novastar NovaStar TB60 LED Playback Control Processor Multi Media Player",
+      "price": 8298000,
+      "priceFormatted": "Rp 8.298.000",
+      "sku": "NS-MP-TB60",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 17,
+        "skuErp": "NS-MP-TB60",
+        "skuBiasa": "NS-MP-TB60",
+        "capitalHpp": 6637866,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-18",
+      "no": 18,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar TU15 Pro LED Playback Control Processor",
+      "type": "LED Playback Control Processor",
+      "description": "Novastar NovaStar TU15 Pro LED Playback Control Processor LED Playback Control Processor",
+      "price": 10525000,
+      "priceFormatted": "Rp 10.525.000",
+      "sku": "NS-MP-TU15-PRO",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 18,
+        "skuErp": "NS-MP-TU15-PRO",
+        "skuBiasa": "NS-MP-TU15-PRO",
+        "capitalHpp": 8419284,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-19",
+      "no": 19,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar TU20 Pro LED Playback Control Processor",
+      "type": "LED Playback Control Processor",
+      "description": "Novastar NovaStar TU20 Pro LED Playback Control Processor LED Playback Control Processor",
+      "price": 17197000,
+      "priceFormatted": "Rp 17.197.000",
+      "sku": "NS-MP-TU20-PRO",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 19,
+        "skuErp": "NS-MP-TU20-PRO",
+        "skuBiasa": "NS-MP-TU20-PRO",
+        "capitalHpp": 13757380,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-20",
+      "no": 20,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar TU40 Pro LED Playback Control Processor",
+      "type": "LED Playback Control Processor",
+      "description": "Novastar NovaStar TU40 Pro LED Playback Control Processor LED Playback Control Processor",
+      "price": 52234000,
+      "priceFormatted": "Rp 52.234.000",
+      "sku": "NS-MP-TU40-PRO",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 20,
+        "skuErp": "NS-MP-TU40-PRO",
+        "skuBiasa": "NS-MP-TU40-PRO",
+        "capitalHpp": 41787101,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-21",
+      "no": 21,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MBOX600 Industrial Controller (7U4A3) [Windows 10 IoT Enterprise]",
+      "type": "Industrial Controller",
+      "description": "Novastar NovaStar MBOX600 Industrial Controller (7U4A3) [Windows 10 IoT Enterprise] Industrial Controller",
+      "price": 21583000,
+      "priceFormatted": "Rp 21.583.000",
+      "sku": "PRC-260927-NOVAMBO-01",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 21,
+        "skuErp": "PRC-260927-NOVAMBO-01",
+        "skuBiasa": "NS-MP-MBOX600",
+        "capitalHpp": 17265695,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-22",
+      "no": 22,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar LCB2K LCD Controller",
+      "type": "LCD Controller",
+      "description": "Novastar NovaStar LCB2K LCD Controller LCD Controller",
+      "price": 1912000,
+      "priceFormatted": "Rp 1.912.000",
+      "sku": "NS-LCD-LCB2K",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 22,
+        "skuErp": "NS-LCD-LCB2K",
+        "skuBiasa": "NS-LCD-LCB2K",
+        "capitalHpp": 1529212,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-23",
+      "no": 23,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar LCB4K LCD Controller",
+      "type": "LCD Controller",
+      "description": "Novastar NovaStar LCB4K LCD Controller LCD Controller",
+      "price": 3675000,
+      "priceFormatted": "Rp 3.675.000",
+      "sku": "NS-LCD-LCB4K",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 23,
+        "skuErp": "NS-LCD-LCB4K",
+        "skuBiasa": "NS-LCD-LCB4K",
+        "capitalHpp": 2939483,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-24",
+      "no": 24,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar VC2 ID Video Processor",
+      "type": "Video Processor",
+      "description": "Novastar NovaStar VC2 ID Video Processor Video Processor",
+      "price": 3085000,
+      "priceFormatted": "Rp 3.085.000",
+      "sku": "NS-VP-VC2ID",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 24,
+        "skuErp": "NS-VP-VC2ID",
+        "skuBiasa": "NS-VP-VC2ID",
+        "capitalHpp": 2467216,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-25",
+      "no": 25,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar VC4 ID Video Processor",
+      "type": "Video Processor",
+      "description": "Novastar NovaStar VC4 ID Video Processor Video Processor",
+      "price": 5949000,
+      "priceFormatted": "Rp 5.949.000",
+      "sku": "NS-VP-VC4ID",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 25,
+        "skuErp": "NS-VP-VC4ID",
+        "skuBiasa": "NS-VP-VC4ID",
+        "capitalHpp": 4758419,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-26",
+      "no": 26,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar VC6 Pro ID Video Processor",
+      "type": "Video Processor",
+      "description": "Novastar NovaStar VC6 Pro ID Video Processor Video Processor",
+      "price": 14035000,
+      "priceFormatted": "Rp 14.035.000",
+      "sku": "NS-VP-VC6PRO-ID",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 26,
+        "skuErp": "NS-VP-VC6PRO-ID",
+        "skuBiasa": "NS-VP-VC6PRO-ID",
+        "capitalHpp": 8505723,
+        "profitPercent": "65%"
+      }
+    },
+    {
+      "id": "novastar-27",
+      "no": 27,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar VC10 Pro Video Processor",
+      "type": "Video Processor",
+      "description": "Novastar NovaStar VC10 Pro Video Processor Video Processor",
+      "price": 23720000,
+      "priceFormatted": "Rp 23.720.000",
+      "sku": "NS-VP-VC10PRO",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 27,
+        "skuErp": "NS-VP-VC10PRO",
+        "skuBiasa": "NS-VP-VC10PRO",
+        "capitalHpp": 18975812,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-28",
+      "no": 28,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar VC16 Pro Video Processor",
+      "type": "Video Processor",
+      "description": "Novastar NovaStar VC16 Pro Video Processor Video Processor",
+      "price": 41650000,
+      "priceFormatted": "Rp 41.650.000",
+      "sku": "NS-VP-VC16PRO",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 28,
+        "skuErp": "NS-VP-VC16PRO",
+        "skuBiasa": "NS-VP-VC16PRO",
+        "capitalHpp": 33319845,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-29",
+      "no": 29,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar VX400 Video Controller",
+      "type": "Video Processor",
+      "description": "Novastar NovaStar VX400 Video Controller Video Processor",
+      "price": 18130000,
+      "priceFormatted": "Rp 18.130.000",
+      "sku": "NS-VP-VX400",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 29,
+        "skuErp": "NS-VP-VX400",
+        "skuBiasa": "NS-VP-VX400",
+        "capitalHpp": 14502023,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-30",
+      "no": 30,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar VX400 Pro Video Controller",
+      "type": "Video Processor",
+      "description": "Novastar NovaStar VX400 Pro Video Controller Video Processor",
+      "price": 19411000,
+      "priceFormatted": "Rp 19.411.000",
+      "sku": "NS-VP-VX400-PRO",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 30,
+        "skuErp": "NS-VP-VX400-PRO",
+        "skuBiasa": "NS-VP-VX400-PRO",
+        "capitalHpp": 15528597,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-31",
+      "no": 31,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar VX600 Pro Video Controller",
+      "type": "Video Processor",
+      "description": "Novastar NovaStar VX600 Pro Video Controller Video Processor",
+      "price": 20744000,
+      "priceFormatted": "Rp 20.744.000",
+      "sku": "NS-VP-VX600-PRO",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 31,
+        "skuErp": "NS-VP-VX600-PRO",
+        "skuBiasa": "NS-VP-VX600-PRO",
+        "capitalHpp": 16594900,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-32",
+      "no": 32,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar VX1000 Pro Video Controller",
+      "type": "Video Processor",
+      "description": "Novastar NovaStar VX1000 Pro Video Controller Video Processor",
+      "price": 29269000,
+      "priceFormatted": "Rp 29.269.000",
+      "sku": "NS-VP-VX1000-PRO",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 32,
+        "skuErp": "NS-VP-VX1000-PRO",
+        "skuBiasa": "NS-VP-VX1000-PRO",
+        "capitalHpp": 23414998,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-33",
+      "no": 33,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar VX2000 Pro Video Controller",
+      "type": "Video Processor",
+      "description": "Novastar NovaStar VX2000 Pro Video Controller Video Processor",
+      "price": 59014000,
+      "priceFormatted": "Rp 59.014.000",
+      "sku": "NS-VP-VX2000-PRO",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 33,
+        "skuErp": "NS-VP-VX2000-PRO",
+        "skuBiasa": "NS-VP-VX2000-PRO",
+        "capitalHpp": 47210776,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-34",
+      "no": 34,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaPro UHD Jr Video Controller",
+      "type": "Video Processor",
+      "description": "Novastar NovaPro UHD Jr Video Controller Video Processor",
+      "price": 83377000,
+      "priceFormatted": "Rp 83.377.000",
+      "sku": "NS-VP-NOVAPRO-UHD-JR",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 34,
+        "skuErp": "BELUM ADA DI ERP",
+        "skuBiasa": "NS-VP-NOVAPRO-UHD-JR",
+        "capitalHpp": 66700837,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-35",
+      "no": 35,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar VX16s Video Controller",
+      "type": "Video Processor",
+      "description": "Novastar NovaStar VX16s Video Controller Video Processor",
+      "price": 48691000,
+      "priceFormatted": "Rp 48.691.000",
+      "sku": "NS-VP-VX16S",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 35,
+        "skuErp": "NS-VP-VX16S",
+        "skuBiasa": "NS-VP-VX16S",
+        "capitalHpp": 38952684,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-36",
+      "no": 36,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MSD300-1 Sending Card",
+      "type": "Sending Card",
+      "description": "Novastar NovaStar MSD300-1 Sending Card Sending Card",
+      "price": 1821000,
+      "priceFormatted": "Rp 1.821.000",
+      "sku": "NS-SC-MSD300-1",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 36,
+        "skuErp": "NS-SC-MSD300-1",
+        "skuBiasa": "NS-SC-MSD300-1",
+        "capitalHpp": 1456791,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-37",
+      "no": 37,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MSD600-1 Sending Card",
+      "type": "Sending Card",
+      "description": "Novastar NovaStar MSD600-1 Sending Card Sending Card",
+      "price": 3892000,
+      "priceFormatted": "Rp 3.892.000",
+      "sku": "NS-SC-MSD600-1",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 37,
+        "skuErp": "NS-SC-MSD600-1",
+        "skuBiasa": "NS-SC-MSD600-1",
+        "capitalHpp": 3113442,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-38",
+      "no": 38,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MCTRL300 LED Display Controller",
+      "type": "LED Display Controller",
+      "description": "Novastar NovaStar MCTRL300 LED Display Controller LED Display Controller",
+      "price": 2787000,
+      "priceFormatted": "Rp 2.787.000",
+      "sku": "NS-SC-MCTRL300",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 38,
+        "skuErp": "NS-SC-MCTRL300",
+        "skuBiasa": "NS-SC-MCTRL300",
+        "capitalHpp": 2228820,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-39",
+      "no": 39,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MCTRL600 LED Display Controller",
+      "type": "LED Display Controller",
+      "description": "Novastar NovaStar MCTRL600 LED Display Controller LED Display Controller",
+      "price": 5137000,
+      "priceFormatted": "Rp 5.137.000",
+      "sku": "NS-SC-MCTRL600",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 39,
+        "skuErp": "NS-SC-MCTRL600",
+        "skuBiasa": "NS-SC-MCTRL600",
+        "capitalHpp": 4109535,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-40",
+      "no": 40,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MCTRL660 LED Display Controller",
+      "type": "LED Display Controller",
+      "description": "Novastar NovaStar MCTRL660 LED Display Controller LED Display Controller",
+      "price": 9433000,
+      "priceFormatted": "Rp 9.433.000",
+      "sku": "NS-SC-MCTRL660",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 40,
+        "skuErp": "NS-SC-MCTRL660",
+        "skuBiasa": "NS-SC-MCTRL660",
+        "capitalHpp": 7546273,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-41",
+      "no": 41,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MCTRL660 Pro LED Display Controller",
+      "type": "LED Display Controller",
+      "description": "Novastar NovaStar MCTRL660 Pro LED Display Controller LED Display Controller",
+      "price": 14035000,
+      "priceFormatted": "Rp 14.035.000",
+      "sku": "NS-SC-MCTRL660-PRO",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 41,
+        "skuErp": "NS-SC-MCTRL660-PRO",
+        "skuBiasa": "NS-SC-MCTRL660-PRO",
+        "capitalHpp": 11227718,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-42",
+      "no": 42,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MCTRL700 LED Display Controller",
+      "type": "LED Display Controller",
+      "description": "Novastar NovaStar MCTRL700 LED Display Controller LED Display Controller",
+      "price": 5137000,
+      "priceFormatted": "Rp 5.137.000",
+      "sku": "NS-SC-MCTRL700",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 42,
+        "skuErp": "NS-SC-MCTRL700",
+        "skuBiasa": "NS-SC-MCTRL700",
+        "capitalHpp": 4109535,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-43",
+      "no": 43,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H2 Video Splicing Processor",
+      "type": "Video Splicing Processor",
+      "description": "Novastar NovaStar H2 Video Splicing Processor Video Splicing Processor",
+      "price": 9398000,
+      "priceFormatted": "Rp 9.398.000",
+      "sku": "NS-CS-H2",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 43,
+        "skuErp": "NS-CS-H2",
+        "skuBiasa": "NS-CS-H2",
+        "capitalHpp": 7518068,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-44",
+      "no": 44,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H5 Video Splicing Processor",
+      "type": "Video Splicing Processor",
+      "description": "Novastar NovaStar H5 Video Splicing Processor Video Splicing Processor",
+      "price": 20875000,
+      "priceFormatted": "Rp 20.875.000",
+      "sku": "NS-CS-H5",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 44,
+        "skuErp": "NS-CS-H5",
+        "skuBiasa": "NS-CS-H5",
+        "capitalHpp": 16699997,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-45",
+      "no": 45,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H9 Video Splicing Processor",
+      "type": "Video Splicing Processor",
+      "description": "Novastar NovaStar H9 Video Splicing Processor Video Splicing Processor",
+      "price": 32032000,
+      "priceFormatted": "Rp 32.032.000",
+      "sku": "NS-CS-H9",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 45,
+        "skuErp": "NS-CS-H9",
+        "skuBiasa": "NS-CS-H9",
+        "capitalHpp": 25624896,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-46",
+      "no": 46,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H9 Enhanced Video Splicing Processor",
+      "type": "Video Splicing Processor",
+      "description": "Novastar NovaStar H9 Enhanced Video Splicing Processor Video Splicing Processor",
+      "price": 41258000,
+      "priceFormatted": "Rp 41.258.000",
+      "sku": "NS-CS-H9-ENHANCED",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 46,
+        "skuErp": "NS-CS-H9-ENHANCED",
+        "skuBiasa": "NS-CS-H9-ENHANCED",
+        "capitalHpp": 33006193,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-47",
+      "no": 47,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H15 Video Splicing Processor",
+      "type": "Video Splicing Processor",
+      "description": "Novastar NovaStar H15 Video Splicing Processor Video Splicing Processor",
+      "price": 86426000,
+      "priceFormatted": "Rp 86.426.000",
+      "sku": "NS-CS-H15",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 47,
+        "skuErp": "NS-CS-H15",
+        "skuBiasa": "NS-CS-H15",
+        "capitalHpp": 69140063,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-48",
+      "no": 48,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H15 Enhanced Video Splicing Processor",
+      "type": "Video Splicing Processor",
+      "description": "Novastar NovaStar H15 Enhanced Video Splicing Processor Video Splicing Processor",
+      "price": 108054000,
+      "priceFormatted": "Rp 108.054.000",
+      "sku": "NS-CS-H15-ENHANCED",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 48,
+        "skuErp": "NS-CS-H15-ENHANCED",
+        "skuBiasa": "NS-CS-H15-ENHANCED",
+        "capitalHpp": 86442856,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-49",
+      "no": 49,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H20 Video Splicing Processor",
+      "type": "Video Splicing Processor",
+      "description": "Novastar NovaStar H20 Video Splicing Processor Video Splicing Processor",
+      "price": 164780000,
+      "priceFormatted": "Rp 164.780.000",
+      "sku": "NS-CS-H20",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 49,
+        "skuErp": "NS-CS-H20",
+        "skuBiasa": "NS-CS-H20",
+        "capitalHpp": 131823268,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-50",
+      "no": 50,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 4×HDMI/DVI Input Card",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 4×HDMI/DVI Input Card H Series I/O Card",
+      "price": 11499000,
+      "priceFormatted": "Rp 11.499.000",
+      "sku": "NS-IC-4HDMI-DVI-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 50,
+        "skuErp": "NS-IC-4HDMI-DVI-H",
+        "skuBiasa": "NS-IC-4HDMI-DVI-H",
+        "capitalHpp": 9199086,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-51",
+      "no": 51,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 1×HDMI2.0 + 1×DP1.2 Input Card",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 1×HDMI2.0 + 1×DP1.2 Input Card H Series I/O Card",
+      "price": 20683000,
+      "priceFormatted": "Rp 20.683.000",
+      "sku": "NS-IC-1HDMI-1DP-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 51,
+        "skuErp": "NS-IC-1HDMI-1DP-H",
+        "skuBiasa": "NS-IC-1HDMI-1DP-H",
+        "capitalHpp": 16545672,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-52",
+      "no": 52,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 2×HDMI2.0 Input Card (H15/H15 Enhanced)",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 2×HDMI2.0 Input Card (H15/H15 Enhanced) H Series I/O Card",
+      "price": 22976000,
+      "priceFormatted": "Rp 22.976.000",
+      "sku": "NS-IC-2HDMI-H15-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 52,
+        "skuErp": "NS-IC-2HDMI-H15-H",
+        "skuBiasa": "NS-IC-2HDMI-H15-H",
+        "capitalHpp": 18380334,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-53",
+      "no": 53,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 2×DP1.1 Input Card",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 2×DP1.1 Input Card H Series I/O Card",
+      "price": 11298000,
+      "priceFormatted": "Rp 11.298.000",
+      "sku": "NS-IC-2DP-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 53,
+        "skuErp": "NS-IC-2DP-H",
+        "skuBiasa": "NS-IC-2DP-H",
+        "capitalHpp": 9038064,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-54",
+      "no": 54,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 1×DP1.2 Input Card",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 1×DP1.2 Input Card H Series I/O Card",
+      "price": 16130000,
+      "priceFormatted": "Rp 16.130.000",
+      "sku": "NS-IC-1DP-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 54,
+        "skuErp": "NS-IC-1DP-H",
+        "skuBiasa": "NS-IC-1DP-H",
+        "capitalHpp": 12903581,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-55",
+      "no": 55,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 4×3G-SDI Input Card",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 4×3G-SDI Input Card H Series I/O Card",
+      "price": 22573000,
+      "priceFormatted": "Rp 22.573.000",
+      "sku": "NS-IC-4SDI-3G-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 55,
+        "skuErp": "NS-IC-4SDI-3G-H",
+        "skuBiasa": "NS-IC-4SDI-3G-H",
+        "capitalHpp": 18057604,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-56",
+      "no": 56,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 1×12G-SDI Input Card",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 1×12G-SDI Input Card H Series I/O Card",
+      "price": 22573000,
+      "priceFormatted": "Rp 22.573.000",
+      "sku": "NS-IC-1SDI-12G-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 56,
+        "skuErp": "NS-IC-1SDI-12G-H",
+        "skuBiasa": "NS-IC-1SDI-12G-H",
+        "capitalHpp": 18057604,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-57",
+      "no": 57,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 1×HDMI2.0 Input Card",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 1×HDMI2.0 Input Card H Series I/O Card",
+      "price": 15247000,
+      "priceFormatted": "Rp 15.247.000",
+      "sku": "NS-IC-1HDMI-2.0-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 57,
+        "skuErp": "NS-IC-1HDMI-2.0-H",
+        "skuBiasa": "NS-IC-1HDMI-2.0-H",
+        "capitalHpp": 12196918,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-58",
+      "no": 58,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 1×HDMI2.0 Output Card",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 1×HDMI2.0 Output Card H Series I/O Card",
+      "price": 16130000,
+      "priceFormatted": "Rp 16.130.000",
+      "sku": "NS-OC-1HDMI-2.0-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 58,
+        "skuErp": "NS-OC-1HDMI-2.0-H",
+        "skuBiasa": "NS-OC-1HDMIOUT-2.0-H",
+        "capitalHpp": 12903581,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-59",
+      "no": 59,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 4×HDMI/DVI Output Card",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 4×HDMI/DVI Output Card H Series I/O Card",
+      "price": 13139000,
+      "priceFormatted": "Rp 13.139.000",
+      "sku": "NS-OC-4HDMI-DVI-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 59,
+        "skuErp": "NS-OC-4HDMI-DVI-H",
+        "skuBiasa": "NS-OC-4HDMI-DVI-H",
+        "capitalHpp": 10510642,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-60",
+      "no": 60,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 1×HDMI1.3 + 2×RJ45 Preview Output Card",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 1×HDMI1.3 + 2×RJ45 Preview Output Card H Series I/O Card",
+      "price": 16820000,
+      "priceFormatted": "Rp 16.820.000",
+      "sku": "NS-OC-1HDMI-2LAN-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 60,
+        "skuErp": "NS-OC-1HDMI-2LAN-H",
+        "skuBiasa": "NS-OC-1HDMI-2LAN-H",
+        "capitalHpp": 13455798,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-61",
+      "no": 61,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 16×RJ45 + 2×Fiber Sending Card",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 16×RJ45 + 2×Fiber Sending Card H Series I/O Card",
+      "price": 22975000,
+      "priceFormatted": "Rp 22.975.000",
+      "sku": "NS-OC-16LAN-2FBR-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 61,
+        "skuErp": "NS-OC-16LAN-2FBR-H",
+        "skuBiasa": "NS-OC-16LAN-2FBR-H",
+        "capitalHpp": 18379976,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-62",
+      "no": 62,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 20×RJ45 Sending Card",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 20×RJ45 Sending Card H Series I/O Card",
+      "price": 25458000,
+      "priceFormatted": "Rp 25.458.000",
+      "sku": "NS-OC-20LAN-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 62,
+        "skuErp": "NS-OC-20LAN-H",
+        "skuBiasa": "NS-OC-20LAN-H",
+        "capitalHpp": 20366060,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-63",
+      "no": 63,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar H Series 4×OPT Output Card Enhanced",
+      "type": "H Series I/O Card",
+      "description": "Novastar NovaStar H Series 4×OPT Output Card Enhanced H Series I/O Card",
+      "price": 48366000,
+      "priceFormatted": "Rp 48.366.000",
+      "sku": "NS-OC-4OPT-H",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 63,
+        "skuErp": "NS-OC-4OPT-H",
+        "skuBiasa": "NS-OC-4OPT-H",
+        "capitalHpp": 38692105,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-64",
+      "no": 64,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "Pixelhue Go-4K View Pro with Flight Case",
+      "type": "Video Splicing Processor",
+      "description": "Novastar Pixelhue Go-4K View Pro with Flight Case Video Splicing Processor",
+      "price": 138479000,
+      "priceFormatted": "Rp 138.479.000",
+      "sku": "PIX-4K-VIEW-PRO-FC",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 64,
+        "skuErp": "PIX-4K-VIEW-PRO-FC",
+        "skuBiasa": "PIX-4K-VIEW-PRO-FC",
+        "capitalHpp": 110782841,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-65",
+      "no": 65,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar MCTRL 4K LED Display Controller",
+      "type": "LED Display Controller",
+      "description": "Novastar NovaStar MCTRL 4K LED Display Controller LED Display Controller",
+      "price": 63726000,
+      "priceFormatted": "Rp 63.726.000",
+      "sku": "NS-SC-MCTRL4K",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 65,
+        "skuErp": "NS-SC-MCTRL4K",
+        "skuBiasa": "NS-SC-MCTRL4K",
+        "capitalHpp": 50980358,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-66",
+      "no": 66,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar CVT4K-S Fiber Converter",
+      "type": "Fiber Converter",
+      "description": "Novastar NovaStar CVT4K-S Fiber Converter Fiber Converter",
+      "price": 35382000,
+      "priceFormatted": "Rp 35.382.000",
+      "sku": "NS-FC-CVT4K-S",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 66,
+        "skuErp": "NS-FC-CVT4K-S",
+        "skuBiasa": "NS-FC-CVT4K-S",
+        "capitalHpp": 28305215,
+        "profitPercent": "25%"
+      }
+    },
+    {
+      "id": "novastar-67",
+      "no": 67,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar CVT10 Fiber Converter",
+      "type": "Fiber Converter",
+      "description": "Novastar NovaStar CVT10 Fiber Converter Fiber Converter",
+      "price": 12350000,
+      "priceFormatted": "Rp 12.350.000",
+      "sku": "NS-FC-CVT10",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 67,
+        "skuErp": "NS-FC-CVT10",
+        "skuBiasa": "NS-FC-CVT10",
+        "capitalHpp": 10288104,
+        "profitPercent": "20%"
+      }
+    },
+    {
+      "id": "novastar-68",
+      "no": 68,
+      "category": "novastar",
+      "catalog": "av",
+      "model": "NovaStar VX4S-N All-in-One Controller",
+      "type": "All-in-One Controller",
+      "description": "Novastar NovaStar VX4S-N All-in-One Controller All-in-One Controller",
+      "price": 8700000,
+      "priceFormatted": "Rp 8.700.000",
+      "sku": "NS-VP-VX4S-N",
+      "image": "/images/products/av-novastar-controller.svg",
+      "metadata": {
+        "no": 68,
+        "skuErp": "NS-VP-VX4S-N",
+        "skuBiasa": "NS-VP-VX4S-N",
+        "capitalHpp": 6952218,
+        "profitPercent": "25%"
+      }
+    }
+  ]
+}
