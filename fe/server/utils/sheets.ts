@@ -317,7 +317,7 @@ export const SHEET_CATEGORIES: Array<{
     id: 'novastar',
     name: 'Novastar',
     catalog: 'av',
-    gid: '30080677',
+    customUrl: 'https://docs.google.com/spreadsheets/d/1LcCyULM6UJ_c5wKFWF3fgMX350PMMGeGSCZrRUl3148/export?format=csv&gid=958507118',
     icon: 'Zap',
     description: 'NovaStar Receiving Cards, Sending Cards & Video Processors'
   },
@@ -1936,13 +1936,39 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 5 || (!r[1] && !r[2])) continue
-        const brand = r[0]?.trim() || 'Novastar'
-        const rawType = r[1]?.trim() || ''
-        const rawDesc = r[2]?.trim() || ''
-        const price = parsePrice(r[4])
-        if (!price || price === 0) continue
-        if (rawType === '0' || rawDesc === '0') continue
-        const sku = r[5]?.trim() || `${categoryId}-${i}`
+
+        // Check if row matches the new multi-column format with SKU ERP, SKU, HPP, Cash Price
+        const hasNewFormat = r.length >= 16 && (r[13] || r[15])
+        let brand = r[0]?.trim() || 'Novastar'
+        let rawType = r[1]?.trim() || ''
+        let rawDesc = r[2]?.trim() || ''
+        let price = 0
+        let hpp = 0
+        let profit = ''
+        let sku = ''
+        let skuErp = ''
+        let skuBiasa = ''
+
+        if (hasNewFormat) {
+          price = parsePrice(r[15])
+          hpp = parsePrice(r[13])
+          profit = r[14]?.trim() || ''
+          skuErp = r[4]?.trim() || ''
+          skuBiasa = r[5]?.trim() || ''
+
+          if (!price || price === 0) continue
+          if (rawType.toUpperCase().includes('MODEL') || rawDesc.toUpperCase().includes('DESCRIPTION')) continue
+
+          sku = (skuErp && !skuErp.toUpperCase().includes('BELUM ADA') && skuErp !== '-')
+            ? skuErp
+            : (skuBiasa || `${categoryId}-${i}`)
+        } else {
+          price = parsePrice(r[4])
+          if (!price || price === 0) continue
+          if (rawType === '0' || rawDesc === '0') continue
+          sku = r[5]?.trim() || `${categoryId}-${i}`
+        }
+
         seq++
 
         const isGenericDesc =
@@ -1950,7 +1976,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           rawDesc.toLowerCase() === 'video processor' ||
           rawDesc.toLowerCase() === 'multimedia player' ||
           rawDesc.toLowerCase() === 'controller' ||
-          rawDesc.toLowerCase() === 'sending card'
+          rawDesc.toLowerCase() === 'sending card' ||
+          rawDesc.toLowerCase() === 'h series i/o card' ||
+          rawDesc.toLowerCase() === 'all-in-one controller' ||
+          rawDesc.toLowerCase() === 'fiber converter' ||
+          rawDesc.toLowerCase() === 'lcd controller'
 
         let displayModel = ''
         let displayType = ''
@@ -1976,7 +2006,11 @@ function parseSheetRows(categoryId: string, rawCsv: string): PricelistItem[] {
           sku,
           image: '/images/products/av-novastar-controller.svg',
           metadata: {
-            no: seq
+            no: seq,
+            skuErp: skuErp || undefined,
+            skuBiasa: skuBiasa || undefined,
+            capitalHpp: hpp || undefined,
+            profitPercent: profit || undefined,
           },
           updatedAt: new Date().toISOString()
         })
