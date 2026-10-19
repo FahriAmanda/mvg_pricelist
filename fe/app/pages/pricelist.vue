@@ -57,8 +57,14 @@ const selectedItemForBatch = ref<PricelistItem | null>(null)
 const isBatchDialogOpen = ref(false)
 
 function handleAddToCart(item: PricelistItem) {
-  if (!item.isSynced || (item.availableStock || 0) <= 0) return
-  const availableBatches = (item.batches || []).filter(b => Number(b.available_stock || 0) > 0)
+  const availStock = getItemAvailableStock(item)
+  if (!item.isSynced || availStock <= 0) return
+  const availableBatches = (item.batches || []).filter(b => {
+    const hasStock = Number(b.available_stock || 0) > 0
+    if (!hasStock) return false
+    if (!selectedGudang.value || selectedGudang.value === 'ALL') return true
+    return b.nama_gudang === selectedGudang.value || b.m_gudang_id === selectedGudang.value || b.kode_gudang === selectedGudang.value
+  })
   if (availableBatches.length > 0) {
     selectedItemForBatch.value = item
     isBatchDialogOpen.value = true
@@ -148,6 +154,10 @@ const {
   lastSyncTime,
   searchQuery,
   typeFilter,
+  selectedGudang,
+  warehouseList,
+  refreshLiveStock,
+  getItemAvailableStock,
   erpSyncFilter,
   erpSyncCounts,
   sortBy,
@@ -160,6 +170,11 @@ const {
   search: querySearch || '',
   sort: (querySort as any) || 'default'
 })
+
+const queryGudang = (route.query.gudang as string) || ''
+if (queryGudang) {
+  selectedGudang.value = queryGudang
+}
 
 // Display View Mode: 'cards' or 'table'
 const viewMode = ref<'cards' | 'table'>(queryView === 'table' ? 'table' : 'cards')
@@ -176,6 +191,9 @@ function syncStateToUrl() {
   }
   if (typeFilter.value && typeFilter.value !== 'ALL') {
     nextQuery.type = typeFilter.value
+  }
+  if (selectedGudang.value && selectedGudang.value !== 'ALL') {
+    nextQuery.gudang = selectedGudang.value
   }
   if (erpSyncFilter.value && erpSyncFilter.value !== 'ALL') {
     nextQuery.erp_sync = erpSyncFilter.value.toLowerCase()
@@ -203,7 +221,7 @@ function syncStateToUrl() {
 }
 
 // Watch state changes and sync to URL query
-watch([activeCatalog, activeCategoryId, viewMode, typeFilter, erpSyncFilter, sortBy], () => {
+watch([activeCatalog, activeCategoryId, viewMode, typeFilter, selectedGudang, erpSyncFilter, sortBy], () => {
   syncStateToUrl()
 })
 
@@ -238,6 +256,13 @@ watch(
       if (typeFilter.value !== newQuery.type) {
         typeFilter.value = newQuery.type
       }
+    }
+    if (newQuery.gudang && typeof newQuery.gudang === 'string') {
+      if (selectedGudang.value !== newQuery.gudang) {
+        selectedGudang.value = newQuery.gudang
+      }
+    } else if (!newQuery.gudang && selectedGudang.value !== 'ALL') {
+      selectedGudang.value = 'ALL'
     }
     if (typeof newQuery.search === 'string') {
       if (searchQuery.value !== newQuery.search) {
@@ -385,6 +410,17 @@ const typeSelectOptions = computed(() => [
   { value: 'ALL', label: `Semua Tipe (${activeItems.value?.length || 0})` },
   ...availableTypes.value.map((t) => ({ value: t, label: t }))
 ])
+
+const gudangSelectOptions = computed(() => {
+  const opts = [{ value: 'ALL', label: 'Semua Gudang (Nasional)' }]
+  for (const w of warehouseList.value) {
+    opts.push({
+      value: w.nama_gudang,
+      label: w.nama_gudang
+    })
+  }
+  return opts
+})
 
 const erpSyncSelectOptions = computed(() => [
   { value: 'ALL', label: `Semua Status ERP (${erpSyncCounts.value.all})` },
@@ -832,9 +868,9 @@ const hasLinkColumn = computed(() => {
             </button>
           </div>
 
-          <!-- Triple Filter Selects: Responsive grid on mobile, inline on desktop -->
+          <!-- Filter Selects: Responsive grid on mobile, inline on desktop -->
           <div class="grid grid-cols-2 sm:flex sm:w-auto sm:items-center gap-2 w-full">
-            <div v-if="availableTypes.length > 0" class="w-full sm:min-w-[160px]">
+            <div v-if="availableTypes.length > 0" class="w-full sm:min-w-[150px]">
               <FieldSelect
                 v-model="typeFilter"
                 :options="typeSelectOptions"
@@ -843,8 +879,18 @@ const hasLinkColumn = computed(() => {
               />
             </div>
 
-            <!-- Filter Status ERP (SYNC ERP / NOT SYNC ERP) -->
+            <!-- Filter Gudang ERP (Nasional / Jakarta / Manukan / Bali / dll) -->
             <div class="w-full sm:min-w-[170px]">
+              <FieldSelect
+                v-model="selectedGudang"
+                :options="gudangSelectOptions"
+                placeholder="Semua Gudang"
+                label="Filter Gudang"
+              />
+            </div>
+
+            <!-- Filter Status ERP (SYNC ERP / NOT SYNC ERP) -->
+            <div class="w-full sm:min-w-[160px]">
               <FieldSelect
                 v-model="erpSyncFilter"
                 :options="erpSyncSelectOptions"
@@ -946,10 +992,10 @@ const hasLinkColumn = computed(() => {
 
             <!-- Clear Search/Filter Button -->
             <button
-              v-if="searchQuery || typeFilter !== 'ALL' || erpSyncFilter !== 'ALL' || sortBy !== 'default'"
+              v-if="searchQuery || typeFilter !== 'ALL' || selectedGudang !== 'ALL' || erpSyncFilter !== 'ALL' || sortBy !== 'default'"
               type="button"
               class="text-[10.5px] font-bold text-rose-500 hover:underline px-2 py-0.5 rounded bg-rose-500/10 cursor-pointer shrink-0"
-              @click="searchQuery = ''; typeFilter = 'ALL'; erpSyncFilter = 'ALL'; sortBy = 'default'"
+              @click="searchQuery = ''; typeFilter = 'ALL'; selectedGudang = 'ALL'; erpSyncFilter = 'ALL'; sortBy = 'default'"
             >
               Reset
             </button>
@@ -1118,9 +1164,13 @@ const hasLinkColumn = computed(() => {
                 <div v-if="item.metadata?.capitalHpp" class="text-[9px] text-amber-600 dark:text-amber-400 font-mono font-medium">
                   HPP: Rp {{ Number(item.metadata.capitalHpp).toLocaleString('id-ID') }}
                 </div>
+                <div v-if="item.isSynced" class="text-[9px] font-mono mt-0.5" :class="getItemAvailableStock(item) > 0 ? 'text-emerald-600 dark:text-emerald-400 font-semibold' : 'text-muted-foreground'">
+                  Available: {{ getItemAvailableStock(item).toLocaleString('id-ID') }}
+                  <span v-if="selectedGudang !== 'ALL'">({{ selectedGudang.replace('Gudang ', '') }})</span>
+                </div>
                 <div class="flex items-center justify-end gap-1.5 mt-1">
                   <button
-                    v-if="item.isSynced && (item.availableStock || 0) > 0"
+                    v-if="item.isSynced && getItemAvailableStock(item) > 0"
                     type="button"
                     class="px-2 py-0.5 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 cursor-pointer active:scale-95"
                     :class="cart.isInCart(item.sku)
@@ -1133,7 +1183,7 @@ const hasLinkColumn = computed(() => {
                     <span>{{ cart.isInCart(item.sku) ? `+(${cart.getItemQty(item.sku)})` : '+ SQ' }}</span>
                   </button>
                   <span
-                    v-else-if="item.isSynced && (item.availableStock || 0) <= 0"
+                    v-else-if="item.isSynced && getItemAvailableStock(item) <= 0"
                     class="px-1.5 py-0.5 rounded text-[9px] bg-muted text-muted-foreground font-medium"
                   >
                     Habis
@@ -1547,12 +1597,17 @@ const hasLinkColumn = computed(() => {
                   <Package class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
                   <span>Available Stock</span>
                 </span>
-                <span
-                  class="font-mono font-bold px-2 py-0.5 rounded text-[11px]"
-                  :class="(item.availableStock || 0) > 0 ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' : 'bg-muted text-muted-foreground'"
-                >
-                  {{ (item.availableStock || 0).toLocaleString('id-ID') }} Unit
-                </span>
+                <div class="text-right">
+                  <span
+                    class="font-mono font-bold px-2 py-0.5 rounded text-[11px]"
+                    :class="getItemAvailableStock(item) > 0 ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20' : 'bg-muted text-muted-foreground'"
+                  >
+                    {{ getItemAvailableStock(item).toLocaleString('id-ID') }} Unit
+                  </span>
+                  <span v-if="selectedGudang !== 'ALL'" class="block text-[9px] text-muted-foreground font-mono mt-0.5">
+                    {{ selectedGudang }}
+                  </span>
+                </div>
               </div>
 
               <!-- Price Section (Full width, zero overlap) -->
@@ -1598,7 +1653,7 @@ const hasLinkColumn = computed(() => {
               <div class="grid grid-cols-12 gap-1.5 pt-1">
                 <!-- Add to Cart -->
                 <button
-                  v-if="item.isSynced && (item.availableStock || 0) > 0"
+                  v-if="item.isSynced && getItemAvailableStock(item) > 0"
                   type="button"
                   class="col-span-8 py-2 px-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
                   :class="cart.isInCart(item.sku)
@@ -1612,11 +1667,11 @@ const hasLinkColumn = computed(() => {
                 </button>
 
                 <button
-                  v-else-if="item.isSynced && (item.availableStock || 0) <= 0"
+                  v-else-if="item.isSynced && getItemAvailableStock(item) <= 0"
                   type="button"
                   disabled
                   class="col-span-8 py-2 px-2.5 rounded-xl bg-muted/60 text-[10.5px] font-semibold text-muted-foreground/60 cursor-not-allowed border border-border/50 flex items-center justify-center"
-                  title="Stok item ini sedang kosong di gudang"
+                  :title="selectedGudang !== 'ALL' ? `Stok kosong di ${selectedGudang}` : 'Stok item ini sedang kosong di semua gudang'"
                   @click.stop
                 >
                   Stok Habis
@@ -1857,9 +1912,11 @@ const hasLinkColumn = computed(() => {
 
                         <span
                           v-if="item.isSynced"
-                          class="font-mono text-[9.5px] font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-500/10 px-1.5 py-0.2 rounded"
+                          class="font-mono text-[9.5px] font-bold px-1.5 py-0.2 rounded"
+                          :class="getItemAvailableStock(item) > 0 ? 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10' : 'text-muted-foreground bg-muted'"
                         >
-                          Stok: {{ (item.availableStock || 0).toLocaleString('id-ID') }}
+                          Available: {{ getItemAvailableStock(item).toLocaleString('id-ID') }}
+                          <span v-if="selectedGudang !== 'ALL'">({{ selectedGudang.replace('Gudang ', '') }})</span>
                         </span>
                       </div>
                     </div>
@@ -2306,6 +2363,7 @@ const hasLinkColumn = computed(() => {
     <BatchSelectDialog
       v-model:open="isBatchDialogOpen"
       :item="selectedItemForBatch"
+      :selected-gudang="selectedGudang"
       @confirm="onBatchDialogConfirm"
     />
 

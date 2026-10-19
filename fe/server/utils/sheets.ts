@@ -130,17 +130,43 @@ async function promoteStabilizedPriceToErp(sku: string, cashPrice: number, kredi
 const STABILIZATION_WINDOW_MS = 2 * 60 * 1000
 
 let erpStockMap: Record<string, any> = { ...erpStockInitialCache }
+let erpWarehouses: Array<{ id: string; kode_gudang: string; nama_gudang: string }> = []
 let lastStockFetch = 0
 
-async function refreshErpStockMap() {
+export function getErpWarehouses() {
+  return erpWarehouses
+}
+
+export function applyLiveStockToAllCategories() {
+  for (const catId of Object.keys(store.itemsByCategory)) {
+    const list = store.itemsByCategory[catId] || []
+    for (const item of list) {
+      const skuErp = item.metadata?.skuErp
+      const skuBiasa = item.metadata?.skuBiasa
+      const stockInfo = erpStockMap[item.sku] ||
+        (skuErp ? erpStockMap[skuErp] : undefined) ||
+        (skuBiasa ? erpStockMap[skuBiasa] : undefined)
+
+      if (stockInfo && stockInfo.is_synced) {
+        item.isSynced = true
+        // STRICTLY AVAILABLE STOCK ONLY - NEVER FREE / PHYSICAL STOCK
+        item.availableStock = Number(stockInfo.available_stock || 0)
+        item.erpItemId = stockInfo.m_items_id || stockInfo.id
+        item.batches = Array.isArray(stockInfo.batches) ? stockInfo.batches : []
+      }
+    }
+  }
+}
+
+export async function refreshErpStockMap(force = false) {
   const now = Date.now()
-  if (now - lastStockFetch < 30000 && Object.keys(erpStockMap).length > 0) {
+  if (!force && now - lastStockFetch < 10000 && Object.keys(erpStockMap).length > 0) {
     return erpStockMap
   }
 
   try {
     const controller = new AbortController()
-    const timeoutId = setTimeout(() => controller.abort(), 4000)
+    const timeoutId = setTimeout(() => controller.abort(), 5000)
     const BE_URL = process.env.MVG_API_BASE || 'https://be-mvg.mitravisualgroup.com'
     const res = await fetch(`${BE_URL}/api/marketing/pricelist-sync-stock`, {
       signal: controller.signal,
@@ -152,7 +178,11 @@ async function refreshErpStockMap() {
       const json: any = await res.json()
       if (json && json.status === 'success' && json.data) {
         erpStockMap = { ...erpStockInitialCache, ...json.data }
+        if (Array.isArray(json.warehouses) && json.warehouses.length > 0) {
+          erpWarehouses = json.warehouses
+        }
         lastStockFetch = now
+        applyLiveStockToAllCategories()
       }
     }
   } catch (err: any) {

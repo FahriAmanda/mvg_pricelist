@@ -1,4 +1,4 @@
-import { getCategoryItems, getStoreState, fetchAllSheets } from '../../utils/sheets'
+import { getCategoryItems, getStoreState, fetchAllSheets, refreshErpStockMap, getErpWarehouses } from '../../utils/sheets'
 
 export default defineEventHandler(async (event) => {
   setResponseHeaders(event, {
@@ -20,9 +20,14 @@ export default defineEventHandler(async (event) => {
     await fetchAllSheets(true)
   }
 
+  // Follow ERP live stock via fast 10s TTL memory cache
+  await refreshErpStockMap()
+  const warehouses = getErpWarehouses()
+
   if (id === 'all') {
     return {
       itemsByCategory: store.itemsByCategory,
+      warehouses,
       lastSync: store.lastSync,
       hash: store.contentHash
     }
@@ -33,6 +38,7 @@ export default defineEventHandler(async (event) => {
   return {
     category: id,
     items,
+    warehouses,
     count: items.length,
     lastSync: store.lastSync,
     hash: store.contentHash,

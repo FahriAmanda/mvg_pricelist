@@ -965,6 +965,22 @@ const specRows = computed(() => {
             </div>
           </div>
 
+          <!-- Warehouse Breakdown Pill List (if synced with ERP) -->
+          <div v-if="item.isSynced && item.batches && item.batches.length > 0" class="flex flex-wrap items-center gap-1.5 pt-1">
+            <span class="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-1 mr-1">
+              <Warehouse class="w-3.5 h-3.5" /> Gudang:
+            </span>
+            <span
+              v-for="(b, bIdx) in item.batches"
+              :key="bIdx"
+              class="px-2 py-0.5 rounded-lg text-[11px] font-mono border"
+              :class="Number(b.available_stock || 0) > 0 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-400 font-bold' : 'bg-muted/40 border-border/40 text-muted-foreground'"
+            >
+              {{ b.nama_gudang }}: {{ Number(b.available_stock || 0).toLocaleString('id-ID') }} Unit
+              <span v-if="b.batch_number && b.batch_number !== 'TANPA BATCH'" class="text-[9px] opacity-75 font-normal">({{ b.batch_number }})</span>
+            </span>
+          </div>
+
           <!-- PRIMARY PRICING CARD -->
           <div class="rounded-3xl bg-gradient-to-br from-card via-card to-muted/20 border-2 border-border/90 p-5 sm:p-6 shadow-xl space-y-4">
             <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-border/60 pb-4">

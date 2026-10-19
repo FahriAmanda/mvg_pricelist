@@ -15,6 +15,7 @@ import type { PricelistItem, ErpBatchItem } from '~~/types/pricelist'
 const props = defineProps<{
   open: boolean
   item: PricelistItem | null
+  selectedGudang?: string
 }>()
 
 const emit = defineEmits<{
@@ -29,10 +30,15 @@ const emit = defineEmits<{
 const selectedBatchKey = ref<string>('')
 const qty = ref<number>(1)
 
-// Batches with available_stock > 0 ONLY
+// Batches with available_stock > 0 ONLY (and matching selected warehouse if filtered)
 const availableBatches = computed<ErpBatchItem[]>(() => {
   if (!props.item || !Array.isArray(props.item.batches)) return []
-  return props.item.batches.filter(b => Number(b.available_stock || 0) > 0)
+  return props.item.batches.filter(b => {
+    const hasStock = Number(b.available_stock || 0) > 0
+    if (!hasStock) return false
+    if (!props.selectedGudang || props.selectedGudang === 'ALL') return true
+    return b.nama_gudang === props.selectedGudang || b.m_gudang_id === props.selectedGudang || b.kode_gudang === props.selectedGudang
+  })
 })
 
 // Current selected batch object

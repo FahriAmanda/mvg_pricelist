@@ -22,6 +22,8 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
   const lastSyncTime = ref<string>('')
   const searchQuery = ref<string>(initialOptions?.search || '')
   const typeFilter = ref<string>(initialOptions?.type || 'ALL')
+  const selectedGudang = ref<string>('ALL')
+  const warehouseList = ref<Array<{ id: string; kode_gudang: string; nama_gudang: string }>>([])
   const erpSyncFilter = ref<'ALL' | 'SYNCED' | 'NOT_SYNCED'>(
     (initialOptions?.erpSync as any) || 'ALL'
   )
@@ -77,17 +79,74 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
 
       const dataRes = await $fetch<{
         itemsByCategory: Record<string, PricelistItem[]>
+        warehouses?: Array<{ id: string; kode_gudang: string; nama_gudang: string }>
         lastSync: string
         hash: string
       }>('/api/sheets/all', { query: force ? { fresh: 'true' } : undefined })
 
       allItems.value = dataRes.itemsByCategory || {}
+      if (Array.isArray(dataRes.warehouses) && dataRes.warehouses.length > 0) {
+        warehouseList.value = dataRes.warehouses
+      }
       lastSyncTime.value = dataRes.lastSync
+
+      // Follow ERP live stock via fast API
+      await refreshLiveStock()
     } catch (err) {
       console.error('Failed to load pricelist data:', err)
     } finally {
       isLoading.value = false
     }
+  }
+
+  // Fetch live ERP stock directly via API
+  async function refreshLiveStock() {
+    try {
+      const res = await $fetch<{
+        status: string
+        data: Record<string, any>
+        warehouses: Array<{ id: string; kode_gudang: string; nama_gudang: string }>
+      }>('/api/erp/stock')
+
+      if (res?.status === 'success' && res.data) {
+        if (Array.isArray(res.warehouses) && res.warehouses.length > 0) {
+          warehouseList.value = res.warehouses
+        }
+        for (const catId of Object.keys(allItems.value)) {
+          const list = allItems.value[catId] || []
+          for (const item of list) {
+            const skuErp = item.metadata?.skuErp
+            const skuBiasa = item.metadata?.skuBiasa
+            const sInfo = res.data[item.sku] ||
+              (skuErp ? res.data[skuErp] : undefined) ||
+              (skuBiasa ? res.data[skuBiasa] : undefined)
+
+            if (sInfo && sInfo.is_synced) {
+              item.isSynced = true
+              // STRICTLY AVAILABLE STOCK ONLY - NEVER FREE / PHYSICAL STOCK
+              item.availableStock = Number(sInfo.available_stock || 0)
+              item.erpItemId = sInfo.m_items_id || sInfo.id
+              item.batches = Array.isArray(sInfo.batches) ? sInfo.batches : []
+            }
+          }
+        }
+      }
+    } catch (e) {
+      // non-blocking
+    }
+  }
+
+  // Helper to get available stock based on selected warehouse
+  function getItemAvailableStock(item: PricelistItem, gudang = selectedGudang.value): number {
+    if (!item?.isSynced) return 0
+    if (!gudang || gudang === 'ALL') {
+      return Number(item.availableStock || 0)
+    }
+    const batches = Array.isArray(item.batches) ? item.batches : []
+    const matched = batches.filter((b: any) =>
+      b.nama_gudang === gudang || b.m_gudang_id === gudang || b.kode_gudang === gudang
+    )
+    return matched.reduce((sum: number, b: any) => sum + Number(b.available_stock || 0), 0)
   }
 
   // Trigger manual sync
@@ -183,6 +242,11 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
   onMounted(() => {
     loadData()
     connectSSE()
+
+    if (!import.meta.server) {
+      pollInterval = setInterval(refreshLiveStock, 20000)
+      window.addEventListener('focus', refreshLiveStock)
+    }
   })
 
   onUnmounted(() => {
@@ -192,6 +256,10 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
     }
     if (pollInterval) {
       clearInterval(pollInterval)
+      pollInterval = null
+    }
+    if (!import.meta.server) {
+      window.removeEventListener('focus', refreshLiveStock)
     }
   })
 
@@ -378,6 +446,10 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
     lastSyncTime,
     searchQuery,
     typeFilter,
+    selectedGudang,
+    warehouseList,
+    refreshLiveStock,
+    getItemAvailableStock,
     erpSyncFilter,
     erpSyncCounts,
     sortBy,
