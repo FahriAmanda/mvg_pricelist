@@ -10,9 +10,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const store = getStoreState()
-    if (!store.lastSync || Object.keys(store.itemsByCategory).length === 0) {
-      await fetchAllSheets(true)
-    }
+  await fetchAllSheets()
 
     let matchedItem: PricelistItem | null = null
     let matchedCategory: SheetCategory | null = null

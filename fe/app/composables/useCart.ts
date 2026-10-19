@@ -103,6 +103,9 @@ export function useCart() {
   }
 
   function addToCart(item: PricelistItem, options: number | AddToCartOptions = 1) {
+    if (item.sellable !== true || !Number.isFinite(item.price) || item.price <= 1) {
+      return { success: false, message: item.priceStatusReason || 'Harga belum disetujui Hermes.' }
+    }
     if (!item.isSynced) {
       return { success: false, message: 'Item belum disinkronkan dengan ERP.' }
     }

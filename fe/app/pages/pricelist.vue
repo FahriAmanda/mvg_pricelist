@@ -62,7 +62,7 @@ const isBatchDialogOpen = ref(false)
 
 function handleAddToCart(item: PricelistItem) {
   const availStock = getItemAvailableStock(item)
-  if (!item.isSynced || availStock <= 0) return
+  if (item.sellable !== true || !item.isSynced || availStock <= 0) return
   const availableBatches = (item.batches || []).filter(b => {
     const hasStock = Number(b.available_stock || 0) > 0
     if (!hasStock) return false
@@ -1160,7 +1160,7 @@ const hasLinkColumn = computed(() => {
               <!-- Price & Link -->
               <div class="text-right shrink-0 min-w-[105px]">
                 <div class="text-xs sm:text-sm font-black text-rose-600 dark:text-rose-400 font-mono tracking-tight">
-                  {{ item.priceFormatted }}
+                  {{ item.sellable === true ? item.priceFormatted : 'Menunggu review Hermes' }}
                 </div>
                 <div v-if="item.metadata?.hargaKreditFormatted" class="text-[9px] text-muted-foreground font-mono">
                   Krd: {{ item.metadata.hargaKreditFormatted }}
@@ -1174,7 +1174,7 @@ const hasLinkColumn = computed(() => {
                 </div>
                 <div class="flex items-center justify-end gap-1.5 mt-1">
                   <button
-                    v-if="item.isSynced && getItemAvailableStock(item) > 0"
+                    v-if="item.sellable === true && item.isSynced && getItemAvailableStock(item) > 0"
                     type="button"
                     class="px-2 py-0.5 rounded-lg text-[10px] font-bold transition-all flex items-center gap-1 cursor-pointer active:scale-95"
                     :class="cart.isInCart(item.sku)
@@ -1435,7 +1435,7 @@ const hasLinkColumn = computed(() => {
                       <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                       Cash Price {{ item.metadata?.profitPercent ? `(${item.metadata.profitPercent})` : '' }}
                     </p>
-                    <p class="font-bold text-emerald-700 dark:text-emerald-300 font-mono mt-0.5 text-xs">{{ item.priceFormatted }}</p>
+                    <p class="font-bold text-emerald-700 dark:text-emerald-300 font-mono mt-0.5 text-xs">{{ item.sellable === true ? item.priceFormatted : 'Menunggu review Hermes' }}</p>
                   </div>
                 </div>
               </div>
@@ -1465,7 +1465,7 @@ const hasLinkColumn = computed(() => {
                 <div class="grid grid-cols-2 gap-2">
                   <div class="p-2 rounded-xl bg-muted/40 border border-border/50">
                     <p class="text-[10px] text-muted-foreground font-medium">Cabinet Flat</p>
-                    <p class="font-bold text-foreground font-mono">{{ item.priceFormatted }}</p>
+                    <p class="font-bold text-foreground font-mono">{{ item.sellable === true ? item.priceFormatted : 'Menunggu review Hermes' }}</p>
                   </div>
                   <div class="p-2 rounded-xl bg-muted/40 border border-border/50">
                     <p class="text-[10px] text-muted-foreground font-medium">Foldable</p>
@@ -1549,7 +1549,7 @@ const hasLinkColumn = computed(() => {
                 <div class="grid grid-cols-2 gap-2">
                   <div class="p-2 rounded-xl bg-muted/40 border border-border/50">
                     <p class="text-[10px] text-muted-foreground">Cube 4 Sisi</p>
-                    <p class="font-bold text-foreground">{{ item.priceFormatted }}</p>
+                    <p class="font-bold text-foreground">{{ item.sellable === true ? item.priceFormatted : 'Menunggu review Hermes' }}</p>
                   </div>
                   <div class="p-2 rounded-xl bg-muted/40 border border-border/50">
                     <p class="text-[10px] text-muted-foreground">Cube 5 Sisi</p>
@@ -1634,7 +1634,7 @@ const hasLinkColumn = computed(() => {
                     class="text-base sm:text-lg font-black tracking-tight"
                     :class="item.category.includes('rental') ? 'text-rose-600 dark:text-rose-400 font-extrabold' : 'text-foreground'"
                   >
-                    {{ item.priceFormatted }}
+                    {{ item.sellable === true ? item.priceFormatted : 'Menunggu review Hermes' }}
                   </span>
                   <span
                     v-if="item.previousPrice && item.previousPrice !== item.price"
@@ -1657,7 +1657,7 @@ const hasLinkColumn = computed(() => {
               <div class="grid grid-cols-12 gap-1.5 pt-1">
                 <!-- Add to Cart -->
                 <button
-                  v-if="item.isSynced && getItemAvailableStock(item) > 0"
+                  v-if="item.sellable === true && item.isSynced && getItemAvailableStock(item) > 0"
                   type="button"
                   class="col-span-8 py-2 px-2.5 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
                   :class="cart.isInCart(item.sku)
@@ -1783,7 +1783,7 @@ const hasLinkColumn = computed(() => {
                   <TableCell class="text-right">Rp {{ (item.metadata?.assemblyCost || 270000).toLocaleString('id-ID') }}</TableCell>
                   <TableCell class="text-right">Rp {{ (item.metadata?.processorA35Cost || 0).toLocaleString('id-ID') }}</TableCell>
                   <TableCell class="text-center font-bold text-amber-500">{{ item.metadata?.profitMargin || '25.00%' }}</TableCell>
-                  <TableCell class="text-right font-extrabold text-rose-600 dark:text-rose-400 bg-rose-500/5">{{ item.priceFormatted }}</TableCell>
+                  <TableCell class="text-right font-extrabold text-rose-600 dark:text-rose-400 bg-rose-500/5">{{ item.sellable === true ? item.priceFormatted : 'Menunggu review Hermes' }}</TableCell>
                   <TableCell class="text-right font-extrabold text-amber-600 dark:text-amber-400 bg-amber-500/5">{{ item.metadata?.foldablePriceFormatted || '-' }}</TableCell>
                   <TableCell class="text-center font-sans text-muted-foreground">{{ item.size || '64x192Cm' }}</TableCell>
                   <TableCell class="text-[10px] text-muted-foreground">{{ item.sku }}</TableCell>
@@ -1996,7 +1996,7 @@ const hasLinkColumn = computed(() => {
                   <TableCell class="text-right">
                     <div class="space-y-0.5">
                       <div class="text-xs sm:text-sm font-black tracking-tight text-rose-600 dark:text-rose-400 font-extrabold">
-                        {{ item.priceFormatted }}
+                        {{ item.sellable === true ? item.priceFormatted : 'Menunggu review Hermes' }}
                       </div>
                       <div
                         v-if="item.previousPrice && item.previousPrice !== item.price"

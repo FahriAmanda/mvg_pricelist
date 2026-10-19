@@ -27,6 +27,11 @@ export interface PricelistItem {
   previousPrice?: number
   updatedAt?: string
   isSynced?: boolean
+  erpSku?: string
+  sellable?: boolean
+  priceStatus?: string
+  priceStatusReason?: string
+  priceVersion?: string
   availableStock?: number
   erpItemId?: string
   batches?: ErpBatchItem[]

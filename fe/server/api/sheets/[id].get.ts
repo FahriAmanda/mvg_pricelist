@@ -15,10 +15,7 @@ export default defineEventHandler(async (event) => {
   const query = getQuery(event)
   const store = getStoreState()
 
-  // Cold start bootstrap only. NEVER poll or re-fetch in the background on visitor requests.
-  if (!store.lastSync) {
-    await fetchAllSheets(true)
-  }
+  await fetchAllSheets()
 
   // Follow ERP live stock via fast 10s TTL memory cache
   await refreshErpStockMap()
@@ -42,6 +39,8 @@ export default defineEventHandler(async (event) => {
     count: items.length,
     lastSync: store.lastSync,
     hash: store.contentHash,
+    version: store.version,
+    governance: store.governance,
     bannerTitle: extra.bannerTitle,
     bannerSubtitle: extra.bannerSubtitle,
     bannerImage: extra.bannerImage,

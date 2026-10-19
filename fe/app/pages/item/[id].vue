@@ -55,7 +55,7 @@ const selectedItemForBatch = ref<PricelistItem | null>(null)
 const isBatchDialogOpen = ref(false)
 
 function handleAddToCart(it: PricelistItem) {
-  if (!it.isSynced || (it.availableStock || 0) <= 0) return
+  if (it.sellable !== true || !it.isSynced || (it.availableStock || 0) <= 0) return
   const availableBatches = (it.batches || []).filter(b => Number(b.available_stock || 0) > 0)
   if (availableBatches.length > 0) {
     selectedItemForBatch.value = it
@@ -1018,7 +1018,7 @@ const specRows = computed(() => {
               </div>
               <div class="p-3 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
                 <p class="text-[11px] text-emerald-700 dark:text-emerald-400 font-semibold uppercase tracking-wider">Cash Price</p>
-                <p class="text-lg font-bold text-emerald-700 dark:text-emerald-300 font-mono mt-0.5">{{ item.priceFormatted }}</p>
+                <p class="text-lg font-bold text-emerald-700 dark:text-emerald-300 font-mono mt-0.5">{{ item.sellable === true ? item.priceFormatted : 'Menunggu review Hermes' }}</p>
               </div>
             </div>
 
@@ -1026,7 +1026,7 @@ const specRows = computed(() => {
             <div v-if="item.category === 'led_poster'" class="grid grid-cols-2 gap-3 pt-1">
               <div class="p-3 rounded-2xl bg-muted/40 border border-border/60">
                 <p class="text-[11px] text-muted-foreground font-medium">Versi Cabinet Flat + A35</p>
-                <p class="text-lg font-bold text-foreground font-mono mt-0.5">{{ item.priceFormatted }}</p>
+                <p class="text-lg font-bold text-foreground font-mono mt-0.5">{{ item.sellable === true ? item.priceFormatted : 'Menunggu review Hermes' }}</p>
               </div>
               <div class="p-3 rounded-2xl bg-muted/40 border border-border/60">
                 <p class="text-[11px] text-muted-foreground font-medium">Versi Foldable (Lipat) + A35</p>
@@ -1038,7 +1038,7 @@ const specRows = computed(() => {
             <div v-if="item.category === 'led_cube'" class="grid grid-cols-2 gap-3 pt-1">
               <div class="p-3 rounded-2xl bg-muted/40 border border-border/60">
                 <p class="text-[11px] text-muted-foreground font-medium">Versi Cube 4 Sisi (Gantung / Dinding)</p>
-                <p class="text-lg font-bold text-foreground font-mono mt-0.5">{{ item.priceFormatted }}</p>
+                <p class="text-lg font-bold text-foreground font-mono mt-0.5">{{ item.sellable === true ? item.priceFormatted : 'Menunggu review Hermes' }}</p>
               </div>
               <div class="p-3 rounded-2xl bg-muted/40 border border-border/60">
                 <p class="text-[11px] text-muted-foreground font-medium">Versi Cube 5 Sisi (Berdiri 360° Display)</p>
@@ -1330,7 +1330,7 @@ const specRows = computed(() => {
               <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-1">
                 <div class="px-4 py-2 rounded-xl bg-rose-500/10 border border-rose-500/20">
                   <span class="text-[10px] font-bold uppercase text-rose-500 block">Cabinet Flat Standar</span>
-                  <span class="text-lg font-black text-rose-600 dark:text-rose-400 font-mono">{{ item.priceFormatted }}</span>
+                  <span class="text-lg font-black text-rose-600 dark:text-rose-400 font-mono">{{ item.sellable === true ? item.priceFormatted : 'Menunggu review Hermes' }}</span>
                 </div>
                 <div class="px-4 py-2 rounded-xl bg-amber-500/10 border border-amber-500/20">
                   <span class="text-[10px] font-bold uppercase text-amber-500 block">Cabinet Foldable (Lipat)</span>

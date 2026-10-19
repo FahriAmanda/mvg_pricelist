@@ -1,4 +1,5 @@
 import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { useAuthStore } from '../stores/auth'
 import type { PricelistItem, SheetCategory } from '../types/pricelist'
 
 export interface UsePricelistOptions {
@@ -44,6 +45,14 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
     activeCatalog.value === 'mvg' ? mvgCategories.value : avCategories.value
   )
 
+  async function loadPrivateCosts() {
+    const auth=useAuthStore()
+    if(!auth.token)return
+    try {
+      const privileged=await $fetch<{costs:Record<string,Record<string,unknown>>}>('/api/erp/private-costs',{headers:{Authorization:`Bearer ${auth.token}`}})
+      for(const items of Object.values(allItems.value)) for(const item of items) item.metadata={...item.metadata,...privileged.costs[`${item.category}:${item.id}`]}
+    }catch { /* Only verified Super Admin responses contain costs. */ }
+  }
   // Fetch initial categories and data
   async function loadData(force = false) {
     isLoading.value = true
@@ -85,6 +94,7 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
       }>('/api/sheets/all', { query: force ? { fresh: 'true' } : undefined })
 
       allItems.value = dataRes.itemsByCategory || {}
+      await loadPrivateCosts()
       if (Array.isArray(dataRes.warehouses) && dataRes.warehouses.length > 0) {
         warehouseList.value = dataRes.warehouses
       }
@@ -117,15 +127,14 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
           for (const item of list) {
             const skuErp = item.metadata?.skuErp
             const skuBiasa = item.metadata?.skuBiasa
-            const sInfo = res.data[item.sku] ||
+            const sInfo = res.data[item.erpSku || item.sku] ||
               (skuErp ? res.data[skuErp] : undefined) ||
               (skuBiasa ? res.data[skuBiasa] : undefined)
 
             if (sInfo && sInfo.is_synced) {
-              item.isSynced = true
+              // The snapshot controls mapping and sale eligibility.
               // STRICTLY AVAILABLE STOCK ONLY - NEVER FREE / PHYSICAL STOCK
               item.availableStock = Number(sInfo.available_stock || 0)
-              item.erpItemId = sInfo.m_items_id || sInfo.id
               item.batches = Array.isArray(sInfo.batches) ? sInfo.batches : []
             }
           }
@@ -170,6 +179,7 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
       }>('/api/sheets/all')
 
       allItems.value = dataRes.itemsByCategory || {}
+      await loadPrivateCosts()
       return res
     } catch (err) {
       console.error('Sync failed:', err)
@@ -244,7 +254,8 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
     connectSSE()
 
     if (!import.meta.server) {
-      pollInterval = setInterval(refreshLiveStock, 20000)
+      let tick=0
+      pollInterval = setInterval(() => { void refreshLiveStock(); if(++tick % 3 === 0) void loadData() }, 20000)
       window.addEventListener('focus', refreshLiveStock)
     }
   })
