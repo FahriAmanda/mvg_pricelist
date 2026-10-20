@@ -1,4 +1,4 @@
-import { SHEET_CATEGORIES, getStoreState, fetchAllSheets } from '../../utils/sheets'
+import { SHEET_CATEGORIES, getStoreState, fetchAllSheets, refreshErpStockMap } from '../../utils/sheets'
 import type { SheetCategory } from '../../../types/pricelist'
 
 export default defineEventHandler(async (event) => {
@@ -13,6 +13,7 @@ export default defineEventHandler(async (event) => {
 
   const store = getStoreState()
   await fetchAllSheets()
+  if (includeItems) await refreshErpStockMap()
 
   const categories: SheetCategory[] = SHEET_CATEGORIES.map((cat) => {
     const items = store.itemsByCategory[cat.id] || []
