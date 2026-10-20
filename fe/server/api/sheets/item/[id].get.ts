@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const store = getStoreState()
-  await fetchAllSheets()
+    await fetchAllSheets()
 
     let matchedItem: PricelistItem | null = null
     let matchedCategory: SheetCategory | null = null
@@ -39,7 +39,8 @@ export default defineEventHandler(async (event) => {
 
     return {
       item: matchedItem,
-      category: matchedCategory,
+      category: { id: matchedCategory.id, name: matchedCategory.name, catalog: matchedCategory.catalog, icon: matchedCategory.icon, description: matchedCategory.description },
+      version: store.version,
       categoryExtra: {
         bannerTitle: extra.bannerTitle,
         bannerSubtitle: extra.bannerSubtitle,
