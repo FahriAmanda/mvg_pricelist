@@ -26,7 +26,9 @@ export default defineEventHandler(async (event) => {
       itemsByCategory: store.itemsByCategory,
       warehouses,
       lastSync: store.lastSync,
-      hash: store.contentHash
+      hash: store.contentHash,
+      version: store.version,
+      governance: store.governance
     }
   }
 
