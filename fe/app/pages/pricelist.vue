@@ -546,6 +546,26 @@ const hasLinkColumn = computed(() => {
   if (['mvg_moka_effect', 'mvg_mode_hoist', 'mvg_meanreal_lighting', 'mvg_gaga_laser'].includes(activeCategoryId.value)) return true
   return filteredItems.value.some((item) => Boolean(item.brochureUrl))
 })
+
+function getHargaModular(item: any): string {
+  const direct = item?.metadata?.hargaModularFormatted
+  if (direct && direct !== '-') return direct
+  const num = item?.metadata?.hargaModular
+  if (typeof num === 'number' && num > 0) return `Rp ${num.toLocaleString('id-ID')}`
+  const spec = item?.metadata?.specification || item?.description || ''
+  const m = spec.match(/Modular:\s*(Rp\s*[\d.,]+)/i)
+  return m ? m[1].trim() : '-'
+}
+
+function getHargaCabinet(item: any): string {
+  const direct = item?.metadata?.hargaCabinetFormatted
+  if (direct && direct !== '-') return direct
+  const num = item?.metadata?.hargaCabinet
+  if (typeof num === 'number' && num > 0) return `Rp ${num.toLocaleString('id-ID')}`
+  const spec = item?.metadata?.specification || item?.description || ''
+  const m = spec.match(/Cabinet:\s*(Rp\s*[\d.,]+)/i)
+  return m ? m[1].trim() : '-'
+}
 </script>
 
 <template>
@@ -1448,14 +1468,14 @@ const hasLinkColumn = computed(() => {
                       <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
                       Harga Modular
                     </p>
-                    <p class="font-bold text-foreground font-mono mt-0.5 text-xs">{{ item.metadata?.hargaModularFormatted || '-' }}</p>
+                    <p class="font-bold text-foreground font-mono mt-0.5 text-xs">{{ getHargaModular(item) }}</p>
                   </div>
                   <div class="p-2.5 rounded-xl bg-purple-500/5 border border-purple-500/20">
                     <p class="text-[10px] text-muted-foreground font-medium flex items-center gap-1">
                       <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
                       Harga Cabinet
                     </p>
-                    <p class="font-bold text-foreground font-mono mt-0.5 text-xs">{{ item.metadata?.hargaCabinetFormatted || '-' }}</p>
+                    <p class="font-bold text-foreground font-mono mt-0.5 text-xs">{{ getHargaCabinet(item) }}</p>
                   </div>
                 </div>
               </div>
@@ -1969,7 +1989,7 @@ const hasLinkColumn = computed(() => {
                   </TableCell>
 
                   <TableCell v-if="activeCategoryId === 'mvg_instalasi_led'" class="text-xs font-mono font-semibold text-primary">
-                    {{ item.metadata?.hargaModularFormatted || '-' }}
+                    {{ getHargaModular(item) }}
                   </TableCell>
                   <TableCell v-if="activeCategoryId === 'led_poster'" class="text-xs font-medium">
                     {{ item.metadata?.foldablePriceFormatted || '-' }}

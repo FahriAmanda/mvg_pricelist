@@ -25,3 +25,17 @@ test('Cabinet uses named price and SKU columns, never numbers in description', (
   assert.equal(item.sku, 'CAB-IR-OUT-96X96');
   assert.match(item.model, /96x96cm/);
 });
+
+test('Instalasi LED extracts modular and cabinet prices correctly', () => {
+  const csv = Papa.unparse([
+    ['MODEL (R-X)','TIPE','HARGA MODULAR','HARGA CABINET'],
+    ['Qiangli Indoor','Qiangli P2.5 Pro 1/32s','Rp11,200,000','Rp14,700,000'],
+  ]);
+  const [item] = context.parse('mvg_instalasi_led', csv);
+  assert.equal(item.price, 14700000);
+  assert.equal(item.metadata.hargaModular, 11200000);
+  assert.equal(item.metadata.hargaModularFormatted, 'Rp 11.200.000');
+  assert.equal(item.metadata.hargaCabinet, 14700000);
+  assert.equal(item.metadata.hargaCabinetFormatted, 'Rp 14.700.000');
+  assert.match(item.metadata.specification, /Modular: Rp 11\.200\.000 • Cabinet: Rp 14\.700\.000/);
+});
