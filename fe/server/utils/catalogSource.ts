@@ -1910,6 +1910,15 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
           if (!price || price === 0) continue
           if (rawType.toUpperCase().includes('MODEL') || rawDesc.toUpperCase().includes('DESCRIPTION')) continue
 
+          // Handle known aliases and valid ERP SKU fallback for Novastar items
+          if (skuErp === 'NS-OC-1HDMI-2.0-H') {
+            skuErp = 'NS-OC-1HDMIOUT-2.0-H'
+          } else if ((!skuErp || skuErp.toUpperCase().includes('BELUM ADA') || skuErp === '-') && skuBiasa === 'NS-VP-NOVAPRO-UHD-JR') {
+            skuErp = 'NS-VP-NOVAPRO-UHD-JR'
+          } else if (skuBiasa === 'NS-RC-NV7508-8P' || rawType.toLowerCase().includes('nv7508')) {
+            skuErp = 'RCV-261009-NOVANV7-01'
+          }
+
           sku = (skuErp && !skuErp.toUpperCase().includes('BELUM ADA') && skuErp !== '-')
             ? skuErp
             : (skuBiasa || `${categoryId}-${i}`)

@@ -146,3 +146,49 @@ test('Lampro module parses multi-column sheet format with SKU ERP and HPP', () =
   assert.equal(item.metadata.hpp, 217011);
   assert.equal(item.model, 'Lampro P4 Pro Indoor');
 });
+
+test('Novastar parses multi-column format and resolves ERP aliases and fallback SKUs', () => {
+  const row1 = new Array(18).fill('');
+  row1[0] = 'Novastar';
+  row1[1] = 'NovaStar H Series 1×HDMI2.0 Output Card';
+  row1[2] = 'H Series I/O Card';
+  row1[4] = 'NS-OC-1HDMI-2.0-H';
+  row1[5] = 'NS-OC-1HDMI-2.0-H';
+  row1[13] = 'Rp13,000,000';
+  row1[14] = '25%';
+  row1[15] = 'Rp16,251,000';
+
+  const row2 = new Array(18).fill('');
+  row2[0] = 'Novastar';
+  row2[1] = 'Novastar NV7508 Receiving Card';
+  row2[2] = 'Receiving Card';
+  row2[4] = 'NS-RC-DH7508-8P';
+  row2[5] = 'NS-RC-NV7508-8P';
+  row2[13] = 'Rp164,398';
+  row2[14] = '17%';
+  row2[15] = 'Rp193,000';
+
+  const row3 = new Array(18).fill('');
+  row3[0] = 'Novastar';
+  row3[1] = 'NovaPro UHD Jr Video Controller';
+  row3[2] = 'Video Processor';
+  row3[4] = 'BELUM ADA DI ERP';
+  row3[5] = 'NS-VP-NOVAPRO-UHD-JR';
+  row3[13] = 'Rp67,184,440';
+  row3[14] = '25%';
+  row3[15] = 'Rp83,981,000';
+
+  const parsed = context.parse('novastar', Papa.unparse([['MODEL', 'MODEL', 'DESCRIPTION', '', 'SKU ERP', 'SKU', '', '', '', '', '', '', '', 'Capital/HPP', 'PROFIT', 'SELLING PRICE'], row1, row2, row3]));
+  assert.equal(parsed.length, 3);
+  assert.equal(parsed[0].sku, 'NS-OC-1HDMIOUT-2.0-H');
+  assert.equal(parsed[0].metadata?.skuErp, 'NS-OC-1HDMIOUT-2.0-H');
+  assert.equal(parsed[0].price, 16251000);
+
+  assert.equal(parsed[1].sku, 'RCV-261009-NOVANV7-01');
+  assert.equal(parsed[1].metadata?.skuErp, 'RCV-261009-NOVANV7-01');
+  assert.equal(parsed[1].price, 193000);
+
+  assert.equal(parsed[2].sku, 'NS-VP-NOVAPRO-UHD-JR');
+  assert.equal(parsed[2].metadata?.skuErp, 'NS-VP-NOVAPRO-UHD-JR');
+  assert.equal(parsed[2].price, 83981000);
+});
