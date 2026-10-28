@@ -39,3 +39,28 @@ test('Instalasi LED extracts modular and cabinet prices correctly', () => {
   assert.equal(item.metadata.hargaCabinetFormatted, 'Rp 14.700.000');
   assert.match(item.metadata.specification, /Modular: Rp 11\.200\.000 • Cabinet: Rp 14\.700\.000/);
 });
+
+test('Lampro module parses multi-column sheet format with SKU ERP and HPP', () => {
+  const row = new Array(42).fill('');
+  row[0] = '1';
+  row[1] = 'Lampro Module';
+  row[2] = 'Indoor';
+  row[3] = 'Lampro P4 Pro';
+  row[4] = '16x32cm';
+  row[14] = 'Rp217,011';
+  row[16] = 'Rp246,000';
+  row[17] = 'MOD-260927-LPP4PRO-01';
+  row[19] = '7680';
+  row[41] = 'LAM-IN-P4-PRO';
+
+  const csv = Papa.unparse([
+    ['No', 'MODEL', 'TIPE', 'TYPE', 'SIZE'],
+    row
+  ]);
+  const [item] = context.parse('lampro', csv);
+  assert.equal(item.price, 246000);
+  assert.equal(item.sku, 'LAM-IN-P4-PRO');
+  assert.equal(item.metadata.skuErp, 'MOD-260927-LPP4PRO-01');
+  assert.equal(item.metadata.hpp, 217011);
+  assert.equal(item.model, 'Lampro P4 Pro Indoor');
+});

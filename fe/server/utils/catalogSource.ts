@@ -133,7 +133,7 @@ export const SHEET_CATEGORIES: Array<{
     id: 'lampro',
     name: 'Module Lampro',
     catalog: 'av',
-    gid: '704458913',
+    gid: '1691763712',
     icon: 'Layers',
     description: 'Modul LED Lampro Indoor & Outdoor Pro Series'
   },
@@ -1572,10 +1572,9 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
     }
 
     // ==========================================
-    // 10. AV: Qiangli / Lampro Module
+    // 10. AV: Qiangli Module
     // ==========================================
-    case 'qiangli':
-    case 'lampro': {
+    case 'qiangli': {
       let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
@@ -1612,10 +1611,110 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
           price,
           priceFormatted: formatRupiah(price),
           sku,
-          image:
-            categoryId === 'qiangli'
-              ? '/images/products/av-qiangli-module.svg'
-              : '/images/products/av-lampro-module.svg',
+          image: '/images/products/av-qiangli-module.svg',
+          metadata: {
+            no: seq
+          },
+          updatedAt: new Date().toISOString()
+        })
+      }
+      break
+    }
+
+    // ==========================================
+    // 10b. AV: Lampro Module
+    // ==========================================
+    case 'lampro': {
+      let seq = 0
+      for (let i = 1; i < rows.length; i++) {
+        const r = rows[i]
+        if (!r || r.length < 5) continue
+
+        // Multi-column master sheet format (gid: 1691763712)
+        if (r.length >= 18) {
+          const skuErp = r[17]?.trim() || ''
+          // Only process module items with SKU ERP
+          if (!skuErp || !skuErp.startsWith('MOD-')) continue
+
+          const rawModel = r[1]?.trim() || 'Lampro Module'
+          const type = r[2]?.trim() || ''
+          const desc = r[3]?.trim() || ''
+          const size = r[4]?.trim() || ''
+          const hpp = parsePrice(r[14])
+          const price = parsePrice(r[16])
+          const refresh = r[19]?.trim() || ''
+          const sku = r[41]?.trim() || skuErp || `${categoryId}-${i}`
+          seq++
+
+          let actualModel = desc || rawModel
+          const lowerDesc = actualModel.toLowerCase()
+          const lowerType = type.toLowerCase()
+          if (lowerType && !lowerDesc.includes(lowerType)) {
+            actualModel = `${actualModel} ${type}`
+          }
+          const actualDesc = rawModel && rawModel !== actualModel
+            ? `${rawModel} ${type ? '• ' + type : ''}`.trim()
+            : (type ? `Modul LED ${type}` : 'Modul LED')
+
+          items.push({
+            id: `${categoryId}-${seq}`,
+            no: seq,
+            category: categoryId,
+            catalog: 'av',
+            model: actualModel,
+            type,
+            description: actualDesc,
+            size,
+            refreshRate: refresh,
+            price,
+            priceFormatted: formatRupiah(price),
+            sku,
+            image: '/images/products/av-lampro-module.svg',
+            metadata: {
+              no: seq,
+              skuErp: skuErp || undefined,
+              hpp: hpp || undefined
+            },
+            updatedAt: new Date().toISOString()
+          })
+          continue
+        }
+
+        // Fallback for legacy 7-column format
+        if (!r[2]) continue
+        const rawModel = r[0]?.trim() || ''
+        const type = r[1]?.trim() || ''
+        const desc = r[2]?.trim() || ''
+        const size = r[3]?.trim() || ''
+        const price = parsePrice(r[4])
+        const refresh = r[5]?.trim() || ''
+        const sku = r[6]?.trim() || `${categoryId}-${i}`
+        seq++
+
+        let actualModel = desc || rawModel
+        const lowerDesc = actualModel.toLowerCase()
+        const lowerType = type.toLowerCase()
+        if (lowerType && !lowerDesc.includes(lowerType)) {
+          actualModel = `${actualModel} ${type}`
+        }
+        const actualDesc = rawModel && rawModel !== actualModel
+          ? `${rawModel} ${type ? '• ' + type : ''}`.trim()
+          : (type ? `Modul LED ${type}` : 'Modul LED')
+
+        items.push({
+          id: `${categoryId}-${seq}`,
+          no: seq,
+          category: categoryId,
+          catalog: 'av',
+          model: actualModel,
+          type,
+          description: actualDesc,
+          size,
+          refreshRate: refresh,
+          price,
+          priceFormatted: formatRupiah(price),
+          sku,
+          image: '/images/products/av-lampro-module.svg',
           metadata: {
             no: seq
           },
