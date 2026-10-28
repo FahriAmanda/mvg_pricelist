@@ -681,6 +681,10 @@ function getHargaCabinet(val: any): string {
   const m = spec.match(/Cabinet:\s*(Rp\s*[\d.,]+)/i)
   return m ? m[1].trim() : '-'
 }
+
+function isSeparateInstalasiVariant(val: any): boolean {
+  return val?.category === 'mvg_instalasi_led' && ['MODULAR', 'CABINET'].includes(val?.metadata?.variant)
+}
 </script>
 
 <template>
@@ -1068,15 +1072,21 @@ function getHargaCabinet(val: any): string {
               </div>
             </div>
 
-            <!-- Instalasi LED Dual Price (Modular vs Cabinet) -->
-            <div v-if="item.category === 'mvg_instalasi_led'" class="grid grid-cols-2 gap-3 pt-1">
-              <div class="p-3 rounded-2xl bg-primary/5 border border-primary/20">
-                <p class="text-[11px] text-muted-foreground font-medium">Harga Pemasangan Modular</p>
-                <p class="text-lg font-bold text-primary font-mono mt-0.5">{{ getHargaModular(item) }}</p>
+            <!-- Instalasi LED packages are separately orderable ERP variants. -->
+            <div v-if="item.category === 'mvg_instalasi_led'" class="pt-1">
+              <div v-if="isSeparateInstalasiVariant(item)" class="p-3 rounded-2xl border" :class="item.metadata.variant === 'MODULAR' ? 'bg-primary/5 border-primary/20' : 'bg-purple-500/5 border-purple-500/20'">
+                <p class="text-[11px] text-muted-foreground font-medium">Paket Instalasi {{ item.metadata.variant === 'MODULAR' ? 'Modular' : 'Cabinet' }} · Item ERP</p>
+                <p class="text-lg font-bold font-mono mt-0.5" :class="item.metadata.variant === 'MODULAR' ? 'text-primary' : 'text-purple-600 dark:text-purple-400'">{{ item.priceFormatted }}</p>
               </div>
-              <div class="p-3 rounded-2xl bg-purple-500/5 border border-purple-500/20">
-                <p class="text-[11px] text-muted-foreground font-medium">Harga Pemasangan Cabinet</p>
-                <p class="text-lg font-bold text-purple-600 dark:text-purple-400 font-mono mt-0.5">{{ getHargaCabinet(item) }}</p>
+              <div v-else class="grid grid-cols-2 gap-3">
+                <div class="p-3 rounded-2xl bg-primary/5 border border-primary/20">
+                  <p class="text-[11px] text-muted-foreground font-medium">Harga Pemasangan Modular</p>
+                  <p class="text-lg font-bold text-primary font-mono mt-0.5">{{ getHargaModular(item) }}</p>
+                </div>
+                <div class="p-3 rounded-2xl bg-purple-500/5 border border-purple-500/20">
+                  <p class="text-[11px] text-muted-foreground font-medium">Harga Pemasangan Cabinet</p>
+                  <p class="text-lg font-bold text-purple-600 dark:text-purple-400 font-mono mt-0.5">{{ getHargaCabinet(item) }}</p>
+                </div>
               </div>
             </div>
 

@@ -105,7 +105,9 @@ export const SHEET_CATEGORIES: Array<{
     id: 'mvg_instalasi_led',
     name: 'Instalasi LED',
     catalog: 'mvg',
-    customUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRuMDmEzh4w7r09LH3Quoio4lHUZIR7Krur4FNfuxCskrN0onGEyiDGtr_ff7NGRG47Uq8HaNhXmS1a/pub?single=true&output=csv&gid=81890595',
+    // Master exposes the literal ERP package SKU for each independent variant:
+    // Modular (PKT, columns 55–57) and Cabinet (FNC, columns 58–60).
+    customUrl: 'https://docs.google.com/spreadsheets/d/1LcCyULM6UJ_c5wKFWF3fgMX350PMMGeGSCZrRUl3148/export?format=csv&gid=787947860',
     icon: 'Monitor',
     description: 'Price List Paket Instalasi LED Videotron Modular & Cabinet (Qiangli & ABSEN Pro Series)'
   },
@@ -125,7 +127,7 @@ export const SHEET_CATEGORIES: Array<{
     id: 'qiangli',
     name: 'Module Qiangli',
     catalog: 'av',
-    gid: '259985385',
+    gid: '787947860',
     icon: 'Cpu',
     description: 'Modul LED QiangLi Indoor, Outdoor, dan Flexible Pro Series'
   },
@@ -1485,61 +1487,86 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
     // 12. MVG: Instalasi LED Videotron (Modular & Cabinet)
     // ==========================================
     case 'mvg_instalasi_led': {
+      // The public legacy sheet has one combined display row. The master Sheet
+      // has two authoritative package records per product: Modular (PKT) and
+      // Cabinet (FNC). Each needs its own ERP mapping and price decision.
+      const masterFormat = rows.some(r => r.length >= 61 && /^\d+$/.test((r[0] || '').trim()) && Boolean((r[3] || '').trim()))
       let seq = 0
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
-        if (!r || r.length < 2) continue
-        const rawGroup = (r[0] || '').trim() // e.g. "Qiangli Indoor", "Qiangli Outdoor", "ABSEN Indoor"
-        const rawType = (r[1] || '').trim()  // e.g. "Qiangli P4 Pro", "Qiangli P10", "ABSEN CPS P2.5 Indoor"
+        if (!r || r.length < (masterFormat ? 61 : 2)) continue
+        const rawNo = (r[0] || '').trim()
+        const rawGroup = (r[masterFormat ? 2 : 0] || '').trim()
+        const rawType = (r[masterFormat ? 3 : 1] || '').trim()
+        if (masterFormat && (!/^\d+$/.test(rawNo) || !rawType)) continue
         if (!rawGroup && !rawType) continue
 
-        const modularStr = (r[2] || '').trim()
-        const cabinetStr = (r[3] || '').trim()
-
-        const hargaModular = parsePrice(modularStr)
-        const hargaCabinet = parsePrice(cabinetStr)
-
-        const primaryPrice = hargaCabinet > 0 ? hargaCabinet : hargaModular
-        if (primaryPrice <= 0) continue
-
-        seq++
-
-        // Distinct, clean product name derived from TIPE + Group (Indoor/Outdoor)
         const isOutdoor = rawGroup.toLowerCase().includes('outdoor')
         const isIndoor = rawGroup.toLowerCase().includes('indoor')
         const lowerType = rawType.toLowerCase()
-
         let modelTitle = rawType
         if (!lowerType.includes('indoor') && !lowerType.includes('outdoor')) {
-          if (isOutdoor) {
-            modelTitle = `${rawType} Outdoor`
-          } else if (isIndoor) {
-            modelTitle = `${rawType} Indoor`
-          }
+          if (isOutdoor) modelTitle = `${rawType} Outdoor`
+          else if (isIndoor) modelTitle = `${rawType} Indoor`
         }
 
-        // Determine representative product image
         let itemImg = '/images/products/qiangli-new-lite-indoor.png'
-        if (rawGroup.toLowerCase().includes('outdoor')) {
-          itemImg = '/images/products/qiangli-new-lite-outdoor.png'
-        } else if (rawType.toLowerCase().includes('flexible')) {
-          itemImg = '/images/products/av-qiangli-module.svg'
-        } else if (rawGroup.toLowerCase().includes('absen') || rawType.toLowerCase().includes('absen')) {
-          itemImg = '/images/products/av-cabinet-diecast.svg'
-        } else if (rawType.toLowerCase().includes('cob')) {
-          itemImg = '/images/products/qiangli-saga-indoor.png'
+        if (rawGroup.toLowerCase().includes('outdoor')) itemImg = '/images/products/qiangli-new-lite-outdoor.png'
+        else if (lowerType.includes('flexible')) itemImg = '/images/products/av-qiangli-module.svg'
+        else if (rawGroup.toLowerCase().includes('absen') || lowerType.includes('absen')) itemImg = '/images/products/av-cabinet-diecast.svg'
+        else if (lowerType.includes('cob')) itemImg = '/images/products/qiangli-saga-indoor.png'
+
+        if (masterFormat) {
+          const no = Number(rawNo)
+          const moduleSku = (r[16] || '').trim()
+          const variants = [
+            { kind: 'MODULAR', price: parsePrice(r[55]), skuErp: (r[57] || '').trim() },
+            { kind: 'CABINET', price: parsePrice(r[58]), skuErp: (r[60] || '').trim() },
+          ]
+          for (const variant of variants) {
+            // An incomplete master package is intentionally not assigned a made-up SKU.
+            if (variant.price <= 0 || !variant.skuErp) continue
+            seq++
+            const label = variant.kind === 'MODULAR' ? 'Modular' : 'Cabinet'
+            items.push({
+              id: `${categoryId}-${no}-${variant.kind.toLowerCase()}`,
+              no,
+              category: categoryId,
+              catalog: 'mvg',
+              model: `${modelTitle} ${label}`,
+              type: `${rawGroup} • ${label}`,
+              description: `Paket Instalasi LED Videotron ${modelTitle} ${label}`,
+              price: variant.price,
+              priceFormatted: formatRupiah(variant.price),
+              sku: variant.skuErp,
+              image: itemImg,
+              metadata: {
+                no,
+                variant: variant.kind,
+                skuErp: variant.skuErp,
+                moduleSku: moduleSku || undefined,
+                model: modelTitle,
+                rawModel: rawGroup,
+                type: rawGroup,
+                rawType,
+                hargaModular: variant.kind === 'MODULAR' ? variant.price : null,
+                hargaModularFormatted: variant.kind === 'MODULAR' ? formatRupiah(variant.price) : '-',
+                hargaCabinet: variant.kind === 'CABINET' ? variant.price : null,
+                hargaCabinetFormatted: variant.kind === 'CABINET' ? formatRupiah(variant.price) : '-',
+                specification: `Varian Paket: ${label}`,
+              },
+              updatedAt: new Date().toISOString()
+            })
+          }
+          continue
         }
 
-        // Generate clean and recognizable SKU
-        const cleanSkuCode = modelTitle
-          .toUpperCase()
-          .replace(/QIANGLI/g, 'QL')
-          .replace(/[^A-Z0-9]+/g, '-')
-          .replace(/^-|-$/g, '')
-        const sku = `INST-${cleanSkuCode}`
-
-        const desc = `Paket Instalasi LED Videotron ${modelTitle} (Modular & Cabinet)`
-
+        const hargaModular = parsePrice(r[2])
+        const hargaCabinet = parsePrice(r[3])
+        const primaryPrice = hargaCabinet > 0 ? hargaCabinet : hargaModular
+        if (primaryPrice <= 0) continue
+        seq++
+        const cleanSkuCode = modelTitle.toUpperCase().replace(/QIANGLI/g, 'QL').replace(/[^A-Z0-9]+/g, '-').replace(/^-|-$/g, '')
         items.push({
           id: `${categoryId}-${seq}`,
           no: seq,
@@ -1547,10 +1574,10 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
           catalog: 'mvg',
           model: modelTitle,
           type: rawGroup,
-          description: desc,
+          description: `Paket Instalasi LED Videotron ${modelTitle} (Modular & Cabinet)`,
           price: primaryPrice,
           priceFormatted: formatRupiah(primaryPrice),
-          sku,
+          sku: `INST-${cleanSkuCode}`,
           image: itemImg,
           metadata: {
             no: seq,
@@ -1579,13 +1606,18 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 5 || !r[2]) continue
-        const rawModel = r[0]?.trim() || ''
-        const type = r[1]?.trim() || ''
-        const desc = r[2]?.trim() || ''
-        const size = r[3]?.trim() || ''
-        const price = parsePrice(r[4])
-        const refresh = r[5]?.trim() || ''
-        const sku = r[6]?.trim() || `${categoryId}-${i}`
+        const masterFormat = r.length >= 64
+        if (masterFormat && (!/^\d+$/.test(r[0]?.trim() || '') || !r[3]?.trim())) continue
+        const rawModel = r[masterFormat ? 1 : 0]?.trim() || ''
+        const type = r[masterFormat ? 2 : 1]?.trim() || ''
+        const desc = r[masterFormat ? 3 : 2]?.trim() || ''
+        const size = r[masterFormat ? 4 : 3]?.trim() || ''
+        const price = parsePrice(r[masterFormat ? 15 : 4])
+        const refresh = r[masterFormat ? 18 : 5]?.trim() || ''
+        const skuErp = masterFormat ? r[16]?.trim() || '' : ''
+        const hpp = masterFormat ? parsePrice(r[13]) : undefined
+        const no = masterFormat ? Number(r[0]) : seq + 1
+        const sku = r[masterFormat ? 63 : 6]?.trim() || skuErp || `${categoryId}-${no}`
         seq++
 
         let actualModel = desc || rawModel
@@ -1599,8 +1631,8 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
           : (type ? `Modul LED ${type}` : 'Modul LED')
 
         items.push({
-          id: `${categoryId}-${seq}`,
-          no: seq,
+          id: `${categoryId}-${no}`,
+          no,
           category: categoryId,
           catalog: 'av',
           model: actualModel,
@@ -1613,7 +1645,9 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
           sku,
           image: '/images/products/av-qiangli-module.svg',
           metadata: {
-            no: seq
+            no,
+            skuErp: skuErp || undefined,
+            hpp
           },
           updatedAt: new Date().toISOString()
         })

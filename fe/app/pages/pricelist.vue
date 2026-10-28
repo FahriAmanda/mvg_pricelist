@@ -566,6 +566,14 @@ function getHargaCabinet(item: any): string {
   const m = spec.match(/Cabinet:\s*(Rp\s*[\d.,]+)/i)
   return m ? m[1].trim() : '-'
 }
+
+function isSeparateInstalasiVariant(item: any): boolean {
+  return item?.category === 'mvg_instalasi_led' && ['MODULAR', 'CABINET'].includes(item?.metadata?.variant)
+}
+
+function instalasiPriceLabel(item: any): string {
+  return isSeparateInstalasiVariant(item) ? `Harga Paket ${item.metadata.variant === 'MODULAR' ? 'Modular' : 'Cabinet'}` : 'Harga Cabinet (Paket)'
+}
 </script>
 
 <template>
@@ -1460,21 +1468,22 @@ function getHargaCabinet(item: any): string {
                 </div>
               </div>
 
-              <!-- Special Breakdown: Instalasi LED Dual Prices (Modular vs Cabinet) -->
-              <div v-if="item.category === 'mvg_instalasi_led'" class="pt-2 space-y-2 text-xs">
-                <div class="grid grid-cols-2 gap-2">
+              <!-- Instalasi LED is an ERP-backed package per distinct variant. -->
+              <div v-if="item.category === 'mvg_instalasi_led'" class="pt-2 text-xs">
+                <div v-if="isSeparateInstalasiVariant(item)" class="p-2.5 rounded-xl border" :class="item.metadata.variant === 'MODULAR' ? 'bg-primary/5 border-primary/20' : 'bg-purple-500/5 border-purple-500/20'">
+                  <p class="text-[10px] text-muted-foreground font-medium flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full" :class="item.metadata.variant === 'MODULAR' ? 'bg-primary' : 'bg-purple-500'"></span>
+                    Paket {{ item.metadata.variant === 'MODULAR' ? 'Modular' : 'Cabinet' }} · ERP {{ item.isSynced ? 'terhubung' : 'menunggu mapping' }}
+                  </p>
+                  <p class="font-bold text-foreground font-mono mt-0.5 text-xs">{{ item.priceFormatted }}</p>
+                </div>
+                <div v-else class="grid grid-cols-2 gap-2">
                   <div class="p-2.5 rounded-xl bg-primary/5 border border-primary/20">
-                    <p class="text-[10px] text-muted-foreground font-medium flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
-                      Harga Modular
-                    </p>
+                    <p class="text-[10px] text-muted-foreground font-medium">Harga Modular</p>
                     <p class="font-bold text-foreground font-mono mt-0.5 text-xs">{{ getHargaModular(item) }}</p>
                   </div>
                   <div class="p-2.5 rounded-xl bg-purple-500/5 border border-purple-500/20">
-                    <p class="text-[10px] text-muted-foreground font-medium flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span>
-                      Harga Cabinet
-                    </p>
+                    <p class="text-[10px] text-muted-foreground font-medium">Harga Cabinet</p>
                     <p class="font-bold text-foreground font-mono mt-0.5 text-xs">{{ getHargaCabinet(item) }}</p>
                   </div>
                 </div>
@@ -1645,7 +1654,7 @@ function getHargaCabinet(item: any): string {
                       : item.category === 'led_cube'
                       ? 'Harga 4 Sisi'
                       : item.category === 'mvg_instalasi_led'
-                      ? 'Harga Cabinet (Paket)'
+                      ? instalasiPriceLabel(item)
                       : 'Harga Satuan'
                   }}
                 </p>
@@ -1827,9 +1836,6 @@ function getHargaCabinet(item: any): string {
                   <TableHead class="w-[120px] text-xs font-semibold">Tipe</TableHead>
                   <TableHead class="w-[110px] text-xs font-semibold">Ukuran / Spek</TableHead>
 
-                  <TableHead v-if="activeCategoryId === 'mvg_instalasi_led'" class="w-[140px] text-xs font-semibold">
-                    Harga Modular
-                  </TableHead>
                   <TableHead v-if="activeCategoryId === 'led_poster'" class="w-[150px] text-xs font-semibold">
                     Foldable
                   </TableHead>
@@ -1988,9 +1994,6 @@ function getHargaCabinet(item: any): string {
                     </div>
                   </TableCell>
 
-                  <TableCell v-if="activeCategoryId === 'mvg_instalasi_led'" class="text-xs font-mono font-semibold text-primary">
-                    {{ getHargaModular(item) }}
-                  </TableCell>
                   <TableCell v-if="activeCategoryId === 'led_poster'" class="text-xs font-medium">
                     {{ item.metadata?.foldablePriceFormatted || '-' }}
                   </TableCell>
