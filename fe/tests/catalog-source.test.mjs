@@ -71,6 +71,32 @@ test('Instalasi LED master emits two literal ERP variants for one package row', 
   assert.match(parsed[0].model, /Modular$/);
   assert.match(parsed[1].model, /Cabinet$/);
   assert.match(parsed[0].description, /Paket Instalasi LED Videotron/);
+  assert.equal(parsed[0].image, '/images/products/instalasi-led/modular-installation.png');
+  assert.equal(parsed[1].image, '/images/products/instalasi-led/cabinet-indoor-installation.png');
+  assert.equal(JSON.stringify(parsed[0].images), JSON.stringify(['/images/products/instalasi-led/modular-installation.png']));
+  assert.equal(JSON.stringify(parsed[1].images), JSON.stringify(['/images/products/instalasi-led/cabinet-indoor-installation.png']));
+});
+
+test('Instalasi LED reads current Sheet exports with blank BF/BJ image cells', () => {
+  const row = new Array(66).fill('');
+  row[0] = '20';
+  row[2] = 'Outdoor';
+  row[3] = 'Qiangli P8 Pro';
+  row[55] = 'Rp8,200,000';
+  row[57] = ''; // BF: embedded Modular image cell retained by CSV export
+  row[58] = 'PKT-OUTDOOR-01'; // BG: literal ERP SKU
+  row[59] = 'Rp11,300,000';
+  row[61] = ''; // BJ: embedded Cabinet image cell retained by CSV export
+  row[62] = 'FNC-OUTDOOR-01'; // BK: literal ERP SKU
+
+  const parsed = context.parse('mvg_instalasi_led', Papa.unparse([['No', 'TYPE'], row]));
+  assert.equal(parsed.length, 2);
+  assert.equal(parsed[0].sku, 'PKT-OUTDOOR-01');
+  assert.equal(parsed[1].sku, 'FNC-OUTDOOR-01');
+  assert.equal(parsed[0].price, 8200000);
+  assert.equal(parsed[1].price, 11300000);
+  assert.equal(parsed[0].image, '/images/products/instalasi-led/modular-installation.png');
+  assert.equal(parsed[1].image, '/images/products/instalasi-led/cabinet-outdoor-installation.png');
 });
 
 test('Qiangli master preserves catalog SKU and explicit ERP variant identity', () => {

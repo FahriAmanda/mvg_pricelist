@@ -1510,8 +1510,14 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
           else if (isIndoor) modelTitle = `${rawType} Indoor`
         }
 
+        const isOutdoorPackage = rawGroup.toLowerCase().includes('outdoor')
+        const instalasiLedImages = {
+          modular: '/images/products/instalasi-led/modular-installation.png',
+          cabinetIndoor: '/images/products/instalasi-led/cabinet-indoor-installation.png',
+          cabinetOutdoor: '/images/products/instalasi-led/cabinet-outdoor-installation.png',
+        }
         let itemImg = '/images/products/qiangli-new-lite-indoor.png'
-        if (rawGroup.toLowerCase().includes('outdoor')) itemImg = '/images/products/qiangli-new-lite-outdoor.png'
+        if (isOutdoorPackage) itemImg = '/images/products/qiangli-new-lite-outdoor.png'
         else if (lowerType.includes('flexible')) itemImg = '/images/products/av-qiangli-module.svg'
         else if (rawGroup.toLowerCase().includes('absen') || lowerType.includes('absen')) itemImg = '/images/products/av-cabinet-diecast.svg'
         else if (lowerType.includes('cob')) itemImg = '/images/products/qiangli-saga-indoor.png'
@@ -1519,15 +1525,30 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
         if (masterFormat) {
           const no = Number(rawNo)
           const moduleSku = (r[16] || '').trim()
+          // The exported Google Sheet retains blank BF/BJ image cells. New master
+          // exports therefore place the literal package SKUs in BG/BK (58/62); keep
+          // the prior compact export layout as a fallback for existing imports.
+          const usesImageColumns = !(r[57] || '').trim() && Boolean((r[62] || '').trim())
           const variants = [
-            { kind: 'MODULAR', price: parsePrice(r[55]), skuErp: (r[57] || '').trim() },
-            { kind: 'CABINET', price: parsePrice(r[58]), skuErp: (r[60] || '').trim() },
+            {
+              kind: 'MODULAR',
+              price: parsePrice(r[55]),
+              skuErp: (usesImageColumns ? r[58] : r[57] || '').trim(),
+            },
+            {
+              kind: 'CABINET',
+              price: parsePrice(usesImageColumns ? r[59] : r[58]),
+              skuErp: (usesImageColumns ? r[62] : r[60] || '').trim(),
+            },
           ]
           for (const variant of variants) {
             // An incomplete master package is intentionally not assigned a made-up SKU.
             if (variant.price <= 0 || !variant.skuErp) continue
             seq++
             const label = variant.kind === 'MODULAR' ? 'Modular' : 'Cabinet'
+            const variantImage = variant.kind === 'MODULAR'
+              ? instalasiLedImages.modular
+              : (isOutdoorPackage ? instalasiLedImages.cabinetOutdoor : instalasiLedImages.cabinetIndoor)
             items.push({
               id: `${categoryId}-${no}-${variant.kind.toLowerCase()}`,
               no,
@@ -1539,7 +1560,8 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
               price: variant.price,
               priceFormatted: formatRupiah(variant.price),
               sku: variant.skuErp,
-              image: itemImg,
+              image: variantImage,
+              images: [variantImage],
               metadata: {
                 no,
                 variant: variant.kind,
