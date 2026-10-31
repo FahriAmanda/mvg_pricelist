@@ -317,6 +317,16 @@ function formatTime(isoString: string) {
 
         <!-- Right Controls -->
         <div class="flex items-center gap-2">
+          <!-- Menu SYNCRON ITEM -->
+          <NuxtLink
+            to="/syncron-item"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-primary/30 bg-primary/10 hover:bg-primary/20 text-xs font-bold text-primary transition-all shadow-xs"
+            title="Menu Syncron Item (Komparasi Pricelist vs M Items ERP)"
+          >
+            <ArrowLeftRight class="w-3.5 h-3.5" />
+            <span class="hidden sm:inline">SYNCRON ITEM</span>
+          </NuxtLink>
+
           <!-- Live Status -->
           <div
             class="flex items-center gap-1.5 px-2.5 py-1 rounded-full border border-border/70 text-[11px] text-muted-foreground bg-muted/30"
@@ -512,10 +522,15 @@ function formatTime(isoString: string) {
         </div>
 
         <!-- Direct Shortcut Link -->
-        <div class="text-center pt-2">
+        <div class="text-center pt-2 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
           <NuxtLink to="/pricelist" class="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground font-semibold transition-colors">
             <span>Langsung buka katalog tabel lengkap</span>
             <ChevronRight class="w-3.5 h-3.5" />
+          </NuxtLink>
+          <span class="hidden sm:inline text-border">•</span>
+          <NuxtLink to="/syncron-item" class="inline-flex items-center gap-1.5 text-xs text-primary hover:underline font-bold transition-colors">
+            <ArrowLeftRight class="w-3.5 h-3.5" />
+            <span>Menu SYNCRON ITEM (Pricelist vs M Items ERP)</span>
           </NuxtLink>
         </div>
       </div>

@@ -15,6 +15,7 @@ import {
   ShieldCheck,
   Flame,
   ArrowDownUp,
+  ArrowLeftRight,
   Sun,
   Shield,
   ShieldAlert,
@@ -657,6 +658,16 @@ function instalasiPriceLabel(item: any): string {
               <TableIcon class="w-3.5 h-3.5" />
             </button>
           </div>
+
+          <!-- Menu SYNCRON ITEM -->
+          <NuxtLink
+            to="/syncron-item"
+            class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border border-primary/30 bg-primary/10 hover:bg-primary/20 text-xs font-bold text-primary transition-all shadow-xs"
+            title="Menu Syncron Item (Komparasi Pricelist vs M Items ERP)"
+          >
+            <ArrowLeftRight class="w-3.5 h-3.5" />
+            <span class="hidden sm:inline">SYNCRON ITEM</span>
+          </NuxtLink>
 
           <ThemeToggle />
 
