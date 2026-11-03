@@ -1254,8 +1254,14 @@ function instalasiPriceLabel(item: any): string {
                 <div class="text-xs sm:text-sm font-black text-rose-600 dark:text-rose-400 font-mono tracking-tight">
                   {{ item.priceFormatted }}
                 </div>
-                <div v-if="item.metadata?.hargaKreditFormatted" class="text-[9px] text-muted-foreground font-mono">
-                  Krd: {{ item.metadata.hargaKreditFormatted }}
+                <div v-if="item.metadata?.hargaBottomFormatted || item.metadata?.hargaBottom" class="text-[9px] text-amber-600 dark:text-amber-400 font-mono">
+                  Btm: {{ item.metadata.hargaBottomFormatted || ('Rp ' + Number(item.metadata.hargaBottom).toLocaleString('id-ID')) }}
+                </div>
+                <div v-if="item.metadata?.hargaPartnerFormatted || item.metadata?.hargaPartner" class="text-[9px] text-blue-600 dark:text-blue-400 font-mono">
+                  XPt: {{ item.metadata.hargaPartnerFormatted || ('Rp ' + Number(item.metadata.hargaPartner).toLocaleString('id-ID')) }}
+                </div>
+                <div v-if="item.metadata?.hargaKreditFormatted || item.metadata?.hargaKredit" class="text-[9px] text-muted-foreground font-mono">
+                  Krd: {{ item.metadata.hargaKreditFormatted || ('Rp ' + Number(item.metadata.hargaKredit).toLocaleString('id-ID')) }}
                 </div>
                 <div v-if="isSuperAdmin && item.metadata?.capitalHpp" class="text-[9px] text-amber-600 dark:text-amber-400 font-mono font-medium">
                   HPP: Rp {{ Number(item.metadata.capitalHpp).toLocaleString('id-ID') }}
@@ -1708,37 +1714,75 @@ function instalasiPriceLabel(item: any): string {
               </div>
 
               <!-- Price Section (Full width, zero overlap) -->
-              <div class="space-y-0.5">
-                <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider truncate">
-                  {{
-                    item.category.includes('rental')
-                      ? 'Harga Cash (Termurah)'
-                      : item.category === 'led_poster'
-                      ? 'Harga Flat'
-                      : item.category === 'led_cube'
-                      ? 'Harga 4 Sisi'
-                      : item.category === 'mvg_instalasi_led'
-                      ? instalasiPriceLabel(item)
-                      : 'Harga Satuan'
-                  }}
-                </p>
-                <div class="flex items-baseline gap-1.5 flex-wrap">
-                  <span
-                    class="text-base sm:text-lg font-black tracking-tight"
-                    :class="item.category.includes('rental') ? 'text-rose-600 dark:text-rose-400 font-extrabold' : 'text-foreground'"
-                  >
-                    {{ item.priceFormatted }}
-                  </span>
-                  <span
-                    v-if="item.previousPrice && item.previousPrice !== item.price"
-                    class="text-[10px] text-muted-foreground line-through whitespace-nowrap"
-                  >
-                    Rp {{ item.previousPrice.toLocaleString('id-ID') }}
-                  </span>
+              <div class="space-y-1">
+                <!-- If item has multi-tier prices (Rental / Bottom / XPartner / Kredit) -->
+                <div v-if="item.metadata?.hargaBottom || item.metadata?.hargaPartner || item.metadata?.hargaKredit" class="space-y-1">
+                  <div>
+                    <p class="text-[9px] uppercase font-bold text-rose-600 dark:text-rose-400 tracking-wider">
+                      CASH PRICE (Utama)
+                    </p>
+                    <div class="flex items-baseline gap-1.5 flex-wrap">
+                      <span class="text-base sm:text-lg font-black tracking-tight text-rose-600 dark:text-rose-400 font-extrabold">
+                        {{ item.priceFormatted }}
+                      </span>
+                      <span
+                        v-if="item.previousPrice && item.previousPrice !== item.price"
+                        class="text-[10px] text-muted-foreground line-through whitespace-nowrap"
+                      >
+                        Rp {{ item.previousPrice.toLocaleString('id-ID') }}
+                      </span>
+                    </div>
+                  </div>
+
+                  <!-- Tiers Grid: Bottom, XPartner, Kredit -->
+                  <div class="grid grid-cols-1 gap-1 text-[11px] bg-muted/40 dark:bg-muted/15 p-2 rounded-xl border border-border/50">
+                    <div v-if="item.metadata?.hargaBottomFormatted || item.metadata?.hargaBottom" class="flex items-center justify-between">
+                      <span class="text-[10px] font-semibold text-amber-700 dark:text-amber-400">BOTTOM PRICE:</span>
+                      <span class="font-mono font-bold text-amber-600 dark:text-amber-400">
+                        {{ item.metadata.hargaBottomFormatted || ('Rp ' + Number(item.metadata.hargaBottom).toLocaleString('id-ID')) }}
+                      </span>
+                    </div>
+                    <div v-if="item.metadata?.hargaPartnerFormatted || item.metadata?.hargaPartner" class="flex items-center justify-between">
+                      <span class="text-[10px] font-semibold text-blue-700 dark:text-blue-400">XPARTNER PRICE:</span>
+                      <span class="font-mono font-bold text-blue-600 dark:text-blue-400">
+                        {{ item.metadata.hargaPartnerFormatted || ('Rp ' + Number(item.metadata.hargaPartner).toLocaleString('id-ID')) }}
+                      </span>
+                    </div>
+                    <div v-if="item.metadata?.hargaKreditFormatted || item.metadata?.hargaKredit" class="flex items-center justify-between">
+                      <span class="text-[10px] font-semibold text-muted-foreground">KREDIT PRICE:</span>
+                      <span class="font-mono font-bold text-foreground">
+                        {{ item.metadata.hargaKreditFormatted || ('Rp ' + Number(item.metadata.hargaKredit).toLocaleString('id-ID')) }}
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <p v-if="item.metadata?.hargaKreditFormatted" class="text-[11px] text-muted-foreground mt-0.5 font-medium">
-                  Kredit: <span class="font-mono text-foreground font-semibold">{{ item.metadata.hargaKreditFormatted }}</span>
-                </p>
+
+                <!-- Single price display for other items -->
+                <div v-else class="space-y-0.5">
+                  <p class="text-[10px] uppercase font-bold text-muted-foreground tracking-wider truncate">
+                    {{
+                      item.category === 'led_poster'
+                        ? 'Harga Flat'
+                        : item.category === 'led_cube'
+                        ? 'Harga 4 Sisi'
+                        : item.category === 'mvg_instalasi_led'
+                        ? instalasiPriceLabel(item)
+                        : 'Harga Satuan'
+                    }}
+                  </p>
+                  <div class="flex items-baseline gap-1.5 flex-wrap">
+                    <span class="text-base sm:text-lg font-black tracking-tight text-foreground">
+                      {{ item.priceFormatted }}
+                    </span>
+                    <span
+                      v-if="item.previousPrice && item.previousPrice !== item.price"
+                      class="text-[10px] text-muted-foreground line-through whitespace-nowrap"
+                    >
+                      Rp {{ item.previousPrice.toLocaleString('id-ID') }}
+                    </span>
+                  </div>
+                </div>
+
                 <div v-if="isSuperAdmin && item.metadata?.capitalHpp" class="pt-1 flex items-center justify-between text-[11px] text-amber-600 dark:text-amber-400 font-mono">
                   <span class="text-[10px] uppercase font-bold text-amber-700 dark:text-amber-300">HPP:</span>
                   <span class="font-bold">Rp {{ Number(item.metadata.capitalHpp).toLocaleString('id-ID') }}</span>
@@ -1906,8 +1950,14 @@ function instalasiPriceLabel(item: any): string {
                   <TableHead v-if="activeCategoryId === 'led_cube'" class="w-[150px] text-xs font-semibold">
                     Cube 5 Sisi
                   </TableHead>
-                  <TableHead v-if="activeCategoryId.includes('rental')" class="w-[140px] text-xs font-semibold">
-                    Harga Kredit
+                  <TableHead v-if="activeCategoryId.includes('rental')" class="w-[130px] text-xs font-semibold text-amber-600 dark:text-amber-400">
+                    Bottom Price
+                  </TableHead>
+                  <TableHead v-if="activeCategoryId.includes('rental')" class="w-[130px] text-xs font-semibold text-blue-600 dark:text-blue-400">
+                    XPartner Price
+                  </TableHead>
+                  <TableHead v-if="activeCategoryId.includes('rental')" class="w-[130px] text-xs font-semibold">
+                    Kredit Price
                   </TableHead>
                   <TableHead v-if="activeCategoryId === 'magnustek_tkdn'" class="w-[130px] text-xs font-semibold">
                     Nilai TKDN
@@ -2064,8 +2114,14 @@ function instalasiPriceLabel(item: any): string {
                   <TableCell v-if="activeCategoryId === 'led_cube'" class="text-xs font-medium">
                     {{ item.metadata?.price5SideFormatted || '-' }}
                   </TableCell>
+                  <TableCell v-if="activeCategoryId.includes('rental')" class="text-xs font-bold text-amber-600 dark:text-amber-400 font-mono">
+                    {{ item.metadata?.hargaBottomFormatted || (item.metadata?.hargaBottom ? 'Rp ' + Number(item.metadata.hargaBottom).toLocaleString('id-ID') : '-') }}
+                  </TableCell>
+                  <TableCell v-if="activeCategoryId.includes('rental')" class="text-xs font-bold text-blue-600 dark:text-blue-400 font-mono">
+                    {{ item.metadata?.hargaPartnerFormatted || (item.metadata?.hargaPartner ? 'Rp ' + Number(item.metadata.hargaPartner).toLocaleString('id-ID') : '-') }}
+                  </TableCell>
                   <TableCell v-if="activeCategoryId.includes('rental')" class="text-xs font-medium text-foreground font-mono">
-                    {{ item.metadata?.hargaKreditFormatted || '-' }}
+                    {{ item.metadata?.hargaKreditFormatted || (item.metadata?.hargaKredit ? 'Rp ' + Number(item.metadata.hargaKredit).toLocaleString('id-ID') : '-') }}
                   </TableCell>
                   <TableCell v-if="activeCategoryId === 'magnustek_tkdn'">
                     <Badge variant="outline" class="font-mono text-xs border-emerald-500/40 text-emerald-600 dark:text-emerald-400 bg-emerald-500/5">

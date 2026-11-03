@@ -1032,6 +1032,32 @@ function isSeparateInstalasiVariant(val: any): boolean {
               </div>
             </div>
 
+            <!-- Multi-Tier Price Grid (Rental / Items with Bottom / XPartner / Kredit) -->
+            <div v-if="item.metadata?.hargaBottom || item.metadata?.hargaPartner || item.metadata?.hargaKredit" class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+              <div class="p-3 rounded-2xl bg-rose-500/10 border border-rose-500/20">
+                <p class="text-[11px] text-rose-700 dark:text-rose-400 font-semibold uppercase tracking-wider">CASH PRICE</p>
+                <p class="text-base sm:text-lg font-black text-rose-600 dark:text-rose-400 font-mono mt-0.5">{{ item.priceFormatted }}</p>
+              </div>
+              <div v-if="item.metadata?.hargaBottomFormatted || item.metadata?.hargaBottom" class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20">
+                <p class="text-[11px] text-amber-700 dark:text-amber-400 font-semibold uppercase tracking-wider">BOTTOM PRICE</p>
+                <p class="text-base sm:text-lg font-bold text-amber-600 dark:text-amber-400 font-mono mt-0.5">
+                  {{ item.metadata.hargaBottomFormatted || ('Rp ' + Number(item.metadata.hargaBottom).toLocaleString('id-ID')) }}
+                </p>
+              </div>
+              <div v-if="item.metadata?.hargaPartnerFormatted || item.metadata?.hargaPartner" class="p-3 rounded-2xl bg-blue-500/10 border border-blue-500/20">
+                <p class="text-[11px] text-blue-700 dark:text-blue-400 font-semibold uppercase tracking-wider">XPARTNER PRICE</p>
+                <p class="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400 font-mono mt-0.5">
+                  {{ item.metadata.hargaPartnerFormatted || ('Rp ' + Number(item.metadata.hargaPartner).toLocaleString('id-ID')) }}
+                </p>
+              </div>
+              <div v-if="item.metadata?.hargaKreditFormatted || item.metadata?.hargaKredit" class="p-3 rounded-2xl bg-muted/40 border border-border/60">
+                <p class="text-[11px] text-muted-foreground font-semibold uppercase tracking-wider">KREDIT PRICE</p>
+                <p class="text-base sm:text-lg font-bold text-foreground font-mono mt-0.5">
+                  {{ item.metadata.hargaKreditFormatted || ('Rp ' + Number(item.metadata.hargaKredit).toLocaleString('id-ID')) }}
+                </p>
+              </div>
+            </div>
+
             <!-- Capital / HPP & Profit Breakdown (Novastar & Supported Items - Super Admin Only) -->
             <div v-if="isSuperAdmin && item.metadata?.capitalHpp" class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1">
               <div class="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20">
