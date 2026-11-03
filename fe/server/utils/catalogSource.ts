@@ -615,6 +615,45 @@ const MEANREAL_LINKS: Record<string, string> = {
   'b-eye k25': 'https://drive.google.com/open?id=1MAeiuCypspsIHUCkQX7v94Zaenf849Ka'
 }
 
+/**
+ * Mapping Resmi Master Penyelarasan LED Rental dari Google Sheets gid=401224528
+ * Menyelaraskan SKU Katalog, SKU ERP resmi, Cash Price, Bottom Price, XPartner, dan Kredit Price
+ */
+const RENTAL_MASTER_REVISION_MAP: Record<string, {
+  erpSku: string
+  cash: number
+  bottom: number
+  xpartner: number
+  kredit: number
+}> = {
+  // Fabulux (mvg_rental_fabulux)
+  'RNT-FB-1': { erpSku: 'RNT-260927-LEDREN-05', cash: 15700000, bottom: 15400000, xpartner: 14700000, kredit: 17500000 },
+  'RNT-FB-2': { erpSku: 'RNT-260927-LEDREN-06', cash: 18400000, bottom: 18000000, xpartner: 17210000, kredit: 20400000 },
+  'RNT-FB-4': { erpSku: 'RNT-260927-LEDREN-03', cash: 18300000, bottom: 17900000, xpartner: 17110000, kredit: 20300000 },
+  'RNT-FB-5': { erpSku: 'RNT-260927-LEDREN-04', cash: 21800000, bottom: 21300000, xpartner: 20420000, kredit: 24200000 },
+  'RNT-FB-7': { erpSku: 'RNT-260927-LEDREN-01', cash: 21000000, bottom: 20500000, xpartner: 19630000, kredit: 23200000 },
+  'RNT-FB-8': { erpSku: 'RNT-260927-LEDREN-02', cash: 23200000, bottom: 22700000, xpartner: 21780000, kredit: 25700000 },
+  'RNT-FB-10': { erpSku: 'RNT-260927-LEDREN-07', cash: 14800000, bottom: 14500000, xpartner: 13830000, kredit: 16400000 },
+  'RNT-FB-11': { erpSku: 'RNT-260927-LEDREN-08', cash: 17100000, bottom: 16700000, xpartner: 15950000, kredit: 18900000 },
+
+  // Maven & LRS (mvg_rental_maven)
+  'RNT-MVN-1': { erpSku: 'RNT-260927-LEDREN-09', cash: 11800000, bottom: 11600000, xpartner: 11040000, kredit: 13100000 },
+  'RNT-MVN-2': { erpSku: 'RNT-260927-LEDREN-10', cash: 13900000, bottom: 13600000, xpartner: 12960000, kredit: 15400000 },
+  'RNT-MVN-3': { erpSku: 'RNT-260927-LEDREN-11', cash: 13900000, bottom: 13600000, xpartner: 12960000, kredit: 15400000 },
+  'RNT-MVN-4': { erpSku: 'RNT-260927-LEDREN-12', cash: 18200000, bottom: 17800000, xpartner: 17000000, kredit: 20200000 },
+
+  // Qiangli (mvg_rental_qiangli)
+  'RNT-QL-1': { erpSku: 'RNT-QL-1', cash: 11800000, bottom: 11600000, xpartner: 11040000, kredit: 13100000 },
+  'RNT-QL-2': { erpSku: 'RNT-QL-2', cash: 14100000, bottom: 13800000, xpartner: 13150000, kredit: 15600000 },
+  'RNT-QL-3': { erpSku: 'RNT-260927-LEDREN-17', cash: 13800000, bottom: 13500000, xpartner: 12860000, kredit: 15300000 },
+  'RNT-QL-4': { erpSku: 'RNT-260927-LEDREN-18', cash: 16100000, bottom: 15700000, xpartner: 14990000, kredit: 17800000 },
+  'RNT-QL-7': { erpSku: 'RNT-QL-7', cash: 14400000, bottom: 14100000, xpartner: 13440000, kredit: 16000000 },
+  'RNT-QL-8': { erpSku: 'RNT-QL-8', cash: 17000000, bottom: 16600000, xpartner: 15860000, kredit: 18800000 },
+  'RNT-QL-10': { erpSku: 'RNT-QL-10', cash: 15800000, bottom: 15500000, xpartner: 14790000, kredit: 17600000 },
+  'RNT-QL-11': { erpSku: 'RNT-QL-11', cash: 18300000, bottom: 17900000, xpartner: 17110000, kredit: 20300000 },
+  'RNT-QL-14': { erpSku: 'RNT-QL-14', cash: 17200000, bottom: 16800000, xpartner: 16050000, kredit: 19000000 },
+}
+
 export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra: Record<string, CategoryExtra> = {}): PricelistItem[] {
   const parsed = Papa.parse<string[]>(rawCsv, {
     skipEmptyLines: 'greedy'
@@ -698,9 +737,8 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
         currType = rawType
         const curve = r[4]?.trim() || ''
         const size = r[5]?.trim().replace(/\n+/g, '') || ''
-        const hargaKredit = parsePrice(r[6])
-        const hargaCash = parsePrice(r[7])
-        const price = hargaCash > 0 ? hargaCash : hargaKredit
+        const rawHargaKredit = parsePrice(r[6])
+        const rawHargaCash = parsePrice(r[7])
         const desc = r[8]?.trim() || ''
 
         let model = `${brand} ${rawType}`.trim()
@@ -762,7 +800,15 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
             : categoryId === 'mvg_rental_fabulux'
             ? 'RNT-FB'
             : 'RNT-MVN'
-        const sku = `${prefix}-${itemSeq}`
+        const baseCatalogSku = `${prefix}-${itemSeq}`
+        const rentalOverride = RENTAL_MASTER_REVISION_MAP[baseCatalogSku]
+
+        const sku = rentalOverride?.erpSku || baseCatalogSku
+        const finalCash = rentalOverride?.cash ?? (rawHargaCash > 0 ? rawHargaCash : rawHargaKredit)
+        const finalKredit = rentalOverride?.kredit ?? rawHargaKredit
+        const finalXpartner = rentalOverride?.xpartner ?? null
+        const finalBottom = rentalOverride?.bottom ?? null
+        const price = finalCash > 0 ? finalCash : finalKredit
 
         // Image & brochure mapping
         let productImage: string | undefined = undefined
@@ -842,10 +888,16 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
           image: productImage,
           brochureUrl,
           metadata: {
-            hargaCash,
-            hargaCashFormatted: formatRupiah(hargaCash),
-            hargaKredit,
-            hargaKreditFormatted: formatRupiah(hargaKredit),
+            hargaCash: finalCash,
+            hargaCashFormatted: formatRupiah(finalCash),
+            hargaKredit: finalKredit,
+            hargaKreditFormatted: formatRupiah(finalKredit),
+            hargaPartner: finalXpartner,
+            hargaPartnerFormatted: finalXpartner ? formatRupiah(finalXpartner) : null,
+            hargaBottom: finalBottom,
+            hargaBottomFormatted: finalBottom ? formatRupiah(finalBottom) : null,
+            skuErp: rentalOverride?.erpSku || (categoryId === 'mvg_rental_qiangli' ? sku : undefined),
+            legacySku: baseCatalogSku,
             curve,
             size,
             brand,
