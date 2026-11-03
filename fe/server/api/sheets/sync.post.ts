@@ -1,4 +1,4 @@
-import { defineEventHandler, getHeader, createError } from 'h3'
+import { defineEventHandler, getHeader, readBody, createError } from 'h3'
 import { exec } from 'node:child_process'
 import { promisify } from 'node:util'
 import { fetchAllSheets } from '../../utils/sheets'
@@ -18,13 +18,41 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  const body = await readBody(event).catch(() => ({}))
+  let actor = String(body?.actor || '').trim()
+  if (!actor && (body?.actorName || body?.actorRole)) {
+    actor = `${body.actorName || ''}${body.actorRole ? ` (${body.actorRole})` : ''}`.trim()
+  }
+
+  // Fallback: verify token from BE if actor not in body
+  if (!actor) {
+    const token = authHeader.replace(/^Bearer\s+/i, '')
+    try {
+      const vRes = await fetch(`${BE_MVG_URL}/api/auth/verify`, {
+        headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/json' }
+      })
+      const vData = await vRes.json()
+      if (vData?.status === 'success' && vData?.data) {
+        const uName = vData.data.name || vData.data.username || ''
+        const uRole = vData.data.roleName || vData.data.tipe_user_name || ''
+        actor = `${uName}${uRole ? ` (${uRole})` : ''}`.trim()
+      }
+    } catch (_) {}
+  }
+
+  if (!actor) {
+    actor = 'Admin Pricelist'
+  }
+
+  const safeActor = actor.replace(/["$`\\]/g, '')
+
   let resultData: any = null
   let usedMethod = ''
 
   // 1. Try running Hermes governance runner via docker exec (runs audited flow + readback + Fox notification)
   try {
     const { stdout } = await execAsync(
-      'docker exec hermes-vps python3 /opt/data/scripts/hermes_pricelist_governance.py --force',
+      `docker exec hermes-vps python3 /opt/data/scripts/hermes_pricelist_governance.py --force --actor "${safeActor}"`,
       { timeout: 150000 }
     )
     const lines = stdout.trim().split('\n').map((l) => l.trim()).filter(Boolean)
@@ -50,7 +78,7 @@ export default defineEventHandler(async (event) => {
           },
           body: JSON.stringify({
             mode: 'FORCE_MANUAL',
-            actor: 'WEB_PRICELIST_MANUAL'
+            actor: safeActor
           }),
           signal: AbortSignal.timeout(120000)
         })

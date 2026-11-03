@@ -170,6 +170,10 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
         headers['Authorization'] = `Bearer ${token}`
       }
 
+      const actorName = auth?.user?.name || auth?.user?.username || ''
+      const actorRole = auth?.user?.roleName || ''
+      const actorLabel = actorName ? `${actorName}${actorRole ? ` (${actorRole})` : ''}` : ''
+
       const res = await $fetch<{
         status: string
         message: string
@@ -181,7 +185,15 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
           approved?: number
           timestamp?: string
         }
-      }>('/api/sheets/sync', { method: 'POST', headers })
+      }>('/api/sheets/sync', {
+        method: 'POST',
+        headers,
+        body: {
+          actor: actorLabel,
+          actorName,
+          actorRole,
+        },
+      })
 
       if (res?.data?.timestamp) {
         lastSyncTime.value = res.data.timestamp
