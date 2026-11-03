@@ -48,6 +48,8 @@ import ThemeToggle from '~/components/ThemeToggle.vue'
 import FieldSelect from '~/components/FieldSelect.vue'
 import CartDrawer from '~/components/CartDrawer.vue'
 import BatchSelectDialog from '~/components/BatchSelectDialog.vue'
+import SyncLoadingDialog from '~/components/SyncLoadingDialog.vue'
+import SyncResultDialog from '~/components/SyncResultDialog.vue'
 import type { ErpBatchItem } from '~/types/pricelist'
 
 const authStore = useAuthStore()
@@ -166,7 +168,9 @@ const {
   erpSyncFilter,
   erpSyncCounts,
   sortBy,
-  updatedItemIds
+  updatedItemIds,
+  triggerSync,
+  isSyncing
 } = usePricelist({
   catalog: initialCatalog,
   categoryId: initialCategory,
@@ -175,6 +179,40 @@ const {
   search: querySearch || '',
   sort: (querySort as any) || 'default'
 })
+
+// Hermes Full Sync State
+const isSyncModalOpen = ref(false)
+const syncModalTitle = ref('')
+const syncModalSubtitle = ref('')
+const isSyncResultOpen = ref(false)
+const syncResultSuccess = ref(true)
+const syncResultTitle = ref('')
+const syncResultMessage = ref('')
+const syncResultData = ref<any>(null)
+
+async function handleRunSync() {
+  if (isSyncing.value) return
+  syncModalTitle.value = 'Menyinkronkan Harga Sheet & ERP...'
+  syncModalSubtitle.value = 'Hermes sedang mengambil seluruh harga terbaru dari Google Sheets dan memperbarui master harga di database ERP MVG...'
+  isSyncModalOpen.value = true
+
+  try {
+    const res = await triggerSync()
+    isSyncModalOpen.value = false
+    syncResultSuccess.value = true
+    syncResultTitle.value = 'Harga Terbaru Berhasil Disinkronkan'
+    syncResultMessage.value = res?.message || 'Seluruh data pada Web Pricelist dan database ERP MVG telah diselaraskan dengan Google Sheets master.'
+    syncResultData.value = res?.data || null
+    isSyncResultOpen.value = true
+  } catch (err: any) {
+    isSyncModalOpen.value = false
+    syncResultSuccess.value = false
+    syncResultTitle.value = 'Sinkronisasi Gagal'
+    syncResultMessage.value = err?.data?.statusMessage || err?.statusMessage || err?.message || 'Terjadi kesalahan saat menyinkronkan data.'
+    syncResultData.value = null
+    isSyncResultOpen.value = true
+  }
+}
 
 const queryGudang = (route.query.gudang as string) || ''
 if (queryGudang) {
@@ -658,6 +696,21 @@ function instalasiPriceLabel(item: any): string {
               <TableIcon class="w-3.5 h-3.5" />
             </button>
           </div>
+
+          <!-- Tombol Jalankan Syncron -->
+          <Button
+            type="button"
+            size="sm"
+            variant="outline"
+            :disabled="isSyncing"
+            class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl border border-emerald-500/40 bg-emerald-500/10 hover:bg-emerald-500/20 text-xs font-bold text-emerald-600 dark:text-emerald-400 transition-all shadow-xs cursor-pointer disabled:opacity-50"
+            title="Sinkronisasi harga terbaru dari Google Sheets ke Web Pricelist dan ERP MVG"
+            @click="handleRunSync"
+          >
+            <RefreshCw class="w-3.5 h-3.5" :class="{ 'animate-spin': isSyncing }" />
+            <span class="hidden sm:inline">{{ isSyncing ? 'Menyinkronkan...' : 'Jalankan Syncron' }}</span>
+            <span class="sm:hidden">{{ isSyncing ? '...' : 'Sync' }}</span>
+          </Button>
 
           <!-- Menu SYNCRON ITEM -->
           <NuxtLink
@@ -2407,5 +2460,20 @@ function instalasiPriceLabel(item: any): string {
 
     <!-- FLOATING CART & SLIDE-OVER DRAWER FOR SALES QUOTATION -->
     <CartDrawer />
+
+    <!-- DIALOG LOADING SYNC & RESULT DIALOG -->
+    <SyncLoadingDialog
+      :open="isSyncModalOpen"
+      :title="syncModalTitle"
+      :subtitle="syncModalSubtitle"
+    />
+    <SyncResultDialog
+      :open="isSyncResultOpen"
+      :success="syncResultSuccess"
+      :title="syncResultTitle"
+      :message="syncResultMessage"
+      :data="syncResultData"
+      @close="isSyncResultOpen = false"
+    />
   </div>
 </template>

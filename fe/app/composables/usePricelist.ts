@@ -163,23 +163,32 @@ export function usePricelist(initialOptions?: UsePricelistOptions) {
     if (isSyncing.value) return
     isSyncing.value = true
     try {
+      const auth = useAuthStore()
+      const headers: Record<string, string> = {}
+      const token = auth?.token || (import.meta.client ? localStorage.getItem('auth_token') : null)
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`
+      }
+
       const res = await $fetch<{
-        success: boolean
+        status: string
         message: string
-        totalItems: number
-        lastSync: string
-      }>('/api/sheets/sync', { method: 'POST' })
+        data?: {
+          version?: string
+          summary?: any
+          priceUpdates?: number
+          total?: number
+          approved?: number
+          timestamp?: string
+        }
+      }>('/api/sheets/sync', { method: 'POST', headers })
 
-      lastSyncTime.value = res.lastSync
+      if (res?.data?.timestamp) {
+        lastSyncTime.value = res.data.timestamp
+      }
 
-      // Refresh items
-      const dataRes = await $fetch<{
-        itemsByCategory: Record<string, PricelistItem[]>
-        lastSync: string
-      }>('/api/sheets/all')
-
-      allItems.value = dataRes.itemsByCategory || {}
-      await loadPrivateCosts()
+      // Refresh items and live stock from ERP
+      await loadData(true)
       return res
     } catch (err) {
       console.error('Sync failed:', err)
