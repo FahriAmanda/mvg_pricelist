@@ -192,3 +192,48 @@ test('Novastar parses multi-column format and resolves ERP aliases and fallback 
   assert.equal(parsed[2].metadata?.skuErp, 'NS-VP-NOVAPRO-UHD-JR');
   assert.equal(parsed[2].price, 83981000);
 });
+
+test('Lampro parses shifted master columns via header detection', () => {
+  const hdr = new Array(44).fill('');
+  hdr[0] = 'No'; hdr[1] = 'MODEL'; hdr[18] = 'PRICE'; hdr[19] = 'SKU ERP'; hdr[21] = 'REFRESH RATE'; hdr[43] = 'SKU';
+  const row = new Array(44).fill('');
+  row[0] = '1'; row[1] = 'Lampro Module'; row[2] = 'Indoor'; row[3] = 'Lampro P4 Pro'; row[4] = '16x32cm';
+  row[15] = 'Rp217,910'; row[18] = 'Rp247,000'; row[19] = 'MOD-260927-LPP4PRO-01'; row[21] = '7680'; row[43] = 'LAM-IN-P4-PRO';
+  const [item] = context.parse('lampro', Papa.unparse([['No', 'Type'], [''], hdr, ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Hpp'], row]));
+  assert.equal(item.price, 247000);
+  assert.equal(item.metadata.hpp, 217910);
+  assert.equal(item.metadata.skuErp, 'MOD-260927-LPP4PRO-01');
+  assert.equal(item.sku, 'LAM-IN-P4-PRO');
+});
+
+test('Novastar parses shifted 12zNmj columns, strips Apps Script col A, and skips ERROR rows', () => {
+  const hdr = new Array(17).fill('');
+  hdr[0] = 'function updateKursRMB() {'; hdr[1] = 'MODEL'; hdr[2] = 'DESCRIPTION';
+  hdr[5] = 'SKU ERP'; hdr[6] = 'SKU'; hdr[14] = 'Capital/HPP'; hdr[15] = 'PROFIT'; hdr[16] = 'SELLING PRICE/\nCash price';
+
+  const rowOk = new Array(17).fill('');
+  rowOk[0] = 'var cell = sheet.getRange("B2");';
+  rowOk[1] = 'Novastar NV7508 Receiving Card';
+  rowOk[2] = 'Receiving Card';
+  rowOk[5] = 'NS-RC-DH7508-8P';
+  rowOk[6] = 'NS-RC-NV7508-8P';
+  rowOk[14] = 'Rp163,331';
+  rowOk[15] = '17%';
+  rowOk[16] = 'Rp192,000';
+
+  const rowErr = new Array(16).fill('');
+  rowErr[0] = 'Novastar';
+  rowErr[1] = 'NovaStar H Series 180 W Power Supply';
+  rowErr[2] = 'Power Supply';
+  rowErr[5] = 'BELUM ADA DI ERP';
+  rowErr[6] = 'NS-PSU-H180W';
+  rowErr[14] = 'ERROR';
+  rowErr[15] = '25%';
+
+  const parsed = context.parse('novastar', Papa.unparse([hdr, rowOk, rowErr]));
+  assert.equal(parsed.length, 1);
+  assert.equal(parsed[0].price, 192000);
+  assert.equal(parsed[0].metadata?.capitalHpp, 163331);
+  assert.equal(parsed[0].metadata?.skuErp, 'RCV-261009-NOVANV7-01');
+  assert.equal(parsed[0].description, 'Novastar Novastar NV7508 Receiving Card Receiving Card');
+});

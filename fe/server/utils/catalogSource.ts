@@ -6,6 +6,7 @@ export const SHEET_CATEGORIES: Array<{
   name: string
   catalog: 'mvg' | 'av'
   gid?: string
+  fallbackGid?: string
   customUrl?: string
   icon: string
   description: string
@@ -159,7 +160,7 @@ export const SHEET_CATEGORIES: Array<{
     id: 'novastar',
     name: 'Novastar',
     catalog: 'av',
-    customUrl: 'https://docs.google.com/spreadsheets/d/1LcCyULM6UJ_c5wKFWF3fgMX350PMMGeGSCZrRUl3148/export?format=csv&gid=958507118',
+    customUrl: 'https://docs.google.com/spreadsheets/d/12zNmj6xWLf8Zmd8YIcaUavodTY8AEFmh7jdA06Lq9ZU/export?format=csv&gid=958507118',
     icon: 'Zap',
     description: 'NovaStar Receiving Cards, Sending Cards & Video Processors'
   },
@@ -200,6 +201,7 @@ export const SHEET_CATEGORIES: Array<{
     name: 'Magnustek TKDN',
     catalog: 'av',
     gid: '1564770284',
+    fallbackGid: '1551676398',
     icon: 'ShieldCheck',
     description: 'LED Videotron Magnustek Bersertifikat Resmi TKDN Kemenperin'
   },
@@ -1734,24 +1736,51 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
     // ==========================================
     case 'lampro': {
       let seq = 0
+      // Detect column positions dynamically so both old and shifted Lampro master exports parse cleanly.
+      let hdrSkuErp = -1
+      let hdrPrice = -1
+      let hdrHpp = -1
+      let hdrRefresh = -1
+      let hdrSku = -1
+      for (let h = 0; h < Math.min(6, rows.length); h++) {
+        const hr = rows[h] || []
+        for (let c = 0; c < hr.length; c++) {
+          const cell = hr[c]?.trim().toUpperCase() || ''
+          if (cell === 'SKU ERP') hdrSkuErp = c
+          else if (cell === 'PRICE' && c >= 10) hdrPrice = c
+          else if (cell === 'HPP') hdrHpp = c
+          else if (cell === 'REFRESH RATE' && c >= 10) hdrRefresh = c
+          else if (cell === 'SKU' && c >= 20) hdrSku = c
+        }
+      }
+
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 5) continue
 
         // Multi-column master sheet format (gid: 1691763712)
         if (r.length >= 18) {
-          const skuErp = r[17]?.trim() || ''
+          const probeSkuErpCol = hdrSkuErp >= 0
+            ? hdrSkuErp
+            : (r[19]?.trim().startsWith('MOD-') ? 19 : 17)
+          const skuErp = r[probeSkuErpCol]?.trim() || ''
           // Only process module items with SKU ERP
           if (!skuErp || !skuErp.startsWith('MOD-')) continue
+
+          const shifted = probeSkuErpCol >= 19
+          const hppCol = hdrHpp >= 0 ? hdrHpp : (shifted ? 15 : 14)
+          const priceCol = hdrPrice >= 0 ? hdrPrice : (shifted ? 18 : 16)
+          const refreshCol = hdrRefresh >= 0 ? hdrRefresh : (shifted ? 21 : 19)
+          const skuCol = hdrSku >= 0 ? hdrSku : (shifted ? 43 : 41)
 
           const rawModel = r[1]?.trim() || 'Lampro Module'
           const type = r[2]?.trim() || ''
           const desc = r[3]?.trim() || ''
           const size = r[4]?.trim() || ''
-          const hpp = parsePrice(r[14])
-          const price = parsePrice(r[16])
-          const refresh = r[19]?.trim() || ''
-          const sku = r[41]?.trim() || skuErp || `${categoryId}-${i}`
+          const hpp = parsePrice(r[hppCol])
+          const price = parsePrice(r[priceCol])
+          const refresh = r[refreshCol]?.trim() || ''
+          const sku = r[skuCol]?.trim() || skuErp || `${categoryId}-${i}`
           seq++
 
           let actualModel = desc || rawModel
@@ -1936,13 +1965,35 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
     // ==========================================
     case 'novastar': {
       let seq = 0
+      // Detect column positions from header row so shifted columns (e.g. col D/E insert) never misread PROFIT as Price.
+      const hdr = rows[0] || []
+      let skuErpCol = hdr.findIndex((c) => c?.trim().toUpperCase() === 'SKU ERP')
+      let skuBiasaCol = hdr.findIndex((c) => c?.trim().toUpperCase() === 'SKU')
+      let hppCol = hdr.findIndex((c) => c?.trim().toUpperCase().includes('CAPITAL/HPP'))
+      let profitCol = hdr.findIndex((c) => c?.trim().toUpperCase() === 'PROFIT')
+      let priceCol = hdr.findIndex((c) => {
+        const up = c?.trim().toUpperCase() || ''
+        return up.includes('SELLING PRICE') || up.includes('CASH PRICE')
+      })
+      const hasMultiColHeader = skuErpCol >= 0 && priceCol >= 0
+      if (skuErpCol < 0) skuErpCol = 5
+      if (skuBiasaCol < 0) skuBiasaCol = 6
+      if (hppCol < 0) hppCol = 14
+      if (profitCol < 0) profitCol = 15
+      if (priceCol < 0) priceCol = 16
+
       for (let i = 1; i < rows.length; i++) {
         const r = rows[i]
         if (!r || r.length < 5 || (!r[1] && !r[2])) continue
 
-        // Check if row matches the new multi-column format with SKU ERP, SKU, HPP, Cash Price
-        const hasNewFormat = r.length >= 16 && (r[13] || r[15])
-        let brand = r[0]?.trim() || 'Novastar'
+        // Skip Apps Script source lines accidentally stored in col A when reading brand name
+        const rawCol0 = r[0]?.trim() || ''
+        const brand = (!rawCol0 || /^(\/\/|var |let |const |function |sheet\.|cell\.|Utilities\.|SpreadsheetApp|[{}])/.test(rawCol0))
+          ? 'Novastar'
+          : rawCol0
+
+        // Check if row matches the multi-column format with SKU ERP, SKU, HPP, Cash Price
+        const hasNewFormat = hasMultiColHeader || (r.length >= 16 && Boolean(r[hppCol] || r[priceCol]))
         let rawType = r[1]?.trim() || ''
         let rawDesc = r[2]?.trim() || ''
         let price = 0
@@ -1953,11 +2004,11 @@ export function parseSheetRows(categoryId: string, rawCsv: string, categoryExtra
         let skuBiasa = ''
 
         if (hasNewFormat) {
-          price = parsePrice(r[15])
-          hpp = parsePrice(r[13])
-          profit = r[14]?.trim() || ''
-          skuErp = r[4]?.trim() || ''
-          skuBiasa = r[5]?.trim() || ''
+          price = parsePrice(r[priceCol])
+          hpp = parsePrice(r[hppCol])
+          profit = r[profitCol]?.trim() || ''
+          skuErp = r[skuErpCol]?.trim() || ''
+          skuBiasa = r[skuBiasaCol]?.trim() || ''
 
           if (!price || price === 0) continue
           if (rawType.toUpperCase().includes('MODEL') || rawDesc.toUpperCase().includes('DESCRIPTION')) continue
@@ -2517,14 +2568,24 @@ export async function collectCatalogSources() {
     const url = cat.customUrl || `${BASE_CSV_URL}${cat.gid}`
     const fetchedAt = new Date().toISOString()
     try {
-      const csv = await fetchWithRetry(url, 2, 15000)
+      let csv = await fetchWithRetry(url, 2, 15000)
+      let items = csv.trim() ? parseSheetRows(cat.id, csv, categoryExtra) : []
+      if (!items.length && cat.fallbackGid) {
+        const fallbackCsv = await fetchWithRetry(`${BASE_CSV_URL}${cat.fallbackGid}`, 2, 15000)
+        if (fallbackCsv.trim()) {
+          const fallbackItems = parseSheetRows(cat.id, fallbackCsv, categoryExtra)
+          if (fallbackItems.length) {
+            csv = fallbackCsv
+            items = fallbackItems
+          }
+        }
+      }
+      if (!items.length) throw new Error('EMPTY_CATEGORY')
       const parsed = Papa.parse<string[]>(csv, { skipEmptyLines: 'greedy' }).data
       const formulaErrors: Array<{ row: number; column: number; value: string }> = []
       parsed.forEach((row, r) => row.forEach((value, c) => {
         if (/^#(REF!|VALUE!|DIV\/0!|N\/A|ERROR!|NAME\?|NUM!)/.test(value.trim())) formulaErrors.push({ row: r + 1, column: c + 1, value })
       }))
-      const items = parseSheetRows(cat.id, csv, categoryExtra)
-      if (!items.length) throw new Error('EMPTY_CATEGORY')
       return { ...cat, sourceHash: crypto.createHash('sha256').update(csv).digest('hex'), fetchedAt, status: 'OK', items, formulaErrors }
     } catch (err: unknown) {
       return { ...cat, fetchedAt, status: 'FAILED', error: err instanceof Error ? err.message : 'SOURCE_ERROR', items: [], formulaErrors: [] }
